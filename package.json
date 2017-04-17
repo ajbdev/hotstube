@@ -1,22 +1,15 @@
 {
-  "name": "electron-quick-start",
+  "name": "HOTSTube",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.6.2"
+    "electron": "~1.6.2",
+    "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {
+    "chokidar": "^1.6.1"
   }
 }

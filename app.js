@@ -7,10 +7,8 @@ const watcher = new GameStateWatcher()
 watcher.watch()
 .on('GAME_START', () => { 
     recorder.startRecording()
-    
 }).on('GAME_END', () => {
-
+    recorder.stopRecording()
 })
 
 
-setTimeout(()=> { recorder.stopRecording() }, 3500)

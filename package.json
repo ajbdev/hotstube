@@ -10,6 +10,7 @@
     "electron-prebuilt": "^1.4.13"
   },
   "dependencies": {
-    "chokidar": "^1.6.1"
+    "chokidar": "^1.6.1",
+    "heroprotocol": "^0.4.0"
   }
 }

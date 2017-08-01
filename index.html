@@ -5,15 +5,32 @@
     <title>HOTS Tube</title>
   </head>
   <body>
-    <h1>HOTS Tube</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
+    <div id="root"></div>
+    <script>
+      var bundleBuild = './build/bundle.js';
+      var currentScript = document.currentScript;
 
+      if(typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
+        bundlePath = 'http://localhost:8080/build/bundle.js';
+        var bundleScript = document.createElement('script');
+        bundleScript.src =  bundlePath;
+      
+
+        bundleScript.addEventListener('error',function(event) {
+          var buildBundleScript = document.createElement('script');
+          buildBundleScript.src = bundleBuild;
+          
+          currentScript.parentNode.insertBefore(buildBundleScript, currentScript);
+        })
+      } else {
+        bundleScript = document.createElement('script');
+        bundleScript.src = bundleBuild;
+      }
+
+      currentScript.parentNode.insertBefore(bundleScript, currentScript);
+	</script>
+  </body>
   <script>
-    // You can also require other files to run in this process
-    require('./app.js')
+    require('./game_watcher.js')
   </script>
 </html>

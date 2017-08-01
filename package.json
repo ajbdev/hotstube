@@ -3,14 +3,28 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "build": "./node_modules/.bin/webpack",
+    "start": "ENVIRONMENT=DEV electron .",
+    "build-start": "./node_modules/.bin/webpack && ENVIRONMENT=DEV electron .",
+    "watch": "./node_modules/.bin/webpack-dev-server --hot --inline"
   },
   "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
     "electron": "~1.6.2",
-    "electron-prebuilt": "^1.4.13"
+    "electron-prebuilt": "^1.4.13",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.4.1",
+    "webpack-dev-server": "^2.6.1"
   },
   "dependencies": {
     "chokidar": "^1.6.1",
-    "heroprotocol": "^0.4.0"
+    "heroprotocol": "^0.4.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   }
 }

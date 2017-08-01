@@ -6,6 +6,7 @@
     "build": "./node_modules/.bin/webpack",
     "start": "ENVIRONMENT=DEV electron .",
     "build-start": "./node_modules/.bin/webpack && ENVIRONMENT=DEV electron .",
+    "win32-build-start": "./node_modules/.bin/webpack && electron .",
     "watch": "./node_modules/.bin/webpack-dev-server --hot --inline"
   },
   "devDependencies": {
@@ -15,9 +16,8 @@
     "css-loader": "^0.28.4",
     "electron": "~1.6.2",
     "electron-prebuilt": "^1.4.13",
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "svg-react-loader": "^0.4.4",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
   },

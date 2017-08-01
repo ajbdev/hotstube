@@ -2,9 +2,15 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "npm",
     "isShellCommand": true,
-    "args": ["run","build-start"],
     "isBuildCommand": true,
     "showOutput": "always",
+    "windows": {
+        "command": "npm",
+        "args": ["run","win32-build-start"]
+    },
+    "linux": {
+        "command": "npm",
+        "args": ["run","build-start"]
+    }
 }

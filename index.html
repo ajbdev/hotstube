@@ -10,7 +10,7 @@
       var bundleBuild = './build/bundle.js';
       var currentScript = document.currentScript;
 
-      if(typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
+      if(typeof process !== 'undefined' && process.env.ENVIRONMENT !== 'PRODUCTION') {
         bundlePath = 'http://localhost:8080/build/bundle.js';
         var bundleScript = document.createElement('script');
         bundleScript.src =  bundlePath;

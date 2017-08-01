@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   context: __dirname + '/ui',
   entry: './bootstrap.js',
-
+  target: "electron",
   output: {
     filename: 'bundle.js',
     path: __dirname + '/build',
@@ -20,9 +20,16 @@ module.exports = {
         loader: 'babel-loader', 
         exclude: /node_modules/ 
       },
-      { 
-        test: /\.scss$/, 
-        loader: 'style-loader!css-loader!sass-loader' 
+      
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        loader: 'svg-react-loader'
       }
     ]
   }

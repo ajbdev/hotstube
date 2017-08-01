@@ -24,6 +24,9 @@ html {
 
 body {
   margin: 0;
+  font-family: sans-serif;
+  background: #3a3a3a;
+  color: #f8f8f8;
 }
 
 /**

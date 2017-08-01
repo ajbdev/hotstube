@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import styles from '../style/app.scss'
+import { Toolbar } from './Toolbar'
+import { RecordingIndicator } from './RecordingIndicator'
 
-console.log(styles)
 
 export class App extends React.Component {
     render() {
         return (
             <app>
-                I'm just a simple div
+                <Toolbar></Toolbar>
+                <RecordingIndicator></RecordingIndicator>
             </app>
         )
     }

@@ -3,7 +3,7 @@ const React = require('react')
 
 const { App } = require('./App')
 
-require('../style/base.scss')
+require('../style/base.css')
 
 ReactDOM.render(
     <App />,

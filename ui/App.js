@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Toolbar } from './Toolbar'
-import { RecordingIndicator } from './RecordingIndicator'
+import { SplashScreen } from './SplashScreen'
 
 
 export class App extends React.Component {
@@ -9,7 +9,7 @@ export class App extends React.Component {
         return (
             <app>
                 <Toolbar></Toolbar>
-                <RecordingIndicator></RecordingIndicator>
+                <SplashScreen />
             </app>
         )
     }

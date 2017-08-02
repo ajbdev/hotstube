@@ -3,11 +3,14 @@ const webpack = require('webpack');
 module.exports = {
   context: __dirname + '/ui',
   entry: './bootstrap.js',
-  target: "electron",
+  target: "electron-renderer",
   output: {
     filename: 'bundle.js',
     path: __dirname + '/build',
     publicPath: 'http://localhost:8080/build/'
+  },
+  externals: { 
+//    '../lib/GameStateWatcher': "require('./lib/GameStateWatcher')"
   },
 
   module: {

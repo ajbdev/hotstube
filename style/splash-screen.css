@@ -1,0 +1,22 @@
+splash-screen {
+    padding: 1.6rem;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 2rem;
+    text-align: center;
+}
+
+splash-screen .logo {
+    width: 24rem;
+    height: 16rem;
+    display: inline-block;
+}
+
+video-toolbar {
+    display: block;
+    width: 24rem;
+    margin: 0 auto;
+    text-align: left;
+}

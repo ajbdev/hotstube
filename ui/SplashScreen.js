@@ -1,14 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import styles from '../style/splash-screen.css'
-import { RecordingIndicator } from './RecordingIndicator'
-import Logo from '-!svg-react-loader!../svg/logo.svg'
+const React = require('react')
+const RecordingIndicator = require('./RecordingIndicator')
+const Svg = require('./Svg')
 
-export class SplashScreen extends React.Component {
+class SplashScreen extends React.Component {
     render() {
         return (
             <splash-screen>
-                <Logo className="logo"></Logo>
+                <Svg src="logo.svg" className="logo" />
                 <video-toolbar>
                     <RecordingIndicator></RecordingIndicator>
                 </video-toolbar>
@@ -16,3 +14,5 @@ export class SplashScreen extends React.Component {
         )
     }
 }
+
+module.exports = SplashScreen

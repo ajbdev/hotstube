@@ -27,3 +27,8 @@ close-button:hover {
     fill: #fff;
     cursor: pointer;
 }
+
+
+close-button img {
+    fill: #bbb;
+}

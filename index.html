@@ -6,29 +6,8 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      var bundleBuild = './build/bundle.js';
-      var currentScript = document.currentScript;
-
-      if(typeof process !== 'undefined' && process.env.ENVIRONMENT !== 'PRODUCTION') {
-        bundlePath = 'http://localhost:8080/build/bundle.js';
-        var bundleScript = document.createElement('script');
-        bundleScript.src =  bundlePath;
-      
-
-        bundleScript.addEventListener('error',function(event) {
-          var buildBundleScript = document.createElement('script');
-          buildBundleScript.src = bundleBuild;
-          
-          currentScript.parentNode.insertBefore(buildBundleScript, currentScript);
-        })
-      } else {
-        bundleScript = document.createElement('script');
-        bundleScript.src = bundleBuild;
-      }
-
-      currentScript.parentNode.insertBefore(bundleScript, currentScript);
-	</script>
+    <script type="text/javascript" src="./ui/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style/layout.css" />
   </body>
   <script>
     require('./game_watcher.js')

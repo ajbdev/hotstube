@@ -1,10 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Toolbar } from './Toolbar'
-import { SplashScreen } from './SplashScreen'
+const React = require('react')
+const Toolbar = require('./Toolbar')
+const SplashScreen = require('./SplashScreen')
 
-
-export class App extends React.Component {
+class App extends React.Component {
     render() {
         return (
             <app>
@@ -14,3 +12,5 @@ export class App extends React.Component {
         )
     }
 }
+
+module.exports = App

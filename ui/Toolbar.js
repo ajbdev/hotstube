@@ -1,11 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import styles from '../style/toolbar.css'
-import X from '-!svg-react-loader!../svg/times.svg'
+const React = require('react')
+const remote = require('electron').remote
+const Svg = require('./Svg')
 
-import { remote } from 'electron'
-
-export class Toolbar extends React.Component {
+class Toolbar extends React.Component {
     close() {
         let window = remote.getCurrentWindow()
         window.close()
@@ -14,8 +11,10 @@ export class Toolbar extends React.Component {
         return (
             <toolbar>
                 <drag-region></drag-region>
-                <close-button onClick={this.close}><X></X></close-button>
+                <close-button onClick={this.close}><Svg src="times.svg" /></close-button>
             </toolbar>
         )
     }
 }
+
+module.exports = Toolbar

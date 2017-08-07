@@ -5,12 +5,6 @@
     "isShellCommand": true,
     "isBuildCommand": true,
     "showOutput": "always",
-    "windows": {
-        "command": "npm",
-        "args": ["run","win32-build-start"]
-    },
-    "linux": {
-        "command": "npm",
-        "args": ["run","build-start"]
-    }
+    "command": "npm",
+    "args": ["run","start"]
 }

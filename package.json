@@ -3,23 +3,11 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "start": "ENVIRONMENT=DEV electron .",
-    "build-start": "./node_modules/.bin/webpack && ENVIRONMENT=DEV electron .",
-    "win32-build-start": "./node_modules/.bin/webpack && electron .",
-    "watch": "./node_modules/.bin/webpack-dev-server --hot --inline"
+    "start": "electron ."
   },
   "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-preset-react": "^6.24.1",
-    "css-loader": "^0.28.4",
     "electron": "~1.6.2",
-    "electron-prebuilt": "^1.4.13",
-    "style-loader": "^0.18.2",
-    "svg-react-loader": "^0.4.4",
-    "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.6.1"
+    "electron-prebuilt-compile": "^1.6.11"
   },
   "dependencies": {
     "chokidar": "^1.6.1",

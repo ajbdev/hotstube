@@ -28,7 +28,7 @@ class Svg extends React.Component {
         }
 
         return (
-            <div dangerouslySetInnerHTML={{ __html: this.state.svg}} {...this.props}></div>
+            <span dangerouslySetInnerHTML={{ __html: this.state.svg}} {...this.props}></span>
         )
     }
 }

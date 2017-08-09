@@ -1,0 +1,26 @@
+config {
+
+}
+
+config .settings-button svg {
+    position: absolute;
+    width: 2rem;
+    bottom: 1rem;
+    right: 1rem;
+    height: 2rem;
+    fill: #ccc;
+}
+
+config .settings-button svg:hover {
+    fill: #f6f6f6;
+}
+
+config-window {
+    position: absolute;
+    background: #000;
+    margin: 1rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

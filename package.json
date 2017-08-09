@@ -6,7 +6,7 @@
     "start": "electron ."
   },
   "devDependencies": {
-    "electron": "~1.6.2",
+    "electron": "^1.6.11",
     "electron-prebuilt-compile": "^1.6.11"
   },
   "dependencies": {

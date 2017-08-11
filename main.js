@@ -3,6 +3,7 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const Tray = electron.Tray
 const path = require('path')
 const url = require('url')
 
@@ -12,8 +13,16 @@ let mainWindow
 
 function createWindow () {
 
+  //const appIcon = new Tray('./assets/icons/512x512.png')
+  
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600,frame: false})
+  mainWindow = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    frame: false,
+    backgroundColor: '#2a2a2a',
+    icon: './assets/icons/64x64.png'
+  })
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({

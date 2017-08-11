@@ -17,7 +17,7 @@ class Svg extends React.Component {
     getInlineSvg() {
         let self = this
 
-        fs.readFile('./svg/' + this.props.src, 'utf-8', (err, data) => {
+        fs.readFile('./assets/svg/' + this.props.src, 'utf-8', (err, data) => {
             self.setState({ svg: data })
         })
     }

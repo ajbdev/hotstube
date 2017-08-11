@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "isShellCommand": true,
     "isBuildCommand": true,
-    "showOutput": "always",
+    "showOutput": "never",
     "command": "npm",
     "args": ["run","start"]
 }

@@ -22,6 +22,35 @@ class Config extends React.Component {
     }
 }
 
+class AdvancedConfigWindow extends React.Component {
+    render() {
+        return (
+            <config-window>
+                <fieldset>
+                    <legend>Highlight Options</legend>
+                        <label><input type="checkbox" checked="checked" disabled="disabled" /> Record anytime you get a kill </label> <br /> 
+                        <label><input type="checkbox" checked={this.props.options.recordAssists} onChange={(evt) => this.props.handleOption(!this.props.options.recordAssists, 'recordAssists')} /> Record anytime you get an assist </label> <br /> 
+
+                        <label> Start recording <input type="number" 
+                                                       onChange={(evt) => this.props.handleOption(evt.target.value, 'recordPrekillSeconds')}
+                                                       className="inline" 
+                                                       value={this.props.options.recordPrekillSeconds} /> seconds before kill occurs </label><br /> 
+
+                        <label>Record for at least <input type="number" 
+                                                          onChange={(evt) => this.props.handleOption(evt.target.value, 'recordMinimumSeconds')}
+                                                          className="inline" 
+                                                          value={this.props.options.recordMinimumSeconds} /> seconds</label>
+
+                </fieldset>
+                
+                <footer>
+                    <button className="button-link" onClick={this.props.close}>Close</button>
+                </footer>
+            </config-window>
+        )
+    }
+}
+
 class ConfigWindow extends React.Component {
     constructor() {
         super()
@@ -29,10 +58,12 @@ class ConfigWindow extends React.Component {
         ConfigOptions.load()
 
         this.state = {
-            options: ConfigOptions.options
+            options: ConfigOptions.options,
+            openAdvanced: false
         }
         
-        this.save = this.save.bind(this);
+        this.save = this.save.bind(this)
+        this.handleOption = this.handleOption.bind(this)
     }
 
     save() {
@@ -53,8 +84,12 @@ class ConfigWindow extends React.Component {
             return null
         }
 
+        if (this.state.openAdvanced) {
+            return <AdvancedConfigWindow options={this.state.options} handleOption={this.handleOption} close={() => this.setState({ openAdvanced: false })} />
+        }
+
         return (
-            <config-window className="animated bounceInUp">
+            <config-window>
                 <fieldset>
                     <legend>Recording</legend>
                     <h5>Video Quality</h5>
@@ -96,6 +131,8 @@ class ConfigWindow extends React.Component {
                 <footer>
                     <button className="button" onClick={this.save}>Save</button>
                     <button className="button-link" onClick={this.props.close}>Cancel</button>
+
+                    <a className="float-right button-link-tertiary" onClick={() => this.setState({ openAdvanced: true }) }>Advanced..</a>
                 </footer>
 
             </config-window>

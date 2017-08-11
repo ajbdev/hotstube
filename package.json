@@ -1,16 +1,21 @@
 {
-  "name": "HOTSTube",
+  "name": "HotSTube",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
+    "clean": "rm -rf .cache ./dist/*",
+    "precompile": "./node_modules/.bin/electron-compile .",
+    "package-osx": "./node_modules/.bin/electron-packager-compile . HotSTube  --platform=darwin --icon=./assets/icons/logo.icns  --out=dist --overwrite",
     "start": "electron ."
   },
   "devDependencies": {
     "electron": "^1.6.11",
+    "electron-packager": "^8.7.2",
     "electron-prebuilt-compile": "^1.6.11"
   },
   "dependencies": {
     "chokidar": "^1.6.1",
+    "electron-compile": "^6.4.1",
     "heroprotocol": "^0.4.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"

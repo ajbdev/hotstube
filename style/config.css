@@ -19,7 +19,6 @@ config .settings-button svg:hover {
 config-window {
     position: absolute;
     background: #222;
-    margin-top: 3rem;
     padding: 1rem;
     top: 0;
     left: 0;
@@ -35,4 +34,5 @@ config-window footer {
     position: absolute;
     bottom: 1rem;
     left: 1rem;
+    right: 1rem;
 }

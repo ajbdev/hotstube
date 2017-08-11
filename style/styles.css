@@ -3,6 +3,10 @@ body {
     cursor: default;
 }
 
+a {
+    cursor: pointer;
+}
+
 fieldset h5 {
     font-size: 14px;
     font-weight: 500;
@@ -18,4 +22,13 @@ p.hint {
     color: #eee;
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+input.inline {
+    display: inline-block;
+}
+
+input[type=number].inline {
+    width: 3rem;
+    height: 1.6rem;
 }

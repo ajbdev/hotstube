@@ -7,7 +7,6 @@ class App extends React.Component {
     render() {
         return (
             <app>
-                <Toolbar></Toolbar>
                 <SplashScreen />
                 <Config />
             </app>

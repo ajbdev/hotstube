@@ -1,5 +1,6 @@
 const React = require('react')
 const fs = require('fs')
+const path = require('path')
 
 class Svg extends React.Component {
     constructor() {
@@ -17,7 +18,7 @@ class Svg extends React.Component {
     getInlineSvg() {
         let self = this
 
-        fs.readFile('./assets/svg/' + this.props.src, 'utf-8', (err, data) => {
+        fs.readFile(path.join(__dirname, '../assets/svg/' + this.props.src), 'utf-8', (err, data) => {
             self.setState({ svg: data })
         })
     }

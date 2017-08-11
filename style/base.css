@@ -37,6 +37,7 @@
   --color-gray: #aaa;
   --color-silver: #ddd;
   --color-darkgray: #2a2a2a;
+  --color-input-fg: #666;
   
 
   /* States */
@@ -173,7 +174,7 @@
   --input-height: 2rem;
   --input-height-big: 2.75rem;
   --input-height-small: 1.25rem;
-  --input-color: var(--body-color);
+  --input-color: var(--color-input-fg);
   --input-border-color: var(--component-border-color);
   --input-border-focus-color: var(--color-primary);
   --input-border-width: 1px;
@@ -332,9 +333,17 @@ button.disabled,
   box-shadow: none;
 }
 
+.button-link-tertiary:hover:not(:disabled),
 .button-link:hover:not(:disabled) {
   background-color: transparent;
   color: var(--link-color-hover);
+  box-shadow: none;
+}
+
+.button-link-tertiary {
+  background-color: transparent;
+  color: var(--link-color);
+  text-decoration: var(--link-text-decoration);
   box-shadow: none;
 }
 

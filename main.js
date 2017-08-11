@@ -12,16 +12,14 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
-
-  //const appIcon = new Tray('./assets/icons/512x512.png')
   
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800, 
-    height: 600,
-    frame: false,
+    width: 640, 
+    height: 480,
+//    frame: false,
     backgroundColor: '#2a2a2a',
-    icon: './assets/icons/64x64.png'
+    icon: path.join(__dirname, './assets/icons/64x64.png')
   })
 
   // and load the index.html of the app.
@@ -43,7 +41,7 @@ function createWindow () {
   })
 }
 
-app.setName('HotS Tube')
+app.setName('HotSTube')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

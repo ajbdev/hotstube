@@ -1,7 +1,7 @@
 const GameStateWatcher = require('./lib/GameStateWatcher')
 const GameRecorder = require('./lib/GameRecorder')
 const VideoClipMaker = require('./lib/VideoClipMaker')
-const HighlightReel = require('./lib/HighlightReel')
+const HighlightReel = require('./lib/HighlightReel')  
 
 const pathResolver = require('path')
 
@@ -55,5 +55,5 @@ const createHighlightReel = function() {
 
     reel = new HighlightReel(replayFile, videoFile)
     reel.create()
-
 }
+

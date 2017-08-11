@@ -1,0 +1,21 @@
+body {
+    user-select: none;
+    cursor: default;
+}
+
+fieldset h5 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+fieldset legend {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+p.hint {
+    font-style: italic;
+    color: #eee;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}

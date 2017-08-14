@@ -5,7 +5,8 @@
   "scripts": {
     "clean": "rm -rf .cache ./dist/*",
     "precompile": "./node_modules/.bin/electron-compile .",
-    "package-osx": "./node_modules/.bin/electron-packager-compile . HotSTube  --platform=darwin --icon=./assets/icons/logo.icns  --out=dist --overwrite",
+    "package-osx": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=darwin --icon=./assets/icons/logo.icns  --out=dist --overwrite",
+    "package-win32": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=win32 --icon=./assets/icons/logo.ico  --out=dist --overwrite",
     "start": "electron ."
   },
   "devDependencies": {

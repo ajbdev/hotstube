@@ -1,7 +1,8 @@
 const GameStateWatcher = require('./lib/GameStateWatcher')
 const GameRecorder = require('./lib/GameRecorder')
 const VideoClipMaker = require('./lib/VideoClipMaker')
-const HighlightReel = require('./lib/HighlightReel')  
+const HighlightReel = require('./lib/HighlightReel') 
+const Config = require('./lib/Config')
 
 const pathResolver = require('path')
 
@@ -40,7 +41,11 @@ GameRecorder.on('VIDEO_SAVED', (path) => {
 
     // Remove the initial loading screen so the game timer matches the replay closely
     clippedVideoFileName = pathResolver.win32.basename(replayFile)
-    videoFile = clip.make(clippedVideoFileName, gameInitializedAt)
+
+    Config.load()
+    videoFilePath = Config.highlightsSavePath(clippedVideoFileName)
+
+    videoFile = clip.make(videoFilePath, gameInitializedAt)
 
     console.log('Created ' + videoFile)
 

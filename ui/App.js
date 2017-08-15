@@ -2,13 +2,31 @@ const React = require('react')
 const Toolbar = require('./Toolbar')
 const SplashScreen = require('./SplashScreen')
 const Config = require('./Config')
+const {Sidebar,SidebarToggle} = require('./Sidebar')
+const {BrowserWindow} = require('electron').remote
 
 class App extends React.Component {
+    constructor() {
+        super()
+
+        this.state = {
+            sidebarOpen: false
+        }
+    }
     render() {
+        const toggleSidebar = () => {
+            this.setState({ sidebarOpen: !this.state.sidebarOpen }, () => {
+                BrowserWindow.getAllWindows()[0].setSize( (this.state.sidebarOpen ? 940 : 640), 480)
+            })
+        }
+
         return (
             <app>
-                <SplashScreen />
-                <Config />
+                {this.state.sidebarOpen ? <Sidebar toggle={toggleSidebar} /> : <SidebarToggle toggle={toggleSidebar} />}
+                <content className={this.state.sidebarOpen ?  'with-sidebar': ''}>
+                    <SplashScreen />
+                    <Config />
+                </content>
             </app>
         )
     }

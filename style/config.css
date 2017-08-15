@@ -24,6 +24,7 @@ config-window {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 100;
 }
 
 config-window footer .button {

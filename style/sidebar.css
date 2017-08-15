@@ -1,0 +1,36 @@
+sidebar {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 300px;
+    background: #111;
+    z-index: 10;
+}
+
+sidebar-toggle {
+    position: absolute;
+    padding: .4rem;
+    padding-bottom: 0;
+    background: #555;
+    cursor: pointer;
+    z-index: 10;
+}
+
+sidebar-toggle svg {
+    fill: #bbb;
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+close {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    right: -1.8rem;
+    top: .1rem;
+    cursor: pointer;
+}
+
+close svg {
+    fill: #bbb;
+}

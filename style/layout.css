@@ -1,7 +1,10 @@
 @import './base.css';
 @import './styles.css';
+@import './app.css';
+@import './svg.css';
 @import './animate.css';
 @import './recording-indicator.css';
 @import './splash-screen.css';
 @import './toolbar.css';
 @import './config.css';
+@import './sidebar.css';

@@ -17,8 +17,14 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 640, 
     height: 480,
+    resizable: false,
+    show: false,
     backgroundColor: '#2a2a2a',
     icon: path.join(__dirname, './assets/icons/64x64.png')
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
   })
 
 

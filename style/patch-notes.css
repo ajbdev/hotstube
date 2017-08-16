@@ -29,10 +29,12 @@ patch-notes a.external svg {
 patch-notes h3 {
     margin-left: 30px;
     width: 600px;
+    margin-top: -6px;
 }
 
 patch-notes webview {
     width: 770px;
-    height: 501px;
-    margin-top: 10px;
+    height: 510px;
+    margin-top: 18px;
+    border: 1px solid #222;
 }

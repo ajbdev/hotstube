@@ -1,0 +1,17 @@
+game {
+    padding: 1.6rem;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+}
+
+game header {
+    text-align: center;
+}
+
+game h1 {
+    text-align: center;
+
+}

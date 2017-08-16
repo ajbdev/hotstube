@@ -7,12 +7,14 @@
     "precompile": "./node_modules/.bin/electron-compile .",
     "package-osx": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=darwin --icon=./assets/icons/logo.icns  --out=dist --overwrite",
     "package-win32": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=win32 --icon=./assets/icons/logo.ico  --out=dist --overwrite",
+    "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 patches.json",
     "start": "electron ."
   },
   "devDependencies": {
     "electron": "^1.6.11",
     "electron-packager": "^8.7.2",
-    "electron-prebuilt-compile": "^1.6.11"
+    "electron-prebuilt-compile": "^1.6.11",
+    "google-spreadsheet-to-json": "^1.0.0"
   },
   "dependencies": {
     "chokidar": "^1.6.1",

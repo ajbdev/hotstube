@@ -1,0 +1,38 @@
+patch-notes {
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+}
+
+
+patch-notes a.external {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 14px;
+    color: #0099ff;
+    text-decoration: underline;
+}
+
+patch-notes a.external svg {
+    margin-left: 7px;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    fill: #0099ff;
+}
+
+patch-notes h3 {
+    margin-left: 30px;
+    width: 600px;
+}
+
+patch-notes webview {
+    width: 770px;
+    height: 501px;
+    margin-top: 10px;
+}

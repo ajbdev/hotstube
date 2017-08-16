@@ -2,13 +2,15 @@ const React = require('react')
 const Svg = require('./Svg')
 const GameIndex = require('../lib/GameIndex')
 const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
+const { SidebarRow } = require('./SidebarRow')
 const path = require('path')
 const { List, ArrowKeyStepper } = require('react-virtualized')
-const moment = require('moment')
+const patches = require('../patches.json')
 
 class Sidebar extends React.Component {
     constructor() {
         super()
+
 
         this.analyzeWorker = new Worker('./analyze_worker.js')
         this.analyzeWorker.onmessage = (payload) => {
@@ -21,14 +23,29 @@ class Sidebar extends React.Component {
 
                 localStorage.setItem(replay.name, JSON.stringify(replay.game))
 
-                this.setState({ index: GameIndex.index })
+                this.setState({ index: this.index() })
             } else {
                 console.log(result)
                 // Replay is probably corrupt
             }
         }
 
-        this.state = { index: GameIndex.index }
+        this.state = { index: this.index() }
+    }
+
+    index() {
+        const index = GameIndex.index.slice()
+
+        patches.map((patch) => {
+            index.push({
+                summary: patch.summary,
+                url: patch.url,
+                patch: true,
+                time:  (patch.date - 25569) * 86400 * 1000
+            })
+        })
+
+        return index.sort((a,b) => b.time - a.time)
     }
 
 
@@ -38,7 +55,7 @@ class Sidebar extends React.Component {
                 {({ onSectionRendered, scrollToColumn, scrollToRow }) => (
                 <List
                     width={300}
-                    height={450}
+                    height={570}
                     rowCount={this.state.index.length}
                     rowHeight={45}
                     rowRenderer={this.rowRenderer.bind(this)}
@@ -46,6 +63,17 @@ class Sidebar extends React.Component {
                 )}
             </ArrowKeyStepper>
         )
+    }
+
+    selectItem(item) {
+        if (item.patch) {
+            this.props.loadItem(item)
+            return
+        }
+        
+        this.loadReplay(item.name, false)
+
+        this.props.loadItem(item)
     }
 
     loadReplay(file, useCache = true) {
@@ -70,16 +98,16 @@ class Sidebar extends React.Component {
         style        // Style object to be applied to row (to position it);
                      // This must be passed through to the rendered row element.
         }) {
-            const replay = this.state.index[index]
+            const item = this.state.index[index]
 
-            if (!isScrolling && isVisible && !replay.game && !replay.parsing) {
-                this.loadReplay(replay.name)
-                replay.parsing = true
+            if (!isScrolling && isVisible && !item.game && !item.parsing && !item.patch) {
+                this.loadReplay(item.name)
+                item.parsing = true
             }
 
             return (
                 <div key={key} style={style}>
-                    <SidebarRow replay={replay} isScrolling={isScrolling} loadReplay={this.loadReplay.bind(this)} />
+                    <SidebarRow item={item} isScrolling={isScrolling} selectItem={this.selectItem.bind(this)} selectedGame={this.props.selectedGame} loadReplay={this.loadReplay.bind(this)} />
                 </div>
             )
     }
@@ -92,68 +120,9 @@ class Sidebar extends React.Component {
         return (
             <sidebar>
                 {this.renderGameList()}
-                <close onClick={this.props.toggle}><Svg src="times.svg" /></close>
+                <close onClick={this.props.toggle}><Svg src="angle-left.svg" /></close>
             </sidebar>
         )
-    }
-}
-
-class SidebarRow extends React.Component {
-    constructor() {
-        super()
-    }
-    render() {
-        let replay = this.props.replay;
-
-        let name = path.basename(replay.name,'.StormReplay')
-        let nameParts = name.match(/(.*)\(\d+\)/)
-
-        if (nameParts && nameParts.length > 0) {
-            name = nameParts[1]
-        }
-
-        let date = moment(replay.time)
-        let now = moment()
-        let dateDisplay = date.fromNow()
-
-        if (now.diff(date,'days') > 2) {
-            dateDisplay = date.format('l')
-        }   
-
-        let attrs = {}
-
-        if (replay.game) {
-            let player = replay.game.players.filter((p) => p.id == replay.heroId)[0]
-
-            attrs.hero = player.hero;
-        }
-
-        return (
-            <sidebar-row onClick={() => this.props.loadReplay(replay.name, false)}>
-                <SidebarHeroPortrait {...attrs} />
-                <a>{name}</a>
-                <div className="date">{dateDisplay}</div>
-            </sidebar-row>
-        )
-    }
-}
-
-class SidebarHeroPortrait extends React.Component {
-    style() {
-        if (this.props.hero) {
-            let file = this.props.hero.toLowerCase().replace(/[\W]+/g,"");
-            let src = './assets/heroes/'+ file + '.png'
-
-            return {
-                backgroundImage: 'url("' + src + '")'
-            }
-        }
-
-        return {}
-    }
-
-    render() {
-        return <hero-portrait style={this.style()}></hero-portrait>
     }
 }
 
@@ -168,6 +137,5 @@ class SidebarToggle extends React.Component {
 
 module.exports = {
     Sidebar: Sidebar,
-    SidebarToggle: SidebarToggle,
-    SidebarGameRow: SidebarRow
+    SidebarToggle: SidebarToggle
 }

@@ -14,8 +14,28 @@ class App extends React.Component {
         GameIndex.load()
         
         this.state = {
-            sidebarOpen: false
+            sidebarOpen: false,
+            status: {
+                type: 'DiscordTeaser',
+                message: ''
+            }
         }
+    }
+    setStatus(message, options = {}) {
+        const type = options.type || null
+
+        if (options.expire) {
+            let self = this
+            setTimeout(() => {
+                self.setState({ 
+                    status: { type: null, message: '' }
+                })
+            }, parseInt(options.expire))
+        }
+
+        this.setState({ 
+            status: { type: type, message: message }
+        })
     }
     render() {
         const toggleSidebar = () => {
@@ -26,10 +46,10 @@ class App extends React.Component {
 
         return (
             <app>
-                <Sidebar open={this.state.sidebarOpen} toggle={toggleSidebar} />
+                <Sidebar open={this.state.sidebarOpen} toggle={toggleSidebar} setStatus={this.setStatus} />
                 <content className={this.state.sidebarOpen ?  'with-sidebar': ''}>
-                    <SplashScreen />
-                    <Config />
+                    <SplashScreen status={this.state.status} />
+                    <Config setStatus={this.setStatus.bind(this)}  />
                 </content>
             </app>
         )

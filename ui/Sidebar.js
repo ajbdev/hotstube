@@ -19,6 +19,8 @@ class Sidebar extends React.Component {
 
                 replay.game = result.game
 
+                localStorage.setItem(replay.name, JSON.stringify(replay.game))
+
                 this.setState({ index: GameIndex.index })
             } else {
                 console.log(result)
@@ -47,6 +49,15 @@ class Sidebar extends React.Component {
     }
 
     loadReplay(file) {
+        let game = localStorage.getItem(file)
+
+        if (game) {
+            let replay = GameIndex.index.filter((r) => r.name === file)[0]
+            replay.game = JSON.parse(game)
+            replay.parsing = false
+            return
+        }
+
         this.analyzeWorker.postMessage(file)
     }
 
@@ -77,7 +88,6 @@ class Sidebar extends React.Component {
         if (!this.props.open) {
             return <SidebarToggle toggle={this.props.toggle} />
         }
-
 
         return (
             <sidebar>

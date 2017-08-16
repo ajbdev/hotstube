@@ -1,0 +1,28 @@
+status-bar {
+    font-size: 12px;
+    padding: 4px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #aaa;
+}
+
+status-bar svg {
+    width: 16px;
+    height: 16px;
+    fill: #aaa;
+    vertical-align: middle
+}
+
+status-bar .discord {
+    margin-right: 5px;
+}
+
+status-bar a {
+    color: #aaa;
+}
+
+status-bar a:hover {
+    text-decoration: none;
+    color: #aaa;
+}

@@ -1,0 +1,64 @@
+game {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    background: #222;
+}
+
+game header {
+    text-align: center;
+    padding: 1rem;
+    font-size: 14px;
+}
+
+game h1 {
+    padding-top: 1rem;
+    text-align: center;
+}
+
+game .tabs {
+    text-align: center;
+    padding: 0;
+}
+
+game .tabs li {
+    list-style-type: none;
+    display: inline-block;
+    width: 90px;
+    margin: 0 12px;
+    text-align: center;
+}
+
+game .tabs li a:hover {
+    text-decoration: none;
+}
+
+game .tabs li.active a {
+    color: #fff;
+}
+
+game .tabs li.active:after {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 8px 7.5px;
+    border-color: transparent transparent #2a2a2a transparent;
+    content: '';
+    display: block;
+    left: 50%;
+    margin-left: -5px;
+    top: 4px;
+    position: relative;
+}
+
+
+tab-content {
+    position: absolute;
+    top: 148px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #2a2a2a;
+}

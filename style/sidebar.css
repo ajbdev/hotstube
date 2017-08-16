@@ -6,6 +6,15 @@ sidebar-row {
     display: block;
 }
 
+sidebar-row.selected {
+    background: #444;
+    color: #eee;
+}
+
+sidebar-row.selected a {
+    color: #efefef;
+}
+
 sidebar-row a {
     position: absolute;
     top: 12px;
@@ -24,6 +33,31 @@ sidebar-row .date {
     top: 15px;
 }
 
+sidebar-row.patch {
+    background: #0075c4;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px;
+    margin-top: 8px;
+    height: 28px;
+}
+
+sidebar-row.patch .date {
+    top: 13px;
+    color: #8cd1ff;
+}
+
+sidebar-row.patch .summary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 205px;
+}
+
+sidebar-row.patch.selected {
+    background: #0099ff;
+}
+
 sidebar hero-portrait {
     width: 36px;
     height: 36px;
@@ -38,23 +72,24 @@ sidebar hero-portrait {
     
 .ReactVirtualized__Grid::-webkit-scrollbar-track
 {
-	background-color: #111;
+	background-color: #1f1f1f;
 }
 
 .ReactVirtualized__Grid::-webkit-scrollbar
 {
 	width: 12px;
-	background-color: #111;
+	background-color: #1f1f1f;
+    border-right: 1px solid #000;
 }
 
 .ReactVirtualized__Grid::-webkit-scrollbar-thumb
 {
-    border: 1px solid #111;
-	background-color: #888;
+    border: 1px solid #1f1f1f;
+	background-color: #666;
 }
 .ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover
 {
-	background-color: #bbb;
+	background-color: #999;
 }
 
 sidebar {
@@ -62,7 +97,7 @@ sidebar {
     bottom: 0;
     top: 0;
     width: 300px;
-    background: #111;
+    background: #1f1f1f;
     z-index: 10;
 }
 
@@ -85,19 +120,24 @@ sidebar-toggle:hover svg {
     fill: #f6f6f6;
 }
 
-close {
-    width: 1.5rem;
-    height: 1.5rem;
+sidebar close {
+    width: 2.4rem;
+    height: 2.4rem;
     position: absolute;
-    right: -1.8rem;
-    top: .1rem;
+    background: #555;
+    z-index: 10;
+    right: -2.35rem;
+    top: 0;
     cursor: pointer;
 }
 
-close svg {
+sidebar close svg {
     fill: #bbb;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-left: -3px;
 }
 
-close svg:hover {    
+sidebar close svg:hover {    
     fill: #f6f6f6;
 }

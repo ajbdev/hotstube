@@ -16,7 +16,7 @@ class Config extends React.Component {
         return (
             <config>
                 <Svg src="cog.svg" className="settings-button" onClick={() => { this.setState({open: !this.state.open})} } />
-                {this.state.open ? <ConfigWindow close={() => { this.setState({ open: false }) } } /> : null}
+                {this.state.open ? <ConfigWindow setStatus={this.props.setStatus} close={() => { this.setState({ open: false }) } } /> : null}
             </config>
         )
     }
@@ -69,6 +69,8 @@ class ConfigWindow extends React.Component {
     save() {
         ConfigOptions.options = this.state.options
         ConfigOptions.save()
+
+        this.props.setStatus('Settings saved', { expire: 10000 })
 
         this.props.close()
     }

@@ -48,10 +48,10 @@ class Sidebar extends React.Component {
         )
     }
 
-    loadReplay(file) {
+    loadReplay(file, useCache = true) {
         let game = localStorage.getItem(file)
 
-        if (game) {
+        if (game && useCache) {
             let replay = GameIndex.index.filter((r) => r.name === file)[0]
             replay.game = JSON.parse(game)
             replay.parsing = false
@@ -129,7 +129,7 @@ class SidebarRow extends React.Component {
         }
 
         return (
-            <sidebar-row onClick={() => this.props.loadReplay(replay.name)}>
+            <sidebar-row onClick={() => this.props.loadReplay(replay.name, false)}>
                 <SidebarHeroPortrait {...attrs} />
                 <a>{name}</a>
                 <div className="date">{dateDisplay}</div>

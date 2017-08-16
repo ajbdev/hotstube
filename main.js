@@ -20,6 +20,9 @@ function createWindow () {
     resizable: false,
     show: false,
     backgroundColor: '#2a2a2a',
+    webPreferences: {
+      nodeIntegrationInWorker: true
+    },
     icon: path.join(__dirname, './assets/icons/64x64.png')
   })
 

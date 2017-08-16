@@ -3,6 +3,10 @@ body {
     cursor: default;
 }
 
+:focus {
+    outline: none;
+}
+
 a {
     cursor: pointer;
 }

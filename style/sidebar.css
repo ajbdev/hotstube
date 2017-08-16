@@ -1,3 +1,62 @@
+sidebar-row {
+    font-size: 14px;
+    cursor: pointer;
+    width: 300px;
+    height: 45px;
+    display: block;
+}
+
+sidebar-row a {
+    position: absolute;
+    top: 12px;
+    left: 45px;
+}
+
+sidebar-row a:hover {
+    text-decoration: none;
+}
+
+sidebar-row .date {
+    font-size: 12px;
+    position: absolute;
+    right: 4px;
+    color: #ccc;
+    top: 15px;
+}
+
+sidebar hero-portrait {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background: #333;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background-size: cover;
+}
+
+    
+.ReactVirtualized__Grid::-webkit-scrollbar-track
+{
+	background-color: #111;
+}
+
+.ReactVirtualized__Grid::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #111;
+}
+
+.ReactVirtualized__Grid::-webkit-scrollbar-thumb
+{
+    border: 1px solid #111;
+	background-color: #888;
+}
+.ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover
+{
+	background-color: #bbb;
+}
+
 sidebar {
     position: absolute;
     bottom: 0;
@@ -22,6 +81,10 @@ sidebar-toggle svg {
     height: 1.6rem;
 }
 
+sidebar-toggle:hover svg {
+    fill: #f6f6f6;
+}
+
 close {
     width: 1.5rem;
     height: 1.5rem;
@@ -33,4 +96,8 @@ close {
 
 close svg {
     fill: #bbb;
+}
+
+close svg:hover {    
+    fill: #f6f6f6;
 }

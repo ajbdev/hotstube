@@ -4,11 +4,15 @@ const SplashScreen = require('./SplashScreen')
 const Config = require('./Config')
 const {Sidebar,SidebarToggle} = require('./Sidebar')
 const {BrowserWindow} = require('electron').remote
+const GameIndex = require('../lib/GameIndex')
+
 
 class App extends React.Component {
     constructor() {
         super()
-
+        
+        GameIndex.load()
+        
         this.state = {
             sidebarOpen: false
         }
@@ -22,7 +26,7 @@ class App extends React.Component {
 
         return (
             <app>
-                {this.state.sidebarOpen ? <Sidebar toggle={toggleSidebar} /> : <SidebarToggle toggle={toggleSidebar} />}
+                <Sidebar open={this.state.sidebarOpen} toggle={toggleSidebar} />
                 <content className={this.state.sidebarOpen ?  'with-sidebar': ''}>
                     <SplashScreen />
                     <Config />

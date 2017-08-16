@@ -108,9 +108,12 @@ class ConfigWindow extends React.Component {
                                                 checked={this.state.options.resolution === '1080p'} 
                                                 /> 1080p
                     </label>
-                    <p className="hint">
-                        Saved highlights file size is significantly increased at higher resolutions.
-                    </p>
+                    {this.state.options.resolution !== '480p' ?
+                        <p className="hint">
+                            Saved highlights file size will be significantly increased and your system performance may decrease during game. 
+                        </p> :
+                        null
+                    }
                     <br />
                     <h5>Sound</h5>
                     <label><input type="radio" name="sound" value="off" 
@@ -123,9 +126,12 @@ class ConfigWindow extends React.Component {
                                     checked={this.state.options.sound === 'on'} 
                                     /> On
                     </label>
-                    <p className="hint">
-                        All sound (microphone, music players, etc) will be recorded if enabled.
-                    </p>
+                    {this.state.options.sound === 'on' ? 
+                        <p className="hint">
+                            All sound (microphone, music players, etc) will be recorded and overall highlights filesize will be increased.
+                        </p> : 
+                        null 
+                    }
                 </fieldset>
 
                 <footer>

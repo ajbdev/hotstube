@@ -33,6 +33,14 @@ sidebar-row .date {
     top: 15px;
 }
 
+sidebar-row.corrupt a {
+    color: #666;
+}
+
+sidebar-row.corrupt .date {
+    color: #444;
+}
+
 sidebar-row.patch {
     background: #0075c4;
     color: #fff;

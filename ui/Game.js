@@ -12,10 +12,16 @@ class Game extends React.Component {
 
         this.state = { tab: 'Highlights' }
     }
-    componentDidMount() {
+    componentWillMount() {
         const analyzer = new ReplayAnalyzer(this.props.replay.name)
 
-        analyzer.analyze(true)
+        try {
+            analyzer.analyze(true)
+        } catch(ex) {
+            // This replay file is corrupt or incomplete
+            this.props.replay.corrupt = true
+        }
+        
     }
     renderTab() {
         const components = {
@@ -40,9 +46,30 @@ class Game extends React.Component {
 
         return {}
     }
+    corruptReplay() {
+        return (
+            <game className="corrupt">
+                <Svg src="poopface.svg" />
+                <h1>Woops! This replay file cannot be opened</h1>
+                This is probably happening for one of the following reasons:
+                <br />
+                <div className="reasons">
+                    <ol>
+                        <li>There's a new Heroes patch and HotSTube has not been updated yet.</li>
+                        <li>Your version of HotSTube is outdated.</li>
+                        <li>This replay file is incomplete or damaged.</li>
+                    </ol>
+                </div>
+            </game>
+        )
+    }
     render() {
         if (!this.props.replay) {
             return null
+        }
+
+        if (this.props.replay.corrupt) {
+            return this.corruptReplay()
         }
 
         const game = this.props.replay.game

@@ -21,6 +21,8 @@ class RecordingIndicator extends React.Component {
         }).on('RECORDER_END', () => {
             self.setState({ 
                 isRecording: false 
+            }, () => {
+                self.props.setStatus('Recording finished')
             })
         })
     }
@@ -29,8 +31,10 @@ class RecordingIndicator extends React.Component {
         return (
             <recording-indicator>
                 {this.state.isRecording ?
-                    <is-recording><recording-dot /> Recording</is-recording> :
-                    <stopped-recording><Svg src="video.svg" /> Not recording</stopped-recording>
+                    <is-recording><recording-dot /> Recording</is-recording> : null
+                }
+                {!this.state.isRecording && !this.props.hideNotRecording ? 
+                    <stopped-recording><Svg src="video.svg" /> Not recording</stopped-recording> : null
                 }
             </recording-indicator>
         )

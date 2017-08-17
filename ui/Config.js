@@ -117,7 +117,7 @@ class ConfigWindow extends React.Component {
                         null
                     }
                     <br />
-                    <h5>Sound</h5>
+                    {/* <h5>Sound</h5>
                     <label><input type="radio" name="sound" value="off" 
                                     onChange={(evt) => this.handleOption(evt.target.value, 'sound')}
                                     checked={this.state.options.sound === 'off'} 
@@ -133,7 +133,7 @@ class ConfigWindow extends React.Component {
                             All sound (microphone, music players, etc) will be recorded and overall highlights filesize will be increased.
                         </p> : 
                         null 
-                    }
+                    } */}
                 </fieldset>
 
                 <footer>

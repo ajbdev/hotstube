@@ -16,7 +16,11 @@ class Sidebar extends React.Component {
         this.analyzeWorker.onmessage = (payload) => {
             let result = payload.data
 
-            if (typeof result == 'object' && result.replay && result.game) {
+            if (!typeof result == 'object') {
+                return;
+            }
+
+            if (result.replay && result.game && !result.error) {
                 let replay = GameIndex.index.filter((r) => r.name === result.replay)[0]
 
                 replay.game = result.game
@@ -24,9 +28,13 @@ class Sidebar extends React.Component {
                 localStorage.setItem(replay.name, JSON.stringify(replay.game))
 
                 this.setState({ index: this.index() })
-            } else {
-                console.log(result)
+            } else if (result.replay && result.error)  {
                 // Replay is probably corrupt
+                let replay = GameIndex.index.filter((r) => r.name === result.replay)[0]
+
+                replay.corrupt = true
+
+                this.setState({ index: this.index() })
             }
         }
 

@@ -18,15 +18,19 @@ class SidebarRow extends React.Component {
             css.push('patch')
         }
 
+        if (this.props.item.corrupt) {
+            css.push('corrupt')
+        }
+
         return css.join(' ')
     }
     displayDate(time) {
 
         let date = moment(time)
         let now = moment()
-        let dateDisplay = date.fromNow()
+        let dateDisplay = date.format('LT')
 
-        if (now.diff(date,'days') > 2) {
+        if (now.diff(date,'days') > 1) {
             dateDisplay = date.format('l')
         }   
 
@@ -70,6 +74,10 @@ class SidebarRow extends React.Component {
 
             attrs.hero = player.hero;
         }
+
+        if (replay.corrupt) {
+            attrs.svg = "poopface.svg"
+        }       
 
         return (
             <sidebar-row onClick={() => this.props.selectItem(replay)} class={this.css()}>

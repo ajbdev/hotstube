@@ -6,8 +6,8 @@ recording-dot {
     border-radius: 100%;
     background: #ea2f2c;
     display: inline-block;
-    width: .8rem;
-    height: .8rem;
+    width: .6rem;
+    height: .6rem;
     animation: blink-animation 3s steps(3, start) infinite;
 }
 

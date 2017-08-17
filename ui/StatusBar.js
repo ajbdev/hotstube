@@ -1,6 +1,7 @@
 const React = require('react')
 const Svg = require('./Svg')
 const { shell } = require('electron')
+const RecordingIndicator = require('./RecordingIndicator')
 
 class StatusBar extends React.Component {
     constructor() {
@@ -34,13 +35,10 @@ class StatusBar extends React.Component {
         const type = this.props.type && this.props.type.length > 0 ? this.props.type : 'Message';
         const method = 'render' + type;
 
-        if (type === null && (this.props.message || this.props.message.length === 0)) {
-            return null
-        }
-
         return (
             <status-bar>
-                {this[method]()}
+                <RecordingIndicator hideNotRecording={true} setStatus={this.props.setStatus} />
+                {this[method] ? this[method]() : null}
             </status-bar>
         )
     }

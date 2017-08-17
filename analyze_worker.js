@@ -11,6 +11,6 @@ onmessage = (args) => {
 
         postMessage({ game: analyzer.game, replay: replay })
     } catch (ex) {
-        console.log('Could not load replay: ' + ex)
+        postMessage({ error: true, replay: replay, message: 'Could not load replay: ' + ex })
     }
 }

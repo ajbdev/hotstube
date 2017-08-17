@@ -5,6 +5,7 @@ status-bar {
     bottom: 10px;
     left: 10px;
     color: #aaa;
+    z-index: 5;
 }
 
 status-bar svg {

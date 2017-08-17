@@ -1,4 +1,5 @@
 const electron = require('electron')
+const {MenuItem, Menu} = require('electron')
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -58,3 +59,4 @@ app.on('ready', createWindow)
 app.on('window-all-closed', function () {
   app.quit()
 })
+

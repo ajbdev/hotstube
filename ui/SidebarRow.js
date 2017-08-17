@@ -1,6 +1,7 @@
 const React = require('react')
 const path = require('path')
 const moment = require('moment')
+const HeroPortrait = require('./HeroPortrait')
 
 class SidebarRow extends React.Component {
     constructor() {
@@ -72,30 +73,11 @@ class SidebarRow extends React.Component {
 
         return (
             <sidebar-row onClick={() => this.props.selectItem(replay)} class={this.css()}>
-                <SidebarHeroPortrait {...attrs} />
+                <HeroPortrait {...attrs} />
                 <a>{name}</a>
                 <div className="date">{dateDisplay}</div>
             </sidebar-row>
         )
-    }
-}
-
-class SidebarHeroPortrait extends React.Component {
-    style() {
-        if (this.props.hero) {
-            let file = this.props.hero.toLowerCase().replace(/[\W]+/g,"");
-            let src = './assets/heroes/'+ file + '.png'
-
-            return {
-                backgroundImage: 'url("' + src + '")'
-            }
-        }
-
-        return {}
-    }
-
-    render() {
-        return <hero-portrait style={this.style()}></hero-portrait>
     }
 }
 

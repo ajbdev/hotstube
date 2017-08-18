@@ -120,4 +120,5 @@ timeline-event hero-portrait {
     width: 1.4rem;
     height: 1.4rem;
     margin: 0 3px;
+    border: 1px solid #222;
 }

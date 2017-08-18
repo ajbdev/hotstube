@@ -97,6 +97,15 @@ class Highlights extends React.Component {
             return this.renderFight(event.kills, key)
         }
     }
+
+    renderEmpty() {
+        return (
+            <TimelineEvent at="Nothing happened!" icon="spawn">
+                This replay seems to be empty. 
+                This happens if a game is quit early or on certain custom maps.  
+            </TimelineEvent>
+        )
+    }
     
     render() {
         if (!this.props.replay) {
@@ -109,9 +118,11 @@ class Highlights extends React.Component {
             <tab-content>
                 <div className="timeline">
                     <Timeline>
-                        {timeline.map((event, key) =>
-                            this.renderEvent(event, key)
-                        )}
+                        {timeline.length > 0 ? 
+                            timeline.map((event, key) =>
+                                this.renderEvent(event, key)
+                            ) : this.renderEmpty()
+                        }
                         <TimelineMarker type="circle" label={this.time(this.props.replay.game.time)}>
                             Game over
                         </TimelineMarker>

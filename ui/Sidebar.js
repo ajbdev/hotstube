@@ -16,8 +16,10 @@ class Sidebar extends React.Component {
         this.analyzeWorker.onmessage = (payload) => {
             let result = payload.data
 
-            if (!typeof result == 'object') {
-                return;
+            
+            if (typeof result === 'string') {
+                console.log(result)
+                return
             }
 
             if (result.replay && result.game && !result.error) {
@@ -26,6 +28,7 @@ class Sidebar extends React.Component {
                 replay.game = result.game
 
                 localStorage.setItem(replay.name, JSON.stringify(replay.game))
+                console.log('Saving ' + replay.name)
 
                 this.setState({ index: this.index() })
             } else if (result.replay && result.error)  {
@@ -38,11 +41,18 @@ class Sidebar extends React.Component {
             }
         }
 
-        this.state = { index: this.index() }
+        let self = this
+        GameIndex.on('INDEX_LOADED', (index) => {
+            self.setState({ index: this.index() })
+        })
+
+        this.state = { search: '', searching: false }
+
+        this.state.index = this.index()
     }
 
     index() {
-        const index = GameIndex.index.slice()
+        let index = GameIndex.index.slice()
 
         patches.map((patch) => {
             index.push({
@@ -52,6 +62,44 @@ class Sidebar extends React.Component {
                 time:  (patch.date - 25569) * 86400 * 1000
             })
         })
+
+        if (this.state.searching && this.state.search && this.state.search.length > 0) {
+            let unindexed = []
+            index = index.filter((replay) => {
+                if (!replay.name) {
+                    return false
+                }
+
+                let mapName = path.basename(replay.name, '.StormReplay')
+
+                if (mapName.toLowerCase().indexOf(this.state.search) > -1) {
+                    return true
+                }
+
+                if (replay.game) {
+                    let players = replay.game.players.map((p) => p.name).join(' ')
+
+                    if (players.toLowerCase().indexOf(this.state.search) > -1) {
+                        return true
+                    }
+                    
+                    let hero = replay.game.players.filter((p) => p.id == replay.heroId).map((p) => p.hero)[0]
+
+                    if (hero && hero.toLowerCase().indexOf(this.state.search) > -1) {
+                        return true
+                    }
+                } else if (!replay.corrupt) {
+                    unindexed.push(replay.name)
+                }
+            })
+
+            if (unindexed.length > 0) {
+                index.unshift({
+                    unindexed: unindexed
+                })
+            }
+
+        }
 
         return index.sort((a,b) => b.time - a.time)
     }
@@ -63,7 +111,7 @@ class Sidebar extends React.Component {
                 {({ onSectionRendered, scrollToColumn, scrollToRow }) => (
                 <List
                     width={300}
-                    height={570}
+                    height={532}
                     rowCount={this.state.index.length}
                     rowHeight={45}
                     rowRenderer={this.rowRenderer.bind(this)}
@@ -73,9 +121,29 @@ class Sidebar extends React.Component {
         )
     }
 
+    handleSearch(query, executeImmediately = false) {
+        let self = this
+
+        this.setState({
+            search: query,
+            searching: query.length > 0
+        }, () => {
+            if (executeImmediately) {
+                self.setState({
+                    index: self.index()
+                })
+            }
+        })
+    }
+
     selectItem(item) {
         if (item.patch) {
             this.props.loadItem(item)
+            return
+        }
+
+        if (item.unindexed) {
+
             return
         }
         
@@ -94,7 +162,7 @@ class Sidebar extends React.Component {
             return
         }
 
-        this.analyzeWorker.postMessage(file)
+        this.analyzeWorker.postMessage([file])
     }
 
     rowRenderer({
@@ -108,7 +176,16 @@ class Sidebar extends React.Component {
         }) {
             const item = this.state.index[index]
 
-            if (!isScrolling && isVisible && !item.game && !item.parsing && !item.patch) {
+            if (item.unindexed) {
+                this.analyzeWorker.postMessage(item.unindexed)
+                return (
+                    <div key={key} style={style} className="omitted-results">
+                        Searching for results...
+                    </div>
+                )
+            }
+
+            if (!isScrolling && isVisible && !item.game && !item.parsing && !item.patch && item.name) {
                 this.loadReplay(item.name)
                 item.parsing = true
             }
@@ -127,9 +204,43 @@ class Sidebar extends React.Component {
 
         return (
             <sidebar>
+                <SidebarSearch searching={this.state.searching} search={this.state.search} handleSearch={this.handleSearch.bind(this)} />
                 {this.renderGameList()}
                 <close onClick={this.props.toggle}><Svg src="angle-left.svg" /></close>
             </sidebar>
+        )
+    }
+}
+
+class SidebarSearch extends React.Component {
+    handleKeyPress(evt) {
+        if (evt.charCode === 13) {
+            this.props.handleSearch(this.props.search, true)
+        }
+    }
+
+    submit() {
+        this.props.handleSearch(this.props.search, true)
+    }
+
+    cancel() {
+        this.props.handleSearch('', true)
+    }
+
+    render() {
+        let css = ''
+
+        if (this.props.searching) {
+            css = 'is-searching'
+        }
+
+        return (
+            <search>
+                <input type="text" placeholder="Search map, hero, or player" value={this.props.search} onChange={(evt) => this.props.handleSearch(evt.target.value)} onKeyPress={this.handleKeyPress.bind(this)} />
+                <Svg className={"cancel " + css} src="times.svg" onClick={this.cancel.bind(this)} /> 
+                <Svg className={"search " + css} src="search.svg" onClick={this.submit.bind(this)}  />
+                <Svg className="filters" src="sliders-h.svg" />
+            </search>
         )
     }
 }

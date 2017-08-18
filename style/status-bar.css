@@ -3,7 +3,7 @@ status-bar {
     padding: 4px;
     position: fixed;
     bottom: 10px;
-    left: 10px;
+    margin-left: 10px;
     color: #aaa;
     z-index: 5;
 }

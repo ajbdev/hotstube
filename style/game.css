@@ -21,6 +21,33 @@ game header .time {
     font-weight: bold;
 }
 
+game header .actions {
+    position: absolute;
+    right: 6rem;
+    top: 3rem;
+}
+
+game header .dropdown-trigger {
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    font-weight: normal;
+    padding: 6px 8px;
+    height: auto;
+}
+game header .dropdown .dropdown-menu {
+    min-width: 8rem;
+}
+
+game header .dropdown .dropdown-trigger:after {
+    content: '';
+    margin: 0;
+}
+
+game header .dropdown {
+    text-align: left;
+}
+
 game h1 {
     padding-top: 1rem;
     text-align: center;
@@ -62,7 +89,6 @@ game .tabs li.active:after {
     top: 4px;
     position: relative;
 }
-
 
 tab-content {
     display: block;

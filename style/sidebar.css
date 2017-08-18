@@ -160,3 +160,67 @@ sidebar close svg {
 sidebar close svg:hover {    
     fill: #f6f6f6;
 }
+
+
+sidebar search input[type=text] {
+    margin: 3px;
+    background: #1a1a1a;
+    width: 260px;
+    border: 1px solid #111;
+    font-size: 13px;
+    color: #aaa;
+}
+sidebar search input[type=text]::placeholder {
+    color: transparent;
+}
+sidebar search input[type=text]:focus::placeholder {
+    color: #666;
+}
+
+sidebar .omitted-results {
+    text-align: center;
+    color: #777;
+    font-size: 12px;
+    padding: 8px;
+}
+
+sidebar search .search svg {
+    fill: #555;
+    width: 1.3rem;
+    height: 1.3rem;
+    position: absolute;
+    display: block;
+    left: 233px;
+    top: 8px;
+}
+sidebar search .cancel svg {
+    fill: #777;
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    left: 240px;
+    top: 10px;
+    display: none;
+}
+
+sidebar search .search.is-searching svg {
+    display: none;
+}
+
+sidebar search .cancel.is-searching svg {
+    display: block;
+}
+
+sidebar search .filters svg {
+    fill: #555;
+    width: 1.3rem;
+    height: 1.3rem;
+    position: absolute;
+    left: 270px;
+    top: 8px;
+}
+
+sidebar search svg:hover {
+    fill: #888;
+    cursor: pointer;
+}

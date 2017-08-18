@@ -5,12 +5,15 @@ const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 const GameHighlights = require('./Game/Highlights')
 const HeroPortrait = require('./HeroPortrait')
 const Time = require('./Time')
+const pathResolver = require('path')
+const fs = require('fs')
+const {app, dialog} = require('electron').remote
 
 class Game extends React.Component {
     constructor() {
         super()
 
-        this.state = { tab: 'Highlights' }
+        this.state = { tab: 'Highlights', headerMenuOpen: false }
     }
     componentWillMount() {
         const analyzer = new ReplayAnalyzer(this.props.replay.name)
@@ -60,6 +63,9 @@ class Game extends React.Component {
                         <li>This replay file is incomplete or damaged.</li>
                     </ol>
                 </div>
+                <p>
+                    Make sure HotSTube is up to date or <a onClick={() => this.props.deleteReplay(this.props.replay)}>delete the replay file</a> to remove it from the list.
+                </p>
             </game>
         )
     }
@@ -72,17 +78,48 @@ class Game extends React.Component {
             </game>
         )
     }
+    export() {
+        let fileName = pathResolver.join(app.getPath('documents'),pathResolver.basename(this.props.replay.name, '.StormReplay') + '.json')
+
+        let self = this;
+
+        dialog.showSaveDialog({
+            title: 'Export replay data',
+            buttonLabel: 'Export',
+            showsTagField: false,
+            defaultPath: fileName,
+            filters: [
+                {name: 'JSON', extensions: ['json']},
+              ]
+        }, (file) => {
+            console.log(file + ' saved')
+            if (file) {
+                fs.writeFile(file, JSON.stringify(this.props.replay.game), (err) => {
+                    if (!err) {
+                        self.props.setStatus('Data exported to ' + file, { expire: 10000 })
+                        return
+                    }
+                    self.props.setStatus('Error exporting data: ' + err)
+                })
+            }
+        })
+    }
+    closeDropdown(event) {
+         if (event.target.getAttribute('class') !== 'dropdown-trigger') {
+             this.setState({ headerMenuOpen: false })
+         }
+    }
     render() {
         if (!this.props.replay) {
             return null
         }
 
-        if (!this.props.replay.game) {
-            return this.loading()
-        }
-
         if (this.props.replay.corrupt) {
             return this.corruptReplay()
+        }
+        
+        if (!this.props.replay.game) {
+            return this.loading()
         }
 
         const game = this.props.replay.game
@@ -95,12 +132,31 @@ class Game extends React.Component {
         
         const tabs = ['Highlights', 'Kills', 'History']
 
+        const dropdownCss = ['dropdown']
+        if (this.state.headerMenuOpen) {
+            dropdownCss.push('active')
+        }
+
         return (
-            <game style={this.style()}>
+            <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
                 <header>
                     <h1>{game.map}</h1>
 
                     {player.name} as <HeroPortrait class="small" hero={player.hero} /> {player.hero} for <Time seconds={game.time} />
+                    <div className="actions">
+                        <div className={dropdownCss.join(' ')}>
+                            <button type="button" className="dropdown-trigger" onClick={() => this.setState({ headerMenuOpen: !this.state.headerMenuOpen })}>
+                                &bull;&bull;&bull;
+                            </button>
+                            <div className="dropdown-menu">
+                                <a>Item 1</a>
+                                <a>Item 2</a>
+                                <a onClick={this.export.bind(this)}>Export data</a>
+                                <hr />
+                                <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
+                            </div>
+                        </div>
+                    </div>
                     <ul className="tabs">
                         {tabs.map((tab,i) => 
                             <li key={i} className={this.state.tab == tab ? 'active' : ''} onClick={() => changeTab(tab)}><a>{tab}</a></li>

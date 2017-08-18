@@ -1,16 +1,18 @@
 const ReplayAnalyzer = require('./lib/ReplayAnalyzer')
 
 onmessage = (args) => {
-    let replay = args.data
 
-    let analyzer = new ReplayAnalyzer(replay)
+    args.data.map((file) => {
+        let analyzer = new ReplayAnalyzer(file)
 
-    try {
-        postMessage('Analyzing ' + replay)
-        analyzer.analyze()
+        try {
+            postMessage('Analyzing ' + file)
+            analyzer.analyze()
 
-        postMessage({ game: analyzer.game, replay: replay })
-    } catch (ex) {
-        postMessage({ error: true, replay: replay, message: 'Could not load replay: ' + ex })
-    }
+            postMessage({ game: analyzer.game, replay: file })
+        } catch (ex) {
+            postMessage({ error: true, replay: replay, message: 'Could not load replay: ' + ex })
+        }
+    })
+
 }

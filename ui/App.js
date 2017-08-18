@@ -29,6 +29,13 @@ class App extends React.Component {
             }
         }
 
+        GameIndex.on('INDEX_LOADED', (index) => {
+            if (this.state.replay && GameIndex.index.filter((game) => game.name == this.state.replay.name).length === 0) {
+                // Make sure loaded replay still exists
+                self.setState({ replay: null })
+            }
+        })
+
         let self = this
         GameRecorder.on('RECORDER_START', () => {
             self.setState({ 
@@ -57,6 +64,13 @@ class App extends React.Component {
           rightClickPosition = {x: e.x, y: e.y}
           menu.popup(remote.getCurrentWindow())
         }, false)
+    }
+    deleteReplay(replay) {
+        if (confirm('Are you sure you want to delete this replay? Replays cannot be recovered once deleted')) {
+            fs.unlink(replay.name, (err) => {
+                GameIndex.load()
+            })
+        }
     }
     setStatus(message, options = {}) {
         const type = options.type || null
@@ -87,8 +101,12 @@ class App extends React.Component {
             const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '.webm')
 
             if (fs.existsSync(fullPath)) {
-                const reel = new HighlightReel(item.name, fullPath)
-                reel.create()
+                try {
+                    const reel = new HighlightReel(item.name, fullPath)
+                    reel.create()
+                } catch(ex) {
+                    console.log('Problem creating highlights: ' + ex)
+                }
             }
             this.setState({
                 replay: item,
@@ -114,7 +132,7 @@ class App extends React.Component {
             return (
                 <div>
                     <StatusBar type={this.state.status.type} message={this.state.status.message} setStatus={this.setStatus.bind(this)} />
-                    <Game replay={this.state.replay} />
+                    <Game replay={this.state.replay} deleteReplay={this.deleteReplay.bind(this)} setStatus={this.setStatus.bind(this)} />
                     <Config setStatus={this.setStatus.bind(this)} />
                 </div>
             )

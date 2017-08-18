@@ -7,7 +7,7 @@
 
 timeline {
     display: block;
-    border-left: 2px solid #0075c4;
+    border-left: 2px solid #E4B406;
     margin-left: 40px;
 }
 
@@ -16,23 +16,48 @@ timeline::before {
     content: '';
     width: 21px;
     height: 2px;
-    background: #0075c4;
+    background: #E4B406;
     margin-left: -11px;
 }
 
-timeline-marker::before {
+timeline-marker.hash::before {
     position: absolute;
     display: block;
     content: '';
     margin-left: -16px;
-    margin-top: 6px;
+    margin-top: 12px;
     width: 8px;
     height: 2px;
-    background: #0075c4;
+    background: #E4B406;
 }
-timeline-marker {
+timeline-marker.hash {
     display: block;
     margin: 1rem;
+    color: #fafafa;
+}
+
+timeline-marker.circle {
+    border: 2px solid #E4B406;
+    border-radius: 100%;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-left: -1.2rem;
+    color: #fafafa;
+    display: block;
+    background: #111;
+}
+
+timeline-marker.circle .label {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 3px;
+    margin-left: -1px;  
+}
+
+timeline-marker.circle .content {
+    margin-left: 45px;
+    position: absolute;
+    margin-top: -28px;
 }
 
 timeline-event::before {
@@ -45,12 +70,54 @@ timeline-event::before {
     height: 0;
     border-style: solid;
     border-width: 6px 0 6px 8px;
-    border-color: transparent transparent transparent #0075c4;
+    border-color: transparent transparent transparent #E4B406;
 }
 
+timeline-event svg {
+    fill: #fafafa;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-left: -3.5rem;
+    margin-top: -.3rem;
+    position: absolute;
+}
+
+timeline-event .fight svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-top: 0;
+    margin-left: -3.3rem;
+}
+
+timeline-event .death svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-top: 0;
+    margin-left: -3.3rem;
+}
 
 timeline-event {
     display: block;
     margin: 1rem;
-    background: #666;
+}
+
+timeline-event .time {
+    font-weight: bold;
+    color: #fafafa;
+}
+
+timeline-event .content {
+    background: #333;
+    padding: 1rem;
+    margin-top: 4px;
+}
+
+timeline-event .content .kill {
+    margin-bottom: .6rem;
+}
+
+timeline-event hero-portrait {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 0 3px;
 }

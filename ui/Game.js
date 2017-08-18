@@ -63,9 +63,22 @@ class Game extends React.Component {
             </game>
         )
     }
+    loading() {
+        return (
+            <game className="corrupt">
+                <br /><br /><br />
+                <h1>This game is still being processed.</h1>
+                Hang tight, this should be done soon!
+            </game>
+        )
+    }
     render() {
         if (!this.props.replay) {
             return null
+        }
+
+        if (!this.props.replay.game) {
+            return this.loading()
         }
 
         if (this.props.replay.corrupt) {

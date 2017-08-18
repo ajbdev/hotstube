@@ -65,11 +65,7 @@ game .tabs li.active:after {
 
 
 tab-content {
-    position: absolute;
-    top: 150px;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    display: block;
     background: rgba(25,25,25,.95)
 }
 
@@ -94,4 +90,16 @@ game.corrupt .reasons {
     width: 465px;
     text-align: left;
     margin: 2rem auto;
+}
+
+player-name {
+    display:inline-block;
+}
+
+player-name.red {
+    color: #E60E0E
+}
+
+player-name.blue {
+    color: #0075c4;
 }

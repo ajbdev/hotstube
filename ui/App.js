@@ -9,6 +9,10 @@ const Game = require('./Game')
 const StatusBar = require('./StatusBar')
 const PatchNotes = require('./PatchNotes')
 const GameRecorder = require('../lib/GameRecorder')
+const fs = require('fs')
+const pathResolver = require('path')
+const ConfigOptions = require('../lib/Config')
+const HighlightReel = require('../lib/HighlightReel')
 
 class App extends React.Component {
     constructor() {
@@ -78,6 +82,14 @@ class App extends React.Component {
                 replay: null
             })
         } else {
+            ConfigOptions.load()
+
+            const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '.webm')
+
+            if (fs.existsSync(fullPath)) {
+                const reel = new HighlightReel(item.name, fullPath)
+                reel.create()
+            }
             this.setState({
                 replay: item,
                 status: { type: null, message: ''},

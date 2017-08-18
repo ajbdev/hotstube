@@ -1,7 +1,7 @@
 status-bar {
     font-size: 12px;
     padding: 4px;
-    position: absolute;
+    position: fixed;
     bottom: 10px;
     left: 10px;
     color: #aaa;

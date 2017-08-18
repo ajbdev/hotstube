@@ -3,7 +3,7 @@ config {
 }
 
 config .settings-button svg {
-    position: absolute;
+    position: fixed;
     width: 1.4rem;
     bottom: 1rem;
     right: 1rem;

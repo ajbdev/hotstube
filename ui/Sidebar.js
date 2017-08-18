@@ -63,6 +63,13 @@ class Sidebar extends React.Component {
             })
         })
 
+        let self = this
+        index.map((replay) => { 
+            if (replay.name && !replay.game) {
+                self.loadFromCache(replay.name)
+            }
+        })
+
         if (this.state.searching && this.state.search && this.state.search.length > 0) {
             let unindexed = []
             index = index.filter((replay) => {
@@ -152,14 +159,25 @@ class Sidebar extends React.Component {
         this.props.loadItem(item)
     }
 
-    loadReplay(file, useCache = true) {
+    loadFromCache(file) {
         let game = localStorage.getItem(file)
-
-        if (game && useCache) {
+        
+        if (game) {
             let replay = GameIndex.index.filter((r) => r.name === file)[0]
             replay.game = JSON.parse(game)
             replay.parsing = false
-            return
+            return true
+        }
+
+        return false
+    }
+
+    loadReplay(file, useCache = true) {
+        if (useCache) {
+            let game = this.loadFromCache()
+            if (game) {
+                return
+            }
         }
 
         this.analyzeWorker.postMessage([file])

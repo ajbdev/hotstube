@@ -149,10 +149,7 @@ class Game extends React.Component {
                                 &bull;&bull;&bull;
                             </button>
                             <div className="dropdown-menu">
-                                <a>Item 1</a>
-                                <a>Item 2</a>
                                 <a onClick={this.export.bind(this)}>Export data</a>
-                                <hr />
                                 <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
                             </div>
                         </div>

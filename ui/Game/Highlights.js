@@ -2,14 +2,17 @@ const React = require('react')
 const {Timeline,TimelineEvent,TimelineMarker} = require('./Timeline')
 const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
 const PlayerName = require('./PlayerName')
+const HighlightReel = require('../../lib/HighlightReel')
 const HeroPortrait = require('../HeroPortrait')
+const pathResolver = require('path')
+const fs = require('fs')
 
 class Highlights extends React.Component { 
     componentDidMount() {
     }
 
-    time(seconds) {
-        return ~~(seconds / 60) + ":" + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60);
+    time(seconds, seperator = ':') {
+        return ~~(seconds / 60) + seperator + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60);
     }
 
     timeline() {
@@ -46,10 +49,13 @@ class Highlights extends React.Component {
     renderFight(kills, key) {
         let game = this.props.replay.game
 
+        let clipAttrs = { replay: this.props.replay.name, heroId: this.props.replay.heroId, accountId: this.props.replay.accountId }
+
         if (key == 0 && kills.length == 1) {
             let kill = kills[0]
             return (
                 <TimelineEvent at={this.time(kill.time)} icon="firstblood" key={key}>
+                    <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     <PlayerName player={this.killer(kill)} /> drew first blood on <PlayerName player={kill.victim} />
                 </TimelineEvent>
             )
@@ -59,6 +65,7 @@ class Highlights extends React.Component {
             let kill = kills[0]
             return (
                 <TimelineEvent at={this.time(kill.time)} icon="death" key={key}>
+                    <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     {this.renderKill(kill)}
                 </TimelineEvent>
             )
@@ -66,6 +73,7 @@ class Highlights extends React.Component {
         
         return (
             <TimelineEvent at={this.time(kills[0].time)} icon="fight" key={key}>
+                <HighlightClip at={this.time(kills[0].time, '.')} {...clipAttrs} />
                 {kills.map((kill, ix) => 
                     <span key={ix}>
                         {this.renderKill(kill)}
@@ -166,6 +174,21 @@ class Highlights extends React.Component {
                 </div>
             </tab-content>
         )
+    }
+}
+class HighlightClip extends React.Component { 
+    render() {
+        let at = this.props.at
+
+        let path = HighlightReel.getSavePath(this.props.accountId, this.props.heroId, pathResolver.basename(this.props.replay,'.StormReplay'))
+
+        path = pathResolver.join(path, at + '.webm')
+
+        if (fs.existsSync(path)) {
+            return <video src={path} width={640} controls={true} />
+        }
+
+        return null
     }
 }
 

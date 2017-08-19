@@ -103,7 +103,7 @@ class App extends React.Component {
             if (fs.existsSync(fullPath)) {
                 try {
                     const reel = new HighlightReel(item.name, fullPath)
-                    reel.create()
+                    reel.create(item.accountId, item.heroId)
                 } catch(ex) {
                     console.log('Problem creating highlights: ' + ex)
                 }

@@ -16,8 +16,16 @@ config .settings-button svg:hover {
     fill: #f6f6f6;
 }
 
+config fieldset input {
+    margin-right: 4px;
+}
+
+config fieldset input[type=number] {
+    margin: 0 4px;
+}
+
 config-window {
-    position: absolute;
+    position: fixed;
     background: #222;
     padding: 1rem;
     top: 0;

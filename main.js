@@ -7,6 +7,7 @@ const BrowserWindow = electron.BrowserWindow
 const Tray = electron.Tray
 const path = require('path')
 const url = require('url')
+const ELECTRON_ENV = require('./env')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -40,8 +41,10 @@ function createWindow () {
     slashes: true
   }))
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools({ mode: 'detach' })
+  if (ELECTRON_ENV === 'development') {
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools({ mode: 'detach' })
+  }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

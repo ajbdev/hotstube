@@ -1,0 +1,1 @@
+module.exports = /node_modules[\\/]electron[\\/]/.test(process.execPath) ? 'development' : 'production'

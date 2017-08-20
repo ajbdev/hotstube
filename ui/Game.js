@@ -35,7 +35,7 @@ class Game extends React.Component {
 
         const ContentComponent = components['Game' + this.state.tab]
 
-        return <ContentComponent replay={this.props.replay} />
+        return <ContentComponent replay={this.props.replay} setStatus={this.props.setStatus} />
     }
     style() {
         if (this.props.replay.game) {
@@ -154,11 +154,11 @@ class Game extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <ul className="tabs">
+                    {/* <ul className="tabs">
                         {tabs.map((tab,i) => 
                             <li key={i} className={this.state.tab == tab ? 'active' : ''} onClick={() => changeTab(tab)}><a>{tab}</a></li>
                         )}
-                    </ul>
+                    </ul> */}
                 </header>
                 {this.renderTab()}
             </game>

@@ -5,11 +5,12 @@ const PlayerName = require('./PlayerName')
 const HighlightReel = require('../../lib/HighlightReel')
 const HeroPortrait = require('../HeroPortrait')
 const pathResolver = require('path')
+const ConfigOptions = require('../../lib/Config')
 const fs = require('fs')
+const {app, dialog} = require('electron').remote
+const Svg = require('../Svg')
 
 class Highlights extends React.Component { 
-    componentDidMount() {
-    }
 
     time(seconds, seperator = ':') {
         return ~~(seconds / 60) + seperator + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60);
@@ -49,7 +50,13 @@ class Highlights extends React.Component {
     renderFight(kills, key) {
         let game = this.props.replay.game
 
-        let clipAttrs = { replay: this.props.replay.name, heroId: this.props.replay.heroId, accountId: this.props.replay.accountId }
+        let clipAttrs = { 
+            replay: this.props.replay.name,
+            setStatus: this.props.setStatus,
+            heroId: this.props.replay.heroId, 
+            accountId: this.props.replay.accountId,
+            caption: this.killer(kills[0]).name + ' kills ' + kills[0].victim.name + ' at ' + this.time(kills[0].time, '.')
+        }
 
         if (key == 0 && kills.length == 1) {
             let kill = kills[0]
@@ -177,6 +184,75 @@ class Highlights extends React.Component {
     }
 }
 class HighlightClip extends React.Component { 
+    constructor() {
+        super()
+
+        this.state = { playing: false }
+
+        this.videoBinded = false
+    }
+    bindVideoEvents() {
+        this.video.onplaying = () => {
+            this.setState({ playing: true })
+        }
+
+        let stop = () => {
+            this.setState({ playing: false })
+        }
+
+        this.video.onended = stop
+        this.video.onpause = stop
+
+        this.videoBinded = true
+    }
+    toggleVideo() {
+        if (!this.videoBinded) {
+            this.bindVideoEvents()
+        }
+
+        let action = this.state.playing ? 'pause' : 'play'
+
+        this.video[action]()
+    }
+    save(video) {
+        let self = this
+
+        dialog.showSaveDialog({
+            title: 'Save highlight',
+            buttonLabel: 'Save',
+            showsTagField: false,
+            defaultPath: app.getPath('documents') + '/' + this.props.caption + '.gifv',
+            filters: [
+                {name: 'gifv', extensions: ['gifv']},
+            ]
+        }, (file) => {
+            console.log(file + ' saved')
+            fs.access(video, fs.F_OK, function (error) {
+                if (error) {
+                    console.log('Video not saved: ' + error)
+                } else {
+                    var input = fs.createReadStream(video);
+                    var output = fs.createWriteStream(file);
+    
+                    function handleErrors(error) {
+                        input.destroy();
+                        output.end();
+                        console.log('Video not saved: ' + error)
+                    }
+    
+                    input.on('error', handleErrors);
+                    output.on('error', handleErrors);
+    
+                    output.on('finish', () => {
+                        self.props.setStatus('Highlight saved')
+                    })
+    
+                    input.pipe(output);
+                }
+            });
+        })
+    }
+
     render() {
         let at = this.props.at
 
@@ -184,8 +260,25 @@ class HighlightClip extends React.Component {
 
         path = pathResolver.join(path, at + '.webm')
 
+        let attrs = {
+            width: 640,
+            ref: (video) => { this.video = video }
+        }
+
+        if (ConfigOptions.options.fullVideoControls) {
+            attrs.controls = true
+        }
+
         if (fs.existsSync(path)) {
-            return <video src={path} width={640} controls={true} />
+            return (
+                <span>
+                    <highlight-reel onClick={this.toggleVideo.bind(this)}>
+                        {!this.state.playing ? <video-controls></video-controls> : null}
+                        <video src={path} {...attrs} />
+                    </highlight-reel>
+                    <Svg src="download.svg" onClick={() => this.save(path)} className="video-download" />
+                </span>
+            )
         }
 
         return null

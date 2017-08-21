@@ -36,12 +36,18 @@ class TimelineMarker extends React.Component {
                 style.borderColor = this.props.color
             }
 
-            if (this.props.label.length == 5) {
+            const label = this.props.label.toString()
+            if (label.length == 6) {
+                labelStyle.fontSize = '11px'
+                labelStyle.marginTop = '8px'
+                contentStyle.marginTop = '-22px'
+            }
+            if (label.length == 5) {
                 labelStyle.fontSize = '12px'
                 labelStyle.marginTop = '8px'
                 contentStyle.marginTop = '-22px'
             }
-            if (this.props.label.length == 4) {
+            if (label.length == 4) {
                 labelStyle.fontSize = '14px'
                 labelStyle.marginTop = '6px'
                 contentStyle.marginTop = '-23px'

@@ -9,11 +9,13 @@ const Game = require('./Game')
 const StatusBar = require('./StatusBar')
 const PatchNotes = require('./PatchNotes')
 const GameRecorder = require('../lib/GameRecorder')
+const GameStateWatcher = require('../lib/GameStateWatcher')
 const fs = require('fs')
 const pathResolver = require('path')
 const ConfigOptions = require('../lib/Config')
 const HighlightReel = require('../lib/HighlightReel')
 const debug = require('../debug')
+const GameInProgress = require('./GameInProgress')
 
 class App extends React.Component {
     constructor() {
@@ -31,27 +33,66 @@ class App extends React.Component {
             }
         }
 
-        GameIndex.on('INDEX_LOADED', (index) => {
+        this.indexLoadListener = (index) => {
+            
             if (this.state.replay && GameIndex.index.filter((game) => game.name == this.state.replay.name).length === 0) {
                 // Make sure loaded replay still exists
-                self.setState({replay: null})
+                this.setState({ replay: null })
             }
-        })
+        }
 
-        let self = this
-        GameRecorder.on('RECORDER_START', () => {
-            self.setState({
+        GameIndex.on('INDEX_LOADED', this.indexLoadListener)
+
+        this.recordingListener = () => {
+            this.setState({
                 status: {
                     type: null,
-                    message: null
+                    message: null,
+                    loading: true
                 }
             })
-        })
+        }
 
+        GameRecorder.on('RECORDER_START', this.recordingListener)
+
+        this.gameInProgressListener = (file) => {
+            this.setState({
+                gameInProgress: true,
+                sidebarOpen: false
+            })
+        }
+
+        GameStateWatcher.on('GAME_START', this.gameInProgressListener)
+
+        this.loadGameListener = (file) => {
+            const self = this
+
+            this.setState({
+                gameInProgress: false,
+            }, () => {
+                GameIndex.load()
+                self.loadItem(GameIndex.index[0])
+            })
+        }
+
+        GameStateWatcher.on('GAME_END', this.loadGameListener)
     }
+    componentDidMount() {
+        if (GameIndex.index.length > 0) {
+            this.loadItem(GameIndex.index[0])
+        }
+    }
+
+    componentWillUnmount() {
+        GameIndex.removeListeneron('INDEX_LOADED', this.indexLoadListener)
+        GameStateWatcher.removeListener('GAME_END', this.loadGameListener)
+        GameStateWatcher.removeListener('GAME_START', this.gameInProgressListener)
+        GameRecorder.removeListener('RECORDER_START', this.recordingListener)
+    }
+    
     deleteReplay(replay) {
-        if (confirm('Are you sure you want to delete this replay? Replays cannot be recovered once de' +
-                'leted')) {
+        if (confirm('Are you sure you want to delete this replay? ' +
+                    'Replays cannot be recovered once deleted')) {
             fs.unlink(replay.name, (err) => {
                 GameIndex.load()
             })
@@ -115,6 +156,19 @@ class App extends React.Component {
     }
 
     renderContent() {
+        if (this.state.gameInProgress) {
+            return (<div>
+                <StatusBar
+                    type={this.state.status.type}
+                    message={this.state.status.message}
+                    setStatus={this
+                    .setStatus
+                    .bind(this)}/>
+                <GameInProgress />
+            </div>
+            )
+        }
+
         if (this.state.patch) {
             return (
                 <div>
@@ -196,7 +250,7 @@ class App extends React.Component {
 
         return (
             <app>
-                <Sidebar
+                {!this.state.gameInProgress ? <Sidebar
                     open={this.state.sidebarOpen}
                     toggle={toggleSidebar}
                     setStatus={this.setStatus}
@@ -204,7 +258,8 @@ class App extends React.Component {
                     loadItem={this
                     .loadItem
                     .bind(this)}
-                    configWindow={(win) => this.setState({configWindow: win})}/>
+                    configWindow={(win) => this.setState({configWindow: win})}/> 
+                    : null}
                 <content
                     className={this.state.sidebarOpen
                     ? 'with-sidebar'

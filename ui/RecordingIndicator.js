@@ -10,21 +10,30 @@ class RecordingIndicator extends React.Component {
         this.state = {
             isRecording: false
         }
-    }
-    componentDidMount() {
+
         let self = this;
 
-        GameRecorder.on('RECORDER_START', () => {
-            self.setState({ 
-                isRecording: true 
-            })
-        }).on('RECORDER_END', () => {
+
+        this.recordingFinishedListener =  () => {
             self.setState({ 
                 isRecording: false 
             }, () => {
                 self.props.setStatus('Recording finished')
             })
-        })
+        }
+
+        this.recordingStartedListener = () => {
+            self.setState({ 
+                isRecording: true 
+            })
+        }
+        GameRecorder.on('RECORDER_START', this.recordingStartedListener)
+                    .on('RECORDER_END',this.recordingFinishedListener)
+    }
+    
+    componentWillUnmount() {
+        GameRecorder.removeListener('RECORDER_START', this.recordingStartedListener)
+        GameRecorder.removeListener('RECORDER_END', this.recordingFinishedListener)
     }
 
     render() {

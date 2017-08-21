@@ -24,7 +24,17 @@ class Game extends React.Component {
             // This replay file is corrupt or incomplete
             this.props.replay.corrupt = true
         }
+    }
+    parse() {
+        const analyzer = new ReplayAnalyzer(this.props.replay.name)
         
+        try {
+            analyzer.analyze(true)
+        } catch(ex) {
+            // This replay file is corrupt or incomplete
+            this.props.replay.corrupt = true
+        }
+        this.forceUpdate()
     }
     renderTab() {
         const components = {
@@ -149,6 +159,7 @@ class Game extends React.Component {
                                 &bull;&bull;&bull;
                             </button>
                             <div className="dropdown-menu">
+                                <a onClick={this.parse.bind(this)}>Reparse data</a>
                                 <a onClick={this.export.bind(this)}>Export data</a>
                                 <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
                             </div>

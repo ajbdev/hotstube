@@ -11,25 +11,19 @@ class Svg extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.getInlineSvg()
-    }
-
     getInlineSvg() {
         let self = this
 
-        fs.readFile(path.join(__dirname, '../assets/svg/' + this.props.src), 'utf-8', (err, data) => {
-            self.setState({ svg: data })
-        })
+        return fs.readFileSync(path.join(__dirname, '../assets/svg/' + this.props.src), 'utf-8')
     }
 
     render() {
-        if (!this.state.svg) {
-            return null
+        if (!this.svg) {
+            this.svg = this.getInlineSvg()
         }
 
         return (
-            <span dangerouslySetInnerHTML={{ __html: this.state.svg}} {...this.props}></span>
+            <span dangerouslySetInnerHTML={{ __html: this.svg}} {...this.props}></span>
         )
     }
 }

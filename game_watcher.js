@@ -3,6 +3,7 @@ const GameRecorder = require('./lib/GameRecorder')
 const VideoClipMaker = require('./lib/VideoClipMaker')
 const HighlightReel = require('./lib/HighlightReel') 
 const Config = require('./lib/Config')
+const fs = require('fs')
 
 const pathResolver = require('path')
 
@@ -28,11 +29,11 @@ GameStateWatcher.watch().on('GAME_START', () => {
 })
 
 GameRecorder.on('VIDEO_SAVED', (path) => {
-    videoFile = pathResolver.resolve(path)
+    sourceVideoFile = pathResolver.resolve(path)
     
-    console.log('Caught video ' + videoFile)
+    console.log('Caught video ' + sourceVideoFile)
 
-    clip = new VideoClipMaker(videoFile)
+    clip = new VideoClipMaker(sourceVideoFile)
 
     if (!replayFile) {
         console.log('No replay file found')
@@ -48,6 +49,13 @@ GameRecorder.on('VIDEO_SAVED', (path) => {
     videoFile = clip.make(videoFilePath, gameInitializedAt)
 
     console.log('Created ' + videoFile)
+    fs.unlink(sourceVideoFile, (err) => {
+        if (err) {
+            console.log('Could not delete source video: ' + err)
+        } else {
+            console.log('Deleted ' + sourceVideoFile)
+        }
+    })
 
     createHighlightReel()
 })

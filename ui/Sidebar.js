@@ -49,17 +49,22 @@ class Sidebar extends React.Component {
         }
 
         let self = this
-        GameIndex.on('INDEX_LOADED', (index) => {
-            self.setState({
-                index: this.index()
-            })
-        })
 
-        ConfigOptions.on('CONFIG_SAVED', () => {
+        this.refreshIndexListener = (index) => {
             self.setState({
                 index: this.index()
             })
-        })
+        }
+
+        GameIndex.on('INDEX_LOADED', this.refreshIndexListener)
+
+        this.reloadConfigListener = () => {
+            self.setState({
+                index: this.index()
+            })
+        }
+        
+        ConfigOptions.on('CONFIG_SAVED', this.reloadConfigListener)
 
         this.state = {
             search: '',
@@ -67,6 +72,12 @@ class Sidebar extends React.Component {
         }
 
         this.state.index = this.index()
+    }
+
+    
+    componentWillUnmount() {
+        GameIndex.removeListener('INDEX_LOADED', this.refreshIndexListener)
+        GameIndex.removeListener('CONFIG_SAVED', this.reloadConfigListener)
     }
 
     index() {

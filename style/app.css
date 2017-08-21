@@ -6,6 +6,8 @@ content {
     bottom: 0;
 }
 
+.with-sidebar config-window,
 content.with-sidebar {
     left: 300px;
 }
+

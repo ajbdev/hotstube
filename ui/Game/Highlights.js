@@ -13,6 +13,10 @@ const Svg = require('../Svg')
 class Highlights extends React.Component { 
 
     time(seconds, seperator = ':') {
+        if (seconds < 0) {
+            return seconds
+        }
+
         return ~~(seconds / 60) + seperator + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60);
     }
 
@@ -20,11 +24,11 @@ class Highlights extends React.Component {
         const timeline = []
         const analyzer = new ReplayAnalyzer(this.props.replay.name)
         const fights = analyzer.groupKillsIntoFights(this.props.replay.game.kills).slice()
-
+        
         fights.map((fight) => {
             if (fight.length > 0) {
                 timeline.push({
-                    time: fight[0].time,
+                    time: fight[0].gameTime,
                     type: 'fight',
                     kills: fight
                 })
@@ -61,7 +65,7 @@ class Highlights extends React.Component {
         if (key == 0 && kills.length == 1) {
             let kill = kills[0]
             return (
-                <TimelineEvent at={this.time(kill.time)} icon="firstblood" key={key}>
+                <TimelineEvent at={this.time(kill.gameTime)} icon="firstblood" key={key}>
                     <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     <PlayerName player={this.killer(kill)} /> drew first blood on <PlayerName player={kill.victim} />
                 </TimelineEvent>
@@ -71,7 +75,7 @@ class Highlights extends React.Component {
         if (kills.length == 1) {
             let kill = kills[0]
             return (
-                <TimelineEvent at={this.time(kill.time)} icon="death" key={key}>
+                <TimelineEvent at={this.time(kill.gameTime)} icon="death" key={key}>
                     <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     {this.renderKill(kill)}
                 </TimelineEvent>
@@ -79,7 +83,7 @@ class Highlights extends React.Component {
         }
         
         return (
-            <TimelineEvent at={this.time(kills[0].time)} icon="fight" key={key}>
+            <TimelineEvent at={this.time(kills[0].gameTime)} icon="fight" key={key}>
                 <HighlightClip at={this.time(kills[0].time, '.')} {...clipAttrs} />
                 {kills.map((kill, ix) => 
                     <span key={ix}>
@@ -115,7 +119,7 @@ class Highlights extends React.Component {
 
     renderEmpty() {
         return (
-            <TimelineEvent at="Nothing happened!" icon="spawn">
+            <TimelineEvent at="Nothing happened!">
                 This replay seems to be empty. 
                 This happens if a game is quit early or on certain custom maps.  
             </TimelineEvent>
@@ -138,7 +142,7 @@ class Highlights extends React.Component {
                                 this.renderEvent(event, key)
                             ) : this.renderEmpty()
                         }
-                        <TimelineMarker type="circle" label={this.time(this.props.replay.game.time)}>
+                        <TimelineMarker type="circle" label={this.time(this.props.replay.game.time-35)}>
                             Game over
                         </TimelineMarker>
                     </Timeline>
@@ -226,6 +230,10 @@ class HighlightClip extends React.Component {
                 {name: 'gifv', extensions: ['gifv']},
             ]
         }, (file) => {
+            if (!file) {
+                return
+            }
+
             console.log(file + ' saved')
             fs.access(video, fs.F_OK, function (error) {
                 if (error) {

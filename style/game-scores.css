@@ -1,0 +1,41 @@
+game-scores thead hero-portrait {
+    width: 26px;
+    height: 26px;
+}
+
+game-scores table {
+    font-size: 13px;
+}
+
+game-scores table thead th {
+    border-bottom-color: #E4B406;
+    height: 140px;
+    vertical-align: bottom;
+}
+
+game-scores table tbody th {
+    border-bottom-width: 1px;
+    border-right: 1px solid #666
+}
+
+game-scores table tbody td {
+    text-align: center;
+}
+
+game-scores .axis-label {
+    position: absolute;
+    transform: rotate(290deg);
+    margin-top: -40px;
+    text-align: left;
+    transform-origin: 25%;
+}
+
+game-scores .length-4 {
+    font-size: 12px;
+}
+game-scores .length-5 {
+    font-size: 11px;
+}
+game-scores .length-6 {
+    font-size: 10px;
+}

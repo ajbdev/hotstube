@@ -3,6 +3,7 @@ const remote = require('electron').remote
 const Svg = require('./Svg')
 const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 const GameHighlights = require('./Game/Highlights')
+const GameScores = require('./Game/Scores')
 const HeroPortrait = require('./HeroPortrait')
 const Time = require('./Time')
 const pathResolver = require('path')
@@ -10,37 +11,15 @@ const fs = require('fs')
 const {app, dialog} = require('electron').remote
 
 class Game extends React.Component {
-    constructor() {
+    constructor(props) {
         super()
 
         this.state = { tab: 'Highlights', headerMenuOpen: false }
     }
-    componentWillMount() {
-        const analyzer = new ReplayAnalyzer(this.props.replay.name)
-
-        try {
-            analyzer.analyze(true)
-        } catch(ex) {
-            // This replay file is corrupt or incomplete
-            this.props.replay.corrupt = true
-        }
-    }
-    parse() {
-        const analyzer = new ReplayAnalyzer(this.props.replay.name)
-        
-        try {
-            analyzer.analyze(true)
-        } catch(ex) {
-            // This replay file is corrupt or incomplete
-            this.props.replay.corrupt = true
-        }
-        this.forceUpdate()
-    }
     renderTab() {
         const components = {
             'GameHighlights': GameHighlights,
-            'GameHistory': GameHistory,
-            'GameKills': GameKills
+            'GameScores': GameScores
         }
 
         const ContentComponent = components['Game' + this.state.tab]
@@ -140,7 +119,7 @@ class Game extends React.Component {
             this.setState({ tab: tab })
         }
         
-        const tabs = ['Highlights', 'Kills', 'History']
+        const tabs = ['Highlights', 'Scores']
 
         const dropdownCss = ['dropdown']
         if (this.state.headerMenuOpen) {
@@ -159,27 +138,20 @@ class Game extends React.Component {
                                 &bull;&bull;&bull;
                             </button>
                             <div className="dropdown-menu">
-                                <a onClick={this.parse.bind(this)}>Reparse data</a>
                                 <a onClick={this.export.bind(this)}>Export data</a>
                                 <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
                             </div>
                         </div>
                     </div>
-                    {/* <ul className="tabs">
+                    <ul className="tabs">
                         {tabs.map((tab,i) => 
                             <li key={i} className={this.state.tab == tab ? 'active' : ''} onClick={() => changeTab(tab)}><a>{tab}</a></li>
                         )}
-                    </ul> */}
+                    </ul>
                 </header>
                 {this.renderTab()}
             </game>
         )
-    }
-}
-
-class GameKills extends React.Component { 
-    render() {
-        return <tab-content>Kills</tab-content>
     }
 }
 

@@ -77,7 +77,6 @@ class FiltersConfigWindow extends React.Component {
 }
 
 class AdvancedConfigWindow extends React.Component {
-
     render() {
         return (
             <config-window>
@@ -124,9 +123,14 @@ class AdvancedConfigWindow extends React.Component {
 
                 <footer>
                     <button className="button-link" onClick={this.props.close}>Close</button>
+                    <a className="float-right button-link-tertiary" onClick={this.clearReplayCache.bind(this)}>Clear Replay Cache</a>
                 </footer>
             </config-window>
         )
+    }
+    clearReplayCache() {
+        localStorage.clear()
+        this.props.setStatus('Replay cache cleared')
     }
 }
 

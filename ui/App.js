@@ -16,6 +16,7 @@ const ConfigOptions = require('../lib/Config')
 const HighlightReel = require('../lib/HighlightReel')
 const debug = require('../debug')
 const GameInProgress = require('./GameInProgress')
+const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 
 class App extends React.Component {
     constructor() {
@@ -60,6 +61,10 @@ class App extends React.Component {
                 gameInProgress: true,
                 sidebarOpen: false
             })
+            
+            BrowserWindow
+                .getAllWindows()[0]
+                .setSize(800, 600)
         }
 
         GameStateWatcher.on('GAME_START', this.gameInProgressListener)
@@ -120,7 +125,10 @@ class App extends React.Component {
             }
         })
     }
-    loadItem(item) {
+    loadItem(selection) {
+        // Clone object so we're not affected by object references
+        let item = Object.assign({}, selection)
+
         if (item.patch) {
             this.setState({
                 patch: item,
@@ -133,16 +141,34 @@ class App extends React.Component {
         } else {
             ConfigOptions.load()
 
-            const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '.webm')
-
-            if (fs.existsSync(fullPath)) {
+            if (item.name) {
+                const analyzer = new ReplayAnalyzer(item.name)
+                
                 try {
-                    const reel = new HighlightReel(item.name, fullPath)
-                    reel.create(item.accountId, item.heroId)
-                } catch (ex) {
-                    console.log('Problem creating highlights: ' + ex)
+                    analyzer.analyze(true)
+                    item.game = analyzer.game
+                    console.log('Deep analyzed')
+                    console.log(item.game)
+                } catch(ex) {
+                    // This replay file is corrupt or incomplete
+                    console.log('Could not analyze game: ' + ex)
+                    item.corrupt = true
+                }
+    
+                const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '.webm')
+    
+                if (fs.existsSync(fullPath)) {
+                    try {
+                        const reel = new HighlightReel(item.name, fullPath)
+                        reel.create(item.accountId, item.heroId)
+                    } catch (ex) {
+                        console.log('Problem creating highlights: ' + ex)
+                    }
                 }
             }
+
+            
+            console.log(item.game)
             this.setState({
                 replay: item,
                 status: {

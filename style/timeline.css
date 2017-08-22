@@ -112,10 +112,6 @@ timeline-event .content {
     margin-top: 4px;
 }
 
-timeline-event .content .kill {
-    margin-bottom: .6rem;
-}
-
 timeline-event hero-portrait {
     width: 1.4rem;
     height: 1.4rem;

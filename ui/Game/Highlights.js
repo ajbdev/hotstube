@@ -17,23 +17,31 @@ class Highlights extends React.Component {
             return seconds
         }
 
-        return ~~(seconds / 60) + seperator + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60);
+        return ~~(seconds / 60) + seperator + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60)
     }
 
     timeline() {
         const timeline = []
         const analyzer = new ReplayAnalyzer(this.props.replay.name)
         const fights = analyzer.groupKillsIntoFights(this.props.replay.game.kills).slice()
-        
+
         fights.map((fight) => {
             if (fight.length > 0) {
                 timeline.push({
                     time: fight[0].gameTime,
                     type: 'fight',
                     kills: fight
-                })
+                 })
             }
         })
+
+        this.props.replay.game.levels.map((lvl) => {
+            if (lvl.level == 10 || lvl.level == 20) {
+                timeline.push(Object.assign({ type: 'level' }, lvl))
+            }
+        })
+
+        timeline.sort((a,b) => a.time - b.time)
 
         return timeline
     }
@@ -51,6 +59,16 @@ class Highlights extends React.Component {
         return killer
     }
 
+    renderLevel(level, key) {
+        const team = level.team.charAt(0).toUpperCase() + level.team.slice(1).toLowerCase();
+
+        return (
+            <TimelineMarker type="hash" key={key}>
+                <b>{this.time(level.time)}</b> <span className={level.team}>{team}</span> hits level {level.level}
+            </TimelineMarker>
+        )
+    }
+
     renderFight(kills, key) {
         let game = this.props.replay.game
 
@@ -62,12 +80,15 @@ class Highlights extends React.Component {
             caption: this.killer(kills[0]).name + ' kills ' + kills[0].victim.name + ' at ' + this.time(kills[0].time, '.')
         }
 
+        const chat = this.props.replay.game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
+
         if (key == 0 && kills.length == 1) {
             let kill = kills[0]
             return (
                 <TimelineEvent at={this.time(kill.gameTime)} icon="firstblood" key={key}>
                     <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     <PlayerName player={this.killer(kill)} /> drew first blood on <PlayerName player={kill.victim} />
+                    {chat.map((c, i) => this.renderChat(c, i))}
                 </TimelineEvent>
             )
         } 
@@ -78,6 +99,7 @@ class Highlights extends React.Component {
                 <TimelineEvent at={this.time(kill.gameTime)} icon="death" key={key}>
                     <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     {this.renderKill(kill)}
+                    {chat.map((c, i) => this.renderChat(c, i))}
                 </TimelineEvent>
             )
         }
@@ -90,7 +112,16 @@ class Highlights extends React.Component {
                         {this.renderKill(kill)}
                     </span>
                 )}
+                {chat.map((c, i) => this.renderChat(c, i))}
             </TimelineEvent>
+        )
+    }
+
+    renderChat(chat, i) {
+        return (
+            <div key={i}>
+                <PlayerName player={chat.author} /> says, "{chat.message}"
+            </div>
         )
     }
 
@@ -114,6 +145,9 @@ class Highlights extends React.Component {
     renderEvent(event, key) {
         if (event.type == 'fight') {
             return this.renderFight(event.kills, key)
+        }
+        if (event.type == 'level') {
+            return this.renderLevel(event, key)
         }
     }
 

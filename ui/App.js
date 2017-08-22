@@ -17,6 +17,8 @@ const HighlightReel = require('../lib/HighlightReel')
 const debug = require('../debug')
 const GameInProgress = require('./GameInProgress')
 const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
+const ErrorCheck = require('../lib/ErrorCheck')
+const ErrorScreen = require('./ErrorScreen')
 
 class App extends React.Component {
     constructor() {
@@ -28,11 +30,15 @@ class App extends React.Component {
             sidebarOpen: false,
             replay: null,
             configWindow: null,
+            errors: GameIndex.index.length === 0 ? new ErrorCheck().errors : [],
             status: {
                 type: 'DiscordTeaser',
                 message: ''
             }
         }
+
+        this.state.errors = new ErrorCheck().errors
+
 
         this.indexLoadListener = (index) => {
             
@@ -81,6 +87,9 @@ class App extends React.Component {
         }
 
         GameStateWatcher.on('GAME_END', this.loadGameListener)
+    }
+    errorCheck() {
+        this.setState({ erorrs: new ErrorCheck().errors })
     }
     componentDidMount() {
         if (GameIndex.index.length > 0) {
@@ -167,8 +176,6 @@ class App extends React.Component {
                 }
             }
 
-            
-            console.log(item.game)
             this.setState({
                 replay: item,
                 status: {
@@ -182,14 +189,28 @@ class App extends React.Component {
     }
 
     renderContent() {
+
+        if (this.state.errors.length > 0) {
+            return (
+                <div>
+                    <ErrorScreen 
+                        errors={this.state.errors} 
+                        configWindow={(win) => this.setState({configWindow: win})} />
+                    <Config
+                        errorCheck={this.errorCheck.bind(this)}
+                        setStatus={this.setStatus.bind(this)}
+                        window={this.state.configWindow}
+                        configWindow={(win) => this.setState({configWindow: win})} />                                 
+                </div>
+            )
+        }
+
         if (this.state.gameInProgress) {
             return (<div>
                 <StatusBar
                     type={this.state.status.type}
                     message={this.state.status.message}
-                    setStatus={this
-                    .setStatus
-                    .bind(this)}/>
+                    setStatus={this.setStatus.bind(this)}/>
                 <GameInProgress />
             </div>
             )
@@ -201,16 +222,13 @@ class App extends React.Component {
                     <StatusBar
                         type={this.state.status.type}
                         message={this.state.status.message}
-                        setStatus={this
-                        .setStatus
-                        .bind(this)}/>
+                        setStatus={this.setStatus.bind(this)}/>
                     <PatchNotes patch={this.state.patch}/>
                     <Config
-                        setStatus={this
-                        .setStatus
-                        .bind(this)}
+                        errorCheck={this.errorCheck.bind(this)}
+                        setStatus={this.setStatus.bind(this)}
                         window={this.state.configWindow}
-                        configWindow={(win) => this.setState({configWindow: win})}/>
+                        configWindow={(win) => this.setState({configWindow: win})} />
                 </div>
             )
         }
@@ -233,9 +251,8 @@ class App extends React.Component {
                         .setStatus
                         .bind(this)}/>
                     <Config
-                        setStatus={this
-                        .setStatus
-                        .bind(this)}
+                        errorCheck={this.errorCheck.bind(this)}
+                        setStatus={this.setStatus.bind(this)}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})}/>
                 </div>
@@ -248,13 +265,10 @@ class App extends React.Component {
                 <StatusBar
                     type={this.state.status.type}
                     message={this.state.status.message}
-                    setStatus={this
-                    .setStatus
-                    .bind(this)}/>
+                    setStatus={this.setStatus.bind(this)}/>
                 <Config
-                    setStatus={this
-                    .setStatus
-                    .bind(this)}
+                    setStatus={this.setStatus.bind(this)}
+                    errorCheck={this.errorCheck.bind(this)}
                     window={this.state.configWindow}
                     configWindow={(win) => this.setState({configWindow: win})}/>
             </div>
@@ -276,7 +290,7 @@ class App extends React.Component {
 
         return (
             <app>
-                {!this.state.gameInProgress ? <Sidebar
+                {!this.state.gameInProgress && this.state.errors.length === 0 ? <Sidebar
                     open={this.state.sidebarOpen}
                     toggle={toggleSidebar}
                     setStatus={this.setStatus}

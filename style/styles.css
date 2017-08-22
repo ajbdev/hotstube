@@ -28,6 +28,10 @@ p.hint {
     padding-bottom: 0;
 }
 
+p.hint.error {
+    color: #ff0000;
+}
+
 input.inline {
     display: inline-block;
 }

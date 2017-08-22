@@ -106,15 +106,23 @@ game.corrupt svg {
     margin-top: 3rem;
 }
 
+game.corrupt .subdued svg {
+    fill: #555;
+}
+
 game.corrupt h1 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 game.corrupt .reasons {
     width: 465px;
+    background: #222;
+    padding: 1rem;
+    border-radius: 1rem;
     text-align: left;
-    margin: 2rem auto;
+    margin: 1rem auto;
+    margin-top: 0;
 }
 
 player-name {

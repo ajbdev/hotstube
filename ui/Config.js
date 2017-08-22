@@ -2,6 +2,10 @@ const React = require('react')
 const Svg = require('./Svg')
 const ConfigOptions = require('../lib/Config')
 const os = require('os')
+const fs = require('fs')
+const pathResolver = require('path')
+const {dialog} = require('electron').remote
+const recursive = require("recursive-readdir");
 
 class Config extends React.Component {
     constructor(props) {
@@ -24,6 +28,7 @@ class Config extends React.Component {
                     ? <ConfigWindow
                             configWindow={this.props.configWindow}
                             window={this.props.window}
+                            errorCheck={this.props.errorCheck}
                             setStatus={this.props.setStatus}
                             close={() => {
                             this
@@ -42,13 +47,10 @@ class FiltersConfigWindow extends React.Component {
         ConfigOptions.options = this.props.options
         ConfigOptions.save()
 
-        this
-            .props
-            .setStatus('Filters set', {expire: 10000})
+        this.props.setStatus('Filters set', {expire: 10000})
 
-        this
-            .props
-            .close()
+        this.props.close()
+
     }
 
     render() {
@@ -71,6 +73,88 @@ class FiltersConfigWindow extends React.Component {
                     <button className="button" onClick={this.save.bind(this)}>Save</button>
                     <button className="button-link" onClick={this.props.close}>Cancel</button>
                 </footer>
+            </config-window>
+        )
+    }
+}
+
+class DirectoriesConfigWindow extends React.Component {
+
+    save() {
+        ConfigOptions.options = this.props.options
+        ConfigOptions.save()
+
+        this.props.setStatus('Filters set', {expire: 10000})
+
+        this.props.close()
+
+    }
+
+    selectDirectory() {
+        let path = dialog.showOpenDialog({properties: ['openDirectory']})
+
+        if (path) {
+            this.props.handleOption(path[0], 'accountDir')
+        }
+    }
+
+    recursivelySearch(dir) {
+
+        if (!fs.lstatSync(dir).isDirectory()) return dir;
+        
+        return fs.readdirSync(dir).map(f => this.recursivelySearch(pathResolver.join(dir, f)))
+    }
+
+    checkForStormReplay() {
+        if (!fs.existsSync(this.props.options.accountDir)) {
+            return false
+        }
+
+        const flatten = arr => arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatten(val) : val), []);
+  
+        let files = flatten(this.recursivelySearch(this.props.options.accountDir))
+        for (var i in files) {
+            let file = files[i]
+
+            if (pathResolver.extname(file) === '.StormReplay') {
+                console.log('Found stormreplay')
+                return true
+            }
+        }
+        console.log('Did not find stormreplay')
+        return false
+    }
+
+    render() {
+        const hasReplay = this.checkForStormReplay()
+
+        const css = ['input-group']
+
+        if (!hasReplay) {
+            css.push('input-invalid')
+        } else {
+            css.push('input-valid')
+        }
+
+        return (
+            <config-window>
+                <fieldset>
+                    <legend>Game Directories</legend>
+
+                    <label>Replay Directory</label>
+                    <div className={css.join(' ')}>
+                        <input type="text" 
+                            value={this.props.options.accountDir} 
+                            onChange={(evt) => this.props.handleOption(evt.target.value, 'accountDir')} />
+                        <button type="button" className="button" onClick={this.selectDirectory.bind(this)}>Browse</button>
+
+                    </div>
+                    {!hasReplay ? <p className="hint error">No replay files found in this directory or it's subdirectories. Are you sure this is the correct folder?</p> : null}
+                    <footer>
+                        <button className="button" onClick={this.save.bind(this)}>Save</button>
+                        <button className="button-link" onClick={this.props.close}>Cancel</button>
+                    </footer>
+                </fieldset>
             </config-window>
         )
     }
@@ -144,25 +228,19 @@ class ConfigWindow extends React.Component {
             options: ConfigOptions.options
         }
 
-        this.save = this
-            .save
-            .bind(this)
-        this.handleOption = this
-            .handleOption
-            .bind(this)
+        this.save = this.save.bind(this)
+        this.handleOption = this.handleOption.bind(this)
     }
 
     save() {
         ConfigOptions.options = this.state.options
         ConfigOptions.save()
 
-        this
-            .props
-            .setStatus('Settings saved', {expire: 10000})
+        this.props.setStatus('Settings saved', {expire: 10000})
 
-        this
-            .props
-            .close()
+        this.props.close()
+
+        this.props.errorCheck()
     }
 
     handleOption(value, option) {
@@ -211,6 +289,13 @@ class ConfigWindow extends React.Component {
         if (!this.state.options) {
             return null
         }
+        if (this.props.window == 'directories') {
+            return <DirectoriesConfigWindow
+                options={this.state.options}
+                setStatus={this.props.setStatus}
+                handleOption={this.handleOption}
+                close={() => this.props.configWindow(null)}/>
+        }
 
         if (this.props.window == 'filters') {
             return <FiltersConfigWindow
@@ -223,6 +308,7 @@ class ConfigWindow extends React.Component {
         if (this.props.window == 'advanced') {
             return <AdvancedConfigWindow
                 options={this.state.options}
+                errorCheck={this.props.errorCheck}
                 setStatus={this.props.setStatus}
                 handleOption={this.handleOption}
                 close={() => this.props.configWindow('config')}/>

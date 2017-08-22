@@ -5,7 +5,6 @@ const os = require('os')
 const fs = require('fs')
 const pathResolver = require('path')
 const {dialog} = require('electron').remote
-const recursive = require("recursive-readdir");
 
 class Config extends React.Component {
     constructor(props) {

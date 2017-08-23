@@ -3,3 +3,4 @@ node_modules
 *.StormReplay
 *.webm
 dist/*
+out/

@@ -29,7 +29,7 @@ class Game extends React.Component {
     style() {
         if (this.props.replay.game) {
             let file = this.props.replay.game.map.toLowerCase().replace(/[\W]+/g,"");
-            let src = './assets/backgrounds/'+ file + '.png'
+            let src = './assets/backgrounds/'+ file + '.jpeg'
 
             return {
                 backgroundImage: 'url("' + src + '")'

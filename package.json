@@ -1,19 +1,23 @@
 {
   "name": "HotSTube",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "clean": "rm -rf .cache ./dist/*",
     "precompile": "./node_modules/.bin/electron-compile .",
     "package-osx": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=darwin --icon=./assets/icons/logo.icns  --out=dist --overwrite",
     "package-win32": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=win32 --icon=./assets/icons/logo.ico  --out=dist --overwrite",
     "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 patches.json",
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "devDependencies": {
-    "electron": "^1.6.11",
-    "electron-packager": "^8.7.2",
-    "electron-prebuilt-compile": "^1.6.11",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^3.2.0",
+    "electron-prebuilt-compile": "1.7.5",
     "google-spreadsheet-to-json": "^1.0.0"
   },
   "dependencies": {
@@ -26,5 +30,34 @@
     "react-dom": "^15.6.1",
     "react-virtualized": "^9.9.0",
     "rollbar": "^2.2.3"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {},
+      "electronWinstallerConfig": {
+        "name": ""
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": ""
+      }
+    }
   }
 }

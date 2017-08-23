@@ -24,6 +24,7 @@
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-virtualized": "^9.9.0"
+    "react-virtualized": "^9.9.0",
+    "rollbar": "^2.2.3"
   }
 }

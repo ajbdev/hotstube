@@ -20,9 +20,7 @@ class Config extends React.Component {
                     src="cog.svg"
                     className="settings-button"
                     onClick={() => {
-                        this
-                            .props
-                            .configWindow('config')
+                        this.props.configWindow('config')
                 }}/> {!!this.props.window
                     ? <ConfigWindow
                             configWindow={this.props.configWindow}
@@ -30,9 +28,7 @@ class Config extends React.Component {
                             errorCheck={this.props.errorCheck}
                             setStatus={this.props.setStatus}
                             close={() => {
-                            this
-                                .props
-                                .configWindow(null)
+                            this.props.configWindow(null)
                         }}/>
                     : null}
             </config>

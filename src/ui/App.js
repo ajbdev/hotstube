@@ -156,8 +156,6 @@ class App extends React.Component {
                 try {
                     analyzer.analyze(true)
                     item.game = analyzer.game
-                    console.log('Deep analyzed')
-                    console.log(item.game)
                 } catch(ex) {
                     // This replay file is corrupt or incomplete
                     console.log('Could not analyze game: ' + ex)

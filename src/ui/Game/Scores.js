@@ -76,7 +76,8 @@ class Scores extends React.Component {
             'ClutchHealsPerformed': 'Clutch Heals',
             'TeamfightHealingDone': 'Team Fight Healing',
             'TeamfightDamageTaken': 'Team Fight Dmg Taken',
-            'TeamfightHeroDamage': 'Team Fight Hero Dmg'
+            'TeamfightHeroDamage': 'Team Fight Hero Dmg',
+            'TimeCCdEnemyHeroes': 'Time CC\'d Enemry Heroes'
         }
 
         if (map.hasOwnProperty(col)) {

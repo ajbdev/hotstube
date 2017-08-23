@@ -38,7 +38,7 @@ class Scores extends React.Component {
                             <tr>
                                 <th></th>
                                 {game.players.map((p) => 
-                                    <th key={p.id}>
+                                    <th key={p.name}>
                                         <span>
                                             <span className="axis-label">
                                                 {p.name}

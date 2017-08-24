@@ -30,14 +30,21 @@ class App extends React.Component {
             sidebarOpen: false,
             replay: null,
             configWindow: null,
-            errors: GameIndex.index.length === 0 ? new ErrorCheck().errors : [],
             status: {
                 type: 'DiscordTeaser',
                 message: ''
             }
         }
 
-        this.state.errors = new ErrorCheck().errors
+        const errorCheck = new ErrorCheck()
+        this.state.errors = errorCheck.errors
+
+        let self = this;
+        errorCheck.isNewBetaAvailable((result) => {
+            if (result) {
+                self.setState({ errors: errorCheck.errors })
+            }
+        })
 
 
         this.indexLoadListener = (index) => {

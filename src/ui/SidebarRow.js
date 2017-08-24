@@ -48,11 +48,10 @@ class SidebarRow extends React.Component {
     }
 
     renderPatch(patch) {
-        let dateDisplay = this.displayDate(patch.time)
         return (
             <sidebar-row onClick={() => this.props.selectItem(patch)}  class={this.css()}>
                 <div className="summary">{patch.summary}</div>
-                <div className="date">{dateDisplay}</div>
+                <div className="date">{moment(patch.time).format('l')}</div>
             </sidebar-row>
         )
     }

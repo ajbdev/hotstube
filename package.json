@@ -1,12 +1,9 @@
 {
   "name": "HotSTube",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "main": "src/main.js",
   "scripts": {
     "clean": "rm -rf .cache ./dist/*",
-    "precompile": "./node_modules/.bin/electron-compile .",
-    "package-osx": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=darwin --icon=./assets/icons/logo.icns  --out=dist --overwrite",
-    "package-win32": "./node_modules/.bin/electron-packager-compile . HotSTube --platform=win32 --icon=./assets/icons/logo.ico  --out=dist --overwrite",
     "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 patches.json",
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -29,7 +26,8 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-virtualized": "^9.9.0",
-    "rollbar": "^2.2.3"
+    "rollbar": "^2.2.3",
+    "semver": "^5.4.1"
   },
   "config": {
     "forge": {
@@ -45,7 +43,11 @@
           "rpm"
         ]
       },
-      "electronPackagerConfig": {},
+      "electronPackagerConfig": {
+        "asar": true,
+        "protocol": "myapp://",
+        "icon": "./src/assets/icons"
+      },
       "electronWinstallerConfig": {
         "name": ""
       },

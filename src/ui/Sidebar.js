@@ -92,7 +92,7 @@ class Sidebar extends React.Component {
                     summary: patch.summary,
                     url: patch.url,
                     patch: true,
-                    time: (patch.date - 25569) * 86400 * 1000
+                    time: (patch.date - 25569) * 86400 * 1000 + ((new Date()).getTimezoneOffset() + (60*12) * 60 * 1000)
                 })
             })
         }

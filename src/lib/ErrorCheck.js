@@ -2,20 +2,51 @@ const path = require('path')
 const fs = require('fs')
 const ConfigOptions = require('./Config')
 const os = require('os')
+const http = require('http')
+const {app} = require('electron').remote
+const semver = require('semver')
 
 class ErrorCheck {
     constructor() {
 
         this.errors = []
 
-        ConfigOptions.load();
+        ConfigOptions.load()
 
+        const checks = ['isNewBetaAvailable','isPlatformSupported','canFindReplays']
 
-        ['isPlatformSupported','canFindReplays'].map((check) => {
-            if (!this[check]()) {
+        checks.map((check) => {
+            let result = this[check]()
+            if (result === false) {
                 this.errors.push(check)
             }
         })        
+    }
+
+    isNewBetaAvailable(cb = null) {
+        const self = this
+
+        http.get({
+            host: 'hotstube.com',
+            path: '/version.txt'
+        }, (response) => {
+            let latestVersion = ''
+
+            response.on('data', (d) => {
+                latestVersion += d
+            })
+
+            response.on('end', () => {
+                console.log('Latest version is: ' + latestVersion)
+                if (semver.gt(latestVersion, app.getVersion())) {
+                    
+                    self.errors.push('isNewBetaAvailable')
+                    if (cb) { cb(true) }
+                } else {
+                    if (cb) { cb(false) }
+                }
+            })
+        })
     }
 
     isPlatformSupported() {

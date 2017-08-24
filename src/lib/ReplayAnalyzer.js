@@ -65,6 +65,12 @@ class ReplayAnalyzer extends EventEmitter {
         this.emit('GAME_ANALYZED', this.game, this.file)
     }
 
+    clockTime(secondsIn) {
+        // 35 seconds to match the game clock
+        // 3 seconds due to time discrepancy 
+        return secondsIn - 35 - 3
+    }
+
     shallowAnalyze() {
         this.basicInfo()
         this.players()
@@ -101,6 +107,7 @@ class ReplayAnalyzer extends EventEmitter {
                                         return {
                                             team: this.game.players.filter((p) => p.playerId == e.m_intData[0].m_value)[0].team,
                                             time: e._gameloop / 16,
+                                            clockTime: this.clockTime(e._gameloop / 16),
                                             level: e.m_intData[1].m_value
                                         }
                                     }
@@ -115,6 +122,7 @@ class ReplayAnalyzer extends EventEmitter {
         this.game.chats = this.replay.messageEvents().filter((e) => e._event === 'NNet.Game.SChatMessage').map((m) => {
             return {
                 time: m._gameloop / 16,
+                clockTime: this.clockTime(m._gameloop / 16),
                 author: this.game.players.filter((p) => p.playerId == m._userid.m_userId+1)[0],
                 message: m.m_string
             }
@@ -166,7 +174,7 @@ class ReplayAnalyzer extends EventEmitter {
                 killers: killers,
                 primaryKiller: primaryKillerPlayerId,
                 time: secondsIn,
-                gameTime: secondsIn - 35, // Match the in-game clock
+                clockTime: this.clockTime(secondsIn), // Match the in-game clock
                 coordinates: coordinates
             }
         })

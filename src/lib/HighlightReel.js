@@ -59,15 +59,19 @@ class HighlightReel extends EventEmitter {
         Config.load()
 
         let fights = this.analyzer.fightsFor(this.player.name, Config.options.recordAssists)
+        if (!fs.existsSync(this.video)) {
+            console.log('Not yet created')
+            return
+        }
         const clip = new VideoClipMaker(this.video)
         
-        let highlights = 0;
+        let highlights = 0
+        
         fights.map((fight) => {
 
             if (!fight.length) {
                 return false;
             }
-
             const times = fight.map((death) => death.time )
 
             let min = times.reduce((a, b) => Math.min(a, b)); // First death of the fight
@@ -76,7 +80,7 @@ class HighlightReel extends EventEmitter {
 
             // Start the clip a few seconds before the first death in this fight occurs
             if (min > Config.options.recordPrekillSeconds) {
-                min -= Config.options.recordPrekillSeconds;
+                min -= Config.options.recordPrekillSeconds
             }
 
             // Record the clip until the last death in the fight

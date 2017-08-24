@@ -28,7 +28,7 @@ class Highlights extends React.Component {
         fights.map((fight) => {
             if (fight.length > 0) {
                 timeline.push({
-                    time: fight[0].gameTime,
+                    time: fight[0].clockTime,
                     type: 'fight',
                     kills: fight
                  })
@@ -64,7 +64,7 @@ class Highlights extends React.Component {
 
         return (
             <TimelineMarker type="hash" key={key}>
-                <b>{this.time(level.time)}</b> <span className={level.team}>{team}</span> hits level {level.level}
+                <b>{this.time(level.clockTime)}</b> <span className={level.team}>{team}</span> hits level {level.level}
             </TimelineMarker>
         )
     }
@@ -85,7 +85,7 @@ class Highlights extends React.Component {
         if (key == 0 && kills.length == 1) {
             let kill = kills[0]
             return (
-                <TimelineEvent at={this.time(kill.gameTime)} icon="firstblood" key={key}>
+                <TimelineEvent at={this.time(kill.clockTime)} icon="firstblood" key={key}>
                     <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     <PlayerName player={this.killer(kill)} /> drew first blood on <PlayerName player={kill.victim} />
                     {chat.map((c, i) => this.renderChat(c, i))}
@@ -96,7 +96,7 @@ class Highlights extends React.Component {
         if (kills.length == 1) {
             let kill = kills[0]
             return (
-                <TimelineEvent at={this.time(kill.gameTime)} icon="death" key={key}>
+                <TimelineEvent at={this.time(kill.clockTime)} icon="death" key={key}>
                     <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
                     {this.renderKill(kill)}
                     {chat.map((c, i) => this.renderChat(c, i))}
@@ -105,7 +105,7 @@ class Highlights extends React.Component {
         }
         
         return (
-            <TimelineEvent at={this.time(kills[0].gameTime)} icon="fight" key={key}>
+            <TimelineEvent at={this.time(kills[0].clockTime)} icon="fight" key={key}>
                 <HighlightClip at={this.time(kills[0].time, '.')} {...clipAttrs} />
                 {kills.map((kill, ix) => 
                     <span key={ix}>

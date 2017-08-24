@@ -24,7 +24,8 @@ GameStateWatcher.watch().on('GAME_START', () => {
     createHighlightReel()
 }).on('STORMSAVE_CREATED', (path) => {
     // Currently this indicates the 90 second mark
-    gameInitializedAt = GameStateWatcher.gameSeconds - 90
+    // We subtract the six additional seconds to sync with the video recorder start time
+    gameInitializedAt = GameStateWatcher.gameSeconds - 90 - 3
     console.log('Game initialized at: ' + gameInitializedAt)
 })
 

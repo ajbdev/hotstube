@@ -5,7 +5,7 @@ const os = require('os');
 class VideoClipMaker {
     constructor(video) {
         this.video = video
-        const bin = os.platform() == 'win32' ? '../bin/ffmpeg.exe' : '../bin/ffmpeg'
+        const bin = os.platform() == 'win32' ? '../../bin/ffmpeg.exe' : '../../bin/ffmpeg'
         this.ffmpeg = pathResolver.join(__dirname, bin)
     }
 

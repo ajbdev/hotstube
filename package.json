@@ -2,6 +2,8 @@
   "name": "HotSTube",
   "version": "0.1.1",
   "main": "src/main.js",
+  "author": "Andy Baird <andybaird@gmail.com>",
+  "description": "Game recording, highlight reel, and scores for Heroes of the Storm",
   "scripts": {
     "clean": "rm -rf .cache ./dist/*",
     "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 patches.json",
@@ -49,7 +51,7 @@
         "icon": "./src/assets/icons"
       },
       "electronWinstallerConfig": {
-        "name": ""
+        "name": "HotSTube"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},

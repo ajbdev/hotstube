@@ -312,11 +312,13 @@ class HighlightClip extends React.Component {
         }
 
         if (fs.existsSync(path)) {
+            const videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(path)).toString('base64')
+            
             return (
                 <span>
                     <highlight-reel onClick={this.toggleVideo.bind(this)}>
                         {!this.state.playing ? <video-controls></video-controls> : null}
-                        <video src={'file:///' +path} {...attrs} />
+                        <video {...attrs} src={videoData} />
                     </highlight-reel>
                     <Svg src="download.svg" onClick={() => this.save(path)} className="video-download" />
                 </span>

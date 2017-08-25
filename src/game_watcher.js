@@ -30,11 +30,11 @@ GameStateWatcher.watch().on('GAME_START', () => {
 })
 
 GameRecorder.on('VIDEO_SAVED', (path) => {
-    sourceVideoFile = pathResolver.resolve(path)
+    let sourceVideoFile = pathResolver.resolve(path)
     
     console.log('Caught video ' + sourceVideoFile)
 
-    clip = new VideoClipMaker(sourceVideoFile)
+    const clip = new VideoClipMaker(sourceVideoFile)
 
     if (!replayFile) {
         console.log('No replay file found')
@@ -42,10 +42,10 @@ GameRecorder.on('VIDEO_SAVED', (path) => {
     }
 
     // Remove the initial loading screen so the game timer matches the replay closely
-    clippedVideoFileName = pathResolver.win32.basename(replayFile)
+    const clippedVideoFileName = pathResolver.win32.basename(replayFile)
 
     Config.load()
-    videoFilePath = Config.highlightsSavePath(clippedVideoFileName)
+    const videoFilePath = Config.highlightsSavePath(clippedVideoFileName)
 
     videoFile = clip.make(videoFilePath, gameInitializedAt)
 
@@ -67,7 +67,7 @@ const createHighlightReel = function() {
     }
     console.log('Starting highlight reel')
 
-    reel = new HighlightReel(replayFile, videoFile)
+    let reel = new HighlightReel(replayFile, videoFile)
     reel.create()
 }
 

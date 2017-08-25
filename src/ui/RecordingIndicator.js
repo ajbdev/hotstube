@@ -1,4 +1,4 @@
-const React = require('React')
+const React = require('react')
 
 const GameRecorder = require('../lib/GameRecorder')
 const Svg = require('./Svg')

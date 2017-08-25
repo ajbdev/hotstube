@@ -104,6 +104,14 @@ class HighlightReel extends EventEmitter {
         })
 
         console.log(highlights + ' different highlights found and clipped')
+        
+        fs.unlink(this.video, (err) => {
+            if (err) {
+                console.log('Could not delete video: ' + err)
+            } else {
+                console.log('Deleted ' + this.video)
+            }
+        })
     }
 }
 

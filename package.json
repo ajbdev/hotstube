@@ -7,15 +7,25 @@
   "scripts": {
     "clean": "rm -rf .cache ./dist/*",
     "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 patches.json",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
+  "build": {
+    "appId": "hotstube",
+    "asar": {
+      "smartUnpack": true
+    },
+    "mac": {
+      "category": "public.app-category.games"
+    }
+  },
+  "postinstall": "electron-builder install-app-deps",
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
-    "electron-forge": "^3.2.0",
+    "electron-builder": "^19.24.1",
     "electron-prebuilt-compile": "1.7.5",
     "google-spreadsheet-to-json": "^1.0.0"
   },
@@ -30,38 +40,5 @@
     "react-virtualized": "^9.9.0",
     "rollbar": "^2.2.3",
     "semver": "^5.4.1"
-  },
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "asar": true,
-        "protocol": "myapp://",
-        "icon": "./src/assets/icons"
-      },
-      "electronWinstallerConfig": {
-        "name": "HotSTube"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "",
-        "name": ""
-      },
-      "windowsStoreConfig": {
-        "packageName": ""
-      }
-    }
   }
 }

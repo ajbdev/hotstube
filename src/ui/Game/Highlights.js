@@ -316,7 +316,7 @@ class HighlightClip extends React.Component {
                 <span>
                     <highlight-reel onClick={this.toggleVideo.bind(this)}>
                         {!this.state.playing ? <video-controls></video-controls> : null}
-                        <video src={path} {...attrs} />
+                        <video src={'file:///' +path} {...attrs} />
                     </highlight-reel>
                     <Svg src="download.svg" onClick={() => this.save(path)} className="video-download" />
                 </span>

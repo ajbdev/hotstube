@@ -66,7 +66,6 @@ class Config extends EventEmitter {
     load() {
         this.options = this.defaults()
         const path = this.filePath()
-        console.log(path)
 
         if (fs.existsSync(path)) {
             this.options = Object.assign(this.options, JSON.parse(fs.readFileSync(path, 'utf8')))

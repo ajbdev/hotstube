@@ -85,7 +85,7 @@ class GameRecorder extends EventEmitter {
     }
 
     stopRecording() {
-        if (!this.recording) {
+        if (!this.recording || !this.recorder) {
             return
         }
         this.recorder.stop()

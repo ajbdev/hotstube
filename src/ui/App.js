@@ -85,12 +85,15 @@ class App extends React.Component {
         this.loadGameListener = (file) => {
             const self = this
 
-            this.setState({
-                gameInProgress: false,
-            }, () => {
-                GameIndex.load()
-                self.loadItem(GameIndex.index[0])
-            })
+            // Wait 5 seconds to give highlight reel time to finish up
+            setTimeout(() => {
+                self.setState({
+                    gameInProgress: false,
+                }, () => {
+                    GameIndex.load()
+                    self.loadItem(GameIndex.index[0])
+                })
+            }, 5000)
         }
 
         GameStateWatcher.on('GAME_END', this.loadGameListener)

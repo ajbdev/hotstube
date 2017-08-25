@@ -1,5 +1,4 @@
 splash-screen {
-    padding: 1.6rem;
     position: absolute;
     right: 0;
     left: 0;
@@ -9,9 +8,9 @@ splash-screen {
 }
 
 splash-screen .logo {
-    width: 24rem;
-    height: 16rem;
+    width: 14rem;
     display: inline-block;
+    margin-bottom: 1rem;
 }
 
 video-toolbar {
@@ -19,4 +18,14 @@ video-toolbar {
     width: 24rem;
     margin: 0 auto;
     text-align: left;
+}
+
+splash-screen .instructions {
+    width: 500px;
+    margin: 0 auto;
+    background: #222;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 13px;
 }

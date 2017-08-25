@@ -51,7 +51,8 @@ class Config extends EventEmitter {
             recordPrekillSeconds: 6,
             recordMinimumSeconds: 10,
             fullVideoControls: false,
-            showPatches: true
+            showPatches: true,
+            welcomeScreen: true
         }
     }
 
@@ -65,6 +66,7 @@ class Config extends EventEmitter {
     load() {
         this.options = this.defaults()
         const path = this.filePath()
+        console.log(path)
 
         if (fs.existsSync(path)) {
             this.options = Object.assign(this.options, JSON.parse(fs.readFileSync(path, 'utf8')))

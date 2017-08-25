@@ -99,7 +99,9 @@ class App extends React.Component {
         this.setState({ erorrs: new ErrorCheck().errors })
     }
     componentDidMount() {
-        if (GameIndex.index.length > 0) {
+        ConfigOptions.load()
+
+        if (GameIndex.index.length > 0 && !ConfigOptions.options.welcomeScreen) {
             this.loadItem(GameIndex.index[0])
         }
     }

@@ -279,6 +279,11 @@ class AdvancedConfigWindow extends React.Component {
         )
     }
     clearReplayCache() {
+        if (!confirm('Are you sure you want to clear the replay cache?')) {
+            return
+        }
+
+
         localStorage.clear()
         this.props.setStatus('Replay cache cleared')
     }

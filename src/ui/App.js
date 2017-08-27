@@ -100,7 +100,7 @@ class App extends React.Component {
         GameStateWatcher.on('GAME_END', this.loadGameListener)
     }
     errorCheck() {
-        this.setState({ erorrs: new ErrorCheck().errors })
+        this.setState({ errors: new ErrorCheck().errors })
     }
     componentDidMount() {
         ConfigOptions.load()

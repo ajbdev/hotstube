@@ -4,6 +4,7 @@ const ConfigOptions = require('../lib/Config')
 const os = require('os')
 const fs = require('fs')
 const pathResolver = require('path')
+const HighlightDir = require('../lib/HighlightDir')
 const {dialog} = require('electron').remote
 
 class Config extends React.Component {
@@ -142,7 +143,6 @@ class DirectoriesConfigWindow extends React.Component {
                             value={this.props.options.accountDir} 
                             onChange={(evt) => this.props.handleOption(evt.target.value, 'accountDir')} />
                         <button type="button" className="button" onClick={this.selectDirectory.bind(this)}>Browse</button>
-
                     </div>
                     {!hasReplay ? <p className="hint error">No replay files found in this directory or it's subdirectories. Are you sure this is the correct folder?</p> : null}
                     <footer>
@@ -156,6 +156,46 @@ class DirectoriesConfigWindow extends React.Component {
 }
 
 class AdvancedConfigWindow extends React.Component {
+    constructor() {
+        super()
+        this.state = {}
+    }
+    componentDidMount() {
+        this.diskUsage()
+    }
+    
+    pruneHighlights() {
+        const highlightDir = new HighlightDir(this.props.options.highlightDir)
+        highlightDir.prune(this.props.options.highlightLifetimeDays)
+        this.diskUsage()
+    }
+    diskUsage() {
+        const highlightDir = new HighlightDir(this.props.options.highlightDir)
+        const total = this.humanizeSize(highlightDir.size())
+        const pruneSize =this.humanizeSize(highlightDir.size(highlightDir.findOlderThan(this.props.options.highlightLifetimeDays)))
+
+
+        this.setState({
+            totalDiskUsage: total,
+            pruneSize: pruneSize,
+        })
+    }
+    humanizeSize(bytes) {
+        let i = Math.floor(Math.log(bytes) / Math.log(1024));
+        return !bytes && '0 Bytes' || (bytes / Math.pow(1024, i)).toFixed(2) + " " + ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][i]   
+    }
+
+    selectDirectory() {
+        let path = dialog.showOpenDialog({properties: ['openDirectory'], defaultPath: this.props.options.highlightDir })
+
+        if (path) {
+            this.props.handleOption(path[0], 'highlightDir')
+        }
+    }
+    changeHighlightLifetimeDays(evt) {
+        this.props.handleOption(evt.target.value, 'highlightLifetimeDays')
+        this.diskUsage()
+    }
     render() {
         return (
             <config-window>
@@ -200,6 +240,37 @@ class AdvancedConfigWindow extends React.Component {
                     <br/>
                 </fieldset>
 
+                <fieldset>
+                    <legend>Video Storage Options</legend>
+                    
+                    <label>Directory</label>
+                    <div className="input-group">
+                        <input type="text" 
+                            value={this.props.options.highlightDir} 
+                            onChange={(evt) => this.props.handleOption(evt.target.value, 'highlightDir')} />
+                        <button type="button" className="button" onClick={this.selectDirectory.bind(this)}>Browse</button>
+                    </div>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={this.props.options.deleteHighlights}
+                            onChange={(evt) => this.props.handleOption(!this.props.options.deleteHighlights, 'deleteHighlights')}/>
+                        Delete highlights older than
+                        <input
+                            type="number"
+                            onChange={this.changeHighlightLifetimeDays.bind(this)}
+                            className="inline"
+                            value={this.props.options.highlightLifetimeDays}/>
+                        days
+                    </label><br/>
+
+                    <p className="hint-sub">
+                        Current disk usage: {this.state.totalDiskUsage}
+                        {this.props.options.deleteHighlights && this.state.pruneSize !== '0 Bytes' ? <span> (<a onClick={this.pruneHighlights.bind(this)}>Prune Now</a> to save {this.state.pruneSize})</span>: null}
+                    </p>
+                </fieldset>
+
                 <footer>
                     <button className="button-link" onClick={this.props.close}>Close</button>
                     <a className="float-right button-link-tertiary" onClick={this.clearReplayCache.bind(this)}>Clear Replay Cache</a>
@@ -223,10 +294,15 @@ class ConfigWindow extends React.Component {
             options: ConfigOptions.options
         }
 
-        this.save = this.save.bind(this)
         this.handleOption = this.handleOption.bind(this)
     }
 
+
+    cancel() {
+        ConfigOptions.load()
+
+        this.props.close()
+    }
     save() {
         ConfigOptions.options = this.state.options
         ConfigOptions.save()
@@ -351,8 +427,8 @@ class ConfigWindow extends React.Component {
                 </fieldset>
 
                 <footer>
-                    <button className="button" onClick={this.save}>Save</button>
-                    <button className="button-link" onClick={this.props.close}>Cancel</button>
+                    <button className="button" onClick={this.save.bind(this)}>Save</button>
+                    <button className="button-link" onClick={this.cancel.bind(this)}>Cancel</button>
 
                     <a
                         className="float-right button-link-tertiary"

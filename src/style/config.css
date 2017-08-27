@@ -42,3 +42,7 @@ config-window footer {
     left: 1rem;
     right: 1rem;
 }
+
+p.hint-sub {
+    color: #777;
+}

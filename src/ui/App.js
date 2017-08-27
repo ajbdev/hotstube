@@ -19,6 +19,7 @@ const GameInProgress = require('./GameInProgress')
 const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 const ErrorCheck = require('../lib/ErrorCheck')
 const ErrorScreen = require('./ErrorScreen')
+const HighlightDir = require('../lib/HighlightDir')
 
 class App extends React.Component {
     constructor() {
@@ -107,6 +108,8 @@ class App extends React.Component {
         if (GameIndex.index.length > 0 && !ConfigOptions.options.welcomeScreen) {
             this.loadItem(GameIndex.index[0])
         }
+        const highlightDir = new HighlightDir(ConfigOptions.options.highlightDir)
+        highlightDir.prune(ConfigOptions.options.highlightLifetimeDays)
     }
 
     componentWillUnmount() {

@@ -1,4 +1,3 @@
-
 const app = require('electron').remote.app
 const path = require('path')
 const {EventEmitter} = require('events')
@@ -33,7 +32,7 @@ class Config extends EventEmitter {
     }
     
     highlightsSavePath(file = '') {
-        let fullPath = path.join(app.getPath('videos'),'HotSTube')
+        let fullPath = this.options.highlightDir
 
         if (!fs.existsSync(fullPath)) {
             fs.mkdirSync(fullPath)
@@ -42,13 +41,20 @@ class Config extends EventEmitter {
         return path.join(fullPath, file)
     }
 
+    defaultHighlightPath() {
+        return path.join(app.getPath('videos'),'HotSTube')
+    }
+
     defaults() {
         return {
             accountDir: path.join(...this.getGamePaths().account),
             resolution: "480p",
             sound: "off",
+            highlightLifetimeDays: 7,
+            deleteHighlights: true,
             recordAssists: true,
             recordPrekillSeconds: 6,
+            highlightDir: this.defaultHighlightPath(),
             recordMinimumSeconds: 10,
             fullVideoControls: false,
             showPatches: true,
@@ -59,8 +65,19 @@ class Config extends EventEmitter {
     save() {
         const path = this.filePath()
 
+        this.setWorkingPaths()
         fs.writeFileSync(path, JSON.stringify(this.options), 'utf8')
         this.emit('CONFIG_SAVED', this.options)
+    }
+
+    setWorkingPaths() {
+        if (!fs.existsSync(this.options.accountDir)) {
+            this.options.accountDir = this.defaults().accountDir
+        }
+
+        if (!fs.existsSync(this.options.highlightDir)) {
+            this.options.highlightDir = this.defaults().highlightDir
+        }
     }
 
     load() {
@@ -70,10 +87,7 @@ class Config extends EventEmitter {
         if (fs.existsSync(path)) {
             this.options = Object.assign(this.options, JSON.parse(fs.readFileSync(path, 'utf8')))
 
-            if (!fs.existsSync(this.options.accountDir)) {
-                this.options.accountDir = this.defaults().accountDir
-            }
-
+            this.setWorkingPaths()
             this.emit('CONFIG_LOADED', this.options)
         }
     }

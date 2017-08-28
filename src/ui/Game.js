@@ -9,6 +9,7 @@ const Time = require('./Time')
 const pathResolver = require('path')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
+const ShareHighlightsModal = require('./Game/ShareHighlightsModal')
 
 class Game extends React.Component {
     constructor(props) {
@@ -98,6 +99,9 @@ class Game extends React.Component {
              this.setState({ headerMenuOpen: false })
          }
     }
+    share() {
+        this.setState({ sharing: true })
+    }
     render() {
         if (!this.props.replay) {
             return null
@@ -130,7 +134,7 @@ class Game extends React.Component {
             <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
                 <header>
                     <h1>{game.map}</h1>
-
+                    {this.state.sharing ? <ShareHighlightsModal replay={this.props.replay} close={() => this.setState({ sharing: false })} /> : null}
                     {player.name} as <HeroPortrait class="small" hero={player.hero} /> {player.hero} for <Time seconds={game.time} />
                     <div className="actions">
                         <div className={dropdownCss.join(' ')}>
@@ -138,6 +142,7 @@ class Game extends React.Component {
                                 &bull;&bull;&bull;
                             </button>
                             <div className="dropdown-menu">
+                                <a onClick={this.share.bind(this)}>Share Highlights</a>
                                 <a onClick={this.export.bind(this)}>Export data</a>
                                 <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
                             </div>

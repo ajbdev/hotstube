@@ -15,7 +15,7 @@ class HighlightDir {
         return this.files        
     }
 
-    deleteEmptyDirectories(dir) {
+    deleteEmptyDirectories(dir, root = false) {
         if (!fs.statSync(dir).isDirectory()) {
             return
         }
@@ -30,8 +30,7 @@ class HighlightDir {
         files = fs.readdirSync(dir)
         
 
-        if (files.length == 0) {
-            console.log("Deleting folder ", dir);
+        if (files.length == 0 && !root) {
             fs.rmdirSync(dir);
             return;
         }
@@ -59,7 +58,7 @@ class HighlightDir {
                 }
             })
         })
-        this.deleteEmptyDirectories(this.dir)
+        this.deleteEmptyDirectories(this.dir, true)
     }
 
     findOlderThan(days) {
@@ -69,7 +68,7 @@ class HighlightDir {
         return this.allFiles().filter((file) => {
             let fileDate = fs.statSync(file).ctime
 
-            return fileDate > timeAgo
+            return fileDate < timeAgo
         })
     }
 }

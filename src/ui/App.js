@@ -20,6 +20,8 @@ const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 const ErrorCheck = require('../lib/ErrorCheck')
 const ErrorScreen = require('./ErrorScreen')
 const HighlightDir = require('../lib/HighlightDir')
+const app = require('electron').remote.app
+
 
 class App extends React.Component {
     constructor() {
@@ -94,7 +96,7 @@ class App extends React.Component {
                     GameIndex.load()
                     self.loadItem(GameIndex.index[0])
                 })
-            }, 5000)
+            }, 10000)
         }
 
         GameStateWatcher.on('GAME_END', this.loadGameListener)
@@ -108,15 +110,22 @@ class App extends React.Component {
         if (GameIndex.index.length > 0 && !ConfigOptions.options.welcomeScreen) {
             this.loadItem(GameIndex.index[0])
         }
-        const highlightDir = new HighlightDir(ConfigOptions.options.highlightDir)
-        highlightDir.prune(ConfigOptions.options.highlightLifetimeDays)
+        
+        this.pruneWorker = new Worker('./prune_worker.js')
+        this.pruneWorker.postMessage([ConfigOptions.options.highlightDir, ConfigOptions.options.highlightLifetimeDays])
+
+        this.pruneOnQuitListener = () => {        
+            this.pruneWorker.postMessage([ConfigOptions.options.highlightDir, ConfigOptions.options.highlightLifetimeDays])
+        }
+        app.on('will-quit', this.pruneOnQuitListener)
     }
 
     componentWillUnmount() {
-        GameIndex.removeListeneron('INDEX_LOADED', this.indexLoadListener)
+        GameIndex.removeListener('INDEX_LOADED', this.indexLoadListener)
         GameStateWatcher.removeListener('GAME_END', this.loadGameListener)
         GameStateWatcher.removeListener('GAME_START', this.gameInProgressListener)
         GameRecorder.removeListener('RECORDER_START', this.recordingListener)
+        app.removeListener('will-quit', this.pruneOnQuitListener)
     }
     
     deleteReplay(replay) {

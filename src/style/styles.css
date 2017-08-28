@@ -41,3 +41,21 @@ input[type=number].inline {
     height: 1.6rem;
     font-size: 14px;
 }
+
+backdrop {
+    z-index: 11;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(35,35,35,.4)
+}
+
+modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: #fff;
+    z-index: 12;
+}

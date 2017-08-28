@@ -22,7 +22,7 @@ game header .time {
 
 game header .actions {
     position: absolute;
-    right: 6rem;
+    right: 7.2rem;
     top: 3rem;
 }
 
@@ -188,4 +188,17 @@ video-controls:after {
 
 .video-download svg:hover {
     color: #dadada;
+}
+
+share-highlights-modal modal {   
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: center;
+}
+share-highlights-modal .progress {
+    height: 1rem;
 }

@@ -77,7 +77,7 @@ class Sidebar extends React.Component {
     
     componentWillUnmount() {
         GameIndex.removeListener('INDEX_LOADED', this.refreshIndexListener)
-        GameIndex.removeListener('CONFIG_SAVED', this.reloadConfigListener)
+        ConfigOptions.removeListener('CONFIG_SAVED', this.reloadConfigListener)
     }
 
     index() {

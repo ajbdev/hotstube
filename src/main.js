@@ -7,6 +7,7 @@ const BrowserWindow = electron.BrowserWindow
 const Tray = electron.Tray
 const path = require('path')
 const url = require('url')
+const HighlightDir = require('./lib/HighlightDir')
 const ELECTRON_ENV = require('./env')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -60,7 +61,7 @@ app.setName('HotSTube')
 
 app.on('ready', createWindow)
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed',  () => {
   app.quit()
 })
 

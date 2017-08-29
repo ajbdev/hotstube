@@ -16,6 +16,9 @@ let playerId = null;
 
 GameStateWatcher.watch().on('GAME_START', () => { 
     GameRecorder.startRecording()
+}).on('GAME_IS_RUNNING', () => {
+    console.log('Game is already started')
+    GameRecorder.startRecording()
 }).on('GAME_END', (path) => {
     console.log('Game end caught')
     replayFile = pathResolver.resolve(path)

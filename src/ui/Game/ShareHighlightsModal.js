@@ -1,6 +1,6 @@
 const React = require('react')
 const HighlightReel = require('../../lib/HighlightReel')
-const ShareHighlights = require('../../lib/ShareHighlights')
+const ShareHighlight = require('../../lib/ShareHighlight')
 const pathResolver = require('path')
 
 class ShareHighlightsModal extends React.Component { 

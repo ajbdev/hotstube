@@ -4,6 +4,7 @@ const chokidar = require('chokidar')
 const {EventEmitter} = require('events')
 const pathResolver = require('path')
 const Config = require('./Config')
+const glob = require('glob')
 
 class GameStateWatcher extends EventEmitter {
     constructor() {
@@ -80,6 +81,14 @@ class GameStateWatcher extends EventEmitter {
         });
     }
 
+    isGameRunning() {
+        glob(this.battleLobbyDir + '/**/replay.tracker.events', (err, files) => {
+            if (files.length > 0) {
+                this.emit('GAME_IS_RUNNING')
+            }
+        })
+    }
+
     setupBattleLobbyWatcher(battleLobbyDir) {
 
         this.log('Watching ' + battleLobbyDir)
@@ -107,8 +116,9 @@ class GameStateWatcher extends EventEmitter {
     }
 
     watch() {
-        this.setupReplayFolderWatcher(this.accountDir);
-        this.setupBattleLobbyWatcher(this.battleLobbyDir);
+        this.setupReplayFolderWatcher(this.accountDir)
+        this.setupBattleLobbyWatcher(this.battleLobbyDir)
+        this.isGameRunning()
 
         return this
     }

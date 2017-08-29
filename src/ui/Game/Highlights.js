@@ -9,8 +9,13 @@ const ConfigOptions = require('../../lib/Config')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
 const Svg = require('../Svg')
+const ShareHighlightsModal = require('./ShareHighlightsModal')
 
 class Highlights extends React.Component { 
+    constructor() {
+        super()
+        this.state = { sharing: false }
+    }
 
     time(seconds, seperator = ':') {
         if (seconds < 0) {
@@ -169,6 +174,7 @@ class Highlights extends React.Component {
 
         return (
             <tab-content>
+                {this.state.sharing ? <ShareHighlightsModal replay={this.props.replay} close={() => this.setState({ sharing: false })} /> : null}
                 <div className="timeline">
                     <Timeline>
                         {timeline.length > 0 ? 

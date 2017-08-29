@@ -47,7 +47,7 @@ class GfycatApi {
             url: this.apiUrl + path,
             method: method,
             headers: {
-                'accept': 'application/json'
+                'Accept-Encoding': 'gzip,deflate'
             }
         },options)
 

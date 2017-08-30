@@ -176,23 +176,25 @@ video-controls:after {
     border-color: transparent transparent transparent rgba(200,200,200,.8)
 }
 
-.video-download svg {
+.video-options {
+    float: right;
+}
+
+.video-options svg {
     width: 1rem;
     height: 1rem;
     fill: #ccc;
     position: static;
     margin: 0;
-    float: right;
     cursor: pointer;
 } 
 
-.video-download svg:hover {
+.video-options svg:hover {
     color: #dadada;
 }
 
 share-highlights-modal modal {   
     width: 200px;
-    height: 200px;
     margin-top: -100px;
     margin-left: -100px;
     border-radius: 1rem;
@@ -201,4 +203,5 @@ share-highlights-modal modal {
 }
 share-highlights-modal .progress {
     height: 1rem;
+    margin-bottom: 0;
 }

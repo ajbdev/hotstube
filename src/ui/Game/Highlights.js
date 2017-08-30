@@ -231,9 +231,10 @@ class HighlightClip extends React.Component {
     constructor() {
         super()
 
-        this.state = { playing: false }
+        this.state = { playing: false, sharing: false }
 
         this.videoBinded = false
+        this.bufferedVideo = null
     }
     bindVideoEvents() {
         this.video.onplaying = () => {
@@ -301,6 +302,18 @@ class HighlightClip extends React.Component {
         })
     }
 
+    getBufferedVideo(path) {
+        if (this.bufferedVideo === null) {
+            this.bufferedVideo = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(path)).toString('base64')
+        }
+
+        return this.bufferedVideo
+    }
+
+    share() {
+        this.setState({ sharing: true })
+    }
+
     render() {
         let at = this.props.at
 
@@ -318,15 +331,19 @@ class HighlightClip extends React.Component {
         }
 
         if (fs.existsSync(path)) {
-            const videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(path)).toString('base64')
+            const videoData = this.getBufferedVideo(path)
             
             return (
                 <span>
+                    {this.state.sharing ? <ShareHighlightsModal highlight={path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
                     <highlight-reel onClick={this.toggleVideo.bind(this)}>
-                        {!this.state.playing ? <video-controls></video-controls> : null}
+                        {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
                         <video {...attrs} src={videoData} />
                     </highlight-reel>
-                    <Svg src="download.svg" onClick={() => this.save(path)} className="video-download" />
+                    <div className="video-options">
+                        {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(path)} /> : null}
+                        <Svg src="share-square.svg" onClick={this.share.bind(this)} />
+                    </div>
                 </span>
             )
         }

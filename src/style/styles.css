@@ -44,7 +44,7 @@ input[type=number].inline {
 
 backdrop {
     z-index: 11;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -53,7 +53,7 @@ backdrop {
 }
 
 modal {
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     background: #fff;

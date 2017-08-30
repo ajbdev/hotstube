@@ -1,7 +1,8 @@
 const React = require('react')
 const HighlightReel = require('../../lib/HighlightReel')
-const ShareHighlight = require('../../lib/ShareHighlight')
+const Streamable = require('../../lib/Streamable')
 const pathResolver = require('path')
+const { shell } = require('electron')
 
 class ShareHighlightsModal extends React.Component { 
     constructor() {
@@ -9,9 +10,17 @@ class ShareHighlightsModal extends React.Component {
 
     }
     componentDidMount() {
-        let path = HighlightReel.getSavePath(this.props.replay.accountId, this.props.replay.heroId, pathResolver.basename(this.props.replay.name,'.StormReplay'))
+        console.log('Uploading ' + this.props.highlight)
+
+        const streamable = new Streamable(this.props.title, this.props.highlight)
         
-        const shareHighlights = new ShareHighlights(path)
+        let self = this
+        streamable.upload((url) => {
+            if (url) {
+                shell.openExternal(url)
+            }
+            self.props.close() 
+        })
     }
     render() {
         return (

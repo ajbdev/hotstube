@@ -1,6 +1,6 @@
 {
   "name": "HotSTube",
-  "version": "0.1.5",
+  "version": "0.2.1",
   "main": "src/main.js",
   "author": "Andy Baird <andybaird@gmail.com>",
   "description": "Game recording, highlight reel, and scores for Heroes of the Storm",

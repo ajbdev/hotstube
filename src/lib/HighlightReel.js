@@ -7,6 +7,7 @@ const app = require('electron').remote.app
 const path = require('path')
 const Config = require('./Config')
 const fs = require('fs')
+const glob = require('glob')
 
 class HighlightReel extends EventEmitter {
     constructor(replay, video) {
@@ -36,6 +37,12 @@ class HighlightReel extends EventEmitter {
 
         this.emit('Game analyzed', this.analyzer)
         console.log('Game analyzed')
+    }
+    
+    static hasHighlightsCreated(accountId, heroId, replayName) {
+        const path = this.getSavePath(accountId, heroId, replayName)
+
+        return glob.sync(pathResolver.join(path,"*.webm")).length > 0
     }
 
     static getSavePath(accountId, heroId, replayName) {
@@ -105,13 +112,15 @@ class HighlightReel extends EventEmitter {
 
         console.log(highlights + ' different highlights found and clipped')
         
-        fs.unlink(this.video, (err) => {
-            if (err) {
-                console.log('Could not delete video: ' + err)
-            } else {
-                console.log('Deleted ' + this.video)
-            }
-        })
+        if (Config.options.deleteTemporaryVideos) {
+            fs.unlink(this.video, (err) => {
+                if (err) {
+                    console.log('Could not delete video: ' + err)
+                } else {
+                    console.log('Deleted ' + this.video)
+                }
+            })
+        }
     }
 }
 

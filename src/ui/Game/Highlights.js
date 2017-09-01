@@ -231,7 +231,7 @@ class HighlightClip extends React.Component {
     constructor() {
         super()
 
-        this.state = { playing: false, sharing: false }
+        this.state = { playing: false, sharing: false, video: null }
 
         this.videoBinded = false
         this.bufferedVideo = null
@@ -302,24 +302,54 @@ class HighlightClip extends React.Component {
         })
     }
 
-    getBufferedVideo(path) {
-        if (this.bufferedVideo === null) {
-            this.bufferedVideo = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(path)).toString('base64')
+    componentDidMount() {
+        this.loadVideoToTmpPath()
+    }
+
+    loadVideoToTmpPath() {
+        
+        let at = this.props.at
+        
+        let path = HighlightReel.getSavePath(this.props.accountId, this.props.heroId, pathResolver.basename(this.props.replay,'.StormReplay'))
+
+        path = pathResolver.join(path, at + '.webm')
+
+        if (!fs.existsSync(path)) {
+            return
+        }
+        
+        const tmpPath = pathResolver.join(app.getPath('userData'), pathResolver.basename(path))
+
+        if (fs.existsSync(tmpPath)) {
+            this.setState({
+                video: tmpPath
+            })
+
+            return
         }
 
-        return this.bufferedVideo
+        let readStream = fs.createReadStream(path)
+        let writeStream = fs.createWriteStream(tmpPath)
+
+        const self = this
+        writeStream.once('finish', () => {
+            self.setState({
+                video: tmpPath
+            })
+        })
+        
+        readStream.pipe(writeStream)
+
     }
 
     share() {
         this.setState({ sharing: true })
     }
 
-    render() {
-        let at = this.props.at
-
-        let path = HighlightReel.getSavePath(this.props.accountId, this.props.heroId, pathResolver.basename(this.props.replay,'.StormReplay'))
-
-        path = pathResolver.join(path, at + '.webm')
+    render() {        
+        if (!this.state.video) {
+            return null
+        }
 
         let attrs = {
             width: 640,
@@ -330,23 +360,19 @@ class HighlightClip extends React.Component {
             attrs.controls = true
         }
 
-        if (fs.existsSync(path)) {
-            const videoData = this.getBufferedVideo(path)
-            
-            return (
-                <span>
-                    {this.state.sharing ? <ShareHighlightsModal highlight={path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
-                    <highlight-reel onClick={this.toggleVideo.bind(this)}>
-                        {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
-                        <video {...attrs} src={videoData} />
-                    </highlight-reel>
-                    <div className="video-options">
-                        {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(path)} /> : null}
-                        <Svg src="share-square.svg" onClick={this.share.bind(this)} />
-                    </div>
-                </span>
-            )
-        }
+        return (
+            <span>
+                {this.state.sharing ? <ShareHighlightsModal highlight={path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
+                <highlight-reel onClick={this.toggleVideo.bind(this)}>
+                    {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
+                    <video {...attrs} src={this.state.video} />
+                </highlight-reel>
+                <div className="video-options">
+                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(path)} /> : null}
+                    <Svg src="share-square.svg" onClick={this.share.bind(this)} />
+                </div>
+            </span>
+        )
 
         return null
     }

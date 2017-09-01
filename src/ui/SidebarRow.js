@@ -2,6 +2,7 @@ const React = require('react')
 const path = require('path')
 const moment = require('moment')
 const HeroPortrait = require('./HeroPortrait')
+const Svg = require('./Svg')
 
 class SidebarRow extends React.Component {
     constructor() {
@@ -82,6 +83,7 @@ class SidebarRow extends React.Component {
             <sidebar-row onClick={() => this.props.selectItem(replay)} class={this.css()}>
                 <HeroPortrait {...attrs} />
                 <a>{name}</a>
+                {replay.highlights ? <Svg src="video.svg" className="highlight" /> : null}
                 <div className="date">{dateDisplay}</div>
             </sidebar-row>
         )

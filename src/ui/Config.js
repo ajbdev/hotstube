@@ -337,6 +337,7 @@ class ConfigWindow extends React.Component {
                     type="radio"
                     name="sound"
                     value="off"
+                    disabled={!this.state.options.enableRecording}
                     onChange={(evt) => this.handleOption(evt.target.value, 'sound')}
                     checked={this.state.options.sound === 'off'}/>
                     Off (default)
@@ -346,6 +347,7 @@ class ConfigWindow extends React.Component {
                     type="radio"
                     name="sound"
                     value="on"
+                    disabled={!this.state.options.enableRecording}
                     onChange={(evt) => this.handleOption(evt.target.value, 'sound')}
                     checked={this.state.options.sound === 'on'}/>
                     On
@@ -394,11 +396,18 @@ class ConfigWindow extends React.Component {
             <config-window>
                 <fieldset>
                     <legend>Recording</legend>
+                    <label><input
+                        type="checkbox"
+                        checked={this.state.options.enableRecording}
+                        onChange={(evt) => this.handleOption(!this.state.options.enableRecording, 'enableRecording')}/>
+                        Enable recording
+                    </label>
                     <h5>Video Quality</h5>
                     <label><input
                         type="radio"
                         name="resolution"
                         value="480p"
+                        disabled={!this.state.options.enableRecording}
                         onChange={(evt) => this.handleOption(evt.target.value, 'resolution')}
                         checked={this.state.options.resolution === '480p'}/>
                         480p (default)
@@ -408,6 +417,7 @@ class ConfigWindow extends React.Component {
                         type="radio"
                         name="resolution"
                         value="720p"
+                        disabled={!this.state.options.enableRecording}
                         onChange={(evt) => this.handleOption(evt.target.value, 'resolution')}
                         checked={this.state.options.resolution === '720p'}/>
                         720p
@@ -417,6 +427,7 @@ class ConfigWindow extends React.Component {
                         type="radio"
                         name="resolution"
                         value="1080p"
+                        disabled={!this.state.options.enableRecording}
                         onChange={(evt) => this.handleOption(evt.target.value, 'resolution')}
                         checked={this.state.options.resolution === '1080p'}/>
                         1080p

@@ -53,13 +53,15 @@ GameRecorder.on('VIDEO_SAVED', (path) => {
     videoFile = clip.make(videoFilePath, gameInitializedAt)
 
     console.log('Created ' + videoFile)
-    fs.unlink(sourceVideoFile, (err) => {
-        if (err) {
-            console.log('Could not delete source video: ' + err)
-        } else {
-            console.log('Deleted ' + sourceVideoFile)
-        }
-    })
+    if (Config.options.deleteTemporaryVideos) {
+        fs.unlink(sourceVideoFile, (err) => {
+            if (err) {
+                console.log('Could not delete source video: ' + err)
+            } else {
+                console.log('Deleted ' + sourceVideoFile)
+            }
+        })
+    }
 
     createHighlightReel()
 })

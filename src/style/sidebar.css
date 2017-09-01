@@ -66,6 +66,15 @@ sidebar-row.patch.selected {
     background: #0099ff;
 }
 
+
+sidebar-row .highlight svg {
+    width: 14px;
+    fill: #0075c4;
+    right: 55px;
+    position: absolute;
+    top: 18px;
+}
+
 sidebar hero-portrait {
     position: absolute;
     top: 4px;

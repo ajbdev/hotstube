@@ -4,6 +4,7 @@ const Config = require('./Config')
 const {EventEmitter} = require('events')
 const GameStateWatcher = require('./GameStateWatcher')
 const ReplayAnalyzer = require('./ReplayAnalyzer')
+const HighlightReel = require('./HighlightReel')
 
 class GameIndex extends EventEmitter {
     constructor() {
@@ -63,17 +64,20 @@ class GameIndex extends EventEmitter {
                                 .filter((f) => isDirectory(path.join(...innerAccountDir.concat(f))))
 
             heroDirs.map((d) => {
-                let heroDir = path.join(...innerAccountDir.concat([d,'Replays','Multiplayer']))
+                const heroDir = path.join(...innerAccountDir.concat([d,'Replays','Multiplayer']))
                 if (isDirectory(heroDir)) {
-                    let heroId = parseInt(d.match(/\d+\-Hero\-\d+\-(\d+)/)[1])
+                    const heroId = parseInt(d.match(/\d+\-Hero\-\d+\-(\d+)/)[1])
 
-                    let replayFiles = fs.readdirSync(heroDir)
+                    const replayFiles = fs.readdirSync(heroDir)
 
                     replays = replays.concat(replayFiles.map((file) => {
-                        let replayPath = path.join(heroDir, file)
+                        const replayPath = path.join(heroDir, file)
+                        const hasHighlights = HighlightReel.hasHighlightsCreated(accountId, heroId, path.basename(replayPath,'.StormReplay'))
+
                         return {
                             name: replayPath,
                             accountId: parseInt(accountId),
+                            highlights: hasHighlights,
                             heroId: heroId,
                             time: fs.statSync(replayPath).mtime.getTime()
                         }

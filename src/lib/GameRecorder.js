@@ -17,6 +17,10 @@ class GameRecorder extends EventEmitter {
             return
         }
 
+        if (!Config.options.enableRecording) {
+            return
+        }
+
         this.recording = true
         let self = this
 

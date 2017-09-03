@@ -23,8 +23,6 @@ GameStateWatcher.watch().on('GAME_START', () => {
     console.log('Game ended')
     replayFile = pathResolver.resolve(path)
     GameRecorder.stopRecording()
-    
-    createHighlightReel()
 }).on('STORMSAVE_CREATED', (path) => {
     // Currently this indicates the 90 second mark
     // We subtract the six additional seconds to sync with the video recorder start time
@@ -62,8 +60,6 @@ GameRecorder.on('VIDEO_SAVED', (path) => {
             }
         })
     }
-
-    createHighlightReel()
 })
 
 const createHighlightReel = function() {

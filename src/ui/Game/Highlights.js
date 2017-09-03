@@ -74,6 +74,13 @@ class Highlights extends React.Component {
         )
     }
 
+    highlightExistsForKill(at) {
+        let path = HighlightReel.getSavePath(this.props.replay.accountId, this.props.replay.heroId, pathResolver.basename(this.props.replay.name,'.StormReplay'))
+
+        path = pathResolver.join(path, at + '.webm')
+        return fs.existsSync(path)
+    }
+
     renderFight(kills, key) {
         let game = this.props.replay.game
 
@@ -91,7 +98,7 @@ class Highlights extends React.Component {
             let kill = kills[0]
             return (
                 <TimelineEvent at={this.time(kill.clockTime)} icon="firstblood" key={key}>
-                    <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
+                    {this.highlightExistsForKill(this.time(kill.time, '.')) ? <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} /> : null}
                     <PlayerName player={this.killer(kill)} /> drew first blood on <PlayerName player={kill.victim} />
                     {chat.map((c, i) => this.renderChat(c, i))}
                 </TimelineEvent>
@@ -102,18 +109,18 @@ class Highlights extends React.Component {
             let kill = kills[0]
             return (
                 <TimelineEvent at={this.time(kill.clockTime)} icon="death" key={key}>
-                    <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} />
+                    {this.highlightExistsForKill(this.time(kill.time, '.')) ? <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} /> : null}
                     {this.renderKill(kill)}
                     {chat.map((c, i) => this.renderChat(c, i))}
                 </TimelineEvent>
             )
         }
-        
+    
         return (
             <TimelineEvent at={this.time(kills[0].clockTime)} icon="fight" key={key}>
-                <HighlightClip at={this.time(kills[0].time, '.')} {...clipAttrs} />
                 {kills.map((kill, ix) => 
                     <span key={ix}>
+                        {this.highlightExistsForKill(this.time(kill.time, '.')) ? <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} /> : null}
                         {this.renderKill(kill)}
                     </span>
                 )}
@@ -131,7 +138,6 @@ class Highlights extends React.Component {
     }
 
     renderKill(kill) {
-
         let assists = kill.killers.filter((killer) => killer && killer.playerId != kill.primaryKiller)
 
         return (
@@ -306,40 +312,30 @@ class HighlightClip extends React.Component {
         this.loadVideoToTmpPath()
     }
 
-    loadVideoToTmpPath() {
-        
-        let at = this.props.at
-        
-        let path = HighlightReel.getSavePath(this.props.accountId, this.props.heroId, pathResolver.basename(this.props.replay,'.StormReplay'))
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.replay != this.props.replay) {
+            this.loadVideoToTmpPath(nextProps)
+        }
+    }
+
+    loadVideoToTmpPath(props = null) {
+        if (!props) {
+            props = this.props
+        }
+
+        let at = props.at
+        let path = HighlightReel.getSavePath(props.accountId, props.heroId, pathResolver.basename(props.replay,'.StormReplay'))
 
         path = pathResolver.join(path, at + '.webm')
 
         if (!fs.existsSync(path)) {
             return
         }
-        
-        const tmpPath = pathResolver.join(app.getPath('userData'), pathResolver.basename(path))
+        let videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(path)).toString('base64')
 
-        if (fs.existsSync(tmpPath)) {
-            this.setState({
-                video: tmpPath
-            })
-
-            return
-        }
-
-        let readStream = fs.createReadStream(path)
-        let writeStream = fs.createWriteStream(tmpPath)
-
-        const self = this
-        writeStream.once('finish', () => {
-            self.setState({
-                video: tmpPath
-            })
+        this.setState({
+            video: videoData
         })
-        
-        readStream.pipe(writeStream)
-
     }
 
     share() {
@@ -362,7 +358,7 @@ class HighlightClip extends React.Component {
 
         return (
             <span>
-                {this.state.sharing ? <ShareHighlightsModal highlight={path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
+                {this.state.sharing ? <ShareHighlightsModal highlight={this.state.video} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
                 <highlight-reel onClick={this.toggleVideo.bind(this)}>
                     {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
                     <video {...attrs} src={this.state.video} />

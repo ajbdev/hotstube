@@ -21,6 +21,7 @@ const ErrorCheck = require('../lib/ErrorCheck')
 const ErrorScreen = require('./ErrorScreen')
 const HighlightDir = require('../lib/HighlightDir')
 const app = require('electron').remote.app
+const ReleaseNotes = require('./ReleaseNotes')
 
 
 class App extends React.Component {
@@ -224,6 +225,12 @@ class App extends React.Component {
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})} />                                 
                 </div>
+            )
+        }
+
+        if (ConfigOptions.options.releaseNotes != app.getVersion()) {
+            return (
+                <ReleaseNotes />
             )
         }
 

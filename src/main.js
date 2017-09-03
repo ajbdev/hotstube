@@ -9,6 +9,8 @@ const path = require('path')
 const url = require('url')
 const HighlightDir = require('./lib/HighlightDir')
 const ELECTRON_ENV = require('./env')
+const glob = require('glob')
+const fs = require('fs')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,7 +22,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 800, 
     height: 600,
-//    resizable: false,
+    resizable: false,
     show: false,
     backgroundColor: '#2a2a2a',
     webPreferences: {
@@ -62,6 +64,23 @@ app.setName('HotSTube')
 app.on('ready', createWindow)
 
 app.on('window-all-closed',  () => {
+  deleteTmpData()
   app.quit()
 })
 
+const deleteTmpData = () => {
+  let dir = app.getPath('userData')
+  
+  glob(path.join(dir,"/*.webm"), (err, files) => {
+    files.map((file) => {
+      fs.unlink(file, (err) => {
+        if (err) {
+            console.log('Could not delete ' + file + ': ' + err)
+        }
+      })
+    })
+  })    
+}
+
+
+deleteTmpData()

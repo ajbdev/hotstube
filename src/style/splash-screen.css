@@ -28,4 +28,5 @@ splash-screen .instructions {
     border-radius: 10px;
     text-align: left;
     font-size: 13px;
+    margin-bottom: 2rem;
 }

@@ -132,6 +132,8 @@ class ReplayAnalyzer extends EventEmitter {
     basicInfo() {
         this.game.map = this.replay.details().m_title
         this.game.time = this.replay.header().m_elapsedGameLoops / 16
+        this.game.utcTimestamp = this.replay.details().m_timeUTC
+        this.game.build = this.replay.header().m_dataBuildNum
     }
 
     kills() {
@@ -196,6 +198,7 @@ class ReplayAnalyzer extends EventEmitter {
                 name: player.m_name.toString(),
                 hero: player.m_hero.toString(),
                 playerId: i+1,
+                teamId: player.m_teamId,
                 team: player.m_teamId == 0 ? 'blue' : 'red',
                 unitTagIndex: births.filter((birth) => birth.m_controlPlayerId == i+1 )[0].m_unitTagIndex
             }

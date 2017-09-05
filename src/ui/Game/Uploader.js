@@ -13,29 +13,42 @@ class Uploader extends React.Component {
         this.getSignedS3Url().then((payload) => {
             const signedUrl = url.parse(payload)
 
-            const data = Object.assign(
-                { file: JSON.stringify(this.props.replay) },
-                qs.parse(signedUrl.query)
-            )
+            const data = JSON.stringify(this.props.replay)
 
-            const href = signedUrl.protocol + '//' + signedUrl.hostname + signedUrl.pathname
-            console.log('Uploading file to ' + href)
+            const headers = {
+                'Content-Length': data.length+1
+            }
 
-            request.put(href, { formData: data }, (err,response,body) => {
+            request.put({ 
+                url: payload,
+                headers: headers,
+                body: data 
+            }, (err,response,body) => {
                 console.log(err, response, body)
             })
         })
     }
 
     getSignedS3Url() {
+        const game = this.props.replay.game
+
+        const payload = {
+            build: game.build,
+            map: game.map,
+            utcTimestamp: game.utcTimestamp,
+            players: game.players.map((p) => p.id + ':' + p.teamId).sort()
+        }
+
         return new Promise((resolve, reject) => {
             request({
                 url: 'https://2pmey6kuv7.execute-api.us-east-1.amazonaws.com/prod/HotSTubeS3SignedUrl',
-                method: 'GET',
+                body: qs.stringify(payload),
+                method: 'POST',
             }, (err, response, body) => {
                 if (err) {
                     reject(err)
                 } else {
+                    console.log(body)
                     resolve(JSON.parse(body).url)
                 }
             })

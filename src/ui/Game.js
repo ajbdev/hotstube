@@ -5,6 +5,7 @@ const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 const GameHighlights = require('./Game/Highlights')
 const GameScores = require('./Game/Scores')
 const HeroPortrait = require('./HeroPortrait')
+const Uploader = require('./Game/Uploader')
 const Time = require('./Time')
 const pathResolver = require('path')
 const fs = require('fs')
@@ -129,6 +130,7 @@ class Game extends React.Component {
         return (
             <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
                 <header>
+                    {this.state.uploading ? <Uploader replay={this.props.replay} /> : null}
                     <h1>{game.map}</h1>
                     {player.name} as <HeroPortrait class="small" hero={player.hero} /> {player.hero} for <Time seconds={game.time} />
                     <div className="actions">
@@ -137,6 +139,7 @@ class Game extends React.Component {
                                 &bull;&bull;&bull;
                             </button>
                             <div className="dropdown-menu">
+                                <a onClick={() => this.setState({ uploading: true })}>Upload Game</a>
                                 <a onClick={this.export.bind(this)}>Export data</a>
                                 <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
                             </div>

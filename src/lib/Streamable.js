@@ -22,7 +22,6 @@ class Streamable extends EventEmitter {
                     sendImmediately: true
                 }
             }, options), (err, response, body) => {
-                console.log(err, response, body)
                 if (err) {
                     reject(err)
                 } else {

@@ -24,6 +24,7 @@ class Config extends React.Component {
                         this.props.configWindow('config')
                 }}/> {!!this.props.window
                     ? <ConfigWindow
+                            openReleaseNotes={this.props.openReleaseNotes}
                             configWindow={this.props.configWindow}
                             window={this.props.window}
                             errorCheck={this.props.errorCheck}
@@ -363,6 +364,12 @@ class ConfigWindow extends React.Component {
         )
     }
 
+    loadReleaseNotes() {
+        this.props.openReleaseNotes()
+
+        this.props.close()
+    }
+
     render() {
         if (!this.state.options) {
             return null
@@ -445,10 +452,15 @@ class ConfigWindow extends React.Component {
                 <footer>
                     <button className="button" onClick={this.save.bind(this)}>Save</button>
                     <button className="button-link" onClick={this.cancel.bind(this)}>Cancel</button>
-
-                    <a
-                        className="float-right button-link-tertiary"
+                    
+                    <div className="float-right">
+                     <a className="button-link-tertiary" onClick={this.loadReleaseNotes.bind(this)}>
+                         Release Notes
+                     </a>
+                     <a className="button-link-tertiary" 
                         onClick={() => this.props.configWindow('advanced')}>Advanced..</a>
+                    </div>
+
                 </footer>
 
             </config-window>

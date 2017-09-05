@@ -222,15 +222,16 @@ class App extends React.Component {
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
                         setStatus={this.setStatus.bind(this)}
+                        openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})} />                                 
                 </div>
             )
         }
 
-        if (ConfigOptions.options.releaseNotes != app.getVersion()) {
+        if (ConfigOptions.options.releaseNotes != app.getVersion() || this.state.showReleaseNotes) {
             return (
-                <ReleaseNotes />
+                <ReleaseNotes showAll={this.state.showReleaseNotes} />
             )
         }
 
@@ -256,6 +257,7 @@ class App extends React.Component {
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
                         setStatus={this.setStatus.bind(this)}
+                        openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})} />
                 </div>
@@ -282,6 +284,7 @@ class App extends React.Component {
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
                         setStatus={this.setStatus.bind(this)}
+                        openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})}/>
                 </div>
@@ -298,6 +301,7 @@ class App extends React.Component {
                 <Config
                     setStatus={this.setStatus.bind(this)}
                     errorCheck={this.errorCheck.bind(this)}
+                    openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                     window={this.state.configWindow}
                     configWindow={(win) => this.setState({configWindow: win})}/>
             </div>

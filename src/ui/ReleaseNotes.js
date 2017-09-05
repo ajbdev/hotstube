@@ -45,7 +45,7 @@ class ReleaseNotes extends React.Component {
         )
     }
     version(version) {
-        if (!this.state.version) {
+        if (!this.state.version || this.props.showAll) {
             return true
         }
 

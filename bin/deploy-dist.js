@@ -1,14 +1,14 @@
-const package = require('../package.json')
+const pkg = require('../package.json')
 const fs = require('fs')
 const uploadArtifact = require('./upload-artifact')
-let path = __dirname + '/../dist/HotSTube Setup ' + package.version + '.exe'
+let path = __dirname + '/../dist/HotSTube Setup ' + pkg.version + '.exe'
 
 if (!fs.existsSync(path)) {
     console.log('Could not find distributable: ' + path)
 } 
 
 const versionsTxt = __dirname + '/../web/version.txt'
-fs.writeFile(versionsTxt, package.version.toString(), (err) => {
+fs.writeFile(versionsTxt, pkg.version.toString(), (err) => {
     if (err) {
         console.log('Could not update version.txt: ' + err)
     }

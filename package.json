@@ -1,6 +1,6 @@
 {
   "name": "HotSTube",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "src/main.js",
   "author": "Andy Baird <andybaird@gmail.com>",
   "description": "Game recording, highlight reel, and scores for Heroes of the Storm",
@@ -22,12 +22,14 @@
   },
   "postinstall": "electron-builder install-app-deps",
   "devDependencies": {
+    "aws-sdk": "^2.109.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "electron-builder": "^19.24.1",
     "electron-prebuilt-compile": "1.7.5",
-    "google-spreadsheet-to-json": "^1.0.0"
+    "google-spreadsheet-to-json": "^1.0.0",
+    "mime-types": "^2.1.17"
   },
   "dependencies": {
     "chokidar": "^1.6.1",

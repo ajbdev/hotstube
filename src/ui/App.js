@@ -23,6 +23,7 @@ const HighlightDir = require('../lib/HighlightDir')
 const app = require('electron').remote.app
 const ReleaseNotes = require('./ReleaseNotes')
 const DownloadNewVersion = require('./DownloadNewVersion')
+const dist = require('../lib/Dist.js')
 
 
 class App extends React.Component {
@@ -49,6 +50,13 @@ class App extends React.Component {
         errorCheck.isNewVersionAvailable((result) => {
             if (result) {
                 self.setState({ downloadNewVersion: true })
+            } else {
+                if (fs.existsSync(dist.filename())) {
+                    console.log('App up to date. Deleting installer.')
+                    fs.unlink(dist.filename(), (err) => {
+                        console.log(err)
+                    })
+                }
             }
         })
 

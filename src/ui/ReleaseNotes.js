@@ -21,6 +21,15 @@ class ReleaseNotes extends React.Component {
             <splash-screen>
                 <h1>Release Notes</h1>
 
+                {this.version('0.3.5') ?
+                <div className="instructions">
+                    <b>Version 0.3.5</b> - 9/7/2017 <br /><br />
+                    Changes:<br />
+                    <ul>
+                        <li>Implemented auto-updater for new versions.</li>
+                    </ul>
+                </div> : null}
+
                 {this.version('0.3.4') ?
                 <div className="instructions">
                     <b>Version 0.3.4</b> - 9/6/2017 <br /><br />

@@ -7,10 +7,8 @@ const { shell } = require('electron')
 class ShareHighlightsModal extends React.Component { 
     constructor() {
         super()
-
     }
     componentDidMount() {
-        console.log('Uploading ' + this.props.highlight)
 
         const streamable = new Streamable(this.props.title, this.props.highlight)
         

@@ -318,7 +318,7 @@ class HighlightClip extends React.Component {
         }
     }
 
-    loadVideoToTmpPath(props = null) {
+    getHighlightPath(props = null) {
         if (!props) {
             props = this.props
         }
@@ -331,10 +331,22 @@ class HighlightClip extends React.Component {
         if (!fs.existsSync(path)) {
             return
         }
+
+        return path
+    }
+
+    loadVideoToTmpPath(props = null) {
+        const path = this.getHighlightPath(props)
+
+        if (!path) {
+            return
+        }
+
         let videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(path)).toString('base64')
 
         this.setState({
-            video: videoData
+            video: videoData,
+            path: path
         })
     }
 
@@ -358,7 +370,7 @@ class HighlightClip extends React.Component {
 
         return (
             <span>
-                {this.state.sharing ? <ShareHighlightsModal highlight={this.state.video} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
+                {this.state.sharing ? <ShareHighlightsModal highlight={this.state.path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
                 <highlight-reel onClick={this.toggleVideo.bind(this)}>
                     {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
                     <video {...attrs} src={this.state.video} />

@@ -1,0 +1,22 @@
+download-new-version-popup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2rem;
+    z-index: 15;
+    background: #0075c4;
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    padding: 6px;
+}
+
+download-new-version-popup a {
+    text-decoration: underline;
+    color: #fff;
+    margin-left: .3rem;
+}
+download-new-version-popup a:hover {
+    color: #fff;
+}

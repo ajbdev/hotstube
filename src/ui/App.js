@@ -22,6 +22,7 @@ const ErrorScreen = require('./ErrorScreen')
 const HighlightDir = require('../lib/HighlightDir')
 const app = require('electron').remote.app
 const ReleaseNotes = require('./ReleaseNotes')
+const DownloadNewVersion = require('./DownloadNewVersion')
 
 
 class App extends React.Component {
@@ -44,9 +45,10 @@ class App extends React.Component {
         this.state.errors = errorCheck.errors
 
         let self = this;
-        errorCheck.isNewBetaAvailable((result) => {
+
+        errorCheck.isNewVersionAvailable((result) => {
             if (result) {
-                self.setState({ errors: errorCheck.errors })
+                self.setState({ downloadNewVersion: true })
             }
         })
 
@@ -337,6 +339,7 @@ class App extends React.Component {
                     className={this.state.sidebarOpen
                     ? 'with-sidebar'
                     : ''}>
+                    {this.state.downloadNewVersion ? <DownloadNewVersion /> : null}
                     {this.renderContent()}
                 </content>
             </app>

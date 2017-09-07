@@ -1,10 +1,10 @@
 const pkg = require('../package.json')
 const fs = require('fs')
 const uploadArtifact = require('./upload-artifact')
-let path = __dirname + '/../dist/HotSTube Setup ' + pkg.version + '.exe'
+const dist = require('../src/lib/Dist')
 
-if (!fs.existsSync(path)) {
-    console.log('Could not find distributable: ' + path)
+if (!fs.existsSync(dist.path())) {
+    console.log('Could not find distributable: ' + dist.path())
 } 
 
 const versionsTxt = __dirname + '/../web/version.txt'
@@ -15,9 +15,12 @@ fs.writeFile(versionsTxt, pkg.version.toString(), (err) => {
     uploadArtifact(versionsTxt)
 })
 
-const copyTo = __dirname + '/../dist/HotSTube Setup.exe'
+const copyTo = __dirname + '/../dist/' + dist.filename()
 
-console.log('Copying ' + path + ' to ' + copyTo)
+console.log('Copying ' + dist.path() + ' to ' + copyTo)
 
-fs.writeFileSync(copyTo, fs.readFileSync(path))
+fs.writeFileSync(copyTo, fs.readFileSync(dist.path()))
+
+console.log('Copied')
+
 uploadArtifact(copyTo)

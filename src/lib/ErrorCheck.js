@@ -13,7 +13,7 @@ class ErrorCheck {
 
         ConfigOptions.load()
 
-        const checks = ['isNewBetaAvailable','isPlatformSupported','canFindReplays']
+        const checks = ['isPlatformSupported','canFindReplays']
 
         checks.map((check) => {
             let result = this[check]()
@@ -23,7 +23,7 @@ class ErrorCheck {
         })        
     }
 
-    isNewBetaAvailable(cb = null) {
+    isNewVersionAvailable(cb = null) {
         const self = this
 
         http.get({
@@ -40,7 +40,6 @@ class ErrorCheck {
                 console.log('Latest version is: ' + latestVersion)
                 if (semver.gt(latestVersion, app.getVersion())) {
                     
-                    self.errors.push('isNewBetaAvailable')
                     if (cb) { cb(true) }
                 } else {
                     if (cb) { cb(false) }

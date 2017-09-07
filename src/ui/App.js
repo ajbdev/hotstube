@@ -166,6 +166,7 @@ class App extends React.Component {
         if (item.patch) {
             this.setState({
                 patch: item,
+                showReleaseNotes: false,
                 status: {
                     type: null,
                     message: ''
@@ -201,6 +202,7 @@ class App extends React.Component {
 
             this.setState({
                 replay: item,
+                showReleaseNotes: false,
                 status: {
                     type: null,
                     message: ''
@@ -231,7 +233,15 @@ class App extends React.Component {
 
         if (ConfigOptions.options.releaseNotes != app.getVersion() || this.state.showReleaseNotes) {
             return (
-                <ReleaseNotes showAll={this.state.showReleaseNotes} />
+                <div>
+                    <ReleaseNotes showAll={this.state.showReleaseNotes} />
+                    <Config
+                        errorCheck={this.errorCheck.bind(this)}
+                        setStatus={this.setStatus.bind(this)}
+                        openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
+                        window={this.state.configWindow}
+                        configWindow={(win) => this.setState({configWindow: win})} />
+                </div>
             )
         }
 

@@ -5,6 +5,9 @@ const path = require('path')
 class Dist {
     static filename(version = '') {
         if (os.platform() == 'win32') {
+            if (version) {
+                version = ' ' + version
+            }
             return 'HotSTube Setup' + version + '.exe'
         } else if (os.platform() == 'darwin') {
             if (version) {

@@ -9,3 +9,4 @@ fs.writeFile(versionsTxt, pkg.version.toString(), (err) => {
     }
     uploadArtifact(versionsTxt)
 })
+

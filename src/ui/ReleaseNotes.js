@@ -19,14 +19,16 @@ class ReleaseNotes extends React.Component {
     render() {
         return (
             <splash-screen>
+                <div className="current-version">Current Version: {app.getVersion()}</div>
                 <h1>Release Notes</h1>
 
                 {this.version('0.3.5') ?
                 <div className="instructions">
-                    <b>Version 0.3.5</b> - 9/7/2017 <br /><br />
+                    <b>Version 0.3.5</b> - 9/8/2017 <br /><br />
                     Changes:<br />
                     <ul>
                         <li>Implemented auto-updater for new versions.</li>
+                        <li>Fixed a bug where saving highlights wasn't working.</li>
                     </ul>
                 </div> : null}
 

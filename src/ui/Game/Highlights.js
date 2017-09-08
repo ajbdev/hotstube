@@ -376,7 +376,7 @@ class HighlightClip extends React.Component {
                     <video {...attrs} src={this.state.video} />
                 </highlight-reel>
                 <div className="video-options">
-                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(path)} /> : null}
+                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(this.getHighlightPath())} /> : null}
                     <Svg src="share-square.svg" onClick={this.share.bind(this)} />
                 </div>
             </span>

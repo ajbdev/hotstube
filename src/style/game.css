@@ -183,9 +183,10 @@ video-controls:after {
 .video-options svg {
     width: 1rem;
     height: 1rem;
+    margin: 0;
+    margin-left: .5rem;
     fill: #ccc;
     position: static;
-    margin: 0;
     cursor: pointer;
 } 
 

@@ -139,7 +139,7 @@ class Game extends React.Component {
                                 &bull;&bull;&bull;
                             </button>
                             <div className="dropdown-menu">
-                                <a onClick={() => this.setState({ uploading: true })}>Upload Game</a>
+                                {/* <a onClick={() => this.setState({ uploading: true })}>Upload Game</a> */}
                                 <a onClick={this.export.bind(this)}>Export data</a>
                                 <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
                             </div>

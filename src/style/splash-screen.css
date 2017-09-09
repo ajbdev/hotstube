@@ -43,3 +43,8 @@ splash-screen .current-version {
     top: .5rem;
     right: .5rem;
 }
+
+splash-screen.changelog {
+    text-align: left;
+    padding: 2.8rem;
+}

@@ -82,6 +82,7 @@ class HighlightReel extends EventEmitter {
             const times = fight.map((death) => death.time )
 
             let min = times.reduce((a, b) => Math.min(a, b)); // First death of the fight
+
             let deathTime = min
             let max = times.reduce((a, b) => Math.max(a, b)); // Last death of the fight
 
@@ -90,8 +91,13 @@ class HighlightReel extends EventEmitter {
                 min -= Config.options.recordPrekillSeconds
             }
 
+            // Calculate the time slide factor between the video and the replay game time
+            let slideFactor = (at) => {
+                //(-0.016*min)+8.2
+                return at + ((-0.016*at)+8.2)
+            }
             // Record the clip until the last death in the fight
-            let duration = max - min;
+            let duration = slideFactor(max) - slideFactor(min);
 
             duration = duration < Config.options.recordMinimumSeconds ? Config.options.recordMinimumSeconds : duration + 3
             // Ensure clip is at least a minimum amount of seconds and extend anything at the minimum by 3 seconds
@@ -103,9 +109,10 @@ class HighlightReel extends EventEmitter {
             
             const path = this.constructor.getSavePath(accountId, heroId, replayName)
             let fileName = pathResolver.join(path, time)
+                       
 
             if (!fs.existsSync(fileName)) {
-                clip.make(fileName, min, duration)
+                clip.make(fileName, slideFactor(min), duration)
             }            
             highlights++
         })

@@ -1,3 +1,10 @@
+Version 0.4.2
+-
+9/10/2017
+* Added winner information to timeline
+* Fixed a big with solo kills not appearing on score tab
+* Added total kills to top of game
+
 Version 0.4.0
 -
 9/9/2017

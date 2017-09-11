@@ -69,7 +69,7 @@ class Scores extends React.Component {
 
     label(col) {
         const map = {
-            'SoloKills': 'Kills',
+            'SoloKill': 'Kills',
             'OnFireTimeOnFire': 'Time On Fire',
             'VengeancesPerformed': 'Vengeances',
             'EscapesPerformed': 'Escapes',
@@ -102,7 +102,7 @@ class Scores extends React.Component {
     }
 
     defaultStats() {
-        return ['Takedowns','SoloKills','Deaths','Assists','HeroDamage','DamageTaken','ExperienceContribution']
+        return ['Takedowns','SoloKill','Deaths','Assists','HeroDamage','DamageTaken','ExperienceContribution']
     }
 }
 

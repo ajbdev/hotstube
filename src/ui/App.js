@@ -117,9 +117,14 @@ class App extends React.Component {
     }
     componentDidMount() {
         ConfigOptions.load()
+        
 
         if (GameIndex.index.length > 0 && !ConfigOptions.options.welcomeScreen) {
             this.loadItem(GameIndex.index[0])
+        }
+
+        if (ConfigOptions.options.releaseNotes != app.getVersion()) {
+            this.setState({ showReleaseNotes: true })
         }
         
         this.pruneWorker = new Worker('./prune_worker.js')
@@ -241,7 +246,7 @@ class App extends React.Component {
             )
         }
 
-        if (ConfigOptions.options.releaseNotes != app.getVersion() || this.state.showReleaseNotes) {
+        if (this.state.showReleaseNotes) {
             return (
                 <div>
                     <ReleaseNotes showAll={this.state.showReleaseNotes} />

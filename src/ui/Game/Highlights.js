@@ -170,6 +170,18 @@ class Highlights extends React.Component {
             </TimelineEvent>
         )
     }
+
+    renderGameOver() {
+        const player = this.props.replay.game.players.filter((p) => p.id === this.props.replay.heroId)[0]
+        
+        const outcome = player.outcome = 'Win' ? 'wins' : 'loses'
+
+        return (
+            <TimelineMarker type="circle" label={this.time(this.props.replay.game.time-35)}>
+                Game over: <span className={player.team}>{player.team}</span> {outcome}
+            </TimelineMarker>
+        )
+    }
     
     render() {
         if (!this.props.replay) {
@@ -188,9 +200,7 @@ class Highlights extends React.Component {
                                 this.renderEvent(event, key)
                             ) : this.renderEmpty()
                         }
-                        <TimelineMarker type="circle" label={this.time(this.props.replay.game.time-35)}>
-                            Game over
-                        </TimelineMarker>
+                        {this.renderGameOver()}
                     </Timeline>
                 </div>
             </tab-content>
@@ -376,7 +386,7 @@ class HighlightClip extends React.Component {
                     <video {...attrs} src={this.state.video} />
                 </highlight-reel>
                 <div className="video-options">
-                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(path)} /> : null}
+                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(this.getHighlightPath())} /> : null}
                     <Svg src="share-square.svg" onClick={this.share.bind(this)} />
                 </div>
             </span>

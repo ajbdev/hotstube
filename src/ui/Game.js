@@ -127,19 +127,41 @@ class Game extends React.Component {
             dropdownCss.push('active')
         }
 
+        let deaths = game.scores.filter((s) => s.type == 'Deaths')[0].values
+        let teamKills = [0,0]
+        game.players.map((p) => {
+            teamKills[p.teamId == 0 ? 1 : 0] += deaths[p.playerId-1]
+        })
+
+        let outcome = player.outcome == 'Win' ? 'win' : 'loss'
+
         return (
             <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
                 <header>
                     {this.state.uploading ? <Uploader replay={this.props.replay} /> : null}
-                    <h1>{game.map}</h1>
-                    {player.name} as <HeroPortrait class="small" hero={player.hero} /> {player.hero} for <Time seconds={game.time} />
+                    <h1>
+                        {game.map}
+                        <span className={"outcome " + outcome}>{outcome}</span>
+                    </h1>
+                    <div className="kills">       
+                        <span className="red">
+                            {teamKills[0]}
+                        </span>
+                        <span className="blue float-right">
+                            {teamKills[1]}
+                        </span>
+                    </div>
+                    <span className={player.team}>
+                        {player.name}
+                    </span> as <HeroPortrait class="small" hero={player.hero} /> {player.hero} <br />
+                    <Time seconds={game.time} /> <br />
                     <div className="actions">
                         <div className={dropdownCss.join(' ')}>
                             <button type="button" className="dropdown-trigger" onClick={() => this.setState({ headerMenuOpen: !this.state.headerMenuOpen })}>
                                 &bull;&bull;&bull;
                             </button>
                             <div className="dropdown-menu">
-                                <a onClick={() => this.setState({ uploading: true })}>Upload Game</a>
+                                {/* <a onClick={() => this.setState({ uploading: true })}>Upload Game</a> */}
                                 <a onClick={this.export.bind(this)}>Export data</a>
                                 <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
                             </div>

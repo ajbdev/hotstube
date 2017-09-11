@@ -3,7 +3,7 @@ splash-screen {
     right: 0;
     left: 0;
     bottom: 0;
-    top: 4rem;
+    top: 0;
     text-align: center;
 }
 
@@ -11,6 +11,11 @@ splash-screen .logo {
     width: 14rem;
     display: inline-block;
     margin-bottom: 1rem;
+    margin-top: 4rem;
+}
+
+splash-screen h1 {
+    margin-top: 1rem;
 }
 
 video-toolbar {
@@ -29,4 +34,17 @@ splash-screen .instructions {
     text-align: left;
     font-size: 13px;
     margin-bottom: 2rem;
+}
+
+splash-screen .current-version {
+    position: absolute;
+    color: #666;
+    font-size: 13px;
+    top: .5rem;
+    right: .5rem;
+}
+
+splash-screen.changelog {
+    text-align: left;
+    padding: 2.8rem;
 }

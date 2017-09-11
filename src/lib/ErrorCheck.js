@@ -28,7 +28,7 @@ class ErrorCheck {
 
         http.get({
             host: 'hotstube.com',
-            path: '/version.txt'
+            path: '/' + os.platform() + '-version.txt'
         }, (response) => {
             let latestVersion = ''
 

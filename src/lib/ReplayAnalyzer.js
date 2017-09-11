@@ -79,12 +79,24 @@ class ReplayAnalyzer extends EventEmitter {
         this.analyzed = true
     }
 
+    winner() {
+        const self = this
+        this.replay.trackerEvents()
+                   .filter(e => e._event === 'NNet.Replay.Tracker.SStatGameEvent' && e.m_eventName == 'EndOfGameTalentChoices')
+                   .map((e) => {
+                       let player = this.game.players.filter((p) => p.playerId == e.m_intData[0].m_value)[0]
+
+                       player.outcome = e.m_stringData[1].m_value
+                   });
+    }
+
     deepAnalyze() {
         this.chat()
         this.levels()
         this.scores()
         this.deepAnalyzed = true
         this.emit('GAME_DEEP_ANALYZED', this.game, this.file)
+
     }
 
     scores() {
@@ -199,10 +211,11 @@ class ReplayAnalyzer extends EventEmitter {
                 hero: player.m_hero.toString(),
                 playerId: i+1,
                 teamId: player.m_teamId,
-                team: player.m_teamId == 0 ? 'blue' : 'red',
+                team: player.m_teamId == 0 ? 'red' : 'blue',
                 unitTagIndex: births.filter((birth) => birth.m_controlPlayerId == i+1 )[0].m_unitTagIndex
             }
         })
+        this.winner()
     }
 
     groupKillsIntoFights(kills) {

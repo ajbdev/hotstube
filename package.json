@@ -8,6 +8,8 @@
     "clean": "rm -rf .cache ./dist/*",
     "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 src/patches.json",
     "start": "electron .",
+    "web-dev-server": "webpack-dev-server --open",
+    "webpack": "./node_modules/.bin/webpack",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
@@ -23,13 +25,20 @@
   "postinstall": "electron-builder install-app-deps",
   "devDependencies": {
     "aws-sdk": "^2.109.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
     "electron-builder": "^19.24.1",
     "electron-prebuilt-compile": "1.7.5",
     "google-spreadsheet-to-json": "^1.0.0",
-    "mime-types": "^2.1.17"
+    "mime-types": "^2.1.17",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "chokidar": "^1.6.1",

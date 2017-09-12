@@ -5,11 +5,10 @@ const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 const GameHighlights = require('./Game/Highlights')
 const GameScores = require('./Game/Scores')
 const HeroPortrait = require('./HeroPortrait')
-const Uploader = require('./Game/Uploader')
-const Time = require('./Time')
 const pathResolver = require('path')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
+const Header = require('./Game/Header')
 
 class Game extends React.Component {
     constructor(props) {
@@ -137,42 +136,7 @@ class Game extends React.Component {
 
         return (
             <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
-                <header>
-                    {this.state.uploading ? <Uploader replay={this.props.replay} /> : null}
-                    <h1>
-                        {game.map}
-                        <span className={"outcome " + outcome}>{outcome}</span>
-                    </h1>
-                    <div className="kills">       
-                        <span className="red">
-                            {teamKills[0]}
-                        </span>
-                        <span className="blue float-right">
-                            {teamKills[1]}
-                        </span>
-                    </div>
-                    <span className={player.team}>
-                        {player.name}
-                    </span> as <HeroPortrait class="small" hero={player.hero} /> {player.hero} <br />
-                    <Time seconds={game.time} /> <br />
-                    <div className="actions">
-                        <div className={dropdownCss.join(' ')}>
-                            <button type="button" className="dropdown-trigger" onClick={() => this.setState({ headerMenuOpen: !this.state.headerMenuOpen })}>
-                                &bull;&bull;&bull;
-                            </button>
-                            <div className="dropdown-menu">
-                                {/* <a onClick={() => this.setState({ uploading: true })}>Upload Game</a> */}
-                                <a onClick={this.export.bind(this)}>Export data</a>
-                                <a onClick={() => this.props.deleteReplay(this.props.replay)}>Delete replay</a>
-                            </div>
-                        </div>
-                    </div>
-                    <ul className="tabs">
-                        {tabs.map((tab,i) => 
-                            <li key={i} className={this.state.tab == tab ? 'active' : ''} onClick={() => changeTab(tab)}><a>{tab}</a></li>
-                        )}
-                    </ul>
-                </header>
+                <Header game={this.props.game} />
                 {this.renderTab()}
             </game>
         )

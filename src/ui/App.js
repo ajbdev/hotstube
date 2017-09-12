@@ -1,5 +1,4 @@
 const React = require('react')
-const Toolbar = require('./Toolbar')
 const SplashScreen = require('./SplashScreen')
 const {Config} = require('./Config')
 const {Sidebar, SidebarToggle} = require('./Sidebar')

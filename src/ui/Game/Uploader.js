@@ -13,11 +13,13 @@ class Uploader extends React.Component {
         this.getSignedS3Url().then((payload) => {
             const signedUrl = url.parse(payload)
 
-            const data = JSON.stringify(this.props.replay)
+            const data = JSON.stringify(this.props.replay.game)
 
             const headers = {
-                'Content-Length': data.length+1
+                'Content-Length': data.length
             }
+
+            console.log(data)
 
             request.put({ 
                 url: payload,

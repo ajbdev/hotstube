@@ -59,7 +59,7 @@
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "aeb982f35f02df481162"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2cacc7e6452f04aa44c6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -720,7 +720,7 @@
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(83)(__webpack_require__.s = 83);
+/******/ 	return hotCreateRequire(84)(__webpack_require__.s = 84);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1207,7 +1207,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var _prodInvariant = __webpack_require__(3);
 
 var DOMProperty = __webpack_require__(14);
-var ReactDOMComponentFlags = __webpack_require__(58);
+var ReactDOMComponentFlags = __webpack_require__(59);
 
 var invariant = __webpack_require__(1);
 
@@ -2024,9 +2024,9 @@ module.exports = ReactCurrentOwner;
 var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
-var CallbackQueue = __webpack_require__(62);
+var CallbackQueue = __webpack_require__(63);
 var PooledClass = __webpack_require__(16);
-var ReactFeatureFlags = __webpack_require__(63);
+var ReactFeatureFlags = __webpack_require__(64);
 var ReactReconciler = __webpack_require__(19);
 var Transaction = __webpack_require__(28);
 
@@ -2773,7 +2773,7 @@ var warning = __webpack_require__(2);
 var canDefineProperty = __webpack_require__(25);
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
-var REACT_ELEMENT_TYPE = __webpack_require__(53);
+var REACT_ELEMENT_TYPE = __webpack_require__(54);
 
 var RESERVED_PROPS = {
   key: true,
@@ -3232,7 +3232,7 @@ module.exports = PooledClass;
 
 var _assign = __webpack_require__(4);
 
-var ReactBaseClasses = __webpack_require__(51);
+var ReactBaseClasses = __webpack_require__(52);
 var ReactChildren = __webpack_require__(105);
 var ReactDOMFactories = __webpack_require__(109);
 var ReactElement = __webpack_require__(15);
@@ -3249,7 +3249,7 @@ var cloneElement = ReactElement.cloneElement;
 if (process.env.NODE_ENV !== 'production') {
   var lowPriorityWarning = __webpack_require__(34);
   var canDefineProperty = __webpack_require__(25);
-  var ReactElementValidator = __webpack_require__(55);
+  var ReactElementValidator = __webpack_require__(56);
   var didWarnPropTypesDeprecated = false;
   createElement = ReactElementValidator.createElement;
   createFactory = ReactElementValidator.createFactory;
@@ -3588,7 +3588,7 @@ var DOMNamespaces = __webpack_require__(41);
 var setInnerHTML = __webpack_require__(30);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(42);
-var setTextContent = __webpack_require__(67);
+var setTextContent = __webpack_require__(68);
 
 var ELEMENT_NODE_TYPE = 1;
 var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
@@ -3710,8 +3710,8 @@ module.exports = DOMLazyTree;
 var EventPluginHub = __webpack_require__(22);
 var EventPluginUtils = __webpack_require__(35);
 
-var accumulateInto = __webpack_require__(59);
-var forEachAccumulated = __webpack_require__(60);
+var accumulateInto = __webpack_require__(60);
+var forEachAccumulated = __webpack_require__(61);
 var warning = __webpack_require__(2);
 
 var getListener = EventPluginHub.getListener;
@@ -3853,8 +3853,8 @@ var EventPluginRegistry = __webpack_require__(27);
 var EventPluginUtils = __webpack_require__(35);
 var ReactErrorUtils = __webpack_require__(36);
 
-var accumulateInto = __webpack_require__(59);
-var forEachAccumulated = __webpack_require__(60);
+var accumulateInto = __webpack_require__(60);
+var forEachAccumulated = __webpack_require__(61);
 var invariant = __webpack_require__(1);
 
 /**
@@ -4794,7 +4794,7 @@ module.exports = TransactionImpl;
 
 
 var SyntheticUIEvent = __webpack_require__(23);
-var ViewportMetrics = __webpack_require__(66);
+var ViewportMetrics = __webpack_require__(67);
 
 var getEventModifierState = __webpack_require__(39);
 
@@ -5104,7 +5104,7 @@ var _assign = __webpack_require__(4);
 
 var EventPluginRegistry = __webpack_require__(27);
 var ReactEventEmitterMixin = __webpack_require__(155);
-var ViewportMetrics = __webpack_require__(66);
+var ViewportMetrics = __webpack_require__(67);
 
 var getVendorPrefixedEventName = __webpack_require__(156);
 var isEventSupported = __webpack_require__(38);
@@ -5418,7 +5418,6 @@ module.exports = ReactBrowserEventEmitter;
 
 exports = module.exports = __webpack_require__(6)(undefined);
 // imports
-exports.i(__webpack_require__(85), "");
 exports.i(__webpack_require__(86), "");
 exports.i(__webpack_require__(87), "");
 exports.i(__webpack_require__(88), "");
@@ -5435,6 +5434,7 @@ exports.i(__webpack_require__(98), "");
 exports.i(__webpack_require__(99), "");
 exports.i(__webpack_require__(100), "");
 exports.i(__webpack_require__(101), "");
+exports.i(__webpack_require__(102), "");
 
 // module
 exports.push([module.i, "", ""]);
@@ -6004,7 +6004,7 @@ var ReactInstrumentation = __webpack_require__(9);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(42);
 var setInnerHTML = __webpack_require__(30);
-var setTextContent = __webpack_require__(67);
+var setTextContent = __webpack_require__(68);
 
 function getNodeAfter(parentNode, node) {
   // Special case for text components, which return [open, close] comments
@@ -6293,8 +6293,8 @@ module.exports = createMicrosoftUnsafeLocalFunction;
 
 var _prodInvariant = __webpack_require__(3);
 
-var ReactPropTypesSecret = __webpack_require__(71);
-var propTypesFactory = __webpack_require__(56);
+var ReactPropTypesSecret = __webpack_require__(72);
+var propTypesFactory = __webpack_require__(57);
 
 var React = __webpack_require__(17);
 var PropTypes = propTypesFactory(React.isValidElement);
@@ -7329,6 +7329,16 @@ module.exports = getEventCharCode;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+module.exports = __webpack_require__(17);
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -7344,7 +7354,7 @@ module.exports = getEventCharCode;
 var _prodInvariant = __webpack_require__(18),
     _assign = __webpack_require__(4);
 
-var ReactNoopUpdateQueue = __webpack_require__(52);
+var ReactNoopUpdateQueue = __webpack_require__(53);
 
 var canDefineProperty = __webpack_require__(25);
 var emptyObject = __webpack_require__(26);
@@ -7474,7 +7484,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7575,7 +7585,7 @@ module.exports = ReactNoopUpdateQueue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7600,7 +7610,7 @@ var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol
 module.exports = REACT_ELEMENT_TYPE;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7646,7 +7656,7 @@ function getIteratorFn(maybeIterable) {
 module.exports = getIteratorFn;
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7676,7 +7686,7 @@ var ReactElement = __webpack_require__(15);
 var checkReactTypeSpec = __webpack_require__(110);
 
 var canDefineProperty = __webpack_require__(25);
-var getIteratorFn = __webpack_require__(54);
+var getIteratorFn = __webpack_require__(55);
 var warning = __webpack_require__(2);
 var lowPriorityWarning = __webpack_require__(34);
 
@@ -7907,7 +7917,7 @@ module.exports = ReactElementValidator;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7935,7 +7945,7 @@ module.exports = function(isValidElement) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7956,7 +7966,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7979,7 +7989,7 @@ var ReactDOMComponentFlags = {
 module.exports = ReactDOMComponentFlags;
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8043,7 +8053,7 @@ module.exports = accumulateInto;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8079,7 +8089,7 @@ function forEachAccumulated(arr, cb, scope) {
 module.exports = forEachAccumulated;
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8117,7 +8127,7 @@ function getTextContentAccessor() {
 module.exports = getTextContentAccessor;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8242,7 +8252,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8269,7 +8279,7 @@ var ReactFeatureFlags = {
 module.exports = ReactFeatureFlags;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8397,7 +8407,7 @@ var inputValueTracking = {
 module.exports = inputValueTracking;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8453,7 +8463,7 @@ function isTextInputElement(elem) {
 module.exports = isTextInputElement;
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8483,7 +8493,7 @@ var ViewportMetrics = {
 module.exports = ViewportMetrics;
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8540,7 +8550,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = setTextContent;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8572,7 +8582,7 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8731,7 +8741,7 @@ var CSSProperty = {
 module.exports = CSSProperty;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8972,7 +8982,7 @@ module.exports = DOMPropertyOperations;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8994,7 +9004,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9200,7 +9210,7 @@ module.exports = ReactDOMSelect;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9220,8 +9230,8 @@ var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
 var ReactCompositeComponent = __webpack_require__(162);
-var ReactEmptyComponent = __webpack_require__(75);
-var ReactHostComponent = __webpack_require__(76);
+var ReactEmptyComponent = __webpack_require__(76);
+var ReactHostComponent = __webpack_require__(77);
 
 var getNextDebugID = __webpack_require__(165);
 var invariant = __webpack_require__(1);
@@ -9335,7 +9345,7 @@ module.exports = instantiateReactComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9381,7 +9391,7 @@ module.exports = ReactNodeTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9416,7 +9426,7 @@ ReactEmptyComponent.injection = ReactEmptyComponentInjection;
 module.exports = ReactEmptyComponent;
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9490,7 +9500,7 @@ module.exports = ReactHostComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9672,7 +9682,7 @@ module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9755,7 +9765,7 @@ module.exports = EventListener;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9774,8 +9784,8 @@ module.exports = EventListener;
 var ReactDOMSelection = __webpack_require__(179);
 
 var containsNode = __webpack_require__(181);
-var focusNode = __webpack_require__(68);
-var getActiveElement = __webpack_require__(80);
+var focusNode = __webpack_require__(69);
+var getActiveElement = __webpack_require__(81);
 
 function isInDocument(node) {
   return containsNode(document.documentElement, node);
@@ -9883,7 +9893,7 @@ var ReactInputSelection = {
 module.exports = ReactInputSelection;
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9927,7 +9937,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9953,7 +9963,7 @@ var ReactCurrentOwner = __webpack_require__(11);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDOMContainerInfo = __webpack_require__(196);
 var ReactDOMFeatureFlags = __webpack_require__(197);
-var ReactFeatureFlags = __webpack_require__(63);
+var ReactFeatureFlags = __webpack_require__(64);
 var ReactInstanceMap = __webpack_require__(24);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactMarkupChecksum = __webpack_require__(198);
@@ -9962,7 +9972,7 @@ var ReactUpdateQueue = __webpack_require__(48);
 var ReactUpdates = __webpack_require__(12);
 
 var emptyObject = __webpack_require__(26);
-var instantiateReactComponent = __webpack_require__(73);
+var instantiateReactComponent = __webpack_require__(74);
 var invariant = __webpack_require__(1);
 var setInnerHTML = __webpack_require__(30);
 var shouldUpdateReactComponent = __webpack_require__(46);
@@ -10471,7 +10481,7 @@ module.exports = ReactMount;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10487,7 +10497,7 @@ module.exports = ReactMount;
 
 
 
-var ReactNodeTypes = __webpack_require__(74);
+var ReactNodeTypes = __webpack_require__(75);
 
 function getHostComponentFromComposite(inst) {
   var type;
@@ -10506,15 +10516,15 @@ function getHostComponentFromComposite(inst) {
 module.exports = getHostComponentFromComposite;
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(84);
+__webpack_require__(85);
 
-var _react = __webpack_require__(104);
+var _react = __webpack_require__(51);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10522,14 +10532,16 @@ var _reactDom = __webpack_require__(120);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Time = __webpack_require__(206);
+
+var _Time2 = _interopRequireDefault(_Time);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import Time from '../../src/ui/Time.js'
-
-_reactDom2.default.render(_react2.default.createElement(Time, { seconds: 566 }), document.getElementsByTagName('body')[0]);
+_reactDom2.default.render(_react2.default.createElement(_Time2.default, { seconds: 566 }), document.getElementsByTagName('body')[0]);
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -10543,7 +10555,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(102)(content, options);
+var update = __webpack_require__(103)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(true) {
@@ -10560,7 +10572,7 @@ if(true) {
 }
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(undefined);
@@ -10574,20 +10586,6 @@ exports.push([module.i, "/* Collection default theme */\n\n.ReactVirtualized__Co
 
 
 /***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(6)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "/*!\n  Shoelace.css 1.0.0-beta6\n  (c) A Beautiful Site, LLC\n\n  Released under the MIT license\n  Source: https://github.com/claviska/shoelace-css\n*/\n\n/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}[hidden],template{display:none}\n\n/*! Variables */\n\n:root {\n  /* Fonts */\n  --font-sans-serif: sans-serif;\n  --font-serif: serif;\n  --font-system: -apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif;\n  --font-monospace: Menlo, Consolas, \"DejaVu Sans Mono\", monospace;\n\n  /* Colors (most courtesy of http://clrs.cc/) */\n  --color-primary: tomato;\n  --color-white: white;\n  --color-navy: #001f3f;\n  --color-blue: #0074d9;\n  --color-aqua: #7fdbff;\n  --color-teal: #39cccc;\n  --color-olive: #3d9970;\n  --color-green: #2ecc40;\n  --color-lime: #01ff70;\n  --color-yellow: #ffdc00;\n  --color-orange: #ff851b;\n  --color-red: #ff4136;\n  --color-maroon: #85144b;\n  --color-fuchsia: #f012be;\n  --color-purple: #b10dc9;\n  --color-black: #111;\n  --color-gray: #aaa;\n  --color-silver: #ddd;\n  --color-darkgray: #2a2a2a;\n  --color-input-fg: #666;\n  \n\n  /* States */\n  --state-success: var(--color-green);\n  --state-info: var(--color-aqua);\n  --state-warning: var(--color-orange);\n  --state-danger: var(--color-red);\n  --state-inverse: var(--color-black);\n\n  /* Components */\n  --component-bg-color: #f2f2f2;\n  --component-border-color: #ddd;\n  --component-border-radius: 0;\n  --component-border-width: 1px;\n  --component-spacing: 1rem;\n  --component-spacing-big: 2rem;\n  --component-spacing-small: .5rem;\n\n  /* Content */\n  --body-bg-color: var(--color-darkgray);\n  --body-color: var(--color-silver);\n  --font-family: var(--font-system);\n  --font-size: 1rem; /* Most browsers use a default font size of 16px */\n  --font-size-big: 1.25rem;\n  --font-size-small: .875rem;\n  --font-weight-light: 300;\n  --font-weight: 400;\n  --font-weight-bold: 700;\n  --line-height: 1.5;\n  --text-muted: var(--color-gray);\n\n  --code-font-size: 90%;\n  --code-color: var(--color-black);\n  --code-border-radius: var(--component-border-radius);\n  --code-bg-color: var(--component-bg-color);\n  --code-spacing-x: calc(var(--font-size) * .4);\n  --code-spacing-y: calc(var(--font-size) * .2);\n\n  --headings-font-family: var(--font-system);\n  --headings-font-weight: var(--font-weight-light);\n  --headings-line-height: 1.1;\n  --headings-margin-bottom: .5rem;\n  --headings-color: inherit;\n  --headings-font-size-h1: 2rem;\n  --headings-font-size-h2: 1.75rem;\n  --headings-font-size-h3: 1.5rem;\n  --headings-font-size-h4: 1.3rem;\n  --headings-font-size-h5: 1.1rem;\n  --headings-font-size-h6: 1rem;\n\n  --hr-border-width: 1px;\n  --hr-border-color: var(--component-border-color);\n  --hr-spacing: var(--component-spacing-big);\n\n  --kbd-font-size: 90%;\n  --kbd-color: var(--color-white);\n  --kbd-border-radius: var(--component-border-radius);\n  --kbd-bg-color: var(--color-black);\n  --kbd-spacing-x: calc(var(--font-size) * .4);\n  --kbd-spacing-y: calc(var(--font-size) * .2);\n\n  --link-color: var(--color-primary);\n  --link-text-decoration: none;\n  --link-color-hover: var(--link-color);\n  --link-text-decoration-hover: underline;\n\n  --mark-color: inherit;\n  --mark-bg-color: var(--color-yellow);\n  --mark-spacing-x: calc(var(--font-size) * .4);\n  --mark-spacing-y: calc(var(--font-size) * .2);\n\n  --placeholder-color: var(--text-muted);\n\n  --pre-color: var(--code-color);\n  --pre-border-radius: var(--component-border-radius);\n  --pre-bg-color: var(--code-bg-color);\n  --pre-max-height: none;\n\n  --selection-color: var(--color-white);\n  --selection-bg-color: var(--color-primary);\n\n  /* Alerts */\n  --alert-color: var(--color-white);\n  --alert-border-radius: var(--component-border-radius);\n  --alert-bg-color-primary: var(--color-primary);\n  --alert-bg-color-success: var(--state-success);\n  --alert-bg-color-info: var(--state-info);\n  --alert-bg-color-warning: var(--state-warning);\n  --alert-bg-color-danger: var(--state-danger);\n  --alert-bg-color-inverse: var(--state-inverse);\n  --alert-spacing-x: var(--component-spacing);\n  --alert-spacing-y: var(--component-spacing);\n\n  /* Badges */\n  --badge-font-size: .8em; /* ems for relative sizing */\n  --badge-font-weight: var(--font-weight-bold);\n  --badge-color: var(--color-white);\n  --badge-border-radius: 1em;  /* ems for relative sizing */\n  --badge-bg-color-primary: var(--color-primary);\n  --badge-bg-color-success: var(--state-success);\n  --badge-bg-color-info: var(--state-info);\n  --badge-bg-color-warning: var(--state-warning);\n  --badge-bg-color-danger: var(--state-danger);\n  --badge-bg-color-inverse: var(--state-inverse);\n  --badge-spacing-x: calc(var(--component-spacing) * .5);\n  --badge-spacing-y: calc(var(--component-spacing) * .15);\n\n  /* Buttons */\n  --button-font-family: inherit;\n  --button-font-weight: inherit;\n  --button-font-size: var(--font-size);\n  --button-color: var(--color-white);\n  --button-border-radius: var(--component-border-radius);\n  --button-bg-color-primary: var(--color-primary);\n  --button-bg-color-primary-hover: var(--color-red);\n  --button-bg-color-success: var(--state-success);\n  --button-bg-color-info: var(--state-info);\n  --button-bg-color-warning: var(--state-warning);\n  --button-bg-color-danger: var(--state-danger);\n  --button-bg-color-inverse: var(--state-inverse);\n\n  /* Forms */\n  --fieldset-border-color: var(--component-border-color);\n  --fieldset-border-width: var(--component-border-width);\n  --fieldset-border-radius: var(--component-border-radius);\n  --fieldset-spacing-x: var(--component-spacing);\n  --fieldset-spacing-y: var(--component-spacing);\n\n  --input-font-family: inherit;\n  --input-font-size: var(--font-size);\n  --input-font-weight: inherit;\n  --input-height: 2rem;\n  --input-height-big: 2.75rem;\n  --input-height-small: 1.25rem;\n  --input-color: var(--color-input-fg);\n  --input-border-color: var(--component-border-color);\n  --input-border-focus-color: var(--color-primary);\n  --input-border-width: 1px;\n  --input-border-radius: var(--component-border-radius);\n  --input-bg-color: var(--color-white);\n  --input-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\n  --input-readonly-bg-color: var(--component-bg-color);\n  --input-range-track-color: var(--component-bg-color);\n  --input-range-track-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\n  --input-range-thumb-color: var(--color-primary);\n  --input-range-thumb-height: 2rem;\n\n  --input-invalid-color: var(--state-danger);\n  --input-invalid-border-color: var(--state-danger);\n  --input-valid-color: var(--state-success);\n  --input-valid-border-color: var(--state-success);\n\n  /* Loaders */\n  --loader-bg-color: var(--component-bg-color);\n  --loader-border-color: var(--color-primary);\n  --loader-border-width: .25rem;\n  --loader-size: 2rem;\n  --loader-speed: 750ms;\n  --loader-spacing-x: var(--component-spacing-small);\n  --loader-spacing-y: 0;\n\n  /* Spacing Utilties */\n  --spacing-small: var(--component-spacing);\n  --spacing-medium: calc(var(--component-spacing) * 2);\n  --spacing-big: calc(var(--component-spacing) * 4);\n\n  /* Switches */\n  --switch-bg-color: var(--component-border-color);\n  --switch-bg-color-checked: var(--color-primary);\n  --switch-border-radius: var(--switch-size);\n  --switch-size: 2rem;\n  --switch-size-small: 1rem;\n  --switch-size-big: 3rem;\n  --switch-thumb-bg-color: white;\n  --switch-thumb-border-radius: 50%;\n  --switch-thumb-spacing: 2px;\n  --switch-speed: .2s;\n\n  /* Tabs */\n  --tab-bg-color: var(--body-bg);\n  --tab-bg-color-hover: var(--body-bg);\n  --tab-bg-color-active: var(--link-color);\n  --tab-bg-color-disabled: var(--body-bg);\n  --tab-border-radius: var(--component-border-radius);\n  --tab-color: var(--link-color);\n  --tab-color-hover: var(--link-color-hover);\n  --tab-color-active: var(--color-white);\n  --tab-color-disabled: var(--text-muted);\n  --tab-spacing-x: var(--component-spacing);\n  --tab-spacing-y: calc(var(--component-spacing) / 2);\n\n  --tab-pane-border-color: var(--component-border-color);\n  --tab-pane-border-radius: var(--component-border-radius);\n  --tab-pane-border-width: var(--component-border-width);\n  --tab-pane-spacing-x: var(--component-spacing);\n  --tab-pane-spacing-y: var(--component-spacing);\n\n  /* Tables */\n  --table-border-color: var(--component-border-color);\n  --table-border-width: var(--component-border-width);\n  --table-header-bg-color: transparent;\n  --table-stripe-bg-color: var(--component-bg-color);\n  --table-spacing-x: calc(var(--component-spacing-small) * 1.5);\n  --table-spacing-y: var(--component-spacing-small);\n}\n\n/*! Content */html{box-sizing:border-box}*,:after,:before{box-sizing:inherit}body{background:var(--body-bg-color);font-family:var(--font-family);font-weight:var(--font-weight);font-size:var(--font-size);color:var(--body-color);line-height:var(--line-height)}a{color:var(--link-color);text-decoration:var(--link-text-decoration)}a:hover{color:var(--link-color-hover);text-decoration:var(--link-text-decoration-hover)}abbr[title]{text-decoration:none;border-bottom:2px dashed currentcolor}b,strong{font-weight:var(--font-weight-bold)}big,blockquote{font-size:var(--font-size-big)}blockquote{border-left:solid .4rem var(--component-border-color);padding:.5rem .5rem .5rem 1rem;margin-bottom:1rem;margin-left:0}code{font-family:var(--font-monospace);font-size:var(--code-font-size);color:var(--code-color);background-color:var(--code-bg-color);border-radius:var(--code-border-radius);padding:var(--code-spacing-y) var(--code-spacing-x)}del{color:var(--color-red)}figure{margin-top:0;margin-bottom:1rem}h1,h2,h3,h4,h5,h6{font-family:var(--headings-font-family);font-weight:var(--headings-font-weight);line-height:var(--headings-line-height);color:var(--headings-color);margin-top:0;margin-bottom:var(--headings-margin-bottom)}h1{font-size:var(--headings-font-size-h1)}h2{font-size:var(--headings-font-size-h2)}h3{font-size:var(--headings-font-size-h3)}h4{font-size:var(--headings-font-size-h4)}h5{font-size:var(--headings-font-size-h5)}h6{font-size:var(--headings-font-size-h6)}hr{border:none;border-top:solid var(--hr-border-width) var(--hr-border-color);margin:var(--hr-spacing) 0}img{height:auto;max-width:100%;vertical-align:middle}ins{color:var(--color-green)}kbd{font-family:var(--font-monospace);font-size:var(--kbd-font-size);color:var(--kbd-color);background-color:var(--kbd-bg-color);border-radius:var(--kbd-border-radius);padding:var(--kbd-spacing-y) var(--kbd-spacing-x)}mark{color:var(--mark-color);background-color:var(--mark-bg-color);padding:var(--mark-spacing-y) var(--mark-spacing-x)}p,pre{margin-top:0;margin-bottom:1rem}pre{max-height:var(--pre-max-height);overflow-y:auto;font-family:var(--font-monospace);color:var(--pre-color);background-color:var(--pre-bg-color);border-radius:var(--pre-border-radius);padding:1rem}small{font-size:var(--font-size-small)}dl{margin-bottom:1rem}dt{font-weight:var(--font-weight-bold)}dd{margin-left:0}dd,ol,ul{margin-bottom:1rem}ol,ul{line-height:var(--line-height);list-style-position:outside;padding-left:1rem;margin-top:0}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}::-webkit-input-placeholder{color:var(--placeholder-color)}::-moz-placeholder{color:var(--placeholder-color)}:-ms-input-placeholder{color:var(--placeholder-color)}:-moz-placeholder{color:var(--placeholder-color)}::-moz-selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}::selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}\n\n/*! Alerts */.alert{color:var(--alert-color);background-color:var(--alert-bg-color-primary);border-radius:var(--alert-border-radius);padding:var(--alert-spacing-y) var(--alert-spacing-x);margin-top:0;margin-bottom:1rem}.alert:empty{display:none}.alert-success{background-color:var(--alert-bg-color-success)}.alert-info{background-color:var(--alert-bg-color-info)}.alert-warning{background-color:var(--alert-bg-color-warning)}.alert-danger{background-color:var(--alert-bg-color-danger)}.alert-inverse{background-color:var(--alert-bg-color-inverse)}.alert a{color:inherit;text-decoration:underline}.alert :last-child{margin-bottom:0}\n\n/*! Badges */.badge{font-size:var(--badge-font-size);font-weight:var(--badge-font-weight);color:var(--badge-color);background-color:var(--badge-bg-color-primary);border-radius:var(--badge-border-radius);padding:var(--badge-spacing-y) var(--badge-spacing-x);vertical-align:baseline;display:inline-block}.badge:empty{display:none}.badge-success{background-color:var(--badge-bg-color-success)}.badge-info{background-color:var(--badge-bg-color-info)}.badge-warning{background-color:var(--badge-bg-color-warning)}.badge-danger{background-color:var(--badge-bg-color-danger)}.badge-inverse{background-color:var(--badge-bg-color-inverse)}\n\n/*! Buttons */\n\nbutton,\n.button {\n  font-family: var(--button-font-family);\n  font-size: var(--button-font-size);\n  font-weight: var(--button-font-weight);\n  text-align: center;\n  text-decoration: none;\n  color: var(--button-color);\n  background-color: var(--button-bg-color-primary);\n  border-radius: var(--button-border-radius);\n  border: none;\n  height: var(--input-height);\n  line-height: 1;\n  user-select: none;\n  vertical-align: middle;\n  white-space: nowrap;\n  padding: calc(var(--component-spacing) * .5) calc(var(--component-spacing) * .75);\n  box-shadow: var(--button-box-shadow);\n  cursor: pointer;\n  display: inline-block;\n  transition: .1s box-shadow, .1s background-color, .1s color;\n}\n\n.button-small {\n  font-size: calc(var(--button-font-size) * .8);\n  height: var(--input-height-small);\n  padding: calc(var(--component-spacing) * .25) calc(var(--component-spacing) * .5);\n}\n\n.button-big {\n  font-size: calc(var(--button-font-size) * 1.2);\n  height: var(--input-height-big);\n  padding: calc(var(--component-spacing) * .75) calc(var(--component-spacing) * 1);\n}\n\n.button-block {\n  width: 100% !important;\n  display: block;\n}\n\nbutton:hover,\n.button:hover {\n  color: var(--button-color);\n  text-decoration: none;\n}\n\nbutton:hover:not(:disabled),\n.button:hover:not(.disabled) {\n  box-shadow: var(--button-box-shadow-hover);\n}\n\n.button-primary:hover:not(.disabled),\nbutton.primary:hover:not(:disabled) {\n  background: var(--button-bg-color-primary-hover)\n}\n\nbutton:active:not(:disabled),\nbutton.active:not(:disabled),\n.button.active:not(.disabled) {\n  color: var(--button-color);\n}\n\nbutton:disabled,\nbutton.disabled,\n.button.disabled {\n  opacity: .5;\n  cursor: not-allowed;\n}\n\n.button-success { background-color: var(--button-bg-color-success); }\n.button-info { background-color: var(--button-bg-color-info); }\n.button-warning { background-color: var(--button-bg-color-warning); }\n.button-danger { background-color: var(--button-bg-color-danger); }\n.button-inverse { background-color: var(--button-bg-color-inverse); }\n\n.button-link {\n  background-color: transparent;\n  border: 1px solid var(--link-color);\n  color: var(--link-color);\n  text-decoration: var(--link-text-decoration);\n  box-shadow: none;\n}\n\n.button-link-tertiary:hover:not(:disabled),\n.button-link:hover:not(:disabled) {\n  background-color: transparent;\n  color: var(--link-color-hover);\n  box-shadow: none;\n}\n\n.button-link-tertiary {\n  background-color: transparent;\n  color: var(--link-color);\n  text-decoration: var(--link-text-decoration);\n  box-shadow: none;\n}\n\nlabel.button input[type=\"file\"] {\n  display: none;\n}\n\n/*! Forms */fieldset{border:solid var(--fieldset-border-width) var(--fieldset-border-color);border-radius:var(--fieldset-border-radius);padding:var(--component-spacing) calc(var(--component-spacing) * 1.5);margin-bottom:1rem}fieldset legend{font-weight:var(--font-weight-bold);padding:0 .25rem}label{display:inline-block;margin-bottom:.25rem}label+label{margin-left:1rem}input[type=color],input[type=date],input[type=datetime-local],input[type=email],input[type=month],input[type=number],input[type=password],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week],select,textarea{width:100%;font-family:var(--input-font-family);font-size:var(--input-font-size);font-weight:var(--input-font-weight);color:var(--input-color);border:solid var(--input-border-width) var(--input-border-color);border-radius:var(--input-border-radius);box-shadow:var(--input-box-shadow);background-color:var(--input-bg-color);height:var(--input-height);line-height:1;vertical-align:middle;display:block;padding-left:calc(var(--component-spacing) * .5);padding-right:calc(var(--component-spacing) * .5);margin:0;transition:border-color .1s,background-color .1s,color .1s;white-space:nowrap;-moz-appearance:none;-webkit-appearance:none}input[type=color]:focus,input[type=date]:focus,input[type=datetime-local]:focus,input[type=email]:focus,input[type=month]:focus,input[type=number]:focus,input[type=password]:focus,input[type=search]:focus,input[type=tel]:focus,input[type=text]:focus,input[type=time]:focus,input[type=url]:focus,input[type=week]:focus,select:focus,textarea:focus{outline:none;border-color:var(--input-border-focus-color)}select{position:relative;background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg width='41' height='26' viewBox='0 0 41 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000' d='M0 5.382l19.983 19.983L40.14 5.208 34.932 0 19.869 15.062 4.84.032z' fill-rule='evenodd'/%3E%3C/svg%3E\");background-position:right .4rem center;background-repeat:no-repeat;background-size:.75rem;padding-top:0;padding-bottom:0;padding-right:calc(var(--component-spacing) * .5 + 1rem)}textarea{height:auto;resize:vertical;line-height:var(--line-height);white-space:normal}input[type=color]{padding:calc(var(--component-spacing) * .5)}input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:none;border-radius:var(--input-border-radius)}input[type=checkbox],input[type=radio]{padding:0}input[disabled]{opacity:.5;cursor:not-allowed}input[readonly]{background-color:var(--input-readonly-bg-color)}input.input-small,select.input-small{height:var(--input-height-small)}input.input-small,select.input-small,textarea.input-small{font-size:calc(var(--input-font-size) * .8)}input.input-big,select.input-big{height:var(--input-height-big)}input.input-big,select.input-big,textarea.input-big{font-size:calc(var(--input-font-size) * 1.2)}input[type=range]{-webkit-appearance:none;width:100%;margin:1rem 0}input[type=range]:focus{outline:none}input[type=range]::-webkit-slider-runnable-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-webkit-slider-thumb{border:none;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer;-webkit-appearance:none;margin-top:-.5rem}input[type=range]:focus::-webkit-slider-runnable-track{background:var(--input-range-track-color)}input[type=range]::-moz-range-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-moz-range-thumb{border:none;height:1.5rem;width:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]::-ms-track{width:100%;height:.5rem;cursor:pointer;background:transparent;border-color:transparent;color:transparent}input[type=range]::-ms-fill-lower{background:#2f6ea5;border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-fill-upper{background:var(--input-range-track-color);border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-thumb{border:none;height:.5rem;width:.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]:focus::-ms-fill-lower,input[type=range]:focus::-ms-fill-upper{background:var(--input-range-track-color)}progress{width:100%;vertical-align:middle}.input-group,.input-single{margin-bottom:1rem}.input-group{width:100%;display:flex}.input-group>.button,.input-group>button,.input-group>input{border-radius:0}.input-group>.button:first-child,.input-group>button:first-child,.input-group>input:first-child{border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-group>.button:last-child,.input-group>button:last-child,.input-group>input:last-child{border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-group>input+input{border-left-width:0}.input-group>input+input:focus{border-left-width:var(--input-border-width);margin-left:calc(var(--input-border-width) * -1)}.input-addon{color:var(--text-muted);height:var(--input-height);line-height:var(--input-height);border-top:solid var(--input-border-width) var(--input-border-color);border-bottom:solid var(--input-border-width) var(--input-border-color);background:#f8f8f8;padding:0 calc(var(--component-spacing) * .5);white-space:nowrap}.input-addon-small{font-size:calc(var(--input-font-size) * .8);height:var(--input-height-small);line-height:var(--input-height-small)}.input-addon-big{font-size:calc(var(--input-font-size) * 1.2);height:var(--input-height-big);line-height:var(--input-height-big)}.input-addon:first-child{border-left:solid var(--input-border-width) var(--input-border-color);border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-addon:last-child{border-right:solid var(--input-border-width) var(--input-border-color);border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-invalid label{color:var(--input-invalid-color)!important}.input-invalid,.input-invalid input,.input-invalid select{color:var(--input-invalid-color)!important;border-color:var(--input-invalid-border-color)!important}.input-valid label{color:var(--input-valid-color)!important}.input-valid,.input-valid input,.input-valid select{color:var(--input-valid-color)!important;border-color:var(--input-valid-border-color)!important}\n\n/*! Loaders */@keyframes loader{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.loader,.loader-bg:after{width:var(--loader-size);height:var(--loader-size);border-radius:50%;border:solid var(--loader-border-width) var(--loader-bg-color);border-top-color:var(--loader-border-color);border-left-color:var(--loader-border-color);display:inline-block;animation:loader var(--loader-speed) linear infinite;vertical-align:middle;margin:var(--loader-spacing-y) var(--loader-spacing-x)}.loader-bg-small:after,.loader-small{border-width:calc(var(--loader-border-width) / 2);width:calc(var(--loader-size) / 2);height:calc(var(--loader-size) / 2)}.loader-bg-big:after,.loader-big{border-width:calc(var(--loader-border-width) * 1.5);width:calc(var(--loader-size) * 2);height:calc(var(--loader-size) * 2)}.loader-bg{position:relative!important}.loader-bg:after{content:\"\";position:absolute;top:calc(50% - var(--loader-size) / 2);left:calc(50% - var(--loader-size) / 2);margin:0}.loader-bg-small:after{position:absolute;top:calc(50% - var(--loader-size) / 4);left:calc(50% - var(--loader-size) / 4)}.loader-bg-big:after{position:absolute;top:calc(50% - var(--loader-size) / 1);left:calc(50% - var(--loader-size) / 1)}\n\n/*! Switches */.switch-small{--switch-size:var(--switch-size-small)}.switch-big{--switch-size:var(--switch-size-big)}.switch input{display:none}.switch input+label{position:relative;min-width:calc(var(--switch-size) * 2);height:var(--switch-size);line-height:var(--switch-size);border-radius:var(--switch-thumb-border-radius);display:inline-block;cursor:pointer;outline:none;user-select:none;vertical-align:middle;text-indent:calc(var(--switch-size) * 2 + .5rem)}.switch input+label:after,.switch input+label:before{content:\"\";position:absolute;top:0;left:0;width:calc(var(--switch-size) * 2);bottom:0;display:block}.switch input+label:before{right:0;background-color:var(--switch-bg-color);border-radius:var(--switch-border-radius);transition:background-color var(--switch-speed)}.switch input+label:after{top:var(--switch-thumb-spacing);left:var(--switch-thumb-spacing);width:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);height:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);border-radius:var(--switch-thumb-border-radius);background-color:var(--switch-thumb-bg-color);transition:margin var(--switch-speed)}.switch input:checked+label:before{background-color:var(--switch-bg-color-checked)}.switch input:checked+label:after{margin-left:var(--switch-size)}.switch input:disabled+label{opacity:.5;cursor:not-allowed}.switch+.switch{margin-left:1rem}\n\n/*! Progress Bars */.progress{position:relative;width:100%;height:2.25rem;line-height:2.25rem;font-size:1rem;background-color:#f2f2f2;border-radius:.25rem;display:block;overflow:hidden;margin-bottom:1.5rem;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);box-shadow:inset 0 1px 1px rgba(0,0,0,.05)}.progress .progress-bar{position:absolute;top:0;left:0;width:0;height:100%;text-align:center;color:#fff;background-color:#0074d9;-webkit-transition:width .1s;transition:width .1s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.progress.progress-indeterminate .progress-bar{width:75%!important;-webkit-animation:progress-indeterminate ease-in-out 3s infinite;animation:progress-indeterminate ease-in-out 3s infinite}.progress.progress-xs{font-size:.7rem;height:1.25rem;line-height:1.25rem}.progress.progress-sm{font-size:.8rem;height:1.75rem;line-height:1.75rem}.progress.progress-lg{font-size:1.25rem;height:2.75rem;line-height:2.75rem}.progress.progress-xl{font-size:1.5rem;height:3.25rem;line-height:3.25rem}.progress.progress-secondary .progress-bar{background-color:#aaa}.progress.progress-success .progress-bar{background-color:#2ecc40}.progress.progress-info .progress-bar{background-color:#39cccc}.progress.progress-warning .progress-bar{background-color:#ff851b}.progress.progress-danger .progress-bar{background-color:#ff4136}.progress.progress-light{background-color:#111}.progress.progress-light .progress-bar{color:#111;background-color:#fff}.progress.progress-dark{background-color:#fff}.progress.progress-dark .progress-bar{color:#fff;background-color:#111}@-webkit-keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}@keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}\n\n/*! Tabs */.tabs{width:100%}.tabs,.tabs-nav{margin-bottom:1rem}.tabs-nav{user-select:none}.tabs-nav a{color:var(--tab-color);text-decoration:none;background-color:var(--tab-bg-color);border-radius:var(--tab-border-radius);padding:var(--tab-spacing-y) var(--tab-spacing-x);display:inline-block}.tabs-nav a:hover{color:var(--tab-color-hover);background-color:var(--tab-bg-color-hover);text-decoration:none}.tabs-nav a.active{color:var(--tab-color-active);background-color:var(--tab-bg-color-active);cursor:default}.tabs-nav a.disabled{color:var(--tab-color-disabled);background-color:var(--tab-bg-color-disabled);cursor:not-allowed}.tabs-pane{border:solid var(--tab-pane-border-width) var(--tab-pane-border-color);border-radius:.25rem;padding:var(--tab-pane-spacing-y) var(--tab-pane-spacing-x)}.tabs-pane:not(.active){display:none}.tabs-pane :last-child{margin-bottom:0}\n\n/*! Tables */table{width:100%;border-collapse:collapse;margin-bottom:1rem}table caption{caption-side:bottom;font-size:var(--font-size-small);color:var(--text-muted);text-align:center;padding-top:var(--table-spacing-y)}table th{text-align:left;background:var(--table-header-bg-color);border-bottom:solid calc(var(--table-border-width) * 2) var(--table-border-color)}table td,table th{padding:var(--table-spacing-y) var(--table-spacing-x)}table td{border-bottom:solid var(--table-border-width) var(--table-border-color)}table.table-striped tr:nth-child(odd) td{background-color:var(--table-stripe-bg-color)}table.table-bordered{border:solid var(--table-border-width) var(--table-border-color)}table.table-bordered td{border:var(--table-border-width) solid var(--table-border-color)}\n\n/*! Utilties */.clearfix:after,.clearfix:before{content:\"\";display:table}.clearfix:after{clear:both}.float-left{float:left!important}.float-right{float:right!important}.width-0{width:0!important}.width-5{width:5%!important}.width-10{width:10%!important}.width-15{width:15%!important}.width-20{width:20%!important}.width-25{width:25%!important}.width-30{width:30%!important}.width-35{width:35%!important}.width-40{width:40%!important}.width-45{width:45%!important}.width-50{width:50%!important}.width-55{width:55%!important}.width-60{width:60%!important}.width-65{width:65%!important}.width-70{width:70%!important}.width-75{width:75%!important}.width-80{width:80%!important}.width-85{width:85%!important}.width-90{width:90%!important}.width-95{width:95%!important}.width-100{width:100%!important}.height-0{height:0%!important}.height-5{height:5%!important}.height-10{height:10%!important}.height-15{height:15%!important}.height-20{height:20%!important}.height-25{height:25%!important}.height-30{height:30%!important}.height-35{height:35%!important}.height-40{height:40%!important}.height-45{height:45%!important}.height-50{height:50%!important}.height-55{height:55%!important}.height-60{height:60%!important}.height-65{height:65%!important}.height-70{height:70%!important}.height-75{height:75%!important}.height-80{height:80%!important}.height-85{height:85%!important}.height-90{height:90%!important}.height-95{height:95%!important}.height-100{height:100%!important}.padding-none{padding:0!important}.padding-x-none{padding-left:0!important;padding-right:0!important}.padding-y-none{padding-bottom:0!important}.padding-t-none,.padding-y-none{padding-top:0!important}.padding-r-none{padding-right:0!important}.padding-b-none{padding-bottom:0!important}.padding-l-none{padding-left:0!important}.padding-small{padding:var(--spacing-small)!important}.padding-x-small{padding-left:var(--spacing-small)!important;padding-right:var(--spacing-small)!important}.padding-y-small{padding-bottom:var(--spacing-small)!important}.padding-t-small,.padding-y-small{padding-top:var(--spacing-small)!important}.padding-r-small{padding-right:var(--spacing-small)!important}.padding-b-small{padding-bottom:var(--spacing-small)!important}.padding-l-small{padding-left:var(--spacing-small)!important}.padding-medium{padding:var(--spacing-medium)!important}.padding-x-medium{padding-left:var(--spacing-medium)!important;padding-right:var(--spacing-medium)!important}.padding-y-medium{padding-bottom:var(--spacing-medium)!important}.padding-t-medium,.padding-y-medium{padding-top:var(--spacing-medium)!important}.padding-r-medium{padding-right:var(--spacing-medium)!important}.padding-b-medium{padding-bottom:var(--spacing-medium)!important}.padding-l-medium{padding-left:var(--spacing-medium)!important}.padding-big{padding:var(--spacing-big)!important}.padding-x-big{padding-left:var(--spacing-big)!important;padding-right:var(--spacing-big)!important}.padding-y-big{padding-bottom:var(--spacing-big)!important}.padding-t-big,.padding-y-big{padding-top:var(--spacing-big)!important}.padding-r-big{padding-right:var(--spacing-big)!important}.padding-b-big{padding-bottom:var(--spacing-big)!important}.padding-l-big{padding-left:var(--spacing-big)!important}.margin-none{margin:0!important}.margin-x-none{margin-left:0!important;margin-right:0!important}.margin-y-none{margin-bottom:0!important}.margin-t-none,.margin-y-none{margin-top:0!important}.margin-r-none{margin-right:0!important}.margin-b-none{margin-bottom:0!important}.margin-l-none{margin-left:0!important}.margin-small{margin:var(--spacing-small)!important}.margin-x-small{margin-left:var(--spacing-small)!important;margin-right:var(--spacing-small)!important}.margin-y-small{margin-bottom:var(--spacing-small)!important}.margin-t-small,.margin-y-small{margin-top:var(--spacing-small)!important}.margin-r-small{margin-right:var(--spacing-small)!important}.margin-b-small{margin-bottom:var(--spacing-small)!important}.margin-l-small{margin-left:var(--spacing-small)!important}.margin-medium{margin:var(--spacing-medium)!important}.margin-x-medium{margin-left:var(--spacing-medium)!important;margin-right:var(--spacing-medium)!important}.margin-y-medium{margin-bottom:var(--spacing-medium)!important}.margin-t-medium,.margin-y-medium{margin-top:var(--spacing-medium)!important}.margin-r-medium{margin-right:var(--spacing-medium)!important}.margin-b-medium{margin-bottom:var(--spacing-medium)!important}.margin-l-medium{margin-left:var(--spacing-medium)!important}.margin-big{margin:var(--spacing-big)!important}.margin-x-big{margin-left:var(--spacing-big)!important;margin-right:var(--spacing-big)!important}.margin-y-big{margin-bottom:var(--spacing-big)!important}.margin-t-big,.margin-y-big{margin-top:var(--spacing-big)!important}.margin-r-big{margin-right:var(--spacing-big)!important}.margin-b-big{margin-bottom:var(--spacing-big)!important}.margin-l-big{margin-left:var(--spacing-big)!important}.margin-x-auto{margin-left:auto!important;margin-right:auto!important}.margin-y-auto{margin-top:auto!important;margin-bottom:auto!important}.margin-xy-auto{margin:auto!important}.text-success{color:var(--state-success)!important}.text-info{color:var(--state-info)!important}.text-warning{color:var(--state-warning)!important}.text-danger{color:var(--state-danger)!important}.text-muted{color:var(--text-muted)!important}.text-small{font-size:var(--font-size-small)!important}.text-bold{font-weight:var(--font-weight-bold)!important}.text-italic{font-style:italic!important}.text-left{text-align:left!important}.text-right{text-align:right!important}.text-center{text-align:center!important}.text-justify{text-align:justify!important}.text-lowercase{text-transform:lowercase!important}.text-uppercase{text-transform:uppercase!important}.text-capitalize{text-transform:capitalize!important}.text-nowrap{white-space:nowrap!important}\n\n/*! Dropdowns */.dropdown{position:relative;display:inline-block}.dropdown .dropdown-trigger:after{content:\"\\25BC\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-size:.6em;vertical-align:middle;margin-left:.5em;display:inline-block;-webkit-transform:scaleY(.75);transform:scaleY(.75);margin-top:-.2em}.dropdown.dropdown-top .dropdown-trigger:after{-webkit-transform:scaleY(.75) rotate(180deg);transform:scaleY(.75) rotate(180deg)}.dropdown .dropdown-menu{position:absolute;top:calc(100% + 1px);left:0;z-index:100;min-width:10rem;max-width:25rem;max-height:none;background-color:#fff;border:1px solid #ddd;border-radius:.25rem;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.05);box-shadow:0 1px 0 rgba(0,0,0,.05);display:none;padding:.25rem 0;overflow-y:auto;-webkit-transform:translateZ(0);transform:translateZ(0)}.dropdown .dropdown-menu a{position:relative;color:#111;text-decoration:none;padding:.25rem calc(1rem + .5em);display:block;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis}.dropdown .dropdown-menu a:focus:not(.disabled){outline:none;color:#111;background-color:#f2f2f2}.dropdown .dropdown-menu a:hover:not(.disabled){color:#fff;background-color:#0074d9}.dropdown .dropdown-menu a.disabled{outline:none;cursor:not-allowed;opacity:.5}.dropdown .dropdown-menu a.checked:before{position:absolute;left:calc(.5rem - .1em);content:\"\\2713\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-weight:600}.dropdown .dropdown-menu hr{width:100%;border-top:1px solid #ddd;margin:.25rem 0}.dropdown.dropdown-top .dropdown-menu{top:auto;bottom:calc(100% + 1px)}.dropdown.dropdown-left .dropdown-menu{left:auto;right:0}.dropdown.dropdown.active .dropdown-menu{display:block}\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10596,7 +10594,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n    user-select: none;\n    cursor: default;\n}\n\n:focus {\n    outline: none;\n}\n\na {\n    cursor: pointer;\n}\n\nfieldset h5 {\n    font-size: 14px;\n    font-weight: 500;\n}\n\nfieldset legend {\n    font-size: 18px;\n    font-weight: 300;\n}\n\np.hint {\n    font-style: italic;\n    color: #eee;\n    margin-bottom: 0;\n    padding-bottom: 0;\n}\n\nfooter .button-link-tertiary {\n    margin-left: 1rem;\n}\n\np.hint.error {\n    color: #ff0000;\n}\n\ninput.inline {\n    display: inline-block;\n}\n\ninput[type=number].inline {\n    width: 3rem;\n    height: 1.6rem;\n    font-size: 14px;\n}\n\nbackdrop {\n    z-index: 11;\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(35,35,35,.4)\n}\n\nmodal {\n    position: fixed;\n    left: 50%;\n    top: 50%;\n    background: #fff;\n    z-index: 12;\n}", ""]);
+exports.push([module.i, "/*!\r\n  Shoelace.css 1.0.0-beta6\r\n  (c) A Beautiful Site, LLC\r\n\r\n  Released under the MIT license\r\n  Source: https://github.com/claviska/shoelace-css\r\n*/\r\n\r\n/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}[hidden],template{display:none}\r\n\r\n/*! Variables */\r\n\r\n:root {\r\n  /* Fonts */\r\n  --font-sans-serif: sans-serif;\r\n  --font-serif: serif;\r\n  --font-system: -apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif;\r\n  --font-monospace: Menlo, Consolas, \"DejaVu Sans Mono\", monospace;\r\n\r\n  /* Colors (most courtesy of http://clrs.cc/) */\r\n  --color-primary: tomato;\r\n  --color-white: white;\r\n  --color-navy: #001f3f;\r\n  --color-blue: #0074d9;\r\n  --color-aqua: #7fdbff;\r\n  --color-teal: #39cccc;\r\n  --color-olive: #3d9970;\r\n  --color-green: #2ecc40;\r\n  --color-lime: #01ff70;\r\n  --color-yellow: #ffdc00;\r\n  --color-orange: #ff851b;\r\n  --color-red: #ff4136;\r\n  --color-maroon: #85144b;\r\n  --color-fuchsia: #f012be;\r\n  --color-purple: #b10dc9;\r\n  --color-black: #111;\r\n  --color-gray: #aaa;\r\n  --color-silver: #ddd;\r\n  --color-darkgray: #2a2a2a;\r\n  --color-input-fg: #666;\r\n  \r\n\r\n  /* States */\r\n  --state-success: var(--color-green);\r\n  --state-info: var(--color-aqua);\r\n  --state-warning: var(--color-orange);\r\n  --state-danger: var(--color-red);\r\n  --state-inverse: var(--color-black);\r\n\r\n  /* Components */\r\n  --component-bg-color: #f2f2f2;\r\n  --component-border-color: #ddd;\r\n  --component-border-radius: 0;\r\n  --component-border-width: 1px;\r\n  --component-spacing: 1rem;\r\n  --component-spacing-big: 2rem;\r\n  --component-spacing-small: .5rem;\r\n\r\n  /* Content */\r\n  --body-bg-color: var(--color-darkgray);\r\n  --body-color: var(--color-silver);\r\n  --font-family: var(--font-system);\r\n  --font-size: 1rem; /* Most browsers use a default font size of 16px */\r\n  --font-size-big: 1.25rem;\r\n  --font-size-small: .875rem;\r\n  --font-weight-light: 300;\r\n  --font-weight: 400;\r\n  --font-weight-bold: 700;\r\n  --line-height: 1.5;\r\n  --text-muted: var(--color-gray);\r\n\r\n  --code-font-size: 90%;\r\n  --code-color: var(--color-black);\r\n  --code-border-radius: var(--component-border-radius);\r\n  --code-bg-color: var(--component-bg-color);\r\n  --code-spacing-x: calc(var(--font-size) * .4);\r\n  --code-spacing-y: calc(var(--font-size) * .2);\r\n\r\n  --headings-font-family: var(--font-system);\r\n  --headings-font-weight: var(--font-weight-light);\r\n  --headings-line-height: 1.1;\r\n  --headings-margin-bottom: .5rem;\r\n  --headings-color: inherit;\r\n  --headings-font-size-h1: 2rem;\r\n  --headings-font-size-h2: 1.75rem;\r\n  --headings-font-size-h3: 1.5rem;\r\n  --headings-font-size-h4: 1.3rem;\r\n  --headings-font-size-h5: 1.1rem;\r\n  --headings-font-size-h6: 1rem;\r\n\r\n  --hr-border-width: 1px;\r\n  --hr-border-color: var(--component-border-color);\r\n  --hr-spacing: var(--component-spacing-big);\r\n\r\n  --kbd-font-size: 90%;\r\n  --kbd-color: var(--color-white);\r\n  --kbd-border-radius: var(--component-border-radius);\r\n  --kbd-bg-color: var(--color-black);\r\n  --kbd-spacing-x: calc(var(--font-size) * .4);\r\n  --kbd-spacing-y: calc(var(--font-size) * .2);\r\n\r\n  --link-color: var(--color-primary);\r\n  --link-text-decoration: none;\r\n  --link-color-hover: var(--link-color);\r\n  --link-text-decoration-hover: underline;\r\n\r\n  --mark-color: inherit;\r\n  --mark-bg-color: var(--color-yellow);\r\n  --mark-spacing-x: calc(var(--font-size) * .4);\r\n  --mark-spacing-y: calc(var(--font-size) * .2);\r\n\r\n  --placeholder-color: var(--text-muted);\r\n\r\n  --pre-color: var(--code-color);\r\n  --pre-border-radius: var(--component-border-radius);\r\n  --pre-bg-color: var(--code-bg-color);\r\n  --pre-max-height: none;\r\n\r\n  --selection-color: var(--color-white);\r\n  --selection-bg-color: var(--color-primary);\r\n\r\n  /* Alerts */\r\n  --alert-color: var(--color-white);\r\n  --alert-border-radius: var(--component-border-radius);\r\n  --alert-bg-color-primary: var(--color-primary);\r\n  --alert-bg-color-success: var(--state-success);\r\n  --alert-bg-color-info: var(--state-info);\r\n  --alert-bg-color-warning: var(--state-warning);\r\n  --alert-bg-color-danger: var(--state-danger);\r\n  --alert-bg-color-inverse: var(--state-inverse);\r\n  --alert-spacing-x: var(--component-spacing);\r\n  --alert-spacing-y: var(--component-spacing);\r\n\r\n  /* Badges */\r\n  --badge-font-size: .8em; /* ems for relative sizing */\r\n  --badge-font-weight: var(--font-weight-bold);\r\n  --badge-color: var(--color-white);\r\n  --badge-border-radius: 1em;  /* ems for relative sizing */\r\n  --badge-bg-color-primary: var(--color-primary);\r\n  --badge-bg-color-success: var(--state-success);\r\n  --badge-bg-color-info: var(--state-info);\r\n  --badge-bg-color-warning: var(--state-warning);\r\n  --badge-bg-color-danger: var(--state-danger);\r\n  --badge-bg-color-inverse: var(--state-inverse);\r\n  --badge-spacing-x: calc(var(--component-spacing) * .5);\r\n  --badge-spacing-y: calc(var(--component-spacing) * .15);\r\n\r\n  /* Buttons */\r\n  --button-font-family: inherit;\r\n  --button-font-weight: inherit;\r\n  --button-font-size: var(--font-size);\r\n  --button-color: var(--color-white);\r\n  --button-border-radius: var(--component-border-radius);\r\n  --button-bg-color-primary: var(--color-primary);\r\n  --button-bg-color-primary-hover: var(--color-red);\r\n  --button-bg-color-success: var(--state-success);\r\n  --button-bg-color-info: var(--state-info);\r\n  --button-bg-color-warning: var(--state-warning);\r\n  --button-bg-color-danger: var(--state-danger);\r\n  --button-bg-color-inverse: var(--state-inverse);\r\n\r\n  /* Forms */\r\n  --fieldset-border-color: var(--component-border-color);\r\n  --fieldset-border-width: var(--component-border-width);\r\n  --fieldset-border-radius: var(--component-border-radius);\r\n  --fieldset-spacing-x: var(--component-spacing);\r\n  --fieldset-spacing-y: var(--component-spacing);\r\n\r\n  --input-font-family: inherit;\r\n  --input-font-size: var(--font-size);\r\n  --input-font-weight: inherit;\r\n  --input-height: 2rem;\r\n  --input-height-big: 2.75rem;\r\n  --input-height-small: 1.25rem;\r\n  --input-color: var(--color-input-fg);\r\n  --input-border-color: var(--component-border-color);\r\n  --input-border-focus-color: var(--color-primary);\r\n  --input-border-width: 1px;\r\n  --input-border-radius: var(--component-border-radius);\r\n  --input-bg-color: var(--color-white);\r\n  --input-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\r\n  --input-readonly-bg-color: var(--component-bg-color);\r\n  --input-range-track-color: var(--component-bg-color);\r\n  --input-range-track-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\r\n  --input-range-thumb-color: var(--color-primary);\r\n  --input-range-thumb-height: 2rem;\r\n\r\n  --input-invalid-color: var(--state-danger);\r\n  --input-invalid-border-color: var(--state-danger);\r\n  --input-valid-color: var(--state-success);\r\n  --input-valid-border-color: var(--state-success);\r\n\r\n  /* Loaders */\r\n  --loader-bg-color: var(--component-bg-color);\r\n  --loader-border-color: var(--color-primary);\r\n  --loader-border-width: .25rem;\r\n  --loader-size: 2rem;\r\n  --loader-speed: 750ms;\r\n  --loader-spacing-x: var(--component-spacing-small);\r\n  --loader-spacing-y: 0;\r\n\r\n  /* Spacing Utilties */\r\n  --spacing-small: var(--component-spacing);\r\n  --spacing-medium: calc(var(--component-spacing) * 2);\r\n  --spacing-big: calc(var(--component-spacing) * 4);\r\n\r\n  /* Switches */\r\n  --switch-bg-color: var(--component-border-color);\r\n  --switch-bg-color-checked: var(--color-primary);\r\n  --switch-border-radius: var(--switch-size);\r\n  --switch-size: 2rem;\r\n  --switch-size-small: 1rem;\r\n  --switch-size-big: 3rem;\r\n  --switch-thumb-bg-color: white;\r\n  --switch-thumb-border-radius: 50%;\r\n  --switch-thumb-spacing: 2px;\r\n  --switch-speed: .2s;\r\n\r\n  /* Tabs */\r\n  --tab-bg-color: var(--body-bg);\r\n  --tab-bg-color-hover: var(--body-bg);\r\n  --tab-bg-color-active: var(--link-color);\r\n  --tab-bg-color-disabled: var(--body-bg);\r\n  --tab-border-radius: var(--component-border-radius);\r\n  --tab-color: var(--link-color);\r\n  --tab-color-hover: var(--link-color-hover);\r\n  --tab-color-active: var(--color-white);\r\n  --tab-color-disabled: var(--text-muted);\r\n  --tab-spacing-x: var(--component-spacing);\r\n  --tab-spacing-y: calc(var(--component-spacing) / 2);\r\n\r\n  --tab-pane-border-color: var(--component-border-color);\r\n  --tab-pane-border-radius: var(--component-border-radius);\r\n  --tab-pane-border-width: var(--component-border-width);\r\n  --tab-pane-spacing-x: var(--component-spacing);\r\n  --tab-pane-spacing-y: var(--component-spacing);\r\n\r\n  /* Tables */\r\n  --table-border-color: var(--component-border-color);\r\n  --table-border-width: var(--component-border-width);\r\n  --table-header-bg-color: transparent;\r\n  --table-stripe-bg-color: var(--component-bg-color);\r\n  --table-spacing-x: calc(var(--component-spacing-small) * 1.5);\r\n  --table-spacing-y: var(--component-spacing-small);\r\n}\r\n\r\n/*! Content */html{box-sizing:border-box}*,:after,:before{box-sizing:inherit}body{background:var(--body-bg-color);font-family:var(--font-family);font-weight:var(--font-weight);font-size:var(--font-size);color:var(--body-color);line-height:var(--line-height)}a{color:var(--link-color);text-decoration:var(--link-text-decoration)}a:hover{color:var(--link-color-hover);text-decoration:var(--link-text-decoration-hover)}abbr[title]{text-decoration:none;border-bottom:2px dashed currentcolor}b,strong{font-weight:var(--font-weight-bold)}big,blockquote{font-size:var(--font-size-big)}blockquote{border-left:solid .4rem var(--component-border-color);padding:.5rem .5rem .5rem 1rem;margin-bottom:1rem;margin-left:0}code{font-family:var(--font-monospace);font-size:var(--code-font-size);color:var(--code-color);background-color:var(--code-bg-color);border-radius:var(--code-border-radius);padding:var(--code-spacing-y) var(--code-spacing-x)}del{color:var(--color-red)}figure{margin-top:0;margin-bottom:1rem}h1,h2,h3,h4,h5,h6{font-family:var(--headings-font-family);font-weight:var(--headings-font-weight);line-height:var(--headings-line-height);color:var(--headings-color);margin-top:0;margin-bottom:var(--headings-margin-bottom)}h1{font-size:var(--headings-font-size-h1)}h2{font-size:var(--headings-font-size-h2)}h3{font-size:var(--headings-font-size-h3)}h4{font-size:var(--headings-font-size-h4)}h5{font-size:var(--headings-font-size-h5)}h6{font-size:var(--headings-font-size-h6)}hr{border:none;border-top:solid var(--hr-border-width) var(--hr-border-color);margin:var(--hr-spacing) 0}img{height:auto;max-width:100%;vertical-align:middle}ins{color:var(--color-green)}kbd{font-family:var(--font-monospace);font-size:var(--kbd-font-size);color:var(--kbd-color);background-color:var(--kbd-bg-color);border-radius:var(--kbd-border-radius);padding:var(--kbd-spacing-y) var(--kbd-spacing-x)}mark{color:var(--mark-color);background-color:var(--mark-bg-color);padding:var(--mark-spacing-y) var(--mark-spacing-x)}p,pre{margin-top:0;margin-bottom:1rem}pre{max-height:var(--pre-max-height);overflow-y:auto;font-family:var(--font-monospace);color:var(--pre-color);background-color:var(--pre-bg-color);border-radius:var(--pre-border-radius);padding:1rem}small{font-size:var(--font-size-small)}dl{margin-bottom:1rem}dt{font-weight:var(--font-weight-bold)}dd{margin-left:0}dd,ol,ul{margin-bottom:1rem}ol,ul{line-height:var(--line-height);list-style-position:outside;padding-left:1rem;margin-top:0}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}::-webkit-input-placeholder{color:var(--placeholder-color)}::-moz-placeholder{color:var(--placeholder-color)}:-ms-input-placeholder{color:var(--placeholder-color)}:-moz-placeholder{color:var(--placeholder-color)}::-moz-selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}::selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}\r\n\r\n/*! Alerts */.alert{color:var(--alert-color);background-color:var(--alert-bg-color-primary);border-radius:var(--alert-border-radius);padding:var(--alert-spacing-y) var(--alert-spacing-x);margin-top:0;margin-bottom:1rem}.alert:empty{display:none}.alert-success{background-color:var(--alert-bg-color-success)}.alert-info{background-color:var(--alert-bg-color-info)}.alert-warning{background-color:var(--alert-bg-color-warning)}.alert-danger{background-color:var(--alert-bg-color-danger)}.alert-inverse{background-color:var(--alert-bg-color-inverse)}.alert a{color:inherit;text-decoration:underline}.alert :last-child{margin-bottom:0}\r\n\r\n/*! Badges */.badge{font-size:var(--badge-font-size);font-weight:var(--badge-font-weight);color:var(--badge-color);background-color:var(--badge-bg-color-primary);border-radius:var(--badge-border-radius);padding:var(--badge-spacing-y) var(--badge-spacing-x);vertical-align:baseline;display:inline-block}.badge:empty{display:none}.badge-success{background-color:var(--badge-bg-color-success)}.badge-info{background-color:var(--badge-bg-color-info)}.badge-warning{background-color:var(--badge-bg-color-warning)}.badge-danger{background-color:var(--badge-bg-color-danger)}.badge-inverse{background-color:var(--badge-bg-color-inverse)}\r\n\r\n/*! Buttons */\r\n\r\nbutton,\r\n.button {\r\n  font-family: var(--button-font-family);\r\n  font-size: var(--button-font-size);\r\n  font-weight: var(--button-font-weight);\r\n  text-align: center;\r\n  text-decoration: none;\r\n  color: var(--button-color);\r\n  background-color: var(--button-bg-color-primary);\r\n  border-radius: var(--button-border-radius);\r\n  border: none;\r\n  height: var(--input-height);\r\n  line-height: 1;\r\n  user-select: none;\r\n  vertical-align: middle;\r\n  white-space: nowrap;\r\n  padding: calc(var(--component-spacing) * .5) calc(var(--component-spacing) * .75);\r\n  box-shadow: var(--button-box-shadow);\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  transition: .1s box-shadow, .1s background-color, .1s color;\r\n}\r\n\r\n.button-small {\r\n  font-size: calc(var(--button-font-size) * .8);\r\n  height: var(--input-height-small);\r\n  padding: calc(var(--component-spacing) * .25) calc(var(--component-spacing) * .5);\r\n}\r\n\r\n.button-big {\r\n  font-size: calc(var(--button-font-size) * 1.2);\r\n  height: var(--input-height-big);\r\n  padding: calc(var(--component-spacing) * .75) calc(var(--component-spacing) * 1);\r\n}\r\n\r\n.button-block {\r\n  width: 100% !important;\r\n  display: block;\r\n}\r\n\r\nbutton:hover,\r\n.button:hover {\r\n  color: var(--button-color);\r\n  text-decoration: none;\r\n}\r\n\r\nbutton:hover:not(:disabled),\r\n.button:hover:not(.disabled) {\r\n  box-shadow: var(--button-box-shadow-hover);\r\n}\r\n\r\n.button-primary:hover:not(.disabled),\r\nbutton.primary:hover:not(:disabled) {\r\n  background: var(--button-bg-color-primary-hover)\r\n}\r\n\r\nbutton:active:not(:disabled),\r\nbutton.active:not(:disabled),\r\n.button.active:not(.disabled) {\r\n  color: var(--button-color);\r\n}\r\n\r\nbutton:disabled,\r\nbutton.disabled,\r\n.button.disabled {\r\n  opacity: .5;\r\n  cursor: not-allowed;\r\n}\r\n\r\n.button-success { background-color: var(--button-bg-color-success); }\r\n.button-info { background-color: var(--button-bg-color-info); }\r\n.button-warning { background-color: var(--button-bg-color-warning); }\r\n.button-danger { background-color: var(--button-bg-color-danger); }\r\n.button-inverse { background-color: var(--button-bg-color-inverse); }\r\n\r\n.button-link {\r\n  background-color: transparent;\r\n  border: 1px solid var(--link-color);\r\n  color: var(--link-color);\r\n  text-decoration: var(--link-text-decoration);\r\n  box-shadow: none;\r\n}\r\n\r\n.button-link-tertiary:hover:not(:disabled),\r\n.button-link:hover:not(:disabled) {\r\n  background-color: transparent;\r\n  color: var(--link-color-hover);\r\n  box-shadow: none;\r\n}\r\n\r\n.button-link-tertiary {\r\n  background-color: transparent;\r\n  color: var(--link-color);\r\n  text-decoration: var(--link-text-decoration);\r\n  box-shadow: none;\r\n}\r\n\r\nlabel.button input[type=\"file\"] {\r\n  display: none;\r\n}\r\n\r\n/*! Forms */fieldset{border:solid var(--fieldset-border-width) var(--fieldset-border-color);border-radius:var(--fieldset-border-radius);padding:var(--component-spacing) calc(var(--component-spacing) * 1.5);margin-bottom:1rem}fieldset legend{font-weight:var(--font-weight-bold);padding:0 .25rem}label{display:inline-block;margin-bottom:.25rem}label+label{margin-left:1rem}input[type=color],input[type=date],input[type=datetime-local],input[type=email],input[type=month],input[type=number],input[type=password],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week],select,textarea{width:100%;font-family:var(--input-font-family);font-size:var(--input-font-size);font-weight:var(--input-font-weight);color:var(--input-color);border:solid var(--input-border-width) var(--input-border-color);border-radius:var(--input-border-radius);box-shadow:var(--input-box-shadow);background-color:var(--input-bg-color);height:var(--input-height);line-height:1;vertical-align:middle;display:block;padding-left:calc(var(--component-spacing) * .5);padding-right:calc(var(--component-spacing) * .5);margin:0;transition:border-color .1s,background-color .1s,color .1s;white-space:nowrap;-moz-appearance:none;-webkit-appearance:none}input[type=color]:focus,input[type=date]:focus,input[type=datetime-local]:focus,input[type=email]:focus,input[type=month]:focus,input[type=number]:focus,input[type=password]:focus,input[type=search]:focus,input[type=tel]:focus,input[type=text]:focus,input[type=time]:focus,input[type=url]:focus,input[type=week]:focus,select:focus,textarea:focus{outline:none;border-color:var(--input-border-focus-color)}select{position:relative;background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg width='41' height='26' viewBox='0 0 41 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000' d='M0 5.382l19.983 19.983L40.14 5.208 34.932 0 19.869 15.062 4.84.032z' fill-rule='evenodd'/%3E%3C/svg%3E\");background-position:right .4rem center;background-repeat:no-repeat;background-size:.75rem;padding-top:0;padding-bottom:0;padding-right:calc(var(--component-spacing) * .5 + 1rem)}textarea{height:auto;resize:vertical;line-height:var(--line-height);white-space:normal}input[type=color]{padding:calc(var(--component-spacing) * .5)}input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:none;border-radius:var(--input-border-radius)}input[type=checkbox],input[type=radio]{padding:0}input[disabled]{opacity:.5;cursor:not-allowed}input[readonly]{background-color:var(--input-readonly-bg-color)}input.input-small,select.input-small{height:var(--input-height-small)}input.input-small,select.input-small,textarea.input-small{font-size:calc(var(--input-font-size) * .8)}input.input-big,select.input-big{height:var(--input-height-big)}input.input-big,select.input-big,textarea.input-big{font-size:calc(var(--input-font-size) * 1.2)}input[type=range]{-webkit-appearance:none;width:100%;margin:1rem 0}input[type=range]:focus{outline:none}input[type=range]::-webkit-slider-runnable-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-webkit-slider-thumb{border:none;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer;-webkit-appearance:none;margin-top:-.5rem}input[type=range]:focus::-webkit-slider-runnable-track{background:var(--input-range-track-color)}input[type=range]::-moz-range-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-moz-range-thumb{border:none;height:1.5rem;width:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]::-ms-track{width:100%;height:.5rem;cursor:pointer;background:transparent;border-color:transparent;color:transparent}input[type=range]::-ms-fill-lower{background:#2f6ea5;border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-fill-upper{background:var(--input-range-track-color);border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-thumb{border:none;height:.5rem;width:.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]:focus::-ms-fill-lower,input[type=range]:focus::-ms-fill-upper{background:var(--input-range-track-color)}progress{width:100%;vertical-align:middle}.input-group,.input-single{margin-bottom:1rem}.input-group{width:100%;display:flex}.input-group>.button,.input-group>button,.input-group>input{border-radius:0}.input-group>.button:first-child,.input-group>button:first-child,.input-group>input:first-child{border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-group>.button:last-child,.input-group>button:last-child,.input-group>input:last-child{border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-group>input+input{border-left-width:0}.input-group>input+input:focus{border-left-width:var(--input-border-width);margin-left:calc(var(--input-border-width) * -1)}.input-addon{color:var(--text-muted);height:var(--input-height);line-height:var(--input-height);border-top:solid var(--input-border-width) var(--input-border-color);border-bottom:solid var(--input-border-width) var(--input-border-color);background:#f8f8f8;padding:0 calc(var(--component-spacing) * .5);white-space:nowrap}.input-addon-small{font-size:calc(var(--input-font-size) * .8);height:var(--input-height-small);line-height:var(--input-height-small)}.input-addon-big{font-size:calc(var(--input-font-size) * 1.2);height:var(--input-height-big);line-height:var(--input-height-big)}.input-addon:first-child{border-left:solid var(--input-border-width) var(--input-border-color);border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-addon:last-child{border-right:solid var(--input-border-width) var(--input-border-color);border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-invalid label{color:var(--input-invalid-color)!important}.input-invalid,.input-invalid input,.input-invalid select{color:var(--input-invalid-color)!important;border-color:var(--input-invalid-border-color)!important}.input-valid label{color:var(--input-valid-color)!important}.input-valid,.input-valid input,.input-valid select{color:var(--input-valid-color)!important;border-color:var(--input-valid-border-color)!important}\r\n\r\n/*! Loaders */@keyframes loader{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.loader,.loader-bg:after{width:var(--loader-size);height:var(--loader-size);border-radius:50%;border:solid var(--loader-border-width) var(--loader-bg-color);border-top-color:var(--loader-border-color);border-left-color:var(--loader-border-color);display:inline-block;animation:loader var(--loader-speed) linear infinite;vertical-align:middle;margin:var(--loader-spacing-y) var(--loader-spacing-x)}.loader-bg-small:after,.loader-small{border-width:calc(var(--loader-border-width) / 2);width:calc(var(--loader-size) / 2);height:calc(var(--loader-size) / 2)}.loader-bg-big:after,.loader-big{border-width:calc(var(--loader-border-width) * 1.5);width:calc(var(--loader-size) * 2);height:calc(var(--loader-size) * 2)}.loader-bg{position:relative!important}.loader-bg:after{content:\"\";position:absolute;top:calc(50% - var(--loader-size) / 2);left:calc(50% - var(--loader-size) / 2);margin:0}.loader-bg-small:after{position:absolute;top:calc(50% - var(--loader-size) / 4);left:calc(50% - var(--loader-size) / 4)}.loader-bg-big:after{position:absolute;top:calc(50% - var(--loader-size) / 1);left:calc(50% - var(--loader-size) / 1)}\r\n\r\n/*! Switches */.switch-small{--switch-size:var(--switch-size-small)}.switch-big{--switch-size:var(--switch-size-big)}.switch input{display:none}.switch input+label{position:relative;min-width:calc(var(--switch-size) * 2);height:var(--switch-size);line-height:var(--switch-size);border-radius:var(--switch-thumb-border-radius);display:inline-block;cursor:pointer;outline:none;user-select:none;vertical-align:middle;text-indent:calc(var(--switch-size) * 2 + .5rem)}.switch input+label:after,.switch input+label:before{content:\"\";position:absolute;top:0;left:0;width:calc(var(--switch-size) * 2);bottom:0;display:block}.switch input+label:before{right:0;background-color:var(--switch-bg-color);border-radius:var(--switch-border-radius);transition:background-color var(--switch-speed)}.switch input+label:after{top:var(--switch-thumb-spacing);left:var(--switch-thumb-spacing);width:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);height:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);border-radius:var(--switch-thumb-border-radius);background-color:var(--switch-thumb-bg-color);transition:margin var(--switch-speed)}.switch input:checked+label:before{background-color:var(--switch-bg-color-checked)}.switch input:checked+label:after{margin-left:var(--switch-size)}.switch input:disabled+label{opacity:.5;cursor:not-allowed}.switch+.switch{margin-left:1rem}\r\n\r\n/*! Progress Bars */.progress{position:relative;width:100%;height:2.25rem;line-height:2.25rem;font-size:1rem;background-color:#f2f2f2;border-radius:.25rem;display:block;overflow:hidden;margin-bottom:1.5rem;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);box-shadow:inset 0 1px 1px rgba(0,0,0,.05)}.progress .progress-bar{position:absolute;top:0;left:0;width:0;height:100%;text-align:center;color:#fff;background-color:#0074d9;-webkit-transition:width .1s;transition:width .1s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.progress.progress-indeterminate .progress-bar{width:75%!important;-webkit-animation:progress-indeterminate ease-in-out 3s infinite;animation:progress-indeterminate ease-in-out 3s infinite}.progress.progress-xs{font-size:.7rem;height:1.25rem;line-height:1.25rem}.progress.progress-sm{font-size:.8rem;height:1.75rem;line-height:1.75rem}.progress.progress-lg{font-size:1.25rem;height:2.75rem;line-height:2.75rem}.progress.progress-xl{font-size:1.5rem;height:3.25rem;line-height:3.25rem}.progress.progress-secondary .progress-bar{background-color:#aaa}.progress.progress-success .progress-bar{background-color:#2ecc40}.progress.progress-info .progress-bar{background-color:#39cccc}.progress.progress-warning .progress-bar{background-color:#ff851b}.progress.progress-danger .progress-bar{background-color:#ff4136}.progress.progress-light{background-color:#111}.progress.progress-light .progress-bar{color:#111;background-color:#fff}.progress.progress-dark{background-color:#fff}.progress.progress-dark .progress-bar{color:#fff;background-color:#111}@-webkit-keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}@keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}\r\n\r\n/*! Tabs */.tabs{width:100%}.tabs,.tabs-nav{margin-bottom:1rem}.tabs-nav{user-select:none}.tabs-nav a{color:var(--tab-color);text-decoration:none;background-color:var(--tab-bg-color);border-radius:var(--tab-border-radius);padding:var(--tab-spacing-y) var(--tab-spacing-x);display:inline-block}.tabs-nav a:hover{color:var(--tab-color-hover);background-color:var(--tab-bg-color-hover);text-decoration:none}.tabs-nav a.active{color:var(--tab-color-active);background-color:var(--tab-bg-color-active);cursor:default}.tabs-nav a.disabled{color:var(--tab-color-disabled);background-color:var(--tab-bg-color-disabled);cursor:not-allowed}.tabs-pane{border:solid var(--tab-pane-border-width) var(--tab-pane-border-color);border-radius:.25rem;padding:var(--tab-pane-spacing-y) var(--tab-pane-spacing-x)}.tabs-pane:not(.active){display:none}.tabs-pane :last-child{margin-bottom:0}\r\n\r\n/*! Tables */table{width:100%;border-collapse:collapse;margin-bottom:1rem}table caption{caption-side:bottom;font-size:var(--font-size-small);color:var(--text-muted);text-align:center;padding-top:var(--table-spacing-y)}table th{text-align:left;background:var(--table-header-bg-color);border-bottom:solid calc(var(--table-border-width) * 2) var(--table-border-color)}table td,table th{padding:var(--table-spacing-y) var(--table-spacing-x)}table td{border-bottom:solid var(--table-border-width) var(--table-border-color)}table.table-striped tr:nth-child(odd) td{background-color:var(--table-stripe-bg-color)}table.table-bordered{border:solid var(--table-border-width) var(--table-border-color)}table.table-bordered td{border:var(--table-border-width) solid var(--table-border-color)}\r\n\r\n/*! Utilties */.clearfix:after,.clearfix:before{content:\"\";display:table}.clearfix:after{clear:both}.float-left{float:left!important}.float-right{float:right!important}.width-0{width:0!important}.width-5{width:5%!important}.width-10{width:10%!important}.width-15{width:15%!important}.width-20{width:20%!important}.width-25{width:25%!important}.width-30{width:30%!important}.width-35{width:35%!important}.width-40{width:40%!important}.width-45{width:45%!important}.width-50{width:50%!important}.width-55{width:55%!important}.width-60{width:60%!important}.width-65{width:65%!important}.width-70{width:70%!important}.width-75{width:75%!important}.width-80{width:80%!important}.width-85{width:85%!important}.width-90{width:90%!important}.width-95{width:95%!important}.width-100{width:100%!important}.height-0{height:0%!important}.height-5{height:5%!important}.height-10{height:10%!important}.height-15{height:15%!important}.height-20{height:20%!important}.height-25{height:25%!important}.height-30{height:30%!important}.height-35{height:35%!important}.height-40{height:40%!important}.height-45{height:45%!important}.height-50{height:50%!important}.height-55{height:55%!important}.height-60{height:60%!important}.height-65{height:65%!important}.height-70{height:70%!important}.height-75{height:75%!important}.height-80{height:80%!important}.height-85{height:85%!important}.height-90{height:90%!important}.height-95{height:95%!important}.height-100{height:100%!important}.padding-none{padding:0!important}.padding-x-none{padding-left:0!important;padding-right:0!important}.padding-y-none{padding-bottom:0!important}.padding-t-none,.padding-y-none{padding-top:0!important}.padding-r-none{padding-right:0!important}.padding-b-none{padding-bottom:0!important}.padding-l-none{padding-left:0!important}.padding-small{padding:var(--spacing-small)!important}.padding-x-small{padding-left:var(--spacing-small)!important;padding-right:var(--spacing-small)!important}.padding-y-small{padding-bottom:var(--spacing-small)!important}.padding-t-small,.padding-y-small{padding-top:var(--spacing-small)!important}.padding-r-small{padding-right:var(--spacing-small)!important}.padding-b-small{padding-bottom:var(--spacing-small)!important}.padding-l-small{padding-left:var(--spacing-small)!important}.padding-medium{padding:var(--spacing-medium)!important}.padding-x-medium{padding-left:var(--spacing-medium)!important;padding-right:var(--spacing-medium)!important}.padding-y-medium{padding-bottom:var(--spacing-medium)!important}.padding-t-medium,.padding-y-medium{padding-top:var(--spacing-medium)!important}.padding-r-medium{padding-right:var(--spacing-medium)!important}.padding-b-medium{padding-bottom:var(--spacing-medium)!important}.padding-l-medium{padding-left:var(--spacing-medium)!important}.padding-big{padding:var(--spacing-big)!important}.padding-x-big{padding-left:var(--spacing-big)!important;padding-right:var(--spacing-big)!important}.padding-y-big{padding-bottom:var(--spacing-big)!important}.padding-t-big,.padding-y-big{padding-top:var(--spacing-big)!important}.padding-r-big{padding-right:var(--spacing-big)!important}.padding-b-big{padding-bottom:var(--spacing-big)!important}.padding-l-big{padding-left:var(--spacing-big)!important}.margin-none{margin:0!important}.margin-x-none{margin-left:0!important;margin-right:0!important}.margin-y-none{margin-bottom:0!important}.margin-t-none,.margin-y-none{margin-top:0!important}.margin-r-none{margin-right:0!important}.margin-b-none{margin-bottom:0!important}.margin-l-none{margin-left:0!important}.margin-small{margin:var(--spacing-small)!important}.margin-x-small{margin-left:var(--spacing-small)!important;margin-right:var(--spacing-small)!important}.margin-y-small{margin-bottom:var(--spacing-small)!important}.margin-t-small,.margin-y-small{margin-top:var(--spacing-small)!important}.margin-r-small{margin-right:var(--spacing-small)!important}.margin-b-small{margin-bottom:var(--spacing-small)!important}.margin-l-small{margin-left:var(--spacing-small)!important}.margin-medium{margin:var(--spacing-medium)!important}.margin-x-medium{margin-left:var(--spacing-medium)!important;margin-right:var(--spacing-medium)!important}.margin-y-medium{margin-bottom:var(--spacing-medium)!important}.margin-t-medium,.margin-y-medium{margin-top:var(--spacing-medium)!important}.margin-r-medium{margin-right:var(--spacing-medium)!important}.margin-b-medium{margin-bottom:var(--spacing-medium)!important}.margin-l-medium{margin-left:var(--spacing-medium)!important}.margin-big{margin:var(--spacing-big)!important}.margin-x-big{margin-left:var(--spacing-big)!important;margin-right:var(--spacing-big)!important}.margin-y-big{margin-bottom:var(--spacing-big)!important}.margin-t-big,.margin-y-big{margin-top:var(--spacing-big)!important}.margin-r-big{margin-right:var(--spacing-big)!important}.margin-b-big{margin-bottom:var(--spacing-big)!important}.margin-l-big{margin-left:var(--spacing-big)!important}.margin-x-auto{margin-left:auto!important;margin-right:auto!important}.margin-y-auto{margin-top:auto!important;margin-bottom:auto!important}.margin-xy-auto{margin:auto!important}.text-success{color:var(--state-success)!important}.text-info{color:var(--state-info)!important}.text-warning{color:var(--state-warning)!important}.text-danger{color:var(--state-danger)!important}.text-muted{color:var(--text-muted)!important}.text-small{font-size:var(--font-size-small)!important}.text-bold{font-weight:var(--font-weight-bold)!important}.text-italic{font-style:italic!important}.text-left{text-align:left!important}.text-right{text-align:right!important}.text-center{text-align:center!important}.text-justify{text-align:justify!important}.text-lowercase{text-transform:lowercase!important}.text-uppercase{text-transform:uppercase!important}.text-capitalize{text-transform:capitalize!important}.text-nowrap{white-space:nowrap!important}\r\n\r\n/*! Dropdowns */.dropdown{position:relative;display:inline-block}.dropdown .dropdown-trigger:after{content:\"\\25BC\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-size:.6em;vertical-align:middle;margin-left:.5em;display:inline-block;-webkit-transform:scaleY(.75);transform:scaleY(.75);margin-top:-.2em}.dropdown.dropdown-top .dropdown-trigger:after{-webkit-transform:scaleY(.75) rotate(180deg);transform:scaleY(.75) rotate(180deg)}.dropdown .dropdown-menu{position:absolute;top:calc(100% + 1px);left:0;z-index:100;min-width:10rem;max-width:25rem;max-height:none;background-color:#fff;border:1px solid #ddd;border-radius:.25rem;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.05);box-shadow:0 1px 0 rgba(0,0,0,.05);display:none;padding:.25rem 0;overflow-y:auto;-webkit-transform:translateZ(0);transform:translateZ(0)}.dropdown .dropdown-menu a{position:relative;color:#111;text-decoration:none;padding:.25rem calc(1rem + .5em);display:block;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis}.dropdown .dropdown-menu a:focus:not(.disabled){outline:none;color:#111;background-color:#f2f2f2}.dropdown .dropdown-menu a:hover:not(.disabled){color:#fff;background-color:#0074d9}.dropdown .dropdown-menu a.disabled{outline:none;cursor:not-allowed;opacity:.5}.dropdown .dropdown-menu a.checked:before{position:absolute;left:calc(.5rem - .1em);content:\"\\2713\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-weight:600}.dropdown .dropdown-menu hr{width:100%;border-top:1px solid #ddd;margin:.25rem 0}.dropdown.dropdown-top .dropdown-menu{top:auto;bottom:calc(100% + 1px)}.dropdown.dropdown-left .dropdown-menu{left:auto;right:0}.dropdown.dropdown.active .dropdown-menu{display:block}\r\n", ""]);
 
 // exports
 
@@ -10610,7 +10608,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n\n.with-sidebar config-window,\ncontent.with-sidebar {\n    left: 300px;\n}\n\n", ""]);
+exports.push([module.i, "body {\r\n    user-select: none;\r\n    cursor: default;\r\n}\r\n\r\n:focus {\r\n    outline: none;\r\n}\r\n\r\na {\r\n    cursor: pointer;\r\n}\r\n\r\nfieldset h5 {\r\n    font-size: 14px;\r\n    font-weight: 500;\r\n}\r\n\r\nfieldset legend {\r\n    font-size: 18px;\r\n    font-weight: 300;\r\n}\r\n\r\np.hint {\r\n    font-style: italic;\r\n    color: #eee;\r\n    margin-bottom: 0;\r\n    padding-bottom: 0;\r\n}\r\n\r\nfooter .button-link-tertiary {\r\n    margin-left: 1rem;\r\n}\r\n\r\np.hint.error {\r\n    color: #ff0000;\r\n}\r\n\r\ninput.inline {\r\n    display: inline-block;\r\n}\r\n\r\ninput[type=number].inline {\r\n    width: 3rem;\r\n    height: 1.6rem;\r\n    font-size: 14px;\r\n}\r\n\r\nbackdrop {\r\n    z-index: 11;\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    background: rgba(35,35,35,.4)\r\n}\r\n\r\nmodal {\r\n    position: fixed;\r\n    left: 50%;\r\n    top: 50%;\r\n    background: #fff;\r\n    z-index: 12;\r\n}", ""]);
 
 // exports
 
@@ -10624,7 +10622,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "svg {\n    line-height: 0;\n}", ""]);
+exports.push([module.i, "content {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n}\r\n\r\n.with-sidebar config-window,\r\ncontent.with-sidebar {\r\n    left: 300px;\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -10638,7 +10636,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://daneden.me/animate\n * Version - 3.5.2\n * Licensed under the MIT license - http://opensource.org/licenses/MIT\n *\n * Copyright (c) 2017 Daniel Eden\n */\n\n.animated {\n  animation-duration: 1s;\n  animation-fill-mode: both;\n}\n\n.animated.infinite {\n  animation-iteration-count: infinite;\n}\n\n.animated.hinge {\n  animation-duration: 2s;\n}\n\n.animated.flipOutX,\n.animated.flipOutY,\n.animated.bounceIn,\n.animated.bounceOut {\n  animation-duration: .75s;\n}\n\n@keyframes bounce {\n  from, 20%, 53%, 80%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    transform: translate3d(0,0,0);\n  }\n\n  40%, 43% {\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    transform: translate3d(0, -30px, 0);\n  }\n\n  70% {\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    transform: translate3d(0, -15px, 0);\n  }\n\n  90% {\n    transform: translate3d(0,-4px,0);\n  }\n}\n\n.bounce {\n  animation-name: bounce;\n  transform-origin: center bottom;\n}\n\n@keyframes flash {\n  from, 50%, to {\n    opacity: 1;\n  }\n\n  25%, 75% {\n    opacity: 0;\n  }\n}\n\n.flash {\n  animation-name: flash;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes pulse {\n  from {\n    transform: scale3d(1, 1, 1);\n  }\n\n  50% {\n    transform: scale3d(1.05, 1.05, 1.05);\n  }\n\n  to {\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.pulse {\n  animation-name: pulse;\n}\n\n@keyframes rubberBand {\n  from {\n    transform: scale3d(1, 1, 1);\n  }\n\n  30% {\n    transform: scale3d(1.25, 0.75, 1);\n  }\n\n  40% {\n    transform: scale3d(0.75, 1.25, 1);\n  }\n\n  50% {\n    transform: scale3d(1.15, 0.85, 1);\n  }\n\n  65% {\n    transform: scale3d(.95, 1.05, 1);\n  }\n\n  75% {\n    transform: scale3d(1.05, .95, 1);\n  }\n\n  to {\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.rubberBand {\n  animation-name: rubberBand;\n}\n\n@keyframes shake {\n  from, to {\n    transform: translate3d(0, 0, 0);\n  }\n\n  10%, 30%, 50%, 70%, 90% {\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  20%, 40%, 60%, 80% {\n    transform: translate3d(10px, 0, 0);\n  }\n}\n\n.shake {\n  animation-name: shake;\n}\n\n@keyframes headShake {\n  0% {\n    transform: translateX(0);\n  }\n\n  6.5% {\n    transform: translateX(-6px) rotateY(-9deg);\n  }\n\n  18.5% {\n    transform: translateX(5px) rotateY(7deg);\n  }\n\n  31.5% {\n    transform: translateX(-3px) rotateY(-5deg);\n  }\n\n  43.5% {\n    transform: translateX(2px) rotateY(3deg);\n  }\n\n  50% {\n    transform: translateX(0);\n  }\n}\n\n.headShake {\n  animation-timing-function: ease-in-out;\n  animation-name: headShake;\n}\n\n@keyframes swing {\n  20% {\n    transform: rotate3d(0, 0, 1, 15deg);\n  }\n\n  40% {\n    transform: rotate3d(0, 0, 1, -10deg);\n  }\n\n  60% {\n    transform: rotate3d(0, 0, 1, 5deg);\n  }\n\n  80% {\n    transform: rotate3d(0, 0, 1, -5deg);\n  }\n\n  to {\n    transform: rotate3d(0, 0, 1, 0deg);\n  }\n}\n\n.swing {\n  transform-origin: top center;\n  animation-name: swing;\n}\n\n@keyframes tada {\n  from {\n    transform: scale3d(1, 1, 1);\n  }\n\n  10%, 20% {\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n  }\n\n  30%, 50%, 70%, 90% {\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n  }\n\n  40%, 60%, 80% {\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n  }\n\n  to {\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.tada {\n  animation-name: tada;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes wobble {\n  from {\n    transform: none;\n  }\n\n  15% {\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n  }\n\n  30% {\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n  }\n\n  45% {\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n  }\n\n  60% {\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n  }\n\n  75% {\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.wobble {\n  animation-name: wobble;\n}\n\n@keyframes jello {\n  from, 11.1%, to {\n    transform: none;\n  }\n\n  22.2% {\n    transform: skewX(-12.5deg) skewY(-12.5deg);\n  }\n\n  33.3% {\n    transform: skewX(6.25deg) skewY(6.25deg);\n  }\n\n  44.4% {\n    transform: skewX(-3.125deg) skewY(-3.125deg);\n  }\n\n  55.5% {\n    transform: skewX(1.5625deg) skewY(1.5625deg);\n  }\n\n  66.6% {\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\n  }\n\n  77.7% {\n    transform: skewX(0.390625deg) skewY(0.390625deg);\n  }\n\n  88.8% {\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n  }\n}\n\n.jello {\n  animation-name: jello;\n  transform-origin: center;\n}\n\n@keyframes bounceIn {\n  from, 20%, 40%, 60%, 80%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n\n  20% {\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  40% {\n    transform: scale3d(.9, .9, .9);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(1.03, 1.03, 1.03);\n  }\n\n  80% {\n    transform: scale3d(.97, .97, .97);\n  }\n\n  to {\n    opacity: 1;\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.bounceIn {\n  animation-name: bounceIn;\n}\n\n@keyframes bounceInDown {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(0, 25px, 0);\n  }\n\n  75% {\n    transform: translate3d(0, -10px, 0);\n  }\n\n  90% {\n    transform: translate3d(0, 5px, 0);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.bounceInDown {\n  animation-name: bounceInDown;\n}\n\n@keyframes bounceInLeft {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    transform: translate3d(-3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(25px, 0, 0);\n  }\n\n  75% {\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  90% {\n    transform: translate3d(5px, 0, 0);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.bounceInLeft {\n  animation-name: bounceInLeft;\n}\n\n@keyframes bounceInRight {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    transform: translate3d(3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(-25px, 0, 0);\n  }\n\n  75% {\n    transform: translate3d(10px, 0, 0);\n  }\n\n  90% {\n    transform: translate3d(-5px, 0, 0);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.bounceInRight {\n  animation-name: bounceInRight;\n}\n\n@keyframes bounceInUp {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n\n  75% {\n    transform: translate3d(0, 10px, 0);\n  }\n\n  90% {\n    transform: translate3d(0, -5px, 0);\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.bounceInUp {\n  animation-name: bounceInUp;\n}\n\n@keyframes bounceOut {\n  20% {\n    transform: scale3d(.9, .9, .9);\n  }\n\n  50%, 55% {\n    opacity: 1;\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n}\n\n.bounceOut {\n  animation-name: bounceOut;\n}\n\n@keyframes bounceOutDown {\n  20% {\n    transform: translate3d(0, 10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.bounceOutDown {\n  animation-name: bounceOutDown;\n}\n\n@keyframes bounceOutLeft {\n  20% {\n    opacity: 1;\n    transform: translate3d(20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.bounceOutLeft {\n  animation-name: bounceOutLeft;\n}\n\n@keyframes bounceOutRight {\n  20% {\n    opacity: 1;\n    transform: translate3d(-20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.bounceOutRight {\n  animation-name: bounceOutRight;\n}\n\n@keyframes bounceOutUp {\n  20% {\n    transform: translate3d(0, -10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, 20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.bounceOutUp {\n  animation-name: bounceOutUp;\n}\n\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n.fadeIn {\n  animation-name: fadeIn;\n}\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInDown {\n  animation-name: fadeInDown;\n}\n\n@keyframes fadeInDownBig {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInDownBig {\n  animation-name: fadeInDownBig;\n}\n\n@keyframes fadeInLeft {\n  from {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInLeft {\n  animation-name: fadeInLeft;\n}\n\n@keyframes fadeInLeftBig {\n  from {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInLeftBig {\n  animation-name: fadeInLeftBig;\n}\n\n@keyframes fadeInRight {\n  from {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInRight {\n  animation-name: fadeInRight;\n}\n\n@keyframes fadeInRightBig {\n  from {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInRightBig {\n  animation-name: fadeInRightBig;\n}\n\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInUp {\n  animation-name: fadeInUp;\n}\n\n@keyframes fadeInUpBig {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInUpBig {\n  animation-name: fadeInUpBig;\n}\n\n@keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.fadeOut {\n  animation-name: fadeOut;\n}\n\n@keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.fadeOutDown {\n  animation-name: fadeOutDown;\n}\n\n@keyframes fadeOutDownBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.fadeOutDownBig {\n  animation-name: fadeOutDownBig;\n}\n\n@keyframes fadeOutLeft {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.fadeOutLeft {\n  animation-name: fadeOutLeft;\n}\n\n@keyframes fadeOutLeftBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.fadeOutLeftBig {\n  animation-name: fadeOutLeftBig;\n}\n\n@keyframes fadeOutRight {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.fadeOutRight {\n  animation-name: fadeOutRight;\n}\n\n@keyframes fadeOutRightBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.fadeOutRightBig {\n  animation-name: fadeOutRightBig;\n}\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.fadeOutUp {\n  animation-name: fadeOutUp;\n}\n\n@keyframes fadeOutUpBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.fadeOutUpBig {\n  animation-name: fadeOutUpBig;\n}\n\n@keyframes flip {\n  from {\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    animation-timing-function: ease-out;\n  }\n\n  40% {\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    animation-timing-function: ease-out;\n  }\n\n  50% {\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    animation-timing-function: ease-in;\n  }\n\n  80% {\n    transform: perspective(400px) scale3d(.95, .95, .95);\n    animation-timing-function: ease-in;\n  }\n\n  to {\n    transform: perspective(400px);\n    animation-timing-function: ease-in;\n  }\n}\n\n.animated.flip {\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  animation-name: flip;\n}\n\n@keyframes flipInX {\n  from {\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n  }\n\n  to {\n    transform: perspective(400px);\n  }\n}\n\n.flipInX {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  animation-name: flipInX;\n}\n\n@keyframes flipInY {\n  from {\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n  }\n\n  to {\n    transform: perspective(400px);\n  }\n}\n\n.flipInY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  animation-name: flipInY;\n}\n\n@keyframes flipOutX {\n  from {\n    transform: perspective(400px);\n  }\n\n  30% {\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    opacity: 1;\n  }\n\n  to {\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutX {\n  animation-name: flipOutX;\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n}\n\n@keyframes flipOutY {\n  from {\n    transform: perspective(400px);\n  }\n\n  30% {\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    opacity: 1;\n  }\n\n  to {\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  animation-name: flipOutY;\n}\n\n@keyframes lightSpeedIn {\n  from {\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n\n  60% {\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n\n  80% {\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n\n  to {\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.lightSpeedIn {\n  animation-name: lightSpeedIn;\n  animation-timing-function: ease-out;\n}\n\n@keyframes lightSpeedOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n\n.lightSpeedOut {\n  animation-name: lightSpeedOut;\n  animation-timing-function: ease-in;\n}\n\n@keyframes rotateIn {\n  from {\n    transform-origin: center;\n    transform: rotate3d(0, 0, 1, -200deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: center;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateIn {\n  animation-name: rotateIn;\n}\n\n@keyframes rotateInDownLeft {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownLeft {\n  animation-name: rotateInDownLeft;\n}\n\n@keyframes rotateInDownRight {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownRight {\n  animation-name: rotateInDownRight;\n}\n\n@keyframes rotateInUpLeft {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpLeft {\n  animation-name: rotateInUpLeft;\n}\n\n@keyframes rotateInUpRight {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpRight {\n  animation-name: rotateInUpRight;\n}\n\n@keyframes rotateOut {\n  from {\n    transform-origin: center;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: center;\n    transform: rotate3d(0, 0, 1, 200deg);\n    opacity: 0;\n  }\n}\n\n.rotateOut {\n  animation-name: rotateOut;\n}\n\n@keyframes rotateOutDownLeft {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownLeft {\n  animation-name: rotateOutDownLeft;\n}\n\n@keyframes rotateOutDownRight {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownRight {\n  animation-name: rotateOutDownRight;\n}\n\n@keyframes rotateOutUpLeft {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpLeft {\n  animation-name: rotateOutUpLeft;\n}\n\n@keyframes rotateOutUpRight {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpRight {\n  animation-name: rotateOutUpRight;\n}\n\n@keyframes hinge {\n  0% {\n    transform-origin: top left;\n    animation-timing-function: ease-in-out;\n  }\n\n  20%, 60% {\n    transform: rotate3d(0, 0, 1, 80deg);\n    transform-origin: top left;\n    animation-timing-function: ease-in-out;\n  }\n\n  40%, 80% {\n    transform: rotate3d(0, 0, 1, 60deg);\n    transform-origin: top left;\n    animation-timing-function: ease-in-out;\n    opacity: 1;\n  }\n\n  to {\n    transform: translate3d(0, 700px, 0);\n    opacity: 0;\n  }\n}\n\n.hinge {\n  animation-name: hinge;\n}\n\n@keyframes jackInTheBox {\n  from {\n    opacity: 0;\n    transform: scale(0.1) rotate(30deg);\n    transform-origin: center bottom;\n  }\n\n  50% {\n    transform: rotate(-10deg);\n  }\n\n  70% {\n    transform: rotate(3deg);\n  }\n\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n\n.jackInTheBox {\n  animation-name: jackInTheBox;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes rollIn {\n  from {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.rollIn {\n  animation-name: rollIn;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes rollOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n  }\n}\n\n.rollOut {\n  animation-name: rollOut;\n}\n\n@keyframes zoomIn {\n  from {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n\n  50% {\n    opacity: 1;\n  }\n}\n\n.zoomIn {\n  animation-name: zoomIn;\n}\n\n@keyframes zoomInDown {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInDown {\n  animation-name: zoomInDown;\n}\n\n@keyframes zoomInLeft {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInLeft {\n  animation-name: zoomInLeft;\n}\n\n@keyframes zoomInRight {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInRight {\n  animation-name: zoomInRight;\n}\n\n@keyframes zoomInUp {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInUp {\n  animation-name: zoomInUp;\n}\n\n@keyframes zoomOut {\n  from {\n    opacity: 1;\n  }\n\n  50% {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.zoomOut {\n  animation-name: zoomOut;\n}\n\n@keyframes zoomOutDown {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutDown {\n  animation-name: zoomOutDown;\n}\n\n@keyframes zoomOutLeft {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale(.1) translate3d(-2000px, 0, 0);\n    transform-origin: left center;\n  }\n}\n\n.zoomOutLeft {\n  animation-name: zoomOutLeft;\n}\n\n@keyframes zoomOutRight {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale(.1) translate3d(2000px, 0, 0);\n    transform-origin: right center;\n  }\n}\n\n.zoomOutRight {\n  animation-name: zoomOutRight;\n}\n\n@keyframes zoomOutUp {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutUp {\n  animation-name: zoomOutUp;\n}\n\n@keyframes slideInDown {\n  from {\n    transform: translate3d(0, -100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInDown {\n  animation-name: slideInDown;\n}\n\n@keyframes slideInLeft {\n  from {\n    transform: translate3d(-100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInLeft {\n  animation-name: slideInLeft;\n}\n\n@keyframes slideInRight {\n  from {\n    transform: translate3d(100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInRight {\n  animation-name: slideInRight;\n}\n\n@keyframes slideInUp {\n  from {\n    transform: translate3d(0, 100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInUp {\n  animation-name: slideInUp;\n}\n\n@keyframes slideOutDown {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.slideOutDown {\n  animation-name: slideOutDown;\n}\n\n@keyframes slideOutLeft {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.slideOutLeft {\n  animation-name: slideOutLeft;\n}\n\n@keyframes slideOutRight {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.slideOutRight {\n  animation-name: slideOutRight;\n}\n\n@keyframes slideOutUp {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.slideOutUp {\n  animation-name: slideOutUp;\n}\n", ""]);
+exports.push([module.i, "svg {\r\n    line-height: 0;\r\n}", ""]);
 
 // exports
 
@@ -10652,7 +10650,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "recording-indicator {\n    display: block;\n}\n\nrecording-dot {\n    border-radius: 100%;\n    background: #ea2f2c;\n    display: inline-block;\n    width: .6rem;\n    height: .6rem;\n    animation: blink-animation 3s steps(3, start) infinite;\n}\n\nis-recording {\n    text-transform: uppercase;\n}\n\nstopped-recording svg {\n    width: 1.2rem;\n    height: 1.2rem;\n    display: inline-block;\n    fill: #888;\n    vertical-align: middle;\n}\n\n@keyframes blink-animation {\n  to {\n    visibility: hidden;\n  }\n}\n@-webkit-keyframes blink-animation {\n  to {\n    visibility: hidden;\n  }\n}\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n\r\n/*!\r\n * animate.css -http://daneden.me/animate\r\n * Version - 3.5.2\r\n * Licensed under the MIT license - http://opensource.org/licenses/MIT\r\n *\r\n * Copyright (c) 2017 Daniel Eden\r\n */\r\n\r\n.animated {\r\n  animation-duration: 1s;\r\n  animation-fill-mode: both;\r\n}\r\n\r\n.animated.infinite {\r\n  animation-iteration-count: infinite;\r\n}\r\n\r\n.animated.hinge {\r\n  animation-duration: 2s;\r\n}\r\n\r\n.animated.flipOutX,\r\n.animated.flipOutY,\r\n.animated.bounceIn,\r\n.animated.bounceOut {\r\n  animation-duration: .75s;\r\n}\r\n\r\n@keyframes bounce {\r\n  from, 20%, 53%, 80%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n    transform: translate3d(0,0,0);\r\n  }\r\n\r\n  40%, 43% {\r\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\r\n    transform: translate3d(0, -30px, 0);\r\n  }\r\n\r\n  70% {\r\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\r\n    transform: translate3d(0, -15px, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(0,-4px,0);\r\n  }\r\n}\r\n\r\n.bounce {\r\n  animation-name: bounce;\r\n  transform-origin: center bottom;\r\n}\r\n\r\n@keyframes flash {\r\n  from, 50%, to {\r\n    opacity: 1;\r\n  }\r\n\r\n  25%, 75% {\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.flash {\r\n  animation-name: flash;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes pulse {\r\n  from {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n\r\n  50% {\r\n    transform: scale3d(1.05, 1.05, 1.05);\r\n  }\r\n\r\n  to {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.pulse {\r\n  animation-name: pulse;\r\n}\r\n\r\n@keyframes rubberBand {\r\n  from {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n\r\n  30% {\r\n    transform: scale3d(1.25, 0.75, 1);\r\n  }\r\n\r\n  40% {\r\n    transform: scale3d(0.75, 1.25, 1);\r\n  }\r\n\r\n  50% {\r\n    transform: scale3d(1.15, 0.85, 1);\r\n  }\r\n\r\n  65% {\r\n    transform: scale3d(.95, 1.05, 1);\r\n  }\r\n\r\n  75% {\r\n    transform: scale3d(1.05, .95, 1);\r\n  }\r\n\r\n  to {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.rubberBand {\r\n  animation-name: rubberBand;\r\n}\r\n\r\n@keyframes shake {\r\n  from, to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  10%, 30%, 50%, 70%, 90% {\r\n    transform: translate3d(-10px, 0, 0);\r\n  }\r\n\r\n  20%, 40%, 60%, 80% {\r\n    transform: translate3d(10px, 0, 0);\r\n  }\r\n}\r\n\r\n.shake {\r\n  animation-name: shake;\r\n}\r\n\r\n@keyframes headShake {\r\n  0% {\r\n    transform: translateX(0);\r\n  }\r\n\r\n  6.5% {\r\n    transform: translateX(-6px) rotateY(-9deg);\r\n  }\r\n\r\n  18.5% {\r\n    transform: translateX(5px) rotateY(7deg);\r\n  }\r\n\r\n  31.5% {\r\n    transform: translateX(-3px) rotateY(-5deg);\r\n  }\r\n\r\n  43.5% {\r\n    transform: translateX(2px) rotateY(3deg);\r\n  }\r\n\r\n  50% {\r\n    transform: translateX(0);\r\n  }\r\n}\r\n\r\n.headShake {\r\n  animation-timing-function: ease-in-out;\r\n  animation-name: headShake;\r\n}\r\n\r\n@keyframes swing {\r\n  20% {\r\n    transform: rotate3d(0, 0, 1, 15deg);\r\n  }\r\n\r\n  40% {\r\n    transform: rotate3d(0, 0, 1, -10deg);\r\n  }\r\n\r\n  60% {\r\n    transform: rotate3d(0, 0, 1, 5deg);\r\n  }\r\n\r\n  80% {\r\n    transform: rotate3d(0, 0, 1, -5deg);\r\n  }\r\n\r\n  to {\r\n    transform: rotate3d(0, 0, 1, 0deg);\r\n  }\r\n}\r\n\r\n.swing {\r\n  transform-origin: top center;\r\n  animation-name: swing;\r\n}\r\n\r\n@keyframes tada {\r\n  from {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n\r\n  10%, 20% {\r\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\r\n  }\r\n\r\n  30%, 50%, 70%, 90% {\r\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\r\n  }\r\n\r\n  40%, 60%, 80% {\r\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\r\n  }\r\n\r\n  to {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.tada {\r\n  animation-name: tada;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes wobble {\r\n  from {\r\n    transform: none;\r\n  }\r\n\r\n  15% {\r\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\r\n  }\r\n\r\n  30% {\r\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\r\n  }\r\n\r\n  45% {\r\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\r\n  }\r\n\r\n  60% {\r\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.wobble {\r\n  animation-name: wobble;\r\n}\r\n\r\n@keyframes jello {\r\n  from, 11.1%, to {\r\n    transform: none;\r\n  }\r\n\r\n  22.2% {\r\n    transform: skewX(-12.5deg) skewY(-12.5deg);\r\n  }\r\n\r\n  33.3% {\r\n    transform: skewX(6.25deg) skewY(6.25deg);\r\n  }\r\n\r\n  44.4% {\r\n    transform: skewX(-3.125deg) skewY(-3.125deg);\r\n  }\r\n\r\n  55.5% {\r\n    transform: skewX(1.5625deg) skewY(1.5625deg);\r\n  }\r\n\r\n  66.6% {\r\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\r\n  }\r\n\r\n  77.7% {\r\n    transform: skewX(0.390625deg) skewY(0.390625deg);\r\n  }\r\n\r\n  88.8% {\r\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\r\n  }\r\n}\r\n\r\n.jello {\r\n  animation-name: jello;\r\n  transform-origin: center;\r\n}\r\n\r\n@keyframes bounceIn {\r\n  from, 20%, 40%, 60%, 80%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  0% {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n\r\n  20% {\r\n    transform: scale3d(1.1, 1.1, 1.1);\r\n  }\r\n\r\n  40% {\r\n    transform: scale3d(.9, .9, .9);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(1.03, 1.03, 1.03);\r\n  }\r\n\r\n  80% {\r\n    transform: scale3d(.97, .97, .97);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.bounceIn {\r\n  animation-name: bounceIn;\r\n}\r\n\r\n@keyframes bounceInDown {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  0% {\r\n    opacity: 0;\r\n    transform: translate3d(0, -3000px, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(0, 25px, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(0, -10px, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(0, 5px, 0);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.bounceInDown {\r\n  animation-name: bounceInDown;\r\n}\r\n\r\n@keyframes bounceInLeft {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  0% {\r\n    opacity: 0;\r\n    transform: translate3d(-3000px, 0, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(25px, 0, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(-10px, 0, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(5px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.bounceInLeft {\r\n  animation-name: bounceInLeft;\r\n}\r\n\r\n@keyframes bounceInRight {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(3000px, 0, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(-25px, 0, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(10px, 0, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(-5px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.bounceInRight {\r\n  animation-name: bounceInRight;\r\n}\r\n\r\n@keyframes bounceInUp {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, 3000px, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(0, -20px, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(0, 10px, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(0, -5px, 0);\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.bounceInUp {\r\n  animation-name: bounceInUp;\r\n}\r\n\r\n@keyframes bounceOut {\r\n  20% {\r\n    transform: scale3d(.9, .9, .9);\r\n  }\r\n\r\n  50%, 55% {\r\n    opacity: 1;\r\n    transform: scale3d(1.1, 1.1, 1.1);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n}\r\n\r\n.bounceOut {\r\n  animation-name: bounceOut;\r\n}\r\n\r\n@keyframes bounceOutDown {\r\n  20% {\r\n    transform: translate3d(0, 10px, 0);\r\n  }\r\n\r\n  40%, 45% {\r\n    opacity: 1;\r\n    transform: translate3d(0, -20px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, 2000px, 0);\r\n  }\r\n}\r\n\r\n.bounceOutDown {\r\n  animation-name: bounceOutDown;\r\n}\r\n\r\n@keyframes bounceOutLeft {\r\n  20% {\r\n    opacity: 1;\r\n    transform: translate3d(20px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(-2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.bounceOutLeft {\r\n  animation-name: bounceOutLeft;\r\n}\r\n\r\n@keyframes bounceOutRight {\r\n  20% {\r\n    opacity: 1;\r\n    transform: translate3d(-20px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.bounceOutRight {\r\n  animation-name: bounceOutRight;\r\n}\r\n\r\n@keyframes bounceOutUp {\r\n  20% {\r\n    transform: translate3d(0, -10px, 0);\r\n  }\r\n\r\n  40%, 45% {\r\n    opacity: 1;\r\n    transform: translate3d(0, 20px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, -2000px, 0);\r\n  }\r\n}\r\n\r\n.bounceOutUp {\r\n  animation-name: bounceOutUp;\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.fadeIn {\r\n  animation-name: fadeIn;\r\n}\r\n\r\n@keyframes fadeInDown {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, -100%, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInDown {\r\n  animation-name: fadeInDown;\r\n}\r\n\r\n@keyframes fadeInDownBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, -2000px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInDownBig {\r\n  animation-name: fadeInDownBig;\r\n}\r\n\r\n@keyframes fadeInLeft {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(-100%, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInLeft {\r\n  animation-name: fadeInLeft;\r\n}\r\n\r\n@keyframes fadeInLeftBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(-2000px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInLeftBig {\r\n  animation-name: fadeInLeftBig;\r\n}\r\n\r\n@keyframes fadeInRight {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(100%, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInRight {\r\n  animation-name: fadeInRight;\r\n}\r\n\r\n@keyframes fadeInRightBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(2000px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInRightBig {\r\n  animation-name: fadeInRightBig;\r\n}\r\n\r\n@keyframes fadeInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, 100%, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInUp {\r\n  animation-name: fadeInUp;\r\n}\r\n\r\n@keyframes fadeInUpBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, 2000px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInUpBig {\r\n  animation-name: fadeInUpBig;\r\n}\r\n\r\n@keyframes fadeOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.fadeOut {\r\n  animation-name: fadeOut;\r\n}\r\n\r\n@keyframes fadeOutDown {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, 100%, 0);\r\n  }\r\n}\r\n\r\n.fadeOutDown {\r\n  animation-name: fadeOutDown;\r\n}\r\n\r\n@keyframes fadeOutDownBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, 2000px, 0);\r\n  }\r\n}\r\n\r\n.fadeOutDownBig {\r\n  animation-name: fadeOutDownBig;\r\n}\r\n\r\n@keyframes fadeOutLeft {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(-100%, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutLeft {\r\n  animation-name: fadeOutLeft;\r\n}\r\n\r\n@keyframes fadeOutLeftBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(-2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutLeftBig {\r\n  animation-name: fadeOutLeftBig;\r\n}\r\n\r\n@keyframes fadeOutRight {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(100%, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutRight {\r\n  animation-name: fadeOutRight;\r\n}\r\n\r\n@keyframes fadeOutRightBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutRightBig {\r\n  animation-name: fadeOutRightBig;\r\n}\r\n\r\n@keyframes fadeOutUp {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, -100%, 0);\r\n  }\r\n}\r\n\r\n.fadeOutUp {\r\n  animation-name: fadeOutUp;\r\n}\r\n\r\n@keyframes fadeOutUpBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, -2000px, 0);\r\n  }\r\n}\r\n\r\n.fadeOutUpBig {\r\n  animation-name: fadeOutUpBig;\r\n}\r\n\r\n@keyframes flip {\r\n  from {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\r\n    animation-timing-function: ease-out;\r\n  }\r\n\r\n  40% {\r\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\r\n    animation-timing-function: ease-out;\r\n  }\r\n\r\n  50% {\r\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  80% {\r\n    transform: perspective(400px) scale3d(.95, .95, .95);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px);\r\n    animation-timing-function: ease-in;\r\n  }\r\n}\r\n\r\n.animated.flip {\r\n  -webkit-backface-visibility: visible;\r\n  backface-visibility: visible;\r\n  animation-name: flip;\r\n}\r\n\r\n@keyframes flipInX {\r\n  from {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\r\n    animation-timing-function: ease-in;\r\n    opacity: 0;\r\n  }\r\n\r\n  40% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  60% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  80% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px);\r\n  }\r\n}\r\n\r\n.flipInX {\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n  animation-name: flipInX;\r\n}\r\n\r\n@keyframes flipInY {\r\n  from {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\r\n    animation-timing-function: ease-in;\r\n    opacity: 0;\r\n  }\r\n\r\n  40% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  60% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  80% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px);\r\n  }\r\n}\r\n\r\n.flipInY {\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n  animation-name: flipInY;\r\n}\r\n\r\n@keyframes flipOutX {\r\n  from {\r\n    transform: perspective(400px);\r\n  }\r\n\r\n  30% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.flipOutX {\r\n  animation-name: flipOutX;\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n}\r\n\r\n@keyframes flipOutY {\r\n  from {\r\n    transform: perspective(400px);\r\n  }\r\n\r\n  30% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.flipOutY {\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n  animation-name: flipOutY;\r\n}\r\n\r\n@keyframes lightSpeedIn {\r\n  from {\r\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  60% {\r\n    transform: skewX(20deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  80% {\r\n    transform: skewX(-5deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.lightSpeedIn {\r\n  animation-name: lightSpeedIn;\r\n  animation-timing-function: ease-out;\r\n}\r\n\r\n@keyframes lightSpeedOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(100%, 0, 0) skewX(30deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.lightSpeedOut {\r\n  animation-name: lightSpeedOut;\r\n  animation-timing-function: ease-in;\r\n}\r\n\r\n@keyframes rotateIn {\r\n  from {\r\n    transform-origin: center;\r\n    transform: rotate3d(0, 0, 1, -200deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: center;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateIn {\r\n  animation-name: rotateIn;\r\n}\r\n\r\n@keyframes rotateInDownLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, -45deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInDownLeft {\r\n  animation-name: rotateInDownLeft;\r\n}\r\n\r\n@keyframes rotateInDownRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, 45deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInDownRight {\r\n  animation-name: rotateInDownRight;\r\n}\r\n\r\n@keyframes rotateInUpLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, 45deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInUpLeft {\r\n  animation-name: rotateInUpLeft;\r\n}\r\n\r\n@keyframes rotateInUpRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, -90deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInUpRight {\r\n  animation-name: rotateInUpRight;\r\n}\r\n\r\n@keyframes rotateOut {\r\n  from {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: center;\r\n    transform: rotate3d(0, 0, 1, 200deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOut {\r\n  animation-name: rotateOut;\r\n}\r\n\r\n@keyframes rotateOutDownLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, 45deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutDownLeft {\r\n  animation-name: rotateOutDownLeft;\r\n}\r\n\r\n@keyframes rotateOutDownRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, -45deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutDownRight {\r\n  animation-name: rotateOutDownRight;\r\n}\r\n\r\n@keyframes rotateOutUpLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, -45deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutUpLeft {\r\n  animation-name: rotateOutUpLeft;\r\n}\r\n\r\n@keyframes rotateOutUpRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, 90deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutUpRight {\r\n  animation-name: rotateOutUpRight;\r\n}\r\n\r\n@keyframes hinge {\r\n  0% {\r\n    transform-origin: top left;\r\n    animation-timing-function: ease-in-out;\r\n  }\r\n\r\n  20%, 60% {\r\n    transform: rotate3d(0, 0, 1, 80deg);\r\n    transform-origin: top left;\r\n    animation-timing-function: ease-in-out;\r\n  }\r\n\r\n  40%, 80% {\r\n    transform: rotate3d(0, 0, 1, 60deg);\r\n    transform-origin: top left;\r\n    animation-timing-function: ease-in-out;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 700px, 0);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.hinge {\r\n  animation-name: hinge;\r\n}\r\n\r\n@keyframes jackInTheBox {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale(0.1) rotate(30deg);\r\n    transform-origin: center bottom;\r\n  }\r\n\r\n  50% {\r\n    transform: rotate(-10deg);\r\n  }\r\n\r\n  70% {\r\n    transform: rotate(3deg);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: scale(1);\r\n  }\r\n}\r\n\r\n.jackInTheBox {\r\n  animation-name: jackInTheBox;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes rollIn {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.rollIn {\r\n  animation-name: rollIn;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes rollOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\r\n  }\r\n}\r\n\r\n.rollOut {\r\n  animation-name: rollOut;\r\n}\r\n\r\n@keyframes zoomIn {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n\r\n  50% {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.zoomIn {\r\n  animation-name: zoomIn;\r\n}\r\n\r\n@keyframes zoomInDown {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInDown {\r\n  animation-name: zoomInDown;\r\n}\r\n\r\n@keyframes zoomInLeft {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInLeft {\r\n  animation-name: zoomInLeft;\r\n}\r\n\r\n@keyframes zoomInRight {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInRight {\r\n  animation-name: zoomInRight;\r\n}\r\n\r\n@keyframes zoomInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInUp {\r\n  animation-name: zoomInUp;\r\n}\r\n\r\n@keyframes zoomOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  50% {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.zoomOut {\r\n  animation-name: zoomOut;\r\n}\r\n\r\n@keyframes zoomOutDown {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomOutDown {\r\n  animation-name: zoomOutDown;\r\n}\r\n\r\n@keyframes zoomOutLeft {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale(.1) translate3d(-2000px, 0, 0);\r\n    transform-origin: left center;\r\n  }\r\n}\r\n\r\n.zoomOutLeft {\r\n  animation-name: zoomOutLeft;\r\n}\r\n\r\n@keyframes zoomOutRight {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale(.1) translate3d(2000px, 0, 0);\r\n    transform-origin: right center;\r\n  }\r\n}\r\n\r\n.zoomOutRight {\r\n  animation-name: zoomOutRight;\r\n}\r\n\r\n@keyframes zoomOutUp {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomOutUp {\r\n  animation-name: zoomOutUp;\r\n}\r\n\r\n@keyframes slideInDown {\r\n  from {\r\n    transform: translate3d(0, -100%, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInDown {\r\n  animation-name: slideInDown;\r\n}\r\n\r\n@keyframes slideInLeft {\r\n  from {\r\n    transform: translate3d(-100%, 0, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInLeft {\r\n  animation-name: slideInLeft;\r\n}\r\n\r\n@keyframes slideInRight {\r\n  from {\r\n    transform: translate3d(100%, 0, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInRight {\r\n  animation-name: slideInRight;\r\n}\r\n\r\n@keyframes slideInUp {\r\n  from {\r\n    transform: translate3d(0, 100%, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInUp {\r\n  animation-name: slideInUp;\r\n}\r\n\r\n@keyframes slideOutDown {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(0, 100%, 0);\r\n  }\r\n}\r\n\r\n.slideOutDown {\r\n  animation-name: slideOutDown;\r\n}\r\n\r\n@keyframes slideOutLeft {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(-100%, 0, 0);\r\n  }\r\n}\r\n\r\n.slideOutLeft {\r\n  animation-name: slideOutLeft;\r\n}\r\n\r\n@keyframes slideOutRight {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(100%, 0, 0);\r\n  }\r\n}\r\n\r\n.slideOutRight {\r\n  animation-name: slideOutRight;\r\n}\r\n\r\n@keyframes slideOutUp {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(0, -100%, 0);\r\n  }\r\n}\r\n\r\n.slideOutUp {\r\n  animation-name: slideOutUp;\r\n}\r\n", ""]);
 
 // exports
 
@@ -10666,7 +10664,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "splash-screen {\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    top: 0;\n    text-align: center;\n}\n\nsplash-screen .logo {\n    width: 14rem;\n    display: inline-block;\n    margin-bottom: 1rem;\n    margin-top: 4rem;\n}\n\nsplash-screen h1 {\n    margin-top: 1rem;\n}\n\nvideo-toolbar {\n    display: block;\n    width: 24rem;\n    margin: 0 auto;\n    text-align: left;\n}\n\nsplash-screen .instructions {\n    width: 500px;\n    margin: 0 auto;\n    background: #222;\n    padding: 1rem;\n    border-radius: 10px;\n    text-align: left;\n    font-size: 13px;\n    margin-bottom: 2rem;\n}\n\nsplash-screen .current-version {\n    position: absolute;\n    color: #666;\n    font-size: 13px;\n    top: .5rem;\n    right: .5rem;\n}\n\nsplash-screen.changelog {\n    text-align: left;\n    padding: 2.8rem;\n}", ""]);
+exports.push([module.i, "recording-indicator {\r\n    display: block;\r\n}\r\n\r\nrecording-dot {\r\n    border-radius: 100%;\r\n    background: #ea2f2c;\r\n    display: inline-block;\r\n    width: .6rem;\r\n    height: .6rem;\r\n    animation: blink-animation 3s steps(3, start) infinite;\r\n}\r\n\r\nis-recording {\r\n    text-transform: uppercase;\r\n}\r\n\r\nstopped-recording svg {\r\n    width: 1.2rem;\r\n    height: 1.2rem;\r\n    display: inline-block;\r\n    fill: #888;\r\n    vertical-align: middle;\r\n}\r\n\r\n@keyframes blink-animation {\r\n  to {\r\n    visibility: hidden;\r\n  }\r\n}\r\n@-webkit-keyframes blink-animation {\r\n  to {\r\n    visibility: hidden;\r\n  }\r\n}\r\n", ""]);
 
 // exports
 
@@ -10680,7 +10678,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "toolbar {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    position: absolute;\n}\n\ndrag-region {\n    -webkit-app-region: drag;\n    position: absolute;\n    width: 100%;\n    height: 3rem;\n    right: 2rem;\n}\n\nclose-button {\n    position: absolute;\n    display: block;\n    fill: #bbb;\n    right: 1rem;\n    top: .8rem;\n    height: 1rem;\n    width: 1rem;\n}\n\nclose-button:hover {\n    fill: #fff;\n    cursor: pointer;\n}\n\n\nclose-button img {\n    fill: #bbb;\n}", ""]);
+exports.push([module.i, "splash-screen {\r\n    position: absolute;\r\n    right: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    text-align: center;\r\n}\r\n\r\nsplash-screen .logo {\r\n    width: 14rem;\r\n    display: inline-block;\r\n    margin-bottom: 1rem;\r\n    margin-top: 4rem;\r\n}\r\n\r\nsplash-screen h1 {\r\n    margin-top: 1rem;\r\n}\r\n\r\nvideo-toolbar {\r\n    display: block;\r\n    width: 24rem;\r\n    margin: 0 auto;\r\n    text-align: left;\r\n}\r\n\r\nsplash-screen .instructions {\r\n    width: 500px;\r\n    margin: 0 auto;\r\n    background: #222;\r\n    padding: 1rem;\r\n    border-radius: 10px;\r\n    text-align: left;\r\n    font-size: 13px;\r\n    margin-bottom: 2rem;\r\n}\r\n\r\nsplash-screen .current-version {\r\n    position: absolute;\r\n    color: #666;\r\n    font-size: 13px;\r\n    top: .5rem;\r\n    right: .5rem;\r\n}\r\n\r\nsplash-screen.changelog {\r\n    text-align: left;\r\n    padding: 2.8rem;\r\n}", ""]);
 
 // exports
 
@@ -10694,7 +10692,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "\nconfig .settings-button svg {\n    position: fixed;\n    width: 1.4rem;\n    bottom: 1rem;\n    right: 1rem;\n    height: 1.4rem;\n    fill: #ccc;\n    cursor: pointer;\n}\n\nconfig .settings-button svg:hover {\n    fill: #f6f6f6;\n}\n\nconfig fieldset input {\n    margin-right: 4px;\n}\n\nconfig fieldset input[type=number] {\n    margin: 0 4px;\n}\n\nconfig-window {\n    position: fixed;\n    background: #222;\n    padding: 1rem;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 100;\n}\n\nconfig-window footer .button {\n    margin-right: 1rem;\n}\n\nconfig-window footer {\n    position: absolute;\n    bottom: 1rem;\n    left: 1rem;\n    right: 1rem;\n}\n\np.hint-sub {\n    color: #777;\n}", ""]);
+exports.push([module.i, "toolbar {\r\n    display: block;\r\n    width: 100%;\r\n    height: 3rem;\r\n    position: absolute;\r\n}\r\n\r\ndrag-region {\r\n    -webkit-app-region: drag;\r\n    position: absolute;\r\n    width: 100%;\r\n    height: 3rem;\r\n    right: 2rem;\r\n}\r\n\r\nclose-button {\r\n    position: absolute;\r\n    display: block;\r\n    fill: #bbb;\r\n    right: 1rem;\r\n    top: .8rem;\r\n    height: 1rem;\r\n    width: 1rem;\r\n}\r\n\r\nclose-button:hover {\r\n    fill: #fff;\r\n    cursor: pointer;\r\n}\r\n\r\n\r\nclose-button img {\r\n    fill: #bbb;\r\n}", ""]);
 
 // exports
 
@@ -10708,7 +10706,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "sidebar-row {\n    font-size: 14px;\n    cursor: pointer;\n    width: 300px;\n    height: 45px;\n    display: block;\n}\n\nsidebar-row.selected {\n    background: #444;\n    color: #eee;\n}\n\nsidebar-row.selected a {\n    color: #efefef;\n}\n\nsidebar-row a {\n    position: absolute;\n    top: 12px;\n    left: 45px;\n}\n\nsidebar-row a:hover {\n    text-decoration: none;\n}\n\nsidebar-row .date {\n    font-size: 12px;\n    position: absolute;\n    right: 4px;\n    color: #ccc;\n    top: 15px;\n}\n\nsidebar-row.corrupt a {\n    color: #666;\n}\n\nsidebar-row.corrupt .date {\n    color: #444;\n}\n\nsidebar-row.patch {\n    background: #0075c4;\n    color: #fff;\n    font-size: 12px;\n    padding: 6px;\n    margin-top: 8px;\n    height: 28px;\n}\n\nsidebar-row.patch .date {\n    top: 13px;\n    color: #fff;\n}\n\nsidebar-row.patch .summary {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    width: 205px;\n}\n\nsidebar-row.patch.selected {\n    background: #0099ff;\n}\n\n\nsidebar-row .highlight svg {\n    width: 14px;\n    fill: #0075c4;\n    right: 63px;\n    position: absolute;\n    top: 18px;\n}\n\nsidebar hero-portrait {\n    position: absolute;\n    top: 4px;\n    left: 4px;\n}\n\nhero-portrait {\n    width: 36px;\n    height: 36px;\n    border-radius: 4px;\n    display: inline-block;\n    background: #333;\n    background-size: cover;\n    vertical-align: text-bottom;\n}\n\nhero-portrait.small {\n    width: 16px;\n    height: 16px;\n    border-radius: 2px;\n}\n\n    \n.ReactVirtualized__Grid::-webkit-scrollbar-track\n{\n\tbackground-color: #1f1f1f;\n}\n\n.ReactVirtualized__Grid::-webkit-scrollbar\n{\n\twidth: 12px;\n\tbackground-color: #1f1f1f;\n    border-right: 1px solid #000;\n}\n\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb\n{\n    border: 1px solid #1f1f1f;\n\tbackground-color: #666;\n}\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover\n{\n\tbackground-color: #999;\n}\n\nsidebar {\n    position: fixed;\n    bottom: 0;\n    top: 0;\n    width: 300px;\n    background: #1f1f1f;\n    z-index: 10;\n}\n\nsidebar-toggle {\n    position: absolute;\n    padding: .4rem;\n    padding-bottom: 0;\n    background: #555;\n    cursor: pointer;\n    z-index: 10;\n}\n\nsidebar-toggle svg {\n    fill: #bbb;\n    width: 1.6rem;\n    height: 1.6rem;\n}\n\nsidebar-toggle:hover svg {\n    fill: #f6f6f6;\n}\n\nsidebar close {\n    width: 2.4rem;\n    height: 2.4rem;\n    position: absolute;\n    background: #555;\n    z-index: 10;\n    right: -2.35rem;\n    top: 0;\n    cursor: pointer;\n}\n\nsidebar close svg {\n    fill: #bbb;\n    width: 2.4rem;\n    height: 2.4rem;\n    margin-left: -3px;\n}\n\nsidebar close svg:hover {    \n    fill: #f6f6f6;\n}\n\n\nsidebar search input[type=text] {\n    margin: 3px;\n    background: #1a1a1a;\n    width: 260px;\n    border: 1px solid #111;\n    font-size: 13px;\n    color: #aaa;\n}\nsidebar search input[type=text]::placeholder {\n    color: transparent;\n}\nsidebar search input[type=text]:focus::placeholder {\n    color: #666;\n}\n\nsidebar .omitted-results {\n    text-align: center;\n    color: #777;\n    font-size: 12px;\n    padding: 8px;\n}\n\nsidebar search .search svg {\n    fill: #555;\n    width: 1.3rem;\n    height: 1.3rem;\n    position: absolute;\n    display: block;\n    left: 233px;\n    top: 8px;\n}\nsidebar search .cancel svg {\n    fill: #777;\n    width: 1rem;\n    height: 1rem;\n    position: absolute;\n    left: 240px;\n    top: 10px;\n    display: none;\n}\n\nsidebar search .search.is-searching svg {\n    display: none;\n}\n\nsidebar search .cancel.is-searching svg {\n    display: block;\n}\n\nsidebar search .filters svg {\n    fill: #555;\n    width: 1.3rem;\n    height: 1.3rem;\n    position: absolute;\n    left: 270px;\n    top: 8px;\n}\n\nsidebar search svg:hover {\n    fill: #888;\n    cursor: pointer;\n}", ""]);
+exports.push([module.i, "\r\nconfig .settings-button svg {\r\n    position: fixed;\r\n    width: 1.4rem;\r\n    bottom: 1rem;\r\n    right: 1rem;\r\n    height: 1.4rem;\r\n    fill: #ccc;\r\n    cursor: pointer;\r\n}\r\n\r\nconfig .settings-button svg:hover {\r\n    fill: #f6f6f6;\r\n}\r\n\r\nconfig fieldset input {\r\n    margin-right: 4px;\r\n}\r\n\r\nconfig fieldset input[type=number] {\r\n    margin: 0 4px;\r\n}\r\n\r\nconfig-window {\r\n    position: fixed;\r\n    background: #222;\r\n    padding: 1rem;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    z-index: 100;\r\n}\r\n\r\nconfig-window footer .button {\r\n    margin-right: 1rem;\r\n}\r\n\r\nconfig-window footer {\r\n    position: absolute;\r\n    bottom: 1rem;\r\n    left: 1rem;\r\n    right: 1rem;\r\n}\r\n\r\np.hint-sub {\r\n    color: #777;\r\n}", ""]);
 
 // exports
 
@@ -10722,7 +10720,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "status-bar {\n    font-size: 12px;\n    padding: 4px;\n    position: fixed;\n    bottom: 10px;\n    margin-left: 10px;\n    color: #aaa;\n    z-index: 5;\n}\n\nstatus-bar svg {\n    width: 16px;\n    height: 16px;\n    fill: #aaa;\n    vertical-align: middle\n}\n\nstatus-bar .discord {\n    margin-right: 5px;\n}\n\nstatus-bar a {\n    color: #aaa;\n}\n\nstatus-bar a:hover {\n    text-decoration: none;\n    color: #aaa;\n}", ""]);
+exports.push([module.i, "sidebar-row {\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n    width: 300px;\r\n    height: 45px;\r\n    display: block;\r\n}\r\n\r\nsidebar-row.selected {\r\n    background: #444;\r\n    color: #eee;\r\n}\r\n\r\nsidebar-row.selected a {\r\n    color: #efefef;\r\n}\r\n\r\nsidebar-row a {\r\n    position: absolute;\r\n    top: 12px;\r\n    left: 45px;\r\n}\r\n\r\nsidebar-row a:hover {\r\n    text-decoration: none;\r\n}\r\n\r\nsidebar-row .date {\r\n    font-size: 12px;\r\n    position: absolute;\r\n    right: 4px;\r\n    color: #ccc;\r\n    top: 15px;\r\n}\r\n\r\nsidebar-row.corrupt a {\r\n    color: #666;\r\n}\r\n\r\nsidebar-row.corrupt .date {\r\n    color: #444;\r\n}\r\n\r\nsidebar-row.patch {\r\n    background: #0075c4;\r\n    color: #fff;\r\n    font-size: 12px;\r\n    padding: 6px;\r\n    margin-top: 8px;\r\n    height: 28px;\r\n}\r\n\r\nsidebar-row.patch .date {\r\n    top: 13px;\r\n    color: #fff;\r\n}\r\n\r\nsidebar-row.patch .summary {\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    width: 205px;\r\n}\r\n\r\nsidebar-row.patch.selected {\r\n    background: #0099ff;\r\n}\r\n\r\n\r\nsidebar-row .highlight svg {\r\n    width: 14px;\r\n    fill: #0075c4;\r\n    right: 63px;\r\n    position: absolute;\r\n    top: 18px;\r\n}\r\n\r\nsidebar hero-portrait {\r\n    position: absolute;\r\n    top: 4px;\r\n    left: 4px;\r\n}\r\n\r\nhero-portrait {\r\n    width: 36px;\r\n    height: 36px;\r\n    border-radius: 4px;\r\n    display: inline-block;\r\n    background: #333;\r\n    background-size: cover;\r\n    vertical-align: text-bottom;\r\n}\r\n\r\nhero-portrait.small {\r\n    width: 16px;\r\n    height: 16px;\r\n    border-radius: 2px;\r\n}\r\n\r\n    \r\n.ReactVirtualized__Grid::-webkit-scrollbar-track\r\n{\r\n\tbackground-color: #1f1f1f;\r\n}\r\n\r\n.ReactVirtualized__Grid::-webkit-scrollbar\r\n{\r\n\twidth: 12px;\r\n\tbackground-color: #1f1f1f;\r\n    border-right: 1px solid #000;\r\n}\r\n\r\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb\r\n{\r\n    border: 1px solid #1f1f1f;\r\n\tbackground-color: #666;\r\n}\r\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover\r\n{\r\n\tbackground-color: #999;\r\n}\r\n\r\nsidebar {\r\n    position: fixed;\r\n    bottom: 0;\r\n    top: 0;\r\n    width: 300px;\r\n    background: #1f1f1f;\r\n    z-index: 10;\r\n}\r\n\r\nsidebar-toggle {\r\n    position: absolute;\r\n    padding: .4rem;\r\n    padding-bottom: 0;\r\n    background: #555;\r\n    cursor: pointer;\r\n    z-index: 10;\r\n}\r\n\r\nsidebar-toggle svg {\r\n    fill: #bbb;\r\n    width: 1.6rem;\r\n    height: 1.6rem;\r\n}\r\n\r\nsidebar-toggle:hover svg {\r\n    fill: #f6f6f6;\r\n}\r\n\r\nsidebar close {\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    position: absolute;\r\n    background: #555;\r\n    z-index: 10;\r\n    right: -2.35rem;\r\n    top: 0;\r\n    cursor: pointer;\r\n}\r\n\r\nsidebar close svg {\r\n    fill: #bbb;\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    margin-left: -3px;\r\n}\r\n\r\nsidebar close svg:hover {    \r\n    fill: #f6f6f6;\r\n}\r\n\r\n\r\nsidebar search input[type=text] {\r\n    margin: 3px;\r\n    background: #1a1a1a;\r\n    width: 260px;\r\n    border: 1px solid #111;\r\n    font-size: 13px;\r\n    color: #aaa;\r\n}\r\nsidebar search input[type=text]::placeholder {\r\n    color: transparent;\r\n}\r\nsidebar search input[type=text]:focus::placeholder {\r\n    color: #666;\r\n}\r\n\r\nsidebar .omitted-results {\r\n    text-align: center;\r\n    color: #777;\r\n    font-size: 12px;\r\n    padding: 8px;\r\n}\r\n\r\nsidebar search .search svg {\r\n    fill: #555;\r\n    width: 1.3rem;\r\n    height: 1.3rem;\r\n    position: absolute;\r\n    display: block;\r\n    left: 233px;\r\n    top: 8px;\r\n}\r\nsidebar search .cancel svg {\r\n    fill: #777;\r\n    width: 1rem;\r\n    height: 1rem;\r\n    position: absolute;\r\n    left: 240px;\r\n    top: 10px;\r\n    display: none;\r\n}\r\n\r\nsidebar search .search.is-searching svg {\r\n    display: none;\r\n}\r\n\r\nsidebar search .cancel.is-searching svg {\r\n    display: block;\r\n}\r\n\r\nsidebar search .filters svg {\r\n    fill: #555;\r\n    width: 1.3rem;\r\n    height: 1.3rem;\r\n    position: absolute;\r\n    left: 270px;\r\n    top: 8px;\r\n}\r\n\r\nsidebar search svg:hover {\r\n    fill: #888;\r\n    cursor: pointer;\r\n}", ""]);
 
 // exports
 
@@ -10736,7 +10734,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "game {\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    top: 0;\n    background: #222;\n    background-size: cover;\n}\n\ngame header {\n    text-align: center;\n    padding: 1rem 1rem 0 1rem;\n    height: 158px;\n    font-size: 14px;\n    background: rgba(25,25,25,.68);\n}\n\ngame header .time {\n    font-size: 20px;\n}\n\ngame header .kills {\n    position: absolute;\n    width: 300px;\n    font-size: 30px;\n    left: 50%;\n    margin-left: -150px;\n    text-align: left;\n}\n\ngame header .actions {\n    position: absolute;\n    right: 7.2rem;\n    top: 3rem;\n}\n\ngame header .dropdown-trigger {\n    background: transparent;\n    border: 1px solid #fff;\n    border-radius: 4px;\n    font-weight: normal;\n    padding: 6px 8px;\n    height: auto;\n}\ngame header .dropdown .dropdown-menu {\n    min-width: 8rem;\n}\n\ngame header .dropdown .dropdown-trigger:after {\n    content: '';\n    margin: 0;\n}\n\ngame header .dropdown {\n    text-align: left;\n}\n\ngame header .outcome {\n    text-transform: uppercase;\n    font-size: 14px;\n    vertical-align: middle;\n    margin-left: 7px;\n}\ngame header .outcome.win {\n    color: #ffe834;\n    font-weight: bold;\n}\n\ngame h1 {\n    padding-top: 1rem;\n    text-align: center;\n}\n\ngame .tabs {\n    text-align: center;\n    padding: 0;\n    margin: 0;\n}\n\ngame .tabs li {\n    list-style-type: none;\n    display: inline-block;\n    width: 90px;\n    margin: 0 12px;\n    text-align: center;\n}\n\ngame .tabs li a:hover {\n    text-decoration: none;\n}\n\ngame .tabs li.active a {\n    color: #fff;\n}\n\ngame .tabs li.active:after {\n    width: 0;\n    height: 0;\n    border-style: solid;\n    border-width: 0 7.5px 8px 7.5px;\n    border-color: transparent transparent rgba(25,25,25,.95) transparent;\n    content: '';\n    display: block;\n    left: 50%;\n    margin-left: -5px;\n    top: 4px;\n    position: relative;\n}\n\ntab-content {\n    display: block;\n    background: rgba(25,25,25,.95)\n}\n\ngame.corrupt {\n    text-align: center;\n    font-size: 13px;\n}\n\ngame.corrupt svg {\n    width: 12rem;\n    height: 12rem;\n    fill: #fff;\n    margin-top: 3rem;\n}\n\ngame.corrupt .subdued svg {\n    fill: #555;\n}\n\ngame.corrupt h1 {\n    text-align: center;\n    margin-bottom: 1rem;\n}\n\ngame.corrupt .reasons {\n    width: 465px;\n    background: #222;\n    padding: 1rem;\n    border-radius: 1rem;\n    text-align: left;\n    margin: 1rem auto;\n    margin-top: 0;\n}\n\nplayer-name {\n    display:inline-block;\n}\n\n.red {\n    color: #E60E0E\n}\n\n.blue {\n    color: #0075c4;\n}\n\nhighlight-reel {\n    display: block;\n    position: relative;\n    cursor: pointer;\n}\n\nvideo {\n    cursor: pointer;\n}\n\nvideo-controls {    \n    position: absolute;\n    width: 640px;\n    bottom: 0;\n    top: 0;\n    margin-bottom: 4px;\n    background: rgba(15,15,15,.5);\n    cursor: pointer;\n}\n\nhighlight-reel:hover video-controls:after {    \n    border-color: transparent transparent transparent rgba(210,210,210,1)\n}\n\nvideo-controls:after {\n    width: 0;\n    height: 0;\n    content: ' ';\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    margin-left: -37.5px;\n    margin-top: -37.5px;\n    border-style: solid;\n    border-width: 50px 0 50px 75px;\n    border-color: transparent transparent transparent rgba(200,200,200,.8)\n}\n\n.video-options {\n    float: right;\n}\n\n.video-options svg {\n    width: 1rem;\n    height: 1rem;\n    margin: 0;\n    margin-left: .5rem;\n    fill: #ccc;\n    position: static;\n    cursor: pointer;\n} \n\n.video-options svg:hover {\n    color: #dadada;\n}\n\nshare-highlights-modal modal {   \n    width: 200px;\n    margin-top: -100px;\n    margin-left: -100px;\n    border-radius: 1rem;\n    padding: 1rem;\n    text-align: center;\n}\nshare-highlights-modal .progress {\n    height: 1rem;\n    margin-bottom: 0;\n}", ""]);
+exports.push([module.i, "status-bar {\r\n    font-size: 12px;\r\n    padding: 4px;\r\n    position: fixed;\r\n    bottom: 10px;\r\n    margin-left: 10px;\r\n    color: #aaa;\r\n    z-index: 5;\r\n}\r\n\r\nstatus-bar svg {\r\n    width: 16px;\r\n    height: 16px;\r\n    fill: #aaa;\r\n    vertical-align: middle\r\n}\r\n\r\nstatus-bar .discord {\r\n    margin-right: 5px;\r\n}\r\n\r\nstatus-bar a {\r\n    color: #aaa;\r\n}\r\n\r\nstatus-bar a:hover {\r\n    text-decoration: none;\r\n    color: #aaa;\r\n}", ""]);
 
 // exports
 
@@ -10750,7 +10748,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "patch-notes {\n    padding: 1rem;\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    top: 0;\n}\n\n\npatch-notes a.external {\n    position: absolute;\n    right: 10px;\n    top: 10px;\n    font-size: 14px;\n    color: #0099ff;\n    text-decoration: underline;\n}\n\npatch-notes a.external svg {\n    margin-left: 7px;\n    margin-top: 2px;\n    width: 16px;\n    height: 16px;\n    vertical-align: text-bottom;\n    fill: #0099ff;\n}\n\npatch-notes h3 {\n    margin-left: 30px;\n    width: 600px;\n    margin-top: -6px;\n}\n\npatch-notes webview {\n    width: 770px;\n    height: 480px;\n    margin-top: 18px;\n    border: 1px solid #222;\n}", ""]);
+exports.push([module.i, "game {\r\n    position: absolute;\r\n    right: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    background: #222;\r\n    background-size: cover;\r\n}\r\n\r\ngame header {\r\n    text-align: center;\r\n    padding: 1rem 1rem 0 1rem;\r\n    height: 158px;\r\n    font-size: 14px;\r\n    background: rgba(25,25,25,.68);\r\n}\r\n\r\ngame header .time {\r\n    font-size: 20px;\r\n}\r\n\r\ngame header .kills {\r\n    position: absolute;\r\n    width: 300px;\r\n    font-size: 30px;\r\n    left: 50%;\r\n    margin-left: -150px;\r\n    text-align: left;\r\n}\r\n\r\ngame header .actions {\r\n    position: absolute;\r\n    right: 7.2rem;\r\n    top: 3rem;\r\n}\r\n\r\ngame header .dropdown-trigger {\r\n    background: transparent;\r\n    border: 1px solid #fff;\r\n    border-radius: 4px;\r\n    font-weight: normal;\r\n    padding: 6px 8px;\r\n    height: auto;\r\n}\r\ngame header .dropdown .dropdown-menu {\r\n    min-width: 8rem;\r\n}\r\n\r\ngame header .dropdown .dropdown-trigger:after {\r\n    content: '';\r\n    margin: 0;\r\n}\r\n\r\ngame header .dropdown {\r\n    text-align: left;\r\n}\r\n\r\ngame header .outcome {\r\n    text-transform: uppercase;\r\n    font-size: 14px;\r\n    vertical-align: middle;\r\n    margin-left: 7px;\r\n}\r\ngame header .outcome.win {\r\n    color: #ffe834;\r\n    font-weight: bold;\r\n}\r\n\r\ngame h1 {\r\n    padding-top: 1rem;\r\n    text-align: center;\r\n}\r\n\r\ngame .tabs {\r\n    text-align: center;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\ngame .tabs li {\r\n    list-style-type: none;\r\n    display: inline-block;\r\n    width: 90px;\r\n    margin: 0 12px;\r\n    text-align: center;\r\n}\r\n\r\ngame .tabs li a:hover {\r\n    text-decoration: none;\r\n}\r\n\r\ngame .tabs li.active a {\r\n    color: #fff;\r\n}\r\n\r\ngame .tabs li.active:after {\r\n    width: 0;\r\n    height: 0;\r\n    border-style: solid;\r\n    border-width: 0 7.5px 8px 7.5px;\r\n    border-color: transparent transparent rgba(25,25,25,.95) transparent;\r\n    content: '';\r\n    display: block;\r\n    left: 50%;\r\n    margin-left: -5px;\r\n    top: 4px;\r\n    position: relative;\r\n}\r\n\r\ntab-content {\r\n    display: block;\r\n    background: rgba(25,25,25,.95)\r\n}\r\n\r\ngame.corrupt {\r\n    text-align: center;\r\n    font-size: 13px;\r\n}\r\n\r\ngame.corrupt svg {\r\n    width: 12rem;\r\n    height: 12rem;\r\n    fill: #fff;\r\n    margin-top: 3rem;\r\n}\r\n\r\ngame.corrupt .subdued svg {\r\n    fill: #555;\r\n}\r\n\r\ngame.corrupt h1 {\r\n    text-align: center;\r\n    margin-bottom: 1rem;\r\n}\r\n\r\ngame.corrupt .reasons {\r\n    width: 465px;\r\n    background: #222;\r\n    padding: 1rem;\r\n    border-radius: 1rem;\r\n    text-align: left;\r\n    margin: 1rem auto;\r\n    margin-top: 0;\r\n}\r\n\r\nplayer-name {\r\n    display:inline-block;\r\n}\r\n\r\n.red {\r\n    color: #E60E0E\r\n}\r\n\r\n.blue {\r\n    color: #0075c4;\r\n}\r\n\r\nhighlight-reel {\r\n    display: block;\r\n    position: relative;\r\n    cursor: pointer;\r\n}\r\n\r\nvideo {\r\n    cursor: pointer;\r\n}\r\n\r\nvideo-controls {    \r\n    position: absolute;\r\n    width: 640px;\r\n    bottom: 0;\r\n    top: 0;\r\n    margin-bottom: 4px;\r\n    background: rgba(15,15,15,.5);\r\n    cursor: pointer;\r\n}\r\n\r\nhighlight-reel:hover video-controls:after {    \r\n    border-color: transparent transparent transparent rgba(210,210,210,1)\r\n}\r\n\r\nvideo-controls:after {\r\n    width: 0;\r\n    height: 0;\r\n    content: ' ';\r\n    display: block;\r\n    position: absolute;\r\n    left: 50%;\r\n    top: 50%;\r\n    margin-left: -37.5px;\r\n    margin-top: -37.5px;\r\n    border-style: solid;\r\n    border-width: 50px 0 50px 75px;\r\n    border-color: transparent transparent transparent rgba(200,200,200,.8)\r\n}\r\n\r\n.video-options {\r\n    float: right;\r\n}\r\n\r\n.video-options svg {\r\n    width: 1rem;\r\n    height: 1rem;\r\n    margin: 0;\r\n    margin-left: .5rem;\r\n    fill: #ccc;\r\n    position: static;\r\n    cursor: pointer;\r\n} \r\n\r\n.video-options svg:hover {\r\n    color: #dadada;\r\n}\r\n\r\nshare-highlights-modal modal {   \r\n    width: 200px;\r\n    margin-top: -100px;\r\n    margin-left: -100px;\r\n    border-radius: 1rem;\r\n    padding: 1rem;\r\n    text-align: center;\r\n}\r\nshare-highlights-modal .progress {\r\n    height: 1rem;\r\n    margin-bottom: 0;\r\n}", ""]);
 
 // exports
 
@@ -10764,7 +10762,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "\n.timeline {\n    padding: 1rem;\n    display: block;\n    position: relative;\n}\n\ntimeline {\n    display: block;\n    border-left: 2px solid #E4B406;\n    margin-left: 40px;\n}\n\ntimeline::before {\n    display: block;\n    content: '';\n    width: 21px;\n    height: 2px;\n    background: #E4B406;\n    margin-left: -11px;\n}\n\ntimeline-marker.hash::before {\n    position: absolute;\n    display: block;\n    content: '';\n    margin-left: -16px;\n    margin-top: 12px;\n    width: 8px;\n    height: 2px;\n    background: #E4B406;\n}\ntimeline-marker.hash {\n    display: block;\n    margin: 1rem;\n    color: #fafafa;\n}\n\ntimeline-marker.circle {\n    border: 2px solid #E4B406;\n    border-radius: 100%;\n    width: 2.4rem;\n    height: 2.4rem;\n    margin-left: -1.2rem;\n    color: #fafafa;\n    display: block;\n    background: #111;\n}\n\ntimeline-marker.circle .label {\n    text-align: center;\n    font-size: 18px;\n    margin-top: 3px;\n    margin-left: -1px;  \n}\n\ntimeline-marker.circle .content {\n    margin-left: 45px;\n    position: absolute;\n    margin-top: -28px;\n}\n\ntimeline-event::before {\n    position: absolute;\n    display: block;\n    content: '';\n    margin-left: -16px;\n    margin-top: 6px;\n    width: 0;\n    height: 0;\n    border-style: solid;\n    border-width: 6px 0 6px 8px;\n    border-color: transparent transparent transparent #E4B406;\n}\n\ntimeline-event svg {\n    fill: #fafafa;\n    width: 2.4rem;\n    height: 2.4rem;\n    margin-left: -3.5rem;\n    margin-top: -.3rem;\n    position: absolute;\n}\n\ntimeline-event .fight svg {\n    width: 1.8rem;\n    height: 1.8rem;\n    margin-top: 0;\n    margin-left: -3.3rem;\n}\n\ntimeline-event .death svg {\n    width: 1.8rem;\n    height: 1.8rem;\n    margin-top: 0;\n    margin-left: -3.3rem;\n}\n\ntimeline-event {\n    display: block;\n    margin: 1rem;\n}\n\ntimeline-event .time {\n    font-weight: bold;\n    color: #fafafa;\n}\n\ntimeline-event .content {\n    background: #333;\n    padding: 1rem;\n    margin-top: 4px;\n}\n\ntimeline-event hero-portrait {\n    width: 1.4rem;\n    height: 1.4rem;\n    margin: 0 3px;\n    border: 1px solid #222;\n}", ""]);
+exports.push([module.i, "patch-notes {\r\n    padding: 1rem;\r\n    position: absolute;\r\n    right: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n}\r\n\r\n\r\npatch-notes a.external {\r\n    position: absolute;\r\n    right: 10px;\r\n    top: 10px;\r\n    font-size: 14px;\r\n    color: #0099ff;\r\n    text-decoration: underline;\r\n}\r\n\r\npatch-notes a.external svg {\r\n    margin-left: 7px;\r\n    margin-top: 2px;\r\n    width: 16px;\r\n    height: 16px;\r\n    vertical-align: text-bottom;\r\n    fill: #0099ff;\r\n}\r\n\r\npatch-notes h3 {\r\n    margin-left: 30px;\r\n    width: 600px;\r\n    margin-top: -6px;\r\n}\r\n\r\npatch-notes webview {\r\n    width: 770px;\r\n    height: 480px;\r\n    margin-top: 18px;\r\n    border: 1px solid #222;\r\n}", ""]);
 
 // exports
 
@@ -10778,7 +10776,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "game-scores thead hero-portrait {\n    width: 26px;\n    height: 26px;\n}\n\ngame-scores table {\n    font-size: 13px;\n}\n\ngame-scores table thead th {\n    border-bottom-color: #E4B406;\n    height: 140px;\n    vertical-align: bottom;\n}\n\ngame-scores table tbody th {\n    border-bottom-width: 1px;\n    border-right: 1px solid #666\n}\n\ngame-scores table tbody td {\n    text-align: center;\n}\n\ngame-scores .axis-label {\n    position: absolute;\n    transform: rotate(290deg);\n    margin-top: -40px;\n    text-align: left;\n    transform-origin: 25%;\n}\n\ngame-scores .length-4 {\n    font-size: 12px;\n}\ngame-scores .length-5 {\n    font-size: 11px;\n}\ngame-scores .length-6 {\n    font-size: 10px;\n}", ""]);
+exports.push([module.i, "\r\n.timeline {\r\n    padding: 1rem;\r\n    display: block;\r\n    position: relative;\r\n}\r\n\r\ntimeline {\r\n    display: block;\r\n    border-left: 2px solid #E4B406;\r\n    margin-left: 40px;\r\n}\r\n\r\ntimeline::before {\r\n    display: block;\r\n    content: '';\r\n    width: 21px;\r\n    height: 2px;\r\n    background: #E4B406;\r\n    margin-left: -11px;\r\n}\r\n\r\ntimeline-marker.hash::before {\r\n    position: absolute;\r\n    display: block;\r\n    content: '';\r\n    margin-left: -16px;\r\n    margin-top: 12px;\r\n    width: 8px;\r\n    height: 2px;\r\n    background: #E4B406;\r\n}\r\ntimeline-marker.hash {\r\n    display: block;\r\n    margin: 1rem;\r\n    color: #fafafa;\r\n}\r\n\r\ntimeline-marker.circle {\r\n    border: 2px solid #E4B406;\r\n    border-radius: 100%;\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    margin-left: -1.2rem;\r\n    color: #fafafa;\r\n    display: block;\r\n    background: #111;\r\n}\r\n\r\ntimeline-marker.circle .label {\r\n    text-align: center;\r\n    font-size: 18px;\r\n    margin-top: 3px;\r\n    margin-left: -1px;  \r\n}\r\n\r\ntimeline-marker.circle .content {\r\n    margin-left: 45px;\r\n    position: absolute;\r\n    margin-top: -28px;\r\n}\r\n\r\ntimeline-event::before {\r\n    position: absolute;\r\n    display: block;\r\n    content: '';\r\n    margin-left: -16px;\r\n    margin-top: 6px;\r\n    width: 0;\r\n    height: 0;\r\n    border-style: solid;\r\n    border-width: 6px 0 6px 8px;\r\n    border-color: transparent transparent transparent #E4B406;\r\n}\r\n\r\ntimeline-event svg {\r\n    fill: #fafafa;\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    margin-left: -3.5rem;\r\n    margin-top: -.3rem;\r\n    position: absolute;\r\n}\r\n\r\ntimeline-event .fight svg {\r\n    width: 1.8rem;\r\n    height: 1.8rem;\r\n    margin-top: 0;\r\n    margin-left: -3.3rem;\r\n}\r\n\r\ntimeline-event .death svg {\r\n    width: 1.8rem;\r\n    height: 1.8rem;\r\n    margin-top: 0;\r\n    margin-left: -3.3rem;\r\n}\r\n\r\ntimeline-event {\r\n    display: block;\r\n    margin: 1rem;\r\n}\r\n\r\ntimeline-event .time {\r\n    font-weight: bold;\r\n    color: #fafafa;\r\n}\r\n\r\ntimeline-event .content {\r\n    background: #333;\r\n    padding: 1rem;\r\n    margin-top: 4px;\r\n}\r\n\r\ntimeline-event hero-portrait {\r\n    width: 1.4rem;\r\n    height: 1.4rem;\r\n    margin: 0 3px;\r\n    border: 1px solid #222;\r\n}", ""]);
 
 // exports
 
@@ -10792,13 +10790,27 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "download-new-version-popup {\n    position: absolute;\n    top: 0;\n    right: 0;\n    left: 0;\n    height: 2rem;\n    z-index: 15;\n    background: #0075c4;\n    color: #fff;\n    text-align: center;\n    font-size: 13px;\n    padding: 6px;\n}\n\ndownload-new-version-popup a {\n    text-decoration: underline;\n    color: #fff;\n    margin-left: .3rem;\n}\ndownload-new-version-popup a:hover {\n    color: #fff;\n}", ""]);
+exports.push([module.i, "game-scores thead hero-portrait {\r\n    width: 26px;\r\n    height: 26px;\r\n}\r\n\r\ngame-scores table {\r\n    font-size: 13px;\r\n}\r\n\r\ngame-scores table thead th {\r\n    border-bottom-color: #E4B406;\r\n    height: 140px;\r\n    vertical-align: bottom;\r\n}\r\n\r\ngame-scores table tbody th {\r\n    border-bottom-width: 1px;\r\n    border-right: 1px solid #666\r\n}\r\n\r\ngame-scores table tbody td {\r\n    text-align: center;\r\n}\r\n\r\ngame-scores .axis-label {\r\n    position: absolute;\r\n    transform: rotate(290deg);\r\n    margin-top: -40px;\r\n    text-align: left;\r\n    transform-origin: 25%;\r\n}\r\n\r\ngame-scores .length-4 {\r\n    font-size: 12px;\r\n}\r\ngame-scores .length-5 {\r\n    font-size: 11px;\r\n}\r\ngame-scores .length-6 {\r\n    font-size: 10px;\r\n}", ""]);
 
 // exports
 
 
 /***/ }),
 /* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "download-new-version-popup {\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    left: 0;\r\n    height: 2rem;\r\n    z-index: 15;\r\n    background: #0075c4;\r\n    color: #fff;\r\n    text-align: center;\r\n    font-size: 13px;\r\n    padding: 6px;\r\n}\r\n\r\ndownload-new-version-popup a {\r\n    text-decoration: underline;\r\n    color: #fff;\r\n    margin-left: .3rem;\r\n}\r\ndownload-new-version-popup a:hover {\r\n    color: #fff;\r\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -10844,7 +10856,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(103);
+var	fixUrls = __webpack_require__(104);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -11157,7 +11169,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports) {
 
 
@@ -11249,16 +11261,6 @@ module.exports = function (css) {
 	// send back the fixed css
 	return fixedCss;
 };
-
-
-/***/ }),
-/* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(17);
 
 
 /***/ }),
@@ -11595,9 +11597,9 @@ module.exports = PooledClass;
 var _prodInvariant = __webpack_require__(18);
 
 var ReactCurrentOwner = __webpack_require__(11);
-var REACT_ELEMENT_TYPE = __webpack_require__(53);
+var REACT_ELEMENT_TYPE = __webpack_require__(54);
 
-var getIteratorFn = __webpack_require__(54);
+var getIteratorFn = __webpack_require__(55);
 var invariant = __webpack_require__(1);
 var KeyEscapeUtils = __webpack_require__(108);
 var warning = __webpack_require__(2);
@@ -11847,7 +11849,7 @@ var ReactElement = __webpack_require__(15);
  */
 var createDOMFactory = ReactElement.createFactory;
 if (process.env.NODE_ENV !== 'production') {
-  var ReactElementValidator = __webpack_require__(55);
+  var ReactElementValidator = __webpack_require__(56);
   createDOMFactory = ReactElementValidator.createFactory;
 }
 
@@ -12162,7 +12164,7 @@ module.exports = ReactPropTypesSecret;
 var _require = __webpack_require__(15),
     isValidElement = _require.isValidElement;
 
-var factory = __webpack_require__(56);
+var factory = __webpack_require__(57);
 
 module.exports = factory(isValidElement);
 
@@ -12186,7 +12188,7 @@ var emptyFunction = __webpack_require__(10);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
-var ReactPropTypesSecret = __webpack_require__(57);
+var ReactPropTypesSecret = __webpack_require__(58);
 var checkPropTypes = __webpack_require__(115);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
@@ -12705,7 +12707,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(1);
   var warning = __webpack_require__(2);
-  var ReactPropTypesSecret = __webpack_require__(57);
+  var ReactPropTypesSecret = __webpack_require__(58);
   var loggedTypeFailures = {};
 }
 
@@ -12791,13 +12793,13 @@ module.exports = '15.6.1';
 
 
 
-var _require = __webpack_require__(51),
+var _require = __webpack_require__(52),
     Component = _require.Component;
 
 var _require2 = __webpack_require__(15),
     isValidElement = _require2.isValidElement;
 
-var ReactNoopUpdateQueue = __webpack_require__(52);
+var ReactNoopUpdateQueue = __webpack_require__(53);
 var factory = __webpack_require__(118);
 
 module.exports = factory(Component, isValidElement, ReactNoopUpdateQueue);
@@ -13757,13 +13759,13 @@ module.exports = __webpack_require__(121);
 
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDefaultInjection = __webpack_require__(122);
-var ReactMount = __webpack_require__(81);
+var ReactMount = __webpack_require__(82);
 var ReactReconciler = __webpack_require__(19);
 var ReactUpdates = __webpack_require__(12);
 var ReactVersion = __webpack_require__(200);
 
 var findDOMNode = __webpack_require__(201);
-var getHostComponentFromComposite = __webpack_require__(82);
+var getHostComponentFromComposite = __webpack_require__(83);
 var renderSubtreeIntoContainer = __webpack_require__(202);
 var warning = __webpack_require__(2);
 
@@ -14433,7 +14435,7 @@ var _assign = __webpack_require__(4);
 
 var PooledClass = __webpack_require__(16);
 
-var getTextContentAccessor = __webpack_require__(61);
+var getTextContentAccessor = __webpack_require__(62);
 
 /**
  * This helper class stores information about text content of a target node,
@@ -14619,10 +14621,10 @@ var ReactDOMComponentTree = __webpack_require__(5);
 var ReactUpdates = __webpack_require__(12);
 var SyntheticEvent = __webpack_require__(13);
 
-var inputValueTracking = __webpack_require__(64);
+var inputValueTracking = __webpack_require__(65);
 var getEventTarget = __webpack_require__(37);
 var isEventSupported = __webpack_require__(38);
-var isTextInputElement = __webpack_require__(65);
+var isTextInputElement = __webpack_require__(66);
 
 var eventTypes = {
   change: {
@@ -16470,15 +16472,15 @@ var CSSPropertyOperations = __webpack_require__(147);
 var DOMLazyTree = __webpack_require__(20);
 var DOMNamespaces = __webpack_require__(41);
 var DOMProperty = __webpack_require__(14);
-var DOMPropertyOperations = __webpack_require__(70);
+var DOMPropertyOperations = __webpack_require__(71);
 var EventPluginHub = __webpack_require__(22);
 var EventPluginRegistry = __webpack_require__(27);
 var ReactBrowserEventEmitter = __webpack_require__(32);
-var ReactDOMComponentFlags = __webpack_require__(58);
+var ReactDOMComponentFlags = __webpack_require__(59);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDOMInput = __webpack_require__(157);
 var ReactDOMOption = __webpack_require__(158);
-var ReactDOMSelect = __webpack_require__(72);
+var ReactDOMSelect = __webpack_require__(73);
 var ReactDOMTextarea = __webpack_require__(159);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactMultiChild = __webpack_require__(160);
@@ -16489,7 +16491,7 @@ var escapeTextContentForBrowser = __webpack_require__(31);
 var invariant = __webpack_require__(1);
 var isEventSupported = __webpack_require__(38);
 var shallowEqual = __webpack_require__(45);
-var inputValueTracking = __webpack_require__(64);
+var inputValueTracking = __webpack_require__(65);
 var validateDOMNesting = __webpack_require__(49);
 var warning = __webpack_require__(2);
 
@@ -17478,7 +17480,7 @@ module.exports = ReactDOMComponent;
 
 var ReactDOMComponentTree = __webpack_require__(5);
 
-var focusNode = __webpack_require__(68);
+var focusNode = __webpack_require__(69);
 
 var AutoFocusUtils = {
   focusDOMComponent: function () {
@@ -17505,7 +17507,7 @@ module.exports = AutoFocusUtils;
 
 
 
-var CSSProperty = __webpack_require__(69);
+var CSSProperty = __webpack_require__(70);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactInstrumentation = __webpack_require__(9);
 
@@ -17808,7 +17810,7 @@ module.exports = camelize;
 
 
 
-var CSSProperty = __webpack_require__(69);
+var CSSProperty = __webpack_require__(70);
 var warning = __webpack_require__(2);
 
 var isUnitlessNumber = CSSProperty.isUnitlessNumber;
@@ -18187,7 +18189,7 @@ module.exports = getVendorPrefixedEventName;
 var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
-var DOMPropertyOperations = __webpack_require__(70);
+var DOMPropertyOperations = __webpack_require__(71);
 var LinkedValueUtils = __webpack_require__(43);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactUpdates = __webpack_require__(12);
@@ -18481,7 +18483,7 @@ var _assign = __webpack_require__(4);
 
 var React = __webpack_require__(17);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactDOMSelect = __webpack_require__(72);
+var ReactDOMSelect = __webpack_require__(73);
 
 var warning = __webpack_require__(2);
 var didWarnInvalidOptionChildren = false;
@@ -19225,10 +19227,10 @@ module.exports = ReactMultiChild;
 
 var ReactReconciler = __webpack_require__(19);
 
-var instantiateReactComponent = __webpack_require__(73);
+var instantiateReactComponent = __webpack_require__(74);
 var KeyEscapeUtils = __webpack_require__(47);
 var shouldUpdateReactComponent = __webpack_require__(46);
-var traverseAllChildren = __webpack_require__(77);
+var traverseAllChildren = __webpack_require__(78);
 var warning = __webpack_require__(2);
 
 var ReactComponentTreeHook;
@@ -19391,7 +19393,7 @@ var ReactCurrentOwner = __webpack_require__(11);
 var ReactErrorUtils = __webpack_require__(36);
 var ReactInstanceMap = __webpack_require__(24);
 var ReactInstrumentation = __webpack_require__(9);
-var ReactNodeTypes = __webpack_require__(74);
+var ReactNodeTypes = __webpack_require__(75);
 var ReactReconciler = __webpack_require__(19);
 
 if (process.env.NODE_ENV !== 'production') {
@@ -20291,7 +20293,7 @@ module.exports = ReactCompositeComponent;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactPropTypeLocationNames = __webpack_require__(164);
-var ReactPropTypesSecret = __webpack_require__(71);
+var ReactPropTypesSecret = __webpack_require__(72);
 
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
@@ -20511,7 +20513,7 @@ module.exports = getIteratorFn;
 
 
 var KeyEscapeUtils = __webpack_require__(47);
-var traverseAllChildren = __webpack_require__(77);
+var traverseAllChildren = __webpack_require__(78);
 var warning = __webpack_require__(2);
 
 var ReactComponentTreeHook;
@@ -21282,7 +21284,7 @@ module.exports = ReactDefaultBatchingStrategy;
 
 var _assign = __webpack_require__(4);
 
-var EventListener = __webpack_require__(78);
+var EventListener = __webpack_require__(79);
 var ExecutionEnvironment = __webpack_require__(7);
 var PooledClass = __webpack_require__(16);
 var ReactDOMComponentTree = __webpack_require__(5);
@@ -21488,9 +21490,9 @@ var DOMProperty = __webpack_require__(14);
 var EventPluginHub = __webpack_require__(22);
 var EventPluginUtils = __webpack_require__(35);
 var ReactComponentEnvironment = __webpack_require__(44);
-var ReactEmptyComponent = __webpack_require__(75);
+var ReactEmptyComponent = __webpack_require__(76);
 var ReactBrowserEventEmitter = __webpack_require__(32);
-var ReactHostComponent = __webpack_require__(76);
+var ReactHostComponent = __webpack_require__(77);
 var ReactUpdates = __webpack_require__(12);
 
 var ReactInjection = {
@@ -21525,10 +21527,10 @@ module.exports = ReactInjection;
 
 var _assign = __webpack_require__(4);
 
-var CallbackQueue = __webpack_require__(62);
+var CallbackQueue = __webpack_require__(63);
 var PooledClass = __webpack_require__(16);
 var ReactBrowserEventEmitter = __webpack_require__(32);
-var ReactInputSelection = __webpack_require__(79);
+var ReactInputSelection = __webpack_require__(80);
 var ReactInstrumentation = __webpack_require__(9);
 var Transaction = __webpack_require__(28);
 var ReactUpdateQueue = __webpack_require__(48);
@@ -21710,7 +21712,7 @@ module.exports = ReactReconcileTransaction;
 var ExecutionEnvironment = __webpack_require__(7);
 
 var getNodeForCharacterOffset = __webpack_require__(180);
-var getTextContentAccessor = __webpack_require__(61);
+var getTextContentAccessor = __webpack_require__(62);
 
 /**
  * While `isCollapsed` is available on the Selection object and `collapsed`
@@ -22418,11 +22420,11 @@ module.exports = SVGDOMPropertyConfig;
 var EventPropagators = __webpack_require__(21);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInputSelection = __webpack_require__(79);
+var ReactInputSelection = __webpack_require__(80);
 var SyntheticEvent = __webpack_require__(13);
 
-var getActiveElement = __webpack_require__(80);
-var isTextInputElement = __webpack_require__(65);
+var getActiveElement = __webpack_require__(81);
+var isTextInputElement = __webpack_require__(66);
 var shallowEqual = __webpack_require__(45);
 
 var skipSelectionChangeEvent = ExecutionEnvironment.canUseDOM && 'documentMode' in document && document.documentMode <= 11;
@@ -22611,7 +22613,7 @@ module.exports = SelectEventPlugin;
 
 var _prodInvariant = __webpack_require__(3);
 
-var EventListener = __webpack_require__(78);
+var EventListener = __webpack_require__(79);
 var EventPropagators = __webpack_require__(21);
 var ReactDOMComponentTree = __webpack_require__(5);
 var SyntheticAnimationEvent = __webpack_require__(187);
@@ -23557,7 +23559,7 @@ var ReactCurrentOwner = __webpack_require__(11);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInstanceMap = __webpack_require__(24);
 
-var getHostComponentFromComposite = __webpack_require__(82);
+var getHostComponentFromComposite = __webpack_require__(83);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
@@ -23617,7 +23619,7 @@ module.exports = findDOMNode;
 
 
 
-var ReactMount = __webpack_require__(81);
+var ReactMount = __webpack_require__(82);
 
 module.exports = ReactMount.renderSubtreeIntoContainer;
 
@@ -23886,6 +23888,52 @@ var ReactDOMInvalidARIAHook = {
 
 module.exports = ReactDOMInvalidARIAHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(51);
+
+var Time = function (_React$Component) {
+    _inherits(Time, _React$Component);
+
+    function Time() {
+        _classCallCheck(this, Time);
+
+        return _possibleConstructorReturn(this, (Time.__proto__ || Object.getPrototypeOf(Time)).apply(this, arguments));
+    }
+
+    _createClass(Time, [{
+        key: "render",
+        value: function render() {
+            var seconds = this.props.seconds;
+
+            var time = ~~(seconds / 60) + ":" + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60);
+
+            return React.createElement(
+                "span",
+                { className: "time" },
+                time
+            );
+        }
+    }]);
+
+    return Time;
+}(React.Component);
+
+module.exports = Time;
 
 /***/ })
 /******/ ]);

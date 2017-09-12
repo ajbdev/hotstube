@@ -1,5 +1,4 @@
 const React = require('react')
-const Uploader = require('./Uploader')
 const Time = require('../Time')
 const HeroPortrait = require('./HeroPortrait')
 
@@ -23,7 +22,9 @@ class Header extends React.Component {
             teamKills[p.teamId == 0 ? 1 : 0] += deaths[p.playerId-1]
         })
         
-        let player = game.players.filter((p) => p.id === this.props.replay.heroId)[0]
+        let heroId = this.props.heroId ? this.props.heroId : this.props.replay.heroId
+
+        let player = game.players.filter((p) => p.id === heroId)[0]
 
         let outcome = {
             'Wins': 'win',
@@ -32,23 +33,22 @@ class Header extends React.Component {
 
         return (
             <header>
-            {this.state.uploading && this.props.replay ? <Uploader replay={this.props.replay} /> : null}
-            <h1>
-                {this.props.game.map}
-                <span className={"outcome " + outcome}>{outcome}</span>
-            </h1>
-            <div className="kills">       
-                <span className="red">
-                    {teamKills[0]}
-                </span>
-                <span className="blue float-right">
-                    {teamKills[1]}
-                </span>
-            </div>
-            <span className={player.team}>
-                {player.name}
-            </span> as <HeroPortrait class="small" hero={player.hero} /> {player.hero} <br />
-            <Time seconds={this.props.game.time} /> <br />
+                <h1>
+                    {this.props.game.map}
+                    <span className={"outcome " + outcome}>{outcome}</span>
+                </h1>
+                <div className="kills">       
+                    <span className="red">
+                        {teamKills[0]}
+                    </span>
+                    <span className="blue float-right">
+                        {teamKills[1]}
+                    </span>
+                </div>
+                <span className={player.team}>
+                    {player.name}
+                </span> as <HeroPortrait class="small" hero={player.hero} /> {player.hero} <br />
+                <Time seconds={this.props.game.time} /> <br />
                 {this.props.actions ? 
                 <div className="actions">
                     <div className={dropdownCss.join(' ')}>

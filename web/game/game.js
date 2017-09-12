@@ -1,6 +1,6 @@
 import '../../src/style/layout.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Time from '../../src/ui/Time.js'
+import Web from '../../src/ui/Web.js'
 
-ReactDOM.render(<Time seconds={566} />, document.getElementsByTagName('body')[0])
+ReactDOM.render(<Web />, document.getElementById('hotstube'))

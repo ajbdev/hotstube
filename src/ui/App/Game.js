@@ -1,20 +1,22 @@
 const React = require('react')
 const remote = require('electron').remote
 const Svg = require('./Svg')
-const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
-const GameHighlights = require('./Game/Highlights')
-const GameScores = require('./Game/Scores')
-const HeroPortrait = require('./HeroPortrait')
+const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
+const GameHighlights = require('../Game/Highlights')
+const GameScores = require('../Game/Scores')
 const pathResolver = require('path')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
-const Header = require('./Game/Header')
+const Header = require('../Game/Header')
 
 class Game extends React.Component {
     constructor(props) {
         super()
 
-        this.state = { tab: 'Highlights', headerMenuOpen: false }
+        this.state = { 
+            tab: 'Highlights',
+            uploading: false
+        }
     }
     renderTab() {
         const components = {
@@ -98,6 +100,12 @@ class Game extends React.Component {
              this.setState({ headerMenuOpen: false })
          }
     }
+    changeTab(tab) {
+        this.setState({ tab: tab })
+    }
+    uploading() {
+        this.setState({ uploading: true })
+    }
     render() {
         if (!this.props.replay) {
             return null
@@ -113,40 +121,26 @@ class Game extends React.Component {
 
         const game = this.props.replay.game
 
-        let player = game.players.filter((p) => p.id === this.props.replay.heroId)[0]
-
-        const changeTab = (tab) => {
-            this.setState({ tab: tab })
-        }
-        
         const tabs = ['Highlights', 'Scores']
 
-        const dropdownCss = ['dropdown']
-        if (this.state.headerMenuOpen) {
-            dropdownCss.push('active')
+        const actions = {
+            'Upload Game': this.uploading.bind(this),
+            'Export Data': this.export.bind(this),
+            'Delete Replay': this.props.deleteReplay
         }
-
-        let deaths = game.scores.filter((s) => s.type == 'Deaths')[0].values
-        let teamKills = [0,0]
-        game.players.map((p) => {
-            teamKills[p.teamId == 0 ? 1 : 0] += deaths[p.playerId-1]
-        })
-
-        let outcome = player.outcome == 'Win' ? 'win' : 'loss'
 
         return (
             <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
-                <Header game={this.props.game} />
+                <Header game={this.props.replay.game} 
+                        replay={this.props.replay} 
+                        tabs={tabs} 
+                        tab={this.state.tab}
+                        changeTab={this.changeTab.bind(this)} 
+                        actions={actions}
+                />
                 {this.renderTab()}
             </game>
         )
     }
 }
-
-class GameHistory extends React.Component { 
-    render() {
-        return <tab-content>History</tab-content>
-    }
-}
-
 module.exports = Game

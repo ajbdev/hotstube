@@ -1,12 +1,11 @@
 const React = require('react')
-const SplashScreen = require('./SplashScreen')
-const {Config} = require('./Config')
-const {Sidebar, SidebarToggle} = require('./Sidebar')
+const SplashScreen = require('./App/SplashScreen')
+const {Config} = require('./App/Config')
+const {Sidebar, SidebarToggle} = require('./App/Sidebar')
 const {BrowserWindow} = require('electron').remote
 const GameIndex = require('../lib/GameIndex')
-const Game = require('./Game')
-const StatusBar = require('./StatusBar')
-const PatchNotes = require('./PatchNotes')
+const Game = require('./App/Game')
+const PatchNotes = require('./App/PatchNotes')
 const GameRecorder = require('../lib/GameRecorder')
 const GameStateWatcher = require('../lib/GameStateWatcher')
 const fs = require('fs')
@@ -14,14 +13,14 @@ const pathResolver = require('path')
 const ConfigOptions = require('../lib/Config')
 const HighlightReel = require('../lib/HighlightReel')
 const debug = require('../debug')
-const GameInProgress = require('./GameInProgress')
+const GameInProgress = require('./App/GameInProgress')
 const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
 const ErrorCheck = require('../lib/ErrorCheck')
-const ErrorScreen = require('./ErrorScreen')
+const ErrorScreen = require('./App/ErrorScreen')
 const HighlightDir = require('../lib/HighlightDir')
 const app = require('electron').remote.app
-const ReleaseNotes = require('./ReleaseNotes')
-const DownloadNewVersion = require('./DownloadNewVersion')
+const ReleaseNotes = require('./App/ReleaseNotes')
+const DownloadNewVersion = require('./App/DownloadNewVersion')
 const dist = require('../lib/Dist.js')
 
 
@@ -261,10 +260,6 @@ class App extends React.Component {
 
         if (this.state.gameInProgress) {
             return (<div>
-                <StatusBar
-                    type={this.state.status.type}
-                    message={this.state.status.message}
-                    setStatus={this.setStatus.bind(this)}/>
                 <GameInProgress />
             </div>
             )
@@ -273,10 +268,6 @@ class App extends React.Component {
         if (this.state.patch) {
             return (
                 <div>
-                    <StatusBar
-                        type={this.state.status.type}
-                        message={this.state.status.message}
-                        setStatus={this.setStatus.bind(this)}/>
                     <PatchNotes patch={this.state.patch}/>
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
@@ -291,12 +282,6 @@ class App extends React.Component {
         if (this.state.replay) {
             return (
                 <div>
-                    <StatusBar
-                        type={this.state.status.type}
-                        message={this.state.status.message}
-                        setStatus={this
-                        .setStatus
-                        .bind(this)}/>
                     <Game
                         replay={this.state.replay}
                         deleteReplay={this
@@ -318,10 +303,6 @@ class App extends React.Component {
         return (
             <div>
                 <SplashScreen status={this.state.status}/>
-                <StatusBar
-                    type={this.state.status.type}
-                    message={this.state.status.message}
-                    setStatus={this.setStatus.bind(this)}/>
                 <Config
                     setStatus={this.setStatus.bind(this)}
                     errorCheck={this.errorCheck.bind(this)}

@@ -1,5 +1,5 @@
 const React = require('react')
-const Svg = require('../Svg')
+const Svg = require('../App/Svg')
 
 
 class Timeline extends React.Component { 

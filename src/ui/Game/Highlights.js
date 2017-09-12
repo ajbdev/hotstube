@@ -3,12 +3,12 @@ const {Timeline,TimelineEvent,TimelineMarker} = require('./Timeline')
 const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
 const PlayerName = require('./PlayerName')
 const HighlightReel = require('../../lib/HighlightReel')
-const HeroPortrait = require('../HeroPortrait')
+const HeroPortrait = require('./HeroPortrait')
 const pathResolver = require('path')
 const ConfigOptions = require('../../lib/Config')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
-const Svg = require('../Svg')
+const Svg = require('../App/Svg')
 const ShareHighlightsModal = require('./ShareHighlightsModal')
 
 class Highlights extends React.Component { 

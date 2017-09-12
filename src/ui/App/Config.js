@@ -1,10 +1,10 @@
 const React = require('react')
 const Svg = require('./Svg')
-const ConfigOptions = require('../lib/Config')
+const ConfigOptions = require('../../lib/Config')
 const os = require('os')
 const fs = require('fs')
 const pathResolver = require('path')
-const HighlightDir = require('../lib/HighlightDir')
+const HighlightDir = require('../../lib/HighlightDir')
 const {dialog} = require('electron').remote
 
 class Config extends React.Component {

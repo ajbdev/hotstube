@@ -1,6 +1,6 @@
 const React = require('react')
 
-const GameRecorder = require('../lib/GameRecorder')
+const GameRecorder = require('../../lib/GameRecorder')
 const Svg = require('./Svg')
 
 class RecordingIndicator extends React.Component {

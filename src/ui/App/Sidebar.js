@@ -1,12 +1,12 @@
 const React = require('react')
 const Svg = require('./Svg')
-const GameIndex = require('../lib/GameIndex')
-const ReplayAnalyzer = require('../lib/ReplayAnalyzer')
+const GameIndex = require('../../lib/GameIndex')
+const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
 const {SidebarRow} = require('./SidebarRow')
 const path = require('path')
-const ConfigOptions = require('../lib/Config')
+const ConfigOptions = require('../../lib/Config')
 const {List, ArrowKeyStepper} = require('react-virtualized')
-const patches = require('../patches.json')
+const patches = require('../../patches.json')
 
 class Sidebar extends React.Component {
     constructor() {

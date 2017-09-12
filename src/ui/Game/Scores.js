@@ -1,6 +1,6 @@
 const React = require('react')
 const PlayerName = require('./PlayerName')
-const HeroPortrait = require('../HeroPortrait')
+const HeroPortrait = require('./HeroPortrait')
 
 class Scores extends React.Component { 
     constructor() {

@@ -14,7 +14,7 @@ class Svg extends React.Component {
     getInlineSvg() {
         let self = this
 
-        return fs.readFileSync(path.join(__dirname, '../assets/svg/' + this.props.src), 'utf-8')
+        return fs.readFileSync(path.join(__dirname, '../../assets/svg/' + this.props.src), 'utf-8')
     }
 
     render() {

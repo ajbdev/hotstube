@@ -1,6 +1,6 @@
 const React = require('react')
 const Svg = require('./Svg')
-const ConfigOptions = require('../lib/Config')
+const ConfigOptions = require('../../lib/Config')
 
 class SplashScreen extends React.Component {
     handleCheckbox() {

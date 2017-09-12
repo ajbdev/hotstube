@@ -1,5 +1,5 @@
 const React = require('react')
-const HeroPortrait = require('../HeroPortrait')
+const HeroPortrait = require('./HeroPortrait')
 
 class PlayerName extends React.Component { 
     render() {

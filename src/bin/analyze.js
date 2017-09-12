@@ -7,7 +7,7 @@ if (!process.argv[2]) {
 
 
 const analyzer = new ReplayAnalyzer(process.argv[2]);
-
+``
 analyzer.analyze()
 
 // analyzer.game.kills.map((kill) => {

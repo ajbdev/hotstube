@@ -1,6 +1,6 @@
 const React = require('react')
 const Svg = require('./Svg')
-const ConfigOptions = require('../lib/Config')
+const ConfigOptions = require('../../lib/Config')
 const semver = require('semver')
 const app = require('electron').remote.app
 const md = require('marked')

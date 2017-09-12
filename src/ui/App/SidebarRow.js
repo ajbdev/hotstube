@@ -1,7 +1,7 @@
 const React = require('react')
 const path = require('path')
 const moment = require('moment')
-const HeroPortrait = require('./HeroPortrait')
+const HeroPortrait = require('../Game/HeroPortrait')
 const Svg = require('./Svg')
 
 class SidebarRow extends React.Component {

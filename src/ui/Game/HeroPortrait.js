@@ -1,4 +1,5 @@
 const React = require('react')
+const Svg = require('../App/Svg')
 
 class HeroPortrait extends React.Component {
     style() {
@@ -21,9 +22,11 @@ class HeroPortrait extends React.Component {
     }
 
     render() {
-        return <hero-portrait style={this.style()} {...this.props}>
-            {this.props.svg ? <Svg src={this.props.svg} /> : null}
-        </hero-portrait>
+        return (
+            <hero-portrait style={this.style()} {...this.props}>
+                {this.props.svg ? <Svg src={this.props.svg} /> : null}
+            </hero-portrait>
+        )
     }
 }
 module.exports = HeroPortrait

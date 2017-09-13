@@ -162,7 +162,11 @@ class ReplayAnalyzer extends EventEmitter {
                 if (datum.m_key == 'PlayerID') {
                     victim = this.game.players[datum.m_value-1].playerId
                 } else if (datum.m_key == 'KillingPlayer') {
-                    killers.push(this.game.players[datum.m_value-1].playerId)
+                    let killer = this.game.players[datum.m_value-1]
+
+                    if (killer) {
+                        killers.push(killer.playerId)
+                    }
                 }
             })
 

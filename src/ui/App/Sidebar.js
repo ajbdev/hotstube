@@ -40,6 +40,8 @@ class Sidebar extends React.Component {
                     .index
                     .filter((r) => r.name === result.replay)[0]
 
+                console.log(result)
+
                 replay.corrupt = true
 
                 this.setState({

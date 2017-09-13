@@ -1,5 +1,7 @@
 const ReplayAnalyzer = require('./lib/ReplayAnalyzer')
 
+const env = require('./env')
+
 onmessage = (args) => {
 
     args.data.map((file) => {
@@ -13,7 +15,9 @@ onmessage = (args) => {
         } catch (ex) {
             postMessage({ error: true, replay:  file, message: 'Could not load replay: ' + ex })
 
-            throw ex
+            if (env == 'development') {
+                throw ex
+            }
         }
     })
 

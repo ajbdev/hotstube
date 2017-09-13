@@ -27,7 +27,7 @@ class Game extends React.Component {
 
         const ContentComponent = components['Game' + this.state.tab]
 
-        return <ContentComponent replay={this.props.replay} setStatus={this.props.setStatus} />
+        return <ContentComponent replay={this.props.replay} game={this.props.replay.game} heroId={this.props.replay.heroId} setStatus={this.props.setStatus} />
     }
     style() {
         if (this.props.replay.game) {

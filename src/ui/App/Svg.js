@@ -1,5 +1,4 @@
 const React = require('react')
-const fs = require('fs')
 const path = require('path')
 
 class Svg extends React.Component {
@@ -14,7 +13,14 @@ class Svg extends React.Component {
     getInlineSvg() {
         let self = this
 
-        return fs.readFileSync(path.join(__dirname, '../../assets/svg/' + this.props.src), 'utf-8')
+        if (typeof IS_WEB !== 'undefined' && IS_WEB) {
+            return require('../../assets/svg/' + this.props.src)
+        } else {
+            const fs = require('fs')
+
+            return fs.readFileSync(path.join(__dirname, '../../assets/svg/' + this.props.src), 'utf-8')
+        }
+
     }
 
     render() {

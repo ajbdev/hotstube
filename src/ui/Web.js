@@ -1,5 +1,5 @@
 const React = require('react')
-const Header = require('./Game/Header')
+const Game = require('./Web/Game')
 
 class Web extends React.Component {
     constructor() {
@@ -20,9 +20,7 @@ class Web extends React.Component {
         return (
             <app>
                 <content>
-                    <game>
-                        {this.state.game ? <Header heroId={1281664} game={this.state.game} /> : null}
-                    </game>
+                    {this.state.game ? <Game game={this.state.game} /> : null}
                 </content>
             </app>
         )

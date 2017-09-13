@@ -160,9 +160,9 @@ class ReplayAnalyzer extends EventEmitter {
 
             death.m_intData.map((datum) => {
                 if (datum.m_key == 'PlayerID') {
-                    victim = this.game.players[datum.m_value-1]
+                    victim = this.game.players[datum.m_value-1].playerId
                 } else if (datum.m_key == 'KillingPlayer') {
-                    killers.push(this.game.players[datum.m_value-1])
+                    killers.push(this.game.players[datum.m_value-1].playerId)
                 }
             })
 
@@ -170,10 +170,12 @@ class ReplayAnalyzer extends EventEmitter {
                 coordinates = null;
 
             deaths.map((d) => {
-                let dVictim = this.game.players.filter((p) => p.unitTagIndex == d.m_unitTagIndex)[0];
-                let dKiller = this.game.players[d.m_killerPlayerId-1];
+                let dVictim = this.game.players.filter((p) => p.unitTagIndex == d.m_unitTagIndex)[0]
+                let dKiller = this.game.players[d.m_killerPlayerId-1]
 
-                if (dVictim.playerId == victim.playerId && dKiller && killers && killers.map((k) => k && k.playerId).indexOf(dKiller.playerId) > -1 && d._gameloop+1 == death._gameloop) {
+                if (dVictim.playerId == victim && dKiller 
+                    && killers && killers.indexOf(dKiller.playerId) > -1 && d._gameloop+1 == death._gameloop) {
+                        
                     primaryKillerPlayerId = dKiller.playerId
 
                     coordinates = {
@@ -210,6 +212,7 @@ class ReplayAnalyzer extends EventEmitter {
                 name: player.m_name.toString(),
                 hero: player.m_hero.toString(),
                 playerId: i+1,
+                outcome: null,
                 teamId: player.m_teamId,
                 team: player.m_teamId == 0 ? 'red' : 'blue',
                 unitTagIndex: births.filter((birth) => birth.m_controlPlayerId == i+1 )[0].m_unitTagIndex
@@ -218,47 +221,7 @@ class ReplayAnalyzer extends EventEmitter {
         this.winner()
     }
 
-    groupKillsIntoFights(kills) {
 
-        const fights = [ [] ]
-        let i = 0
-        kills.map((pkill) => {
-            if (fights[i] && fights[i].length > 0 && fights[i][fights[i].length-1].time < pkill.time-12) {
-                i++
-                fights[i] = []
-            }
-
-            fights[i].push(pkill)
-
-        })
-
-        return fights;
-    }
-
-    fightsFor(playerName, getAssists = true) {
-        let deaths = this.game.kills.slice();
-
-        let player = this.game.players.filter((p) => p.name == playerName)[0]
-
-        const playerKills = this.game.kills.filter((death) => { 
-            if (getAssists) {
-                return death.killers.filter((killer) => killer && killer.name == playerName).length > 0 
-            } else {
-                return death.primaryKiller == player.playerId
-            }
-        })
-        return this.groupKillsIntoFights(playerKills)
-        // const coordinateDiff = (coordsA, coordsB) => {
-        //     if (!coordsA || !coordsB) {
-        //         return { x: 9999, y: 9999 }
-        //     }
-        //     return {
-        //         x: Math.abs(coordsA.x - coordsB.x),
-        //         y: Math.abs(coordsA.y - coordsB.y)
-        //     }
-        // }
-
-    }
 
 }
 module.exports = ReplayAnalyzer

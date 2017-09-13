@@ -1,399 +1,153 @@
-const React = require('react')
-const {Timeline,TimelineEvent,TimelineMarker} = require('./Timeline')
-const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
 const PlayerName = require('./PlayerName')
-const HighlightReel = require('../../lib/HighlightReel')
 const HeroPortrait = require('./HeroPortrait')
-const pathResolver = require('path')
-const ConfigOptions = require('../../lib/Config')
-const fs = require('fs')
-const {app, dialog} = require('electron').remote
-const Svg = require('../App/Svg')
-const ShareHighlightsModal = require('./ShareHighlightsModal')
+const GameTimeline = require('../../lib/GameTimeline')
+const Players = require('../../lib/Players')
+const {Timeline,TimelineEvent,TimelineMarker} = require('./Timeline')
+const React = require('react')
 
-class Highlights extends React.Component { 
-    constructor() {
-        super()
-        this.state = { sharing: false }
+let players = null
+
+function time(seconds, seperator = ':') {
+    if (seconds < 0) {
+        return seconds
     }
 
-    time(seconds, seperator = ':') {
-        if (seconds < 0) {
-            return seconds
+    return ~~(seconds / 60) + seperator + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60)
+}
+
+function killer(kill) {
+    let killer = players.find((kill.killers.filter((killer) => killer == kill.primaryKiller))[0])
+
+
+    if (!killer) {
+        killer = {
+            name: 'Nexus Forces',
+            hero: 'Nexus'
         }
-
-        return ~~(seconds / 60) + seperator + (seconds % 60 < 10 ? "0" : "") + Math.floor(seconds % 60)
     }
 
-    timeline() {
-        const timeline = []
-        const analyzer = new ReplayAnalyzer(this.props.replay.name)
-        const fights = analyzer.groupKillsIntoFights(this.props.replay.game.kills).slice()
+    return killer
+}
 
-        fights.map((fight) => {
-            if (fight.length > 0) {
-                timeline.push({
-                    time: fight[0].clockTime,
-                    type: 'fight',
-                    kills: fight
-                 })
-            }
-        })
+function renderFight(game, kills, key) {
+    const chat = game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
 
-        this.props.replay.game.levels.map((lvl) => {
-            if (lvl.level == 10 || lvl.level == 20) {
-                timeline.push(Object.assign({ type: 'level' }, lvl))
-            }
-        })
-
-        timeline.sort((a,b) => a.time - b.time)
-
-        return timeline
-    }
-
-    killer(kill) {
-        let killer = (kill.killers.filter((killer) => killer && killer.playerId == kill.primaryKiller))[0]
-
-        if (!killer) {
-            killer = {
-                name: 'Nexus Forces',
-                hero: 'Nexus'
-            }
-        }
-
-        return killer
-    }
-
-    renderLevel(level, key) {
-        const team = level.team.charAt(0).toUpperCase() + level.team.slice(1).toLowerCase();
+    if (key == 0 && kills.length == 1) {
+        let kill = kills[0]
 
         return (
-            <TimelineMarker type="hash" key={key}>
-                <b>{this.time(level.clockTime)}</b> <span className={level.team}>{team}</span> hits level {level.level}
-            </TimelineMarker>
+            <TimelineEvent at={time(kill.clockTime)} icon="firstblood" key={key}>
+                <PlayerName player={killer(kill)} /> drew first blood on <PlayerName player={players.find(kill.victim)} />
+                {chat.map((c, i) => renderChat(c, i))}
+            </TimelineEvent>
+        )
+    } 
+
+    if (kills.length == 1) {
+        let kill = kills[0]
+        return (
+            <TimelineEvent at={time(kill.clockTime)} icon="death" key={key}>
+                {renderKill(kill)}
+                {chat.map((c, i) => renderChat(c, i))}
+            </TimelineEvent>
         )
     }
 
-    highlightExistsForKill(at) {
-        let path = HighlightReel.getSavePath(this.props.replay.accountId, this.props.replay.heroId, pathResolver.basename(this.props.replay.name,'.StormReplay'))
+    return (
+        <TimelineEvent at={time(kills[0].clockTime)} icon="fight" key={key}>
+            {kills.map((kill, ix) => 
+                <span key={ix}>
+                    {renderKill(kill)}
+                </span>
+            )}
+            {chat.map((c, i) => renderChat(c, i))}
+        </TimelineEvent>
+    )
+}
 
-        path = pathResolver.join(path, at + '.webm')
-        return fs.existsSync(path)
-    }
+function renderChat(chat, i) {
+    return (
+        <div key={i}>
+            <PlayerName player={chat.author} /> says, "{chat.message}"
+        </div>
+    )
+}
 
-    renderFight(kills, key) {
-        let game = this.props.replay.game
+function renderKill(kill) {
+    let assists = kill.killers.filter((killer) => killer && killer.playerId != kill.primaryKiller)
 
-        let clipAttrs = { 
-            replay: this.props.replay.name,
-            setStatus: this.props.setStatus,
-            heroId: this.props.replay.heroId, 
-            accountId: this.props.replay.accountId,
-            caption: this.killer(kills[0]).name + ' kills ' + kills[0].victim.name + ' at ' + this.time(kills[0].time, '.')
-        }
-
-        const chat = this.props.replay.game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
-
-        if (key == 0 && kills.length == 1) {
-            let kill = kills[0]
-            return (
-                <TimelineEvent at={this.time(kill.clockTime)} icon="firstblood" key={key}>
-                    {this.highlightExistsForKill(this.time(kill.time, '.')) ? <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} /> : null}
-                    <PlayerName player={this.killer(kill)} /> drew first blood on <PlayerName player={kill.victim} />
-                    {chat.map((c, i) => this.renderChat(c, i))}
-                </TimelineEvent>
-            )
-        } 
-
-        if (kills.length == 1) {
-            let kill = kills[0]
-            return (
-                <TimelineEvent at={this.time(kill.clockTime)} icon="death" key={key}>
-                    {this.highlightExistsForKill(this.time(kill.time, '.')) ? <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} /> : null}
-                    {this.renderKill(kill)}
-                    {chat.map((c, i) => this.renderChat(c, i))}
-                </TimelineEvent>
-            )
-        }
-    
-        return (
-            <TimelineEvent at={this.time(kills[0].clockTime)} icon="fight" key={key}>
-                {kills.map((kill, ix) => 
-                    <span key={ix}>
-                        {this.highlightExistsForKill(this.time(kill.time, '.')) ? <HighlightClip at={this.time(kill.time, '.')} {...clipAttrs} /> : null}
-                        {this.renderKill(kill)}
-                    </span>
+    return (
+        <div className="kill">
+            <PlayerName player={killer(kill)} /> killed <PlayerName player={players.find(kill.victim)} /> 
+            {assists.length > 0 ? 
+            <span> (Assisted by 
+                {assists.map((assist, ix) =>
+                    <HeroPortrait hero={players.find(assist).hero} key={ix} />
                 )}
-                {chat.map((c, i) => this.renderChat(c, i))}
-            </TimelineEvent>
-        )
+            ) </span> : null}
+        </div>
+    )
+}
+
+
+function renderLevel(game, level, key) {
+    const team = level.team.charAt(0).toUpperCase() + level.team.slice(1).toLowerCase();
+
+    return (
+        <TimelineMarker type="hash" key={key}>
+            <b>{time(level.clockTime)}</b> <span className={level.team}>{team}</span> hits level {level.level}
+        </TimelineMarker>
+    )
+}
+
+function renderEvent(game, event, key) {
+    if (event.type == 'fight') {
+        return renderFight(game, event.data.kills, key)
     }
-
-    renderChat(chat, i) {
-        return (
-            <div key={i}>
-                <PlayerName player={chat.author} /> says, "{chat.message}"
-            </div>
-        )
-    }
-
-    renderKill(kill) {
-        let assists = kill.killers.filter((killer) => killer && killer.playerId != kill.primaryKiller)
-
-        return (
-            <div className="kill">
-                <PlayerName player={this.killer(kill)} /> killed <PlayerName player={kill.victim} /> 
-                {assists.length > 0 ? 
-                <span> (Assisted by 
-                    {assists.map((assist, ix) =>
-                        <HeroPortrait hero={assist.hero} key={ix} />
-                    )}
-                ) </span> : null}
-            </div>
-        )
-    }
-
-    renderEvent(event, key) {
-        if (event.type == 'fight') {
-            return this.renderFight(event.kills, key)
-        }
-        if (event.type == 'level') {
-            return this.renderLevel(event, key)
-        }
-    }
-
-    renderEmpty() {
-        return (
-            <TimelineEvent at="Nothing happened!">
-                This replay seems to be empty. 
-                This happens if a game is quit early or on certain custom maps.  
-            </TimelineEvent>
-        )
-    }
-
-    renderGameOver() {
-        const player = this.props.replay.game.players.filter((p) => p.id === this.props.replay.heroId)[0]
-        
-        const outcome = player.outcome = 'Win' ? 'wins' : 'loses'
-
-        return (
-            <TimelineMarker type="circle" label={this.time(this.props.replay.game.time-35)}>
-                Game over: <span className={player.team}>{player.team}</span> {outcome}
-            </TimelineMarker>
-        )
-    }
-    
-    render() {
-        if (!this.props.replay) {
-            return null
-        }
-
-        let timeline = this.timeline()
-
-        return (
-            <tab-content>
-                {this.state.sharing ? <ShareHighlightsModal replay={this.props.replay} close={() => this.setState({ sharing: false })} /> : null}
-                <div className="timeline">
-                    <Timeline>
-                        {timeline.length > 0 ? 
-                            timeline.map((event, key) =>
-                                this.renderEvent(event, key)
-                            ) : this.renderEmpty()
-                        }
-                        {this.renderGameOver()}
-                    </Timeline>
-                </div>
-            </tab-content>
-        )
-
-        return (
-            <tab-content>
-                <div className="timeline">
-                    <Timeline>
-                        <TimelineEvent at="1:07" icon="spawn">
-                            Player 1 spawned
-                        </TimelineEvent>
-                        <TimelineMarker type="circle" label="10" color="red">
-                            10 Minutes
-                        </TimelineMarker>
-                        <TimelineEvent at="2:07" icon="firstblood">
-                            Player 2 gets first BLOODs
-                        </TimelineEvent>
-                        <TimelineMarker type="hash">
-                            Team 1 hits level 10
-                        </TimelineMarker>
-                        <TimelineEvent at="4:45" icon="fight">
-                            Player 3 engages a FIGHT!
-                        </TimelineEvent>
-                        <TimelineEvent at="5:15" icon="death">
-                            Player 2 died to Player 5
-                        </TimelineEvent>
-                        <TimelineEvent at="5:15" icon="objective">
-                            Red team acquired the objective
-                        </TimelineEvent>
-                        <TimelineMarker type="circle" label="22:54" color="red" end={true}>
-                            Red team wins
-                        </TimelineMarker>
-                        <TimelineMarker type="circle" label="22:5" color="red" end={true}>
-                            Red team wins
-                        </TimelineMarker>
-                    </Timeline>
-                </div>
-            </tab-content>
-        )
+    if (event.type == 'level') {
+        return renderLevel(game, event.data, key)
     }
 }
-class HighlightClip extends React.Component { 
-    constructor() {
-        super()
 
-        this.state = { playing: false, sharing: false, video: null }
+function renderEmpty() {
+    return (
+        <TimelineEvent at="Nothing happened!">
+            This replay seems to be empty. 
+            This happens if a game is quit early or on certain custom maps.  
+        </TimelineEvent>
+    )
+}
 
-        this.videoBinded = false
-        this.bufferedVideo = null
-    }
-    bindVideoEvents() {
-        this.video.onplaying = () => {
-            this.setState({ playing: true })
-        }
-
-        let stop = () => {
-            this.setState({ playing: false })
-        }
-
-        this.video.onended = stop
-        this.video.onpause = stop
-
-        this.videoBinded = true
-    }
-    toggleVideo() {
-        if (!this.videoBinded) {
-            this.bindVideoEvents()
-        }
-
-        let action = this.state.playing ? 'pause' : 'play'
-
-        this.video[action]()
-    }
-    save(video) {
-        let self = this
-
-        dialog.showSaveDialog({
-            title: 'Save highlight',
-            buttonLabel: 'Save',
-            showsTagField: false,
-            defaultPath: app.getPath('documents') + '/' + this.props.caption + '.gifv',
-            filters: [
-                {name: 'gifv', extensions: ['gifv']},
-            ]
-        }, (file) => {
-            if (!file) {
-                return
-            }
-
-            console.log(file + ' saved')
-            fs.access(video, fs.F_OK, function (error) {
-                if (error) {
-                    console.log('Video not saved: ' + error)
-                } else {
-                    var input = fs.createReadStream(video);
-                    var output = fs.createWriteStream(file);
+function renderGameOver(game, heroId) {
+    const player = game.players.filter((p) => p.id === heroId)[0]
     
-                    function handleErrors(error) {
-                        input.destroy();
-                        output.end();
-                        console.log('Video not saved: ' + error)
-                    }
-    
-                    input.on('error', handleErrors);
-                    output.on('error', handleErrors);
-    
-                    output.on('finish', () => {
-                        self.props.setStatus('Highlight saved')
-                    })
-    
-                    input.pipe(output);
+    const outcome = player.outcome = 'Win' ? 'wins' : 'loses'
+
+    return (
+        <TimelineMarker type="circle" label={time(game.time-35)}>
+            Game over: <span className={player.team}>{player.team}</span> {outcome}
+        </TimelineMarker>
+    )
+}
+
+function Highlights(props) {
+    const timeline = new GameTimeline(props.game).generate()
+
+    players = new Players(props.game.players)
+
+    return (
+        <tab-content>
+            <Timeline>
+                {timeline.length > 0 ? 
+                    timeline.map((event, key) =>
+                        renderEvent(props.game, event, key)
+                    ) : renderEmpty()
                 }
-            });
-        })
-    }
-
-    componentDidMount() {
-        this.loadVideoToTmpPath()
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.replay != this.props.replay) {
-            this.loadVideoToTmpPath(nextProps)
-        }
-    }
-
-    getHighlightPath(props = null) {
-        if (!props) {
-            props = this.props
-        }
-
-        let at = props.at
-        let path = HighlightReel.getSavePath(props.accountId, props.heroId, pathResolver.basename(props.replay,'.StormReplay'))
-
-        path = pathResolver.join(path, at + '.webm')
-
-        if (!fs.existsSync(path)) {
-            return
-        }
-
-        return path
-    }
-
-    loadVideoToTmpPath(props = null) {
-        const path = this.getHighlightPath(props)
-
-        if (!path) {
-            return
-        }
-
-        let videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(path)).toString('base64')
-
-        this.setState({
-            video: videoData,
-            path: path
-        })
-    }
-
-    share() {
-        this.setState({ sharing: true })
-    }
-
-    render() {        
-        if (!this.state.video) {
-            return null
-        }
-
-        let attrs = {
-            width: 640,
-            ref: (video) => { this.video = video }
-        }
-
-        if (ConfigOptions.options.fullVideoControls) {
-            attrs.controls = true
-        }
-
-        return (
-            <span>
-                {this.state.sharing ? <ShareHighlightsModal highlight={this.state.path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
-                <highlight-reel onClick={this.toggleVideo.bind(this)}>
-                    {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
-                    <video {...attrs} src={this.state.video} />
-                </highlight-reel>
-                <div className="video-options">
-                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(this.getHighlightPath())} /> : null}
-                    <Svg src="share-square.svg" onClick={this.share.bind(this)} />
-                </div>
-            </span>
-        )
-
-        return null
-    }
+                {renderGameOver(props.game, props.heroId)}
+            </Timeline>
+        </tab-content>
+    )
 }
+
 
 module.exports = Highlights

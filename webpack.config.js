@@ -5,7 +5,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-    entry: './web/game/game.js',
+    entry: './src/ui/bootstrap_web.js',
     devServer: {
         contentBase: './web/game',
         hot: true
@@ -15,7 +15,10 @@ module.exports = {
         path: path.resolve(__dirname, 'web/game')
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            'IS_WEB': JSON.stringify(true)
+        })
     ],
     module: {
         rules: [
@@ -25,6 +28,10 @@ module.exports = {
                     'style-loader',
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.svg$/,
+                use: ['svg-inline-loader']
             },
             {
                 test: /\.js$/,

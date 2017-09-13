@@ -3,6 +3,7 @@ const pathResolver = require('path')
 const {EventEmitter} = require('events')
 const ReplayAnalyzer = require('./ReplayAnalyzer')
 const VideoClipMaker = require('./VideoClipMaker')
+const GameTimeline = require('./GameTimeline')
 const app = require('electron').remote.app
 const path = require('path')
 const Config = require('./Config')
@@ -19,6 +20,8 @@ class HighlightReel extends EventEmitter {
         this.player = null
 
         this.analyzer.analyze()
+
+        this.gameTimeline = new GameTimeline(this.analyzer.game)
 
         let self = this;
 
@@ -65,7 +68,7 @@ class HighlightReel extends EventEmitter {
         
         Config.load()
 
-        let fights = this.analyzer.fightsFor(this.player.name, Config.options.recordAssists)
+        let fights = this.gameTimeline.fightsFor(this.player.name, Config.options.recordAssists)
         if (!fs.existsSync(this.video)) {
             console.log('Not yet created')
             return

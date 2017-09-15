@@ -3,6 +3,7 @@ const http = require('http')
 const request = require('request')
 const url = require('url')
 const qs = require('querystring')
+const Streamable = require('../../lib/Streamable')
 
 class Uploader extends React.Component {
     constructor() {
@@ -10,6 +11,43 @@ class Uploader extends React.Component {
     }
 
     componentDidMount() {
+        this.uploadAllHighlights().then((numHighlights) => {
+            console.log('Uploaded ' + numHighlights + ' highlights')
+            this.uploadGameData()
+        })
+    }
+
+    uploadAllHighlights() {
+        const game = this.props.replay.game
+
+        return new Promise((resolve, reject) => {
+            if (!game.highlights || Object.keys(game.highlights).length === 0) {
+                return resolve(0)
+            }
+
+            console.log(game.highlights)
+
+            let uploaded = 0
+            Object.keys(game.highlights).map((at) => {
+                let file = game.highlights[at]
+
+                const streamable = new Streamable(at, file)
+
+                streamable.upload((url) => {
+                    game.highlights[at] = url
+                    console.log('Uploaded ' + url)
+                    uploaded++
+
+                    if (uploaded == Object.keys(game.highlights).length) {
+                        return resolve(uploaded)
+                    }
+                })
+            })
+        })
+
+    }
+
+    uploadGameData() {
         this.getSignedS3Url().then((payload) => {
             const signedUrl = url.parse(payload)
 
@@ -19,14 +57,12 @@ class Uploader extends React.Component {
                 'Content-Length': data.length
             }
 
-            console.log(data)
-
             request.put({ 
                 url: payload,
                 headers: headers,
                 body: data 
             }, (err,response,body) => {
-                console.log(err, response, body)
+                console.log('Uploaded game data')
             })
         })
     }
@@ -58,7 +94,17 @@ class Uploader extends React.Component {
     }
     
     render() {
-        return null
+        return (
+            <uploader>
+                <backdrop></backdrop>
+
+                <modal>
+                    <div className="progress progress-indeterminate">
+                        <div className="progress-bar"></div>
+                    </div>
+                </modal>
+            </uploader>
+        )
     }
 }
 

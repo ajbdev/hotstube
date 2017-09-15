@@ -75,7 +75,7 @@ class HighlightReel extends EventEmitter {
         }
         const clip = new VideoClipMaker(this.video)
         
-        let highlights = 0
+        let highlights = {}
         
         fights.map((fight) => {
 
@@ -117,10 +117,10 @@ class HighlightReel extends EventEmitter {
             if (!fs.existsSync(fileName)) {
                 clip.make(fileName, slideFactor(min), duration)
             }            
-            highlights++
+            highlights[time] = fileName
         })
 
-        console.log(highlights + ' different highlights found and clipped')
+        console.log(Object.keys(highlights).length + ' different highlights found and clipped')
         
         if (Config.options.deleteTemporaryVideos) {
             fs.unlink(this.video, (err) => {
@@ -131,6 +131,8 @@ class HighlightReel extends EventEmitter {
                 }
             })
         }
+
+        return highlights
     }
 }
 

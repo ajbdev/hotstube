@@ -28,7 +28,11 @@ class Streamable extends EventEmitter {
                     if (typeof body == 'object') {
                         resolve(body)
                     } else {
-                        resolve(JSON.parse(body))
+                        try {
+                            resolve(JSON.parse(body))
+                        } catch (ex) {
+                            reject(body)
+                        }
                     }
                 }
             }) 
@@ -48,7 +52,7 @@ class Streamable extends EventEmitter {
                 callback(false)
             }
         }, (err) => {
-            alert('There was a problem uploading this highlight')
+            throw err
         })
     }
 }

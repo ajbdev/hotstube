@@ -5,6 +5,7 @@ class Game {
         this.time = 0
         this.chats = []
         this.kills = []
+        this.highlights = []
     }
 }
 

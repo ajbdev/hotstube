@@ -4,6 +4,7 @@ const GameTimeline = require('../../lib/GameTimeline')
 const Players = require('../../lib/Players')
 const {Timeline,TimelineEvent,TimelineMarker} = require('./Timeline')
 const React = require('react')
+const HighlightClip = require('./HighlightClip')
 
 let players = null
 
@@ -29,14 +30,24 @@ function killer(kill) {
     return killer
 }
 
+function renderHighlight(game, secondsIn, caption) {
+    if (!game.highlights || !game.highlights[time(secondsIn, '.')]) {
+        return null
+    }
+
+    return <HighlightClip path={game.highlights[time(secondsIn, '.')]} caption={caption} />
+    
+}
+
 function renderFight(game, kills, key) {
     const chat = game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
-
+    let caption = killer(kills[0]).name + ' kills ' + players.find(kills[0].victim).name + ' at ' + time(kills[0].time, ':')
     if (key == 0 && kills.length == 1) {
         let kill = kills[0]
 
         return (
             <TimelineEvent at={time(kill.clockTime)} icon="firstblood" key={key}>
+                {renderHighlight(game, kill.time, caption)}
                 <PlayerName player={killer(kill)} /> drew first blood on <PlayerName player={players.find(kill.victim)} />
                 {chat.map((c, i) => renderChat(c, i))}
             </TimelineEvent>
@@ -47,6 +58,7 @@ function renderFight(game, kills, key) {
         let kill = kills[0]
         return (
             <TimelineEvent at={time(kill.clockTime)} icon="death" key={key}>
+                {renderHighlight(game, kill.time, caption)}
                 {renderKill(kill)}
                 {chat.map((c, i) => renderChat(c, i))}
             </TimelineEvent>
@@ -57,6 +69,7 @@ function renderFight(game, kills, key) {
         <TimelineEvent at={time(kills[0].clockTime)} icon="fight" key={key}>
             {kills.map((kill, ix) => 
                 <span key={ix}>
+                    {renderHighlight(game, kill.time, caption)}
                     {renderKill(kill)}
                 </span>
             )}
@@ -74,8 +87,8 @@ function renderChat(chat, i) {
 }
 
 function renderKill(kill) {
-    let assists = kill.killers.filter((killer) => killer && killer.playerId != kill.primaryKiller)
-
+    let assists = kill.killers.filter((killer) => killer != kill.primaryKiller)
+    
     return (
         <div className="kill">
             <PlayerName player={killer(kill)} /> killed <PlayerName player={players.find(kill.victim)} /> 

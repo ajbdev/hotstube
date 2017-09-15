@@ -22,6 +22,7 @@ const app = require('electron').remote.app
 const ReleaseNotes = require('./App/ReleaseNotes')
 const DownloadNewVersion = require('./App/DownloadNewVersion')
 const dist = require('../lib/Dist.js')
+const glob = require('glob')
 
 
 class App extends React.Component {
@@ -200,17 +201,36 @@ class App extends React.Component {
                     console.log('Could not analyze game: ' + ex)
                     item.corrupt = true
                 }
-    
+
+
                 const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '.webm')
     
                 if (fs.existsSync(fullPath)) {
                     try {
                         const reel = new HighlightReel(item.name, fullPath)
-                        reel.create(item.accountId, item.heroId)
+                        let highlights = reel.create(item.accountId, item.heroId)
+                        item.game.highlights = highlights
                     } catch (ex) {
                         console.log('Problem creating highlights: ' + ex)
                     }
+                } else {
+                    let highlightPath = HighlightReel.getSavePath(item.accountId, item.heroId, pathResolver.basename(item.name,'.StormReplay'))
+                    
+                    if (fs.existsSync(highlightPath)) {
+                        item.game.highlights = {}
+
+                        glob(pathResolver.join(highlightPath,'*.webm'), (err, files) => {
+                            files.map((webm) => {
+                                item.game.highlights[pathResolver.basename(webm,'.webm')] = webm
+                            })
+                            this.forceUpdate()
+                        })
+
+
+                    }
+
                 }
+                
             }
 
             this.setState({

@@ -2,6 +2,7 @@ const React = require('react')
 const HighlightReel = require('../../lib/HighlightReel')
 const Streamable = require('../../lib/Streamable')
 const pathResolver = require('path')
+const GfycatApi = require('../../lib/GfycatApi')
 const { shell } = require('electron')
 
 class ShareHighlightsModal extends React.Component { 
@@ -9,7 +10,19 @@ class ShareHighlightsModal extends React.Component {
         super()
     }
     componentDidMount() {
+        if (this.props.streamable) {
+            return this.uploadStreamable()
+        }
 
+        this.uploadGfycat()
+    }
+    uploadGfycat() {
+        GfycatApi.upload(this.props.title, this.props.highlight).then((gfycatUrl) => {
+            shell.openExternal(gfycatUrl)
+            this.props.close()
+        })
+    }
+    uploadStreamable() {
         const streamable = new Streamable(this.props.title, this.props.highlight)
         
         let self = this
@@ -20,6 +33,7 @@ class ShareHighlightsModal extends React.Component {
             self.props.close() 
         })
     }
+
     render() {
         return (
             <share-highlights-modal>

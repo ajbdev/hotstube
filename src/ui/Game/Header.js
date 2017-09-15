@@ -8,6 +8,16 @@ class Header extends React.Component {
 
         this.state = { menu: false }
     }
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutside.bind(this), true);
+    }
+    
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+    }
+    handleClickOutside() {
+        this.setState({ menu: false })
+    }
     render() {
         const game = this.props.game
         
@@ -17,6 +27,7 @@ class Header extends React.Component {
         }
         
         let deaths = game.scores.filter((s) => s.type == 'Deaths')[0].values
+
         let teamKills = [0,0]
         game.players.map((p) => {
             teamKills[p.teamId == 0 ? 1 : 0] += deaths[p.playerId-1]

@@ -8,61 +8,68 @@ const Streamable = require('../../lib/Streamable')
 class Uploader extends React.Component {
     constructor() {
         super()
+
+        this.state = {
+            uploaded: 0
+        }
     }
 
     componentDidMount() {
-        this.uploadAllHighlights().then((numHighlights) => {
-            console.log('Uploaded ' + numHighlights + ' highlights')
-            this.uploadGameData()
-        })
+        this.uploadAllHighlights()
     }
 
-    uploadAllHighlights() {
+    async uploadAllHighlights() {
         const game = this.props.replay.game
 
-        return new Promise((resolve, reject) => {
-            if (!game.highlights || Object.keys(game.highlights).length === 0) {
-                return resolve(0)
-            }
+        const self = this
+        if (!game.highlights || Object.keys(game.highlights).length === 0) {
+            return
+        }
 
-            console.log(game.highlights)
+        const uploadFile = async (at) => {
+            let file = game.highlights[at]
+            
+            const streamable = new Streamable(at, file)
 
-            let uploaded = 0
-            Object.keys(game.highlights).map((at) => {
-                let file = game.highlights[at]
+            let url = await streamable.upload()
+            this.setState({ uploaded: this.state.uploaded + 1 })
 
-                const streamable = new Streamable(at, file)
+            game.highlights[at] = url
 
-                streamable.upload((url) => {
-                    game.highlights[at] = url
-                    console.log('Uploaded ' + url)
-                    uploaded++
+        }
+        for (let i in Object.keys(game.highlights)) {
+            await uploadFile(Object.keys(game.highlights)[i])
+        }
 
-                    if (uploaded == Object.keys(game.highlights).length) {
-                        return resolve(uploaded)
-                    }
-                })
-            })
+        console.log('Uploaded all highlights')
+        console.log(game.highlights)
+
+        this.uploadGameData().then(() => {
+            console.log('Game data uploaded')
         })
-
     }
 
     uploadGameData() {
-        this.getSignedS3Url().then((payload) => {
-            const signedUrl = url.parse(payload)
+        return new Promise((resolve, reject) => {
+            this.getSignedS3Url().then((payload) => {
+                const signedUrl = url.parse(payload)
 
-            const data = JSON.stringify(this.props.replay.game)
+                const data = JSON.stringify(this.props.replay.game)
 
-            const headers = {
-                'Content-Length': data.length
-            }
+                const headers = {
+                    'Content-Length': data.length
+                }
 
-            request.put({ 
-                url: payload,
-                headers: headers,
-                body: data 
-            }, (err,response,body) => {
-                console.log('Uploaded game data')
+                request.put({ 
+                    url: payload,
+                    headers: headers,
+                    body: data 
+                }, (err,response,body) => {
+                    if (err) {
+                        reject(err)
+                    }
+                    resolve('Finished')
+                })
             })
         })
     }

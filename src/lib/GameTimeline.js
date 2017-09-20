@@ -59,7 +59,7 @@ class GameTimeline {
 
         const playerKills = this.game.kills.filter((death) => { 
             if (getAssists) {
-                return death.killers.filter((killer) => killer && killer.name == playerName).length > 0 
+                return death.killers.filter((killer) => killer == player.playerId).length > 0 
             } else {
                 return death.primaryKiller == player.playerId
             }

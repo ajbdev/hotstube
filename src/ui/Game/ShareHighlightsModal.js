@@ -10,6 +10,7 @@ class ShareHighlightsModal extends React.Component {
         super()
     }
     componentDidMount() {
+        return this.uploadStreamable()
         if (this.props.streamable) {
             return this.uploadStreamable()
         }
@@ -26,7 +27,8 @@ class ShareHighlightsModal extends React.Component {
         const streamable = new Streamable(this.props.title, this.props.highlight)
         
         let self = this
-        streamable.upload((url) => {
+
+        streamable.upload().then((url) => {
             if (url) {
                 shell.openExternal(url)
             }

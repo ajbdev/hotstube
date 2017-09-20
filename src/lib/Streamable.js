@@ -22,6 +22,7 @@ class Streamable extends EventEmitter {
                     sendImmediately: true
                 }
             }, options), (err, response, body) => {
+                console.log(response)
                 if (err) {
                     reject(err)
                 } else {
@@ -31,29 +32,33 @@ class Streamable extends EventEmitter {
                         try {
                             resolve(JSON.parse(body))
                         } catch (ex) {
-                            reject(body)
+                            reject(ex)
                         }
                     }
                 }
             }) 
         })
     }
-    upload(callback) {
-        let self = this
-        this.request('/upload', 'POST', {
-            formData: {
-                file: fs.createReadStream(this.file),
-                title: this.title
-            }
-        }).then((result) => {
-            if (parseInt(result.status) >= 1) {
-                callback('https://streamable.com/' + result.shortcode)
-            } else {
-                callback(false)
-            }
-        }, (err) => {
-            throw err
-        })
+    upload() {
+        return new Promise((resolve, reject) => {
+            let self = this
+            this.request('/upload', 'POST', {
+                formData: {
+                    file: fs.createReadStream(this.file),
+                    title: this.title
+                }
+            }).then((result) => {
+                console.log(result)
+                if (parseInt(result.status) >= 1) {
+                    resolve('https://streamable.com/' + result.shortcode)
+                } else {
+                    reject(false)
+                }
+            }, (err) => {
+                console.log(err)
+                reject(err)
+            })
+        })        
     }
 }
 

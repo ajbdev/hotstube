@@ -221,6 +221,7 @@ class App extends React.Component {
 
                         glob(pathResolver.join(highlightPath,'*.webm'), (err, files) => {
                             files.map((webm) => {
+                                console.log(webm)
                                 item.game.highlights[pathResolver.basename(webm,'.webm')] = webm
                             })
                             this.forceUpdate()

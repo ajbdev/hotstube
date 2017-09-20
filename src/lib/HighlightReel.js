@@ -74,6 +74,8 @@ class HighlightReel extends EventEmitter {
             return
         }
         const clip = new VideoClipMaker(this.video)
+
+        console.log(fights)
         
         let highlights = {}
         
@@ -117,7 +119,7 @@ class HighlightReel extends EventEmitter {
             if (!fs.existsSync(fileName)) {
                 clip.make(fileName, slideFactor(min), duration)
             }            
-            highlights[time] = fileName
+            highlights[time] = fileName + '.webm'
         })
 
         console.log(Object.keys(highlights).length + ' different highlights found and clipped')

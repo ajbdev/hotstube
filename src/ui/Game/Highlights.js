@@ -4,7 +4,6 @@ const GameTimeline = require('../../lib/GameTimeline')
 const Players = require('../../lib/Players')
 const {Timeline,TimelineEvent,TimelineMarker} = require('./Timeline')
 const React = require('react')
-const HighlightClip = require('./HighlightClip')
 
 let players = null
 
@@ -30,16 +29,22 @@ function killer(kill) {
     return killer
 }
 
-function renderHighlight(game, secondsIn, caption) {
+function renderHighlight(game, secondsIn, caption, highlightVideoComponent) {
     if (!game.highlights || !game.highlights[time(secondsIn, '.')]) {
         return null
     }
 
-    return <HighlightClip path={game.highlights[time(secondsIn, '.')]} caption={caption} />
+    console.log(highlightVideoComponent)
+
+    const HighlightVideoComponent = {
+        'HighlightVideoWeb': HighlightVideoWeb
+    }
+
+    return <HighlightVideoComponent path={game.highlights[time(secondsIn, '.')]} caption={caption} />
     
 }
 
-function renderFight(game, kills, key) {
+function renderFight(game, kills, key, highlightVideoComponent) {
     const chat = game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
     let caption = killer(kills[0]).name + ' kills ' + players.find(kills[0].victim).name + ' at ' + time(kills[0].time, ':')
     if (key == 0 && kills.length == 1) {
@@ -47,7 +52,7 @@ function renderFight(game, kills, key) {
 
         return (
             <TimelineEvent at={time(kill.clockTime)} icon="firstblood" key={key}>
-                {renderHighlight(game, kill.time, caption)}
+                {renderHighlight(game, kill.time, caption, highlightVideoComponent)}
                 <PlayerName player={killer(kill)} /> drew first blood on <PlayerName player={players.find(kill.victim)} />
                 {chat.map((c, i) => renderChat(c, i))}
             </TimelineEvent>
@@ -113,9 +118,9 @@ function renderLevel(game, level, key) {
     )
 }
 
-function renderEvent(game, event, key) {
+function renderEvent(game, event, key, highlightVideoComponent) {
     if (event.type == 'fight') {
-        return renderFight(game, event.data.kills, key)
+        return renderFight(game, event.data.kills, key, highlightVideoComponent)
     }
     if (event.type == 'level') {
         return renderLevel(game, event.data, key)
@@ -153,7 +158,7 @@ function Highlights(props) {
             <Timeline>
                 {timeline.length > 0 ? 
                     timeline.map((event, key) =>
-                        renderEvent(props.game, event, key)
+                        renderEvent(props.game, event, key, props.highlightVideoComponent)
                     ) : renderEmpty()
                 }
                 {renderGameOver(props.game, props.heroId)}

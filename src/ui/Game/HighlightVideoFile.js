@@ -1,7 +1,7 @@
 const ShareHighlightsModal = require('./ShareHighlightsModal')
 const Svg = require('../App/Svg')
 
-class HighlightClip extends React.Component { 
+class HighlightVideoFile extends React.Component { 
     constructor() {
         super()
 
@@ -91,10 +91,6 @@ class HighlightClip extends React.Component {
             props = this.props
         }
 
-        if (typeof IS_WEB !== 'undefined' && IS_WEB) {
-            return
-        }
-
         if (!props.path) {
             return
         }
@@ -112,7 +108,7 @@ class HighlightClip extends React.Component {
         this.setState({ sharing: true })
     }
 
-    renderFile() {
+    render() {
 
         if (!this.state.video) {
             return null
@@ -143,18 +139,6 @@ class HighlightClip extends React.Component {
         )
 
         return null
-    }
-
-    renderEmbeddedVideo() {
-        return null
-    }
-
-    render() {        
-        if (typeof IS_WEB !== 'undefined' && IS_WEB) {
-            return this.renderEmbeddedVideo()
-        }
-
-        return this.renderFile()
     }
 }
 

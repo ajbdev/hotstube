@@ -1,3 +1,8 @@
+Version 0.4.3
+-
+9/21/2017
+* Update replay parser to most recent HotS client version
+
 Version 0.4.2
 -
 9/10/2017

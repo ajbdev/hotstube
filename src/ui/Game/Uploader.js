@@ -10,7 +10,8 @@ class Uploader extends React.Component {
         super()
 
         this.state = {
-            uploaded: 0
+            uploaded: 0,
+            message: ''
         }
     }
 
@@ -22,35 +23,42 @@ class Uploader extends React.Component {
         const game = this.props.replay.game
 
         const self = this
-        if (!game.highlights || Object.keys(game.highlights).length === 0) {
-            return
-        }
 
         const uploadFile = async (at) => {
             let file = game.highlights[at]
             
+            this.setState({
+                message: 'Uploading highlights (' + this.state.uploaded + '/' + Object.keys(game.highlights).length + ')'
+            })
             const streamable = new Streamable(at, file)
 
             let url = await streamable.upload()
-            this.setState({ uploaded: this.state.uploaded + 1 })
-
+            this.setState({ 
+                uploaded: this.state.uploaded + 1
+            })
+            
             game.highlights[at] = url
 
         }
-        for (let i in Object.keys(game.highlights)) {
-            await uploadFile(Object.keys(game.highlights)[i])
+        
+        if (game.highlights && Object.keys(game.highlights).length > 0) {
+            for (let i in Object.keys(game.highlights)) {
+                await uploadFile(Object.keys(game.highlights)[i])
+            }
+            console.log('Uploaded all highlights')
+            console.log(game.highlights)
         }
 
-        console.log('Uploaded all highlights')
-        console.log(game.highlights)
 
         this.uploadGameData().then(() => {
             console.log('Game data uploaded')
+            this.props.close()
         })
     }
 
     uploadGameData() {
         return new Promise((resolve, reject) => {
+            this.setState({ message: 'Uploading game data'})
             this.getSignedS3Url().then((payload) => {
                 const signedUrl = url.parse(payload)
 
@@ -106,6 +114,7 @@ class Uploader extends React.Component {
                 <backdrop></backdrop>
 
                 <modal>
+                    <div className="progress-caption">{this.state.message}</div>
                     <div className="progress progress-indeterminate">
                         <div className="progress-bar"></div>
                     </div>

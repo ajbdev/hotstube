@@ -133,7 +133,8 @@ class Game extends React.Component {
 
         return (
             <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
-                {this.state.uploading ? <Uploader replay={this.props.replay} /> : null}
+                
+                {this.state.uploading ? <Uploader replay={this.props.replay} close={() => this.setState({ uploading: false })} /> : null}
                 <Header game={this.props.replay.game} 
                         replay={this.props.replay} 
                         tabs={tabs} 

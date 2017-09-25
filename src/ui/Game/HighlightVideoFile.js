@@ -1,5 +1,6 @@
-const ShareHighlightsModal = require('./ShareHighlightsModal')
+
 const Svg = require('../App/Svg')
+const ShareHighlightsModal = require('./ShareHighlightsModal')
 
 class HighlightVideoFile extends React.Component { 
     constructor() {
@@ -119,9 +120,13 @@ class HighlightVideoFile extends React.Component {
             ref: (video) => { this.video = video }
         }
 
-        const ConfigOptions = require('../../lib/Config')
-        if (ConfigOptions.options.fullVideoControls) {
-            attrs.controls = true
+        let ConfigOptions = { options: {} }
+        if (typeof IS_WEB == 'undefined') {
+
+            ConfigOptions = require('../../lib/Config')
+            if (ConfigOptions.options.fullVideoControls) {
+                attrs.controls = true
+            }
         }
 
         return (
@@ -142,4 +147,4 @@ class HighlightVideoFile extends React.Component {
     }
 }
 
-module.exports = HighlightClip
+module.exports = HighlightVideoFile

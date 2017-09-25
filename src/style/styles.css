@@ -63,3 +63,25 @@ modal {
     background: #fff;
     z-index: 12;
 }
+
+
+modal {   
+    width: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: center;
+    color: #222;
+    font-size: 13px;
+
+}
+.progress {
+    height: 1rem;
+    margin-bottom: 0;
+}
+
+.progress-caption {
+    text-align: left;
+    padding-bottom: 4px;
+}

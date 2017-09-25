@@ -18,7 +18,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             'IS_WEB': JSON.stringify(true)
-        })
+        }),
+        new webpack.IgnorePlugin(/^\.\/HighlightVideoFile$/)
     ],
     module: {
         rules: [

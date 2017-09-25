@@ -19,7 +19,7 @@ class ReleaseNotes extends React.Component {
         ConfigOptions.save()
 
         this.setState({
-            changelog: fs.readFileSync(__dirname + '/../CHANGELOG.md', 'utf8')
+            changelog: fs.readFileSync(__dirname + '/../../CHANGELOG.md', 'utf8')
         })
     }
 

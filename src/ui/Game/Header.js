@@ -1,6 +1,7 @@
 const React = require('react')
 const Time = require('../Time')
 const HeroPortrait = require('./HeroPortrait')
+const Players = require('../../lib/Players')
 
 class Header extends React.Component {
     constructor(props) {
@@ -28,6 +29,8 @@ class Header extends React.Component {
         
         let deaths = game.scores.filter((s) => s.type == 'Deaths')[0].values
 
+        const players = new Players(game.players)
+
         let teamKills = [0,0]
         game.players.map((p) => {
             teamKills[p.teamId == 0 ? 1 : 0] += deaths[p.playerId-1]
@@ -37,16 +40,12 @@ class Header extends React.Component {
 
         let player = game.players.filter((p) => p.id === heroId)[0]
 
-        let outcome = {
-            'Wins': 'win',
-            'Loses': 'loss'
-        }[player.outcome]
 
         return (
             <header>
                 <h1>
                     {this.props.game.map}
-                    <span className={"outcome " + outcome}>{outcome}</span>
+                    <span className={"outcome " + player.outcome.toLowerCase()}>{player.outcome}</span>
                 </h1>
                 <div className="kills">       
                     <span className="red">

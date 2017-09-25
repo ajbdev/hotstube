@@ -81,12 +81,18 @@ class ReplayAnalyzer extends EventEmitter {
 
     winner() {
         const self = this
+
         this.replay.trackerEvents()
                    .filter(e => e._event === 'NNet.Replay.Tracker.SStatGameEvent' && e.m_eventName == 'EndOfGameTalentChoices')
                    .map((e) => {
                        let player = this.game.players.filter((p) => p.playerId == e.m_intData[0].m_value)[0]
 
-                       player.outcome = e.m_stringData[1].m_value
+
+                       e.m_stringData.map((d) => {
+                         if (d.m_key == 'Win/Loss') {
+                             player.outcome = d.m_value
+                         }
+                       })
                    });
     }
 

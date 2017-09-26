@@ -12,10 +12,8 @@ class Web extends React.Component {
 
         let params = qs.parse(window.location.search.substring(1))
 
-        console.log(params)
-
-        if (params.game_id) {
-            fetch(`https://s3.amazonaws.com/hotstube/${params.game_id}.json`)
+        if (params.id) {
+            fetch(`https://s3.amazonaws.com/hotstube/${params.id}.json`)
             .then((resp) => {
                 return resp.json()
             }).then((game) => {
@@ -24,7 +22,6 @@ class Web extends React.Component {
         }
     }
     render() {
-        console.log(this.state.game)
         return (
             <app>
                 <content>

@@ -5,8 +5,10 @@ const fs = require('fs')
 const pathResolver = require('path')
 
 
-module.exports = (path) => {
-    const fileName = pathResolver.basename(path)
+module.exports = (path, target = null) => {
+    if (!target) {
+        target = pathResolver.basename(path)
+    }
 
     console.log('Uploading ' + path)
 
@@ -15,14 +17,14 @@ module.exports = (path) => {
     s3.putObject({
         Bucket: 'hotstube.com',
         ACL: "public-read", 
-        ContentType: mime.lookup(fileName),
-        Key: fileName,
+        ContentType: mime.lookup(path),
+        Key: target,
         Body: fs.createReadStream(path)
     }, function(err, data) {
         if (err) {
             console.log(err)
         } else {
-            console.log('Uploaded hotstube.com/' + fileName)
+            console.log('Uploaded hotstube.com/' + target)
         }        
     })        
 }

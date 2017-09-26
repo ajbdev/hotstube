@@ -1,6 +1,6 @@
 const ReplayAnalyzer = require('./lib/ReplayAnalyzer')
 
-const env = require('./env')
+const env = require('./env').env
 
 onmessage = (args) => {
 

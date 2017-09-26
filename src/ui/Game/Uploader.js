@@ -4,6 +4,9 @@ const request = require('request')
 const url = require('url')
 const qs = require('querystring')
 const Streamable = require('../../lib/Streamable')
+const env = require('../../env')
+const { shell } = require('electron')
+const GameHash = require('../../lib/GameHash')
 
 class Uploader extends React.Component {
     constructor() {
@@ -16,7 +19,24 @@ class Uploader extends React.Component {
     }
 
     componentDidMount() {
-        this.uploadAllHighlights()
+        //this.uploadAllHighlights()
+
+        this.isUploaded()
+    }
+
+    isUploaded() {
+
+        let hash = GameHash.hash(this.props.replay.game)
+        request({
+            url: `https://s3.amazonaws.com/hotstube/${hash}}.json`,
+            method: 'GET',
+        }, (err, response, body) => {
+            if (response.statusCode == 404) {
+                // New
+            } else if (response.statusCode == 200) {
+                // Old!
+            }
+        })
     }
 
     async uploadAllHighlights() {
@@ -53,6 +73,8 @@ class Uploader extends React.Component {
         this.uploadGameData().then(() => {
             console.log('Game data uploaded')
             this.props.close()
+            shell.openExternal(env.url + '?game_id=' + GameHash.hash(game))
+
         })
     }
 

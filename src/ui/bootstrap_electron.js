@@ -2,7 +2,7 @@ const ReactDOM = require('react-dom')
 const React = require('react')
 const App = require('./ui/App')
 const Rollbar = require('rollbar')
-const _env = require('./env')
+const _env = require('./env').env
 
 if (_env !== 'development') {
   const rollbar = new Rollbar({

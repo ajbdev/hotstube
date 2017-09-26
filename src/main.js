@@ -8,7 +8,7 @@ const Tray = electron.Tray
 const path = require('path')
 const url = require('url')
 const HighlightDir = require('./lib/HighlightDir')
-const ELECTRON_ENV = require('./env')
+const ELECTRON_ENV = require('./env').env
 const glob = require('glob')
 const fs = require('fs')
 

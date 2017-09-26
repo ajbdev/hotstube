@@ -32,9 +32,10 @@ class Uploader extends React.Component {
             method: 'GET',
         }, (err, response, body) => {
             if (response.statusCode == 404) {
-                // New
+                this.uploadAllHighlights()
             } else if (response.statusCode == 200) {
-                // Old!
+                shell.openExternal(env.url + '?game_id=' + hash)
+                this.props.close()
             }
         })
     }

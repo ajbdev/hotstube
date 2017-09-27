@@ -60,7 +60,9 @@ class Config extends EventEmitter {
             highlightDir: this.defaultHighlightPath(),
             fullVideoControls: false,
             showPatches: true,
-            welcomeScreen: true
+            welcomeScreen: true,
+            streamableEmail: null,
+            streamablePassword: null
         }
     }
 

@@ -5,6 +5,7 @@ const os = require('os')
 const fs = require('fs')
 const pathResolver = require('path')
 const HighlightDir = require('../../lib/HighlightDir')
+const SharingCredentials = require('../Game/SharingCredentials')
 const {dialog} = require('electron').remote
 
 class Config extends React.Component {
@@ -297,7 +298,8 @@ class ConfigWindow extends React.Component {
         ConfigOptions.load()
 
         this.state = {
-            options: ConfigOptions.options
+            options: ConfigOptions.options,
+            captureStreamableCredentials: false
         }
 
         this.handleOption = this.handleOption.bind(this)
@@ -368,6 +370,10 @@ class ConfigWindow extends React.Component {
         this.props.openReleaseNotes()
 
         this.props.close()
+    }
+    
+    closeCaptureCredentials() {
+        this.setState({ captureStreamableCredentials: false })
     }
 
     render() {
@@ -447,6 +453,17 @@ class ConfigWindow extends React.Component {
                         : null
 }
                     <br/> {this.renderSoundForm()}
+                </fieldset>
+                <fieldset>
+                    <legend>Sharing</legend>
+                    <button className="button" onClick={() => this.setState({ captureStreamableCredentials: true })}>Setup Streamable Password</button>
+                    {this.state.captureStreamableCredentials ? 
+                        <span>
+                            <backdrop></backdrop>
+                            <SharingCredentials cancel={this.closeCaptureCredentials.bind(this)} close={this.cancel.bind(this)} autoRememberMe={true} />
+                        </span>
+                     : null
+                    }
                 </fieldset>
 
                 <footer>

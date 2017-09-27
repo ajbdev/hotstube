@@ -14,7 +14,7 @@ class Header extends React.Component {
     }
     
     componentWillUnmount() {
-        document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+        document.removeEventListener('click', this.handleClickOutside);
     }
     handleClickOutside() {
         this.setState({ menu: false })

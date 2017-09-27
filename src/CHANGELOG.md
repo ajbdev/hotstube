@@ -1,3 +1,11 @@
+Version 0.5.0
+-
+9/27/2017
+* Entire game history can now be uploaded to hotstube.com with highlights
+* You must now use your own Streamable account to upload highlights
+* Ana portrait added
+
+
 Version 0.4.4
 -
 9/26/2017

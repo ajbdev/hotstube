@@ -1,4 +1,4 @@
-Version 0.5.0
+Version 0.5.2
 -
 9/27/2017
 * Entire game history can now be uploaded to hotstube.com with highlights

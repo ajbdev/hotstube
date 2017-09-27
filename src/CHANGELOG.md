@@ -1,3 +1,8 @@
+Version 0.4.4
+-
+9/26/2017
+* Update replay parser to Ana patch
+
 Version 0.4.3
 -
 9/21/2017

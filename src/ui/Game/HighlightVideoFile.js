@@ -1,6 +1,8 @@
 
 const Svg = require('../App/Svg')
 const ShareHighlightsModal = require('./ShareHighlightsModal')
+const {app, dialog} = require('electron').remote
+const fs = require('fs')
 
 class HighlightVideoFile extends React.Component { 
     constructor() {
@@ -41,7 +43,7 @@ class HighlightVideoFile extends React.Component {
             title: 'Save highlight',
             buttonLabel: 'Save',
             showsTagField: false,
-            defaultPath: app.getPath('documents') + '/' + this.props.caption + '.gifv',
+            defaultPath: app.getPath('documents') + '/' + this.props.caption.replace(':','') + '.gifv',
             filters: [
                 {name: 'gifv', extensions: ['gifv']},
             ]
@@ -66,10 +68,6 @@ class HighlightVideoFile extends React.Component {
     
                     input.on('error', handleErrors);
                     output.on('error', handleErrors);
-    
-                    output.on('finish', () => {
-                        self.props.setStatus('Highlight saved')
-                    })
     
                     input.pipe(output);
                 }
@@ -137,7 +135,7 @@ class HighlightVideoFile extends React.Component {
                     <video {...attrs} src={this.state.video} />
                 </highlight-reel>
                 <div className="video-options">
-                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(props.path)} /> : null}
+                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(this.props.path)} /> : null}
                     <Svg src="share-square.svg" onClick={this.share.bind(this)} />
                 </div>
             </span>

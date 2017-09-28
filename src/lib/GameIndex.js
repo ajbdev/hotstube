@@ -42,7 +42,7 @@ class GameIndex extends EventEmitter {
     }
 
     recentReplays() {
-        const replayRootDir = Config.getGamePaths().account
+        const replayRootDir = Config.options.accountDir.split(path.sep)
         
         const isDirectory = source => fs.existsSync(source) && fs.lstatSync(source).isDirectory()
 

@@ -1,3 +1,12 @@
+Version 0.5.3
+-
+9/27/2017
+* Fixed a bug that prevented highlights from being saved
+* Fixed a bug that prevented replays from being deleted
+* Fixed a bug allowing replays for games that did not finish to load
+* Fixed a bug where toggled between games would sometimes create a memory leak
+* Fixed a bug where no replays displayed when a custom HotS account directory is setup
+
 Version 0.5.2
 -
 9/27/2017

@@ -128,7 +128,7 @@ class Game extends React.Component {
         const actions = {
             'Upload Game': this.uploading.bind(this),
             'Export Data': this.export.bind(this),
-            'Delete Replay': this.props.deleteReplay
+            'Delete Replay': () => { this.props.deleteReplay(this.props.replay) }
         }
 
         return (

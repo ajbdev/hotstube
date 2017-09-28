@@ -3,6 +3,7 @@ const path = require('path')
 const {EventEmitter} = require('events')
 const fs = require('fs')
 const os = require('os')
+const glob = require('glob')
 
 class Config extends EventEmitter {
     constructor() {
@@ -43,6 +44,15 @@ class Config extends EventEmitter {
 
     defaultHighlightPath() {
         return path.join(app.getPath('videos'),'HotSTube')
+    }
+
+    isAccountDirValid(dir = null) {
+        if (!dir) {
+            dir = this.options.accountDir
+        }
+        let accountDir = dir.split(path.sep)
+
+        return glob.sync(accountDir.join('/') + '/*/*/Replays/Multiplayer').length > 0
     }
 
     defaults() {

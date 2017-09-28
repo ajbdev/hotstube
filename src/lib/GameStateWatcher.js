@@ -16,7 +16,7 @@ class GameStateWatcher extends EventEmitter {
 
         let dirs = Config.getGamePaths()
 
-        this.accountDir = pathResolver.join(...dirs.account)
+        this.accountDir = Config.options.accountDir
         this.battleLobbyDir = pathResolver.join(...dirs.battleLobby)
     }
 

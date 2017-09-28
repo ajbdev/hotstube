@@ -104,23 +104,7 @@ class DirectoriesConfigWindow extends React.Component {
     }
 
     checkForStormReplay() {
-        if (!fs.existsSync(this.props.options.accountDir)) {
-            return false
-        }
-
-        const flatten = arr => arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatten(val) : val), []);
-  
-        let files = flatten(this.recursivelySearch(this.props.options.accountDir))
-        for (var i in files) {
-            let file = files[i]
-
-            if (pathResolver.extname(file) === '.StormReplay') {
-                console.log('Found stormreplay')
-                return true
-            }
-        }
-        console.log('Did not find stormreplay')
-        return false
+        return ConfigOptions.isAccountDirValid(this.props.options.accountDir)
     }
 
     render() {
@@ -139,14 +123,19 @@ class DirectoriesConfigWindow extends React.Component {
                 <fieldset>
                     <legend>Game Directories</legend>
 
-                    <label>Replay Directory</label>
+                    <label>Account Directory</label>
                     <div className={css.join(' ')}>
                         <input type="text" 
                             value={this.props.options.accountDir} 
                             onChange={(evt) => this.props.handleOption(evt.target.value, 'accountDir')} />
                         <button type="button" className="button" onClick={this.selectDirectory.bind(this)}>Browse</button>
                     </div>
-                    {!hasReplay ? <p className="hint error">No replay files found in this directory or it's subdirectories. Are you sure this is the correct folder?</p> : null}
+                    {!hasReplay ? <p className="hint error">
+                        This doesn't look like an account directory. 
+                        The account directory is usually named "Accounts" and located directly in the Heroes of the Storm folder.
+                        The most common path for this directory is C:\Users\YourUserName\Documents\Heroes of the Storm\Accounts
+                        
+                        </p> : null}
                     <footer>
                         <button className="button" onClick={this.save.bind(this)}>Save</button>
                         <button className="button-link" onClick={this.props.close}>Cancel</button>

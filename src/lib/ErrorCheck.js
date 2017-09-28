@@ -53,9 +53,8 @@ class ErrorCheck {
     }
 
     canFindReplays() {
-        const dir = ConfigOptions.getGamePaths().account
-
-        return fs.existsSync(path.join(...dir))
+        ConfigOptions.load()
+        return ConfigOptions.isAccountDirValid()
     }
 
 }

@@ -9,15 +9,10 @@ class Header extends React.Component {
 
         this.state = { menu: false }
     }
-    componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside.bind(this), true);
-    }
-    
-    componentWillUnmount() {
-        document.removeEventListener('click', this.handleClickOutside);
-    }
-    handleClickOutside() {
-        this.setState({ menu: false })
+    handleClickOutside(e) {
+        if (['dropdown-trigger','dropdown-menu'].indexOf(e.target.className) === -1) {
+            this.setState({ menu: false })
+        }
     }
     render() {
         const game = this.props.game
@@ -40,12 +35,13 @@ class Header extends React.Component {
 
         let player = game.players.filter((p) => p.id === heroId)[0]
 
+        let outcome = player.outcome || ''
 
         return (
-            <header>
+            <header onClick={this.handleClickOutside.bind(this)}>
                 <h1>
                     {this.props.game.map}
-                    <span className={"outcome " + player.outcome.toLowerCase()}>{player.outcome}</span>
+                    <span className={"outcome " + outcome.toLowerCase()}>{outcome}</span>
                 </h1>
                 <div className="kills">       
                     <span className="red">
@@ -67,7 +63,7 @@ class Header extends React.Component {
                         </button>
                         <div className="dropdown-menu">
                             {Object.keys(this.props.actions).map((label, i) => 
-                                <a onClick={this.props.actions[label]} key={i}>{label}</a>
+                                <a className="dropdown-option" onClick={this.props.actions[label]} key={i}>{label}</a>
                             )}
                         </div>
                     </div>

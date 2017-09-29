@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const os = require('os')
 const Config = require('./Config')
 const {EventEmitter} = require('events')
 const GameStateWatcher = require('./GameStateWatcher')
@@ -43,6 +44,10 @@ class GameIndex extends EventEmitter {
 
     recentReplays() {
         const replayRootDir = Config.options.accountDir.split(path.sep)
+
+        if (os.platform() == 'darwin' && replayRootDir[0].length == 0) {
+            replayRootDir[0] = '/'
+        }
         
         const isDirectory = source => fs.existsSync(source) && fs.lstatSync(source).isDirectory()
 

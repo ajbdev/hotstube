@@ -4,6 +4,7 @@ const VideoClipMaker = require('./lib/VideoClipMaker')
 const HighlightReel = require('./lib/HighlightReel') 
 const Config = require('./lib/Config')
 const fs = require('fs')
+const ps = require('ps-node')
 
 const pathResolver = require('path')
 
@@ -14,21 +15,42 @@ let highlightReel = null
 let playerName = null
 let playerId = null;
 
-GameStateWatcher.watch().on('GAME_START', () => { 
-    GameRecorder.startRecording()
-}).on('GAME_IS_RUNNING', () => {
-    console.log('Game is already started')
-    //GameRecorder.startRecording()
-}).on('GAME_END', (path) => {
-    console.log('Game ended')
-    replayFile = pathResolver.resolve(path)
-    GameRecorder.stopRecording()
-}).on('STORMSAVE_CREATED', (path) => {
-    // Currently this indicates the 90 second mark
-    // We subtract the six additional seconds to sync with the video recorder start time
-    gameInitializedAt = GameStateWatcher.gameSeconds - 90 - 3
-    console.log('Game initialized at: ' + gameInitializedAt)
-})
+
+
+
+
+
+function startWatchingGame() {
+    GameStateWatcher.watch().on('GAME_START', () => { 
+        GameRecorder.startRecording()
+    }).on('GAME_IS_RUNNING', () => {
+        console.log('Game is already started')
+        //GameRecorder.startRecording()
+    }).on('GAME_END', (path) => {
+        console.log('Game ended')
+        replayFile = pathResolver.resolve(path)
+        GameRecorder.stopRecording()
+    }).on('STORMSAVE_CREATED', (path) => {
+        // Currently this indicates the 90 second mark
+        // We subtract the six additional seconds to sync with the video recorder start time
+        gameInitializedAt = GameStateWatcher.gameSeconds - 90 - 3
+        console.log('Game initialized at: ' + gameInitializedAt)
+    })
+}
+
+function waitUntilGameIsRunning() {
+    ps.lookup({command: 'Heroes of the Storm'}, (err, results) => {
+        if (results.length > 0) {
+            console.log('Heroes is running')
+            startWatchingGame()
+        } else {
+            setTimeout(() => {
+                waitUntilGameIsRunning()
+            }, 5000)
+        }
+    })
+}
+waitUntilGameIsRunning()
 
 GameRecorder.on('VIDEO_SAVED', (path) => {
     let sourceVideoFile = pathResolver.resolve(path)

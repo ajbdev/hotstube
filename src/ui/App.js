@@ -216,7 +216,7 @@ class App extends React.Component {
                 } else {
                     let highlightPath = HighlightReel.getSavePath(item.accountId, item.heroId, pathResolver.basename(item.name,'.StormReplay'))
                     
-                    if (fs.existsSync(highlightPath)) {
+                    if (fs.existsSync(highlightPath) && item.game) {
                         item.game.highlights = {}
 
                         glob(pathResolver.join(highlightPath,'*.webm'), (err, files) => {

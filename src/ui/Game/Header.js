@@ -35,7 +35,11 @@ class Header extends React.Component {
 
         let player = game.players.filter((p) => p.id === heroId)[0]
 
-        let outcome = player.outcome || ''
+        let outcome = ''
+
+        if (player && player.outcome) {
+            outcome = player.outcome
+        }
 
         return (
             <header onClick={this.handleClickOutside.bind(this)}>
@@ -51,9 +55,12 @@ class Header extends React.Component {
                         {teamKills[1]}
                     </span>
                 </div>
+                {player ?
+                <span>
                 <span className={player.team}>
                     {player.name}
                 </span> as <HeroPortrait class="small" hero={player.hero} /> {player.hero} <br />
+                </span> : null}
                 <Time seconds={this.props.game.time} /> <br />
                 {this.props.actions ? 
                 <div className="actions">

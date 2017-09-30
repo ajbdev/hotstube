@@ -151,15 +151,26 @@ function renderEmpty() {
 }
 
 function renderGameOver(game, heroId) {
-    const player = game.players.filter((p) => p.id === heroId)[0]
-    
-    const outcome = player.outcome == 'Win' ? 'wins' : 'loses'
+    let player = game.players.filter((p) => p.id === heroId)[0]
 
-    return (
-        <TimelineMarker type="circle" label={time(game.time-35)}>
-            Game over: <span className={player.team}>{player.team}</span> {outcome}
-        </TimelineMarker>
-    )
+    if (!player) {
+        let winners = game.players.filter((p) => p.outcome == 'Win')
+        if (winners.length) {
+            player = winners[0]
+        }
+    }
+
+    if (player) {
+
+        let outcome = player.outcome == 'Win' ? 'wins' : 'loses'
+        
+        return (
+            <TimelineMarker type="circle" label={time(game.time-35)}>
+                Game over: <span className={player.team}>{player.team}</span> {outcome}
+            </TimelineMarker>
+        )
+    }
+    return null    
 }
 
 function Highlights(props) {

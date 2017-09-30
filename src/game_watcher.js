@@ -15,11 +15,6 @@ let highlightReel = null
 let playerName = null
 let playerId = null;
 
-
-
-
-
-
 function startWatchingGame() {
     GameStateWatcher.watch().on('GAME_START', () => { 
         GameRecorder.startRecording()

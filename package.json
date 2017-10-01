@@ -11,7 +11,10 @@
     "web-dev-server": "webpack-dev-server --open",
     "webpack": "./node_modules/.bin/webpack",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "deploy-web": "node bin/deploy-web.js",
+    "deploy-assets": "node bin/deploy-assets.js",
+    "deploy-dist": "node bin/deploy-dist.js"
   },
   "build": {
     "appId": "hotstube",

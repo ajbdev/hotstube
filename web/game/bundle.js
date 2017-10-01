@@ -57,15 +57,16 @@
 /******/ 		});
 /******/ 	}
 /******/
-/******/
+/******/ 	
+/******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0c332c1ef32f096c4f92"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "00e7c3781810f2e7feef"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParentsTemp = []; // eslint-disable-line no-unused-vars
-/******/
+/******/ 	
 /******/ 	function hotCreateRequire(moduleId) { // eslint-disable-line no-unused-vars
 /******/ 		var me = installedModules[moduleId];
 /******/ 		if(!me) return __webpack_require__;
@@ -111,7 +112,7 @@
 /******/ 				finishChunkLoading();
 /******/ 				throw err;
 /******/ 			});
-/******/
+/******/ 	
 /******/ 			function finishChunkLoading() {
 /******/ 				hotChunksLoading--;
 /******/ 				if(hotStatus === "prepare") {
@@ -126,7 +127,7 @@
 /******/ 		};
 /******/ 		return fn;
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	function hotCreateModule(moduleId) { // eslint-disable-line no-unused-vars
 /******/ 		var hot = {
 /******/ 			// private stuff
@@ -136,7 +137,7 @@
 /******/ 			_selfDeclined: false,
 /******/ 			_disposeHandlers: [],
 /******/ 			_main: hotCurrentChildModule !== moduleId,
-/******/
+/******/ 	
 /******/ 			// Module API
 /******/ 			active: true,
 /******/ 			accept: function(dep, callback) {
@@ -169,7 +170,7 @@
 /******/ 				var idx = hot._disposeHandlers.indexOf(callback);
 /******/ 				if(idx >= 0) hot._disposeHandlers.splice(idx, 1);
 /******/ 			},
-/******/
+/******/ 	
 /******/ 			// Management API
 /******/ 			check: hotCheck,
 /******/ 			apply: hotApply,
@@ -184,23 +185,23 @@
 /******/ 				var idx = hotStatusHandlers.indexOf(l);
 /******/ 				if(idx >= 0) hotStatusHandlers.splice(idx, 1);
 /******/ 			},
-/******/
+/******/ 	
 /******/ 			//inherit from previous dispose call
 /******/ 			data: hotCurrentModuleData[moduleId]
 /******/ 		};
 /******/ 		hotCurrentChildModule = undefined;
 /******/ 		return hot;
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	var hotStatusHandlers = [];
 /******/ 	var hotStatus = "idle";
-/******/
+/******/ 	
 /******/ 	function hotSetStatus(newStatus) {
 /******/ 		hotStatus = newStatus;
 /******/ 		for(var i = 0; i < hotStatusHandlers.length; i++)
 /******/ 			hotStatusHandlers[i].call(null, newStatus);
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	// while downloading
 /******/ 	var hotWaitingFiles = 0;
 /******/ 	var hotChunksLoading = 0;
@@ -208,15 +209,15 @@
 /******/ 	var hotRequestedFilesMap = {};
 /******/ 	var hotAvailableFilesMap = {};
 /******/ 	var hotDeferred;
-/******/
+/******/ 	
 /******/ 	// The update info
 /******/ 	var hotUpdate, hotUpdateNewHash;
-/******/
+/******/ 	
 /******/ 	function toModuleId(id) {
 /******/ 		var isNumber = (+id) + "" === id;
 /******/ 		return isNumber ? +id : id;
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	function hotCheck(apply) {
 /******/ 		if(hotStatus !== "idle") throw new Error("check() is only allowed in idle status");
 /******/ 		hotApplyOnUpdate = apply;
@@ -230,7 +231,7 @@
 /******/ 			hotWaitingFilesMap = {};
 /******/ 			hotAvailableFilesMap = update.c;
 /******/ 			hotUpdateNewHash = update.h;
-/******/
+/******/ 	
 /******/ 			hotSetStatus("prepare");
 /******/ 			var promise = new Promise(function(resolve, reject) {
 /******/ 				hotDeferred = {
@@ -250,7 +251,7 @@
 /******/ 			return promise;
 /******/ 		});
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	function hotAddUpdateChunk(chunkId, moreModules) { // eslint-disable-line no-unused-vars
 /******/ 		if(!hotAvailableFilesMap[chunkId] || !hotRequestedFilesMap[chunkId])
 /******/ 			return;
@@ -264,7 +265,7 @@
 /******/ 			hotUpdateDownloaded();
 /******/ 		}
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	function hotEnsureUpdateChunk(chunkId) {
 /******/ 		if(!hotAvailableFilesMap[chunkId]) {
 /******/ 			hotWaitingFilesMap[chunkId] = true;
@@ -274,7 +275,7 @@
 /******/ 			hotDownloadUpdateChunk(chunkId);
 /******/ 		}
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	function hotUpdateDownloaded() {
 /******/ 		hotSetStatus("ready");
 /******/ 		var deferred = hotDeferred;
@@ -304,21 +305,21 @@
 /******/ 			deferred.resolve(outdatedModules);
 /******/ 		}
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	function hotApply(options) {
 /******/ 		if(hotStatus !== "ready") throw new Error("apply() is only allowed in ready status");
 /******/ 		options = options || {};
-/******/
+/******/ 	
 /******/ 		var cb;
 /******/ 		var i;
 /******/ 		var j;
 /******/ 		var module;
 /******/ 		var moduleId;
-/******/
+/******/ 	
 /******/ 		function getAffectedStuff(updateModuleId) {
 /******/ 			var outdatedModules = [updateModuleId];
 /******/ 			var outdatedDependencies = {};
-/******/
+/******/ 	
 /******/ 			var queue = outdatedModules.slice().map(function(id) {
 /******/ 				return {
 /******/ 					chain: [id],
@@ -373,7 +374,7 @@
 /******/ 					});
 /******/ 				}
 /******/ 			}
-/******/
+/******/ 	
 /******/ 			return {
 /******/ 				type: "accepted",
 /******/ 				moduleId: updateModuleId,
@@ -381,7 +382,7 @@
 /******/ 				outdatedDependencies: outdatedDependencies
 /******/ 			};
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		function addAllToSet(a, b) {
 /******/ 			for(var i = 0; i < b.length; i++) {
 /******/ 				var item = b[i];
@@ -389,17 +390,17 @@
 /******/ 					a.push(item);
 /******/ 			}
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// at begin all updates modules are outdated
 /******/ 		// the "outdated" status can propagate to parents if they don't accept the children
 /******/ 		var outdatedDependencies = {};
 /******/ 		var outdatedModules = [];
 /******/ 		var appliedUpdate = {};
-/******/
+/******/ 	
 /******/ 		var warnUnexpectedRequire = function warnUnexpectedRequire() {
 /******/ 			console.warn("[HMR] unexpected require(" + result.moduleId + ") to disposed module");
 /******/ 		};
-/******/
+/******/ 	
 /******/ 		for(var id in hotUpdate) {
 /******/ 			if(Object.prototype.hasOwnProperty.call(hotUpdate, id)) {
 /******/ 				moduleId = toModuleId(id);
@@ -472,7 +473,7 @@
 /******/ 				}
 /******/ 			}
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// Store self accepted outdated modules to require them later by the module system
 /******/ 		var outdatedSelfAcceptedModules = [];
 /******/ 		for(i = 0; i < outdatedModules.length; i++) {
@@ -483,7 +484,7 @@
 /******/ 					errorHandler: installedModules[moduleId].hot._selfAccepted
 /******/ 				});
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// Now in "dispose" phase
 /******/ 		hotSetStatus("dispose");
 /******/ 		Object.keys(hotAvailableFilesMap).forEach(function(chunkId) {
@@ -491,16 +492,16 @@
 /******/ 				hotDisposeChunk(chunkId);
 /******/ 			}
 /******/ 		});
-/******/
+/******/ 	
 /******/ 		var idx;
 /******/ 		var queue = outdatedModules.slice();
 /******/ 		while(queue.length > 0) {
 /******/ 			moduleId = queue.pop();
 /******/ 			module = installedModules[moduleId];
 /******/ 			if(!module) continue;
-/******/
+/******/ 	
 /******/ 			var data = {};
-/******/
+/******/ 	
 /******/ 			// Call dispose handlers
 /******/ 			var disposeHandlers = module.hot._disposeHandlers;
 /******/ 			for(j = 0; j < disposeHandlers.length; j++) {
@@ -508,16 +509,16 @@
 /******/ 				cb(data);
 /******/ 			}
 /******/ 			hotCurrentModuleData[moduleId] = data;
-/******/
+/******/ 	
 /******/ 			// disable module (this disables requires from this module)
 /******/ 			module.hot.active = false;
-/******/
+/******/ 	
 /******/ 			// remove module from cache
 /******/ 			delete installedModules[moduleId];
-/******/
+/******/ 	
 /******/ 			// when disposing there is no need to call dispose handler
 /******/ 			delete outdatedDependencies[moduleId];
-/******/
+/******/ 	
 /******/ 			// remove "parents" references from all children
 /******/ 			for(j = 0; j < module.children.length; j++) {
 /******/ 				var child = installedModules[module.children[j]];
@@ -528,7 +529,7 @@
 /******/ 				}
 /******/ 			}
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// remove outdated dependency from module children
 /******/ 		var dependency;
 /******/ 		var moduleOutdatedDependencies;
@@ -545,19 +546,19 @@
 /******/ 				}
 /******/ 			}
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// Not in "apply" phase
 /******/ 		hotSetStatus("apply");
-/******/
+/******/ 	
 /******/ 		hotCurrentHash = hotUpdateNewHash;
-/******/
+/******/ 	
 /******/ 		// insert new code
 /******/ 		for(moduleId in appliedUpdate) {
 /******/ 			if(Object.prototype.hasOwnProperty.call(appliedUpdate, moduleId)) {
 /******/ 				modules[moduleId] = appliedUpdate[moduleId];
 /******/ 			}
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// call accept handlers
 /******/ 		var error = null;
 /******/ 		for(moduleId in outdatedDependencies) {
@@ -596,7 +597,7 @@
 /******/ 				}
 /******/ 			}
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// Load self accepted modules
 /******/ 		for(i = 0; i < outdatedSelfAcceptedModules.length; i++) {
 /******/ 			var item = outdatedSelfAcceptedModules[i];
@@ -640,13 +641,13 @@
 /******/ 				}
 /******/ 			}
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// handle errors in accept handlers and self accepted module load
 /******/ 		if(error) {
 /******/ 			hotSetStatus("fail");
 /******/ 			return Promise.reject(error);
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		hotSetStatus("idle");
 /******/ 		return new Promise(function(resolve) {
 /******/ 			resolve(outdatedModules);
@@ -720,7 +721,7 @@
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(88)(__webpack_require__.s = 88);
+/******/ 	return hotCreateRequire(89)(__webpack_require__.s = 89);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -920,11 +921,9 @@ process.umask = function() { return 0; };
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -981,12 +980,10 @@ module.exports = invariant;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-2015, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -1053,11 +1050,9 @@ module.exports = warning;
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -1095,110 +1090,11 @@ module.exports = reactProdInvariant;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
-
-/* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-module.exports = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -1207,7 +1103,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var _prodInvariant = __webpack_require__(3);
 
 var DOMProperty = __webpack_require__(15);
-var ReactDOMComponentFlags = __webpack_require__(61);
+var ReactDOMComponentFlags = __webpack_require__(62);
 
 var invariant = __webpack_require__(1);
 
@@ -1389,7 +1285,7 @@ module.exports = ReactDOMComponentTree;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /*
@@ -1471,17 +1367,112 @@ function toComment(sourceMap) {
 
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -1517,12 +1508,10 @@ module.exports = ExecutionEnvironment;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2016-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -1902,12 +1891,10 @@ module.exports = ReactComponentTreeHook;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2016-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -1919,7 +1906,7 @@ module.exports = ReactComponentTreeHook;
 var debugTool = null;
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactDebugTool = __webpack_require__(135);
+  var ReactDebugTool = __webpack_require__(139);
   debugTool = ReactDebugTool;
 }
 
@@ -1945,11 +1932,9 @@ module.exports = __webpack_require__(18);
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -1986,12 +1971,10 @@ module.exports = emptyFunction;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -2020,23 +2003,21 @@ module.exports = ReactCurrentOwner;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var _prodInvariant = __webpack_require__(3),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(6);
 
-var CallbackQueue = __webpack_require__(65);
+var CallbackQueue = __webpack_require__(66);
 var PooledClass = __webpack_require__(17);
-var ReactFeatureFlags = __webpack_require__(66);
+var ReactFeatureFlags = __webpack_require__(67);
 var ReactReconciler = __webpack_require__(20);
 var Transaction = __webpack_require__(29);
 
@@ -2233,7 +2214,7 @@ function enqueueUpdate(component) {
  * if no updates are currently being performed.
  */
 function asap(callback, context) {
-  !batchingStrategy.isBatchingUpdates ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates.asap: Can\'t enqueue an asap callback in a context whereupdates are not being batched.') : _prodInvariant('125') : void 0;
+  invariant(batchingStrategy.isBatchingUpdates, "ReactUpdates.asap: Can't enqueue an asap callback in a context where" + 'updates are not being batched.');
   asapCallbackQueue.enqueue(callback, context);
   asapEnqueued = true;
 }
@@ -2277,18 +2258,16 @@ module.exports = ReactUpdates;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var PooledClass = __webpack_require__(17);
 
@@ -2458,6 +2437,33 @@ _assign(SyntheticEvent.prototype, {
 
 SyntheticEvent.Interface = EventInterface;
 
+/**
+ * Helper to reduce boilerplate when creating subclasses.
+ *
+ * @param {function} Class
+ * @param {?object} Interface
+ */
+SyntheticEvent.augmentClass = function (Class, Interface) {
+  var Super = this;
+
+  var E = function () {};
+  E.prototype = Super.prototype;
+  var prototype = new E();
+
+  _assign(prototype, Class.prototype);
+  Class.prototype = prototype;
+  Class.prototype.constructor = Class;
+
+  Class.Interface = _assign({}, Super.Interface, Interface);
+  Class.augmentClass = Super.augmentClass;
+
+  PooledClass.addPoolingTo(Class, PooledClass.fourArgumentPooler);
+};
+
+/** Proxying after everything set on SyntheticEvent
+  * to resolve Proxy issue on some WebKit browsers
+  * in which some Event properties are set to undefined (GH#10010)
+  */
 if (process.env.NODE_ENV !== 'production') {
   if (isProxySupported) {
     /*eslint-disable no-func-assign */
@@ -2481,28 +2487,6 @@ if (process.env.NODE_ENV !== 'production') {
     /*eslint-enable no-func-assign */
   }
 }
-/**
- * Helper to reduce boilerplate when creating subclasses.
- *
- * @param {function} Class
- * @param {?object} Interface
- */
-SyntheticEvent.augmentClass = function (Class, Interface) {
-  var Super = this;
-
-  var E = function () {};
-  E.prototype = Super.prototype;
-  var prototype = new E();
-
-  _assign(prototype, Class.prototype);
-  Class.prototype = prototype;
-  Class.prototype.constructor = Class;
-
-  Class.Interface = _assign({}, Super.Interface, Interface);
-  Class.augmentClass = Super.augmentClass;
-
-  PooledClass.addPoolingTo(Class, PooledClass.fourArgumentPooler);
-};
 
 PooledClass.addPoolingTo(SyntheticEvent, PooledClass.fourArgumentPooler);
 
@@ -2549,12 +2533,10 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -2764,18 +2746,16 @@ module.exports = DOMProperty;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(35);
 
 var ReactCurrentOwner = __webpack_require__(12);
 
@@ -2783,7 +2763,7 @@ var warning = __webpack_require__(2);
 var canDefineProperty = __webpack_require__(26);
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
-var REACT_ELEMENT_TYPE = __webpack_require__(56);
+var REACT_ELEMENT_TYPE = __webpack_require__(57);
 
 var RESERVED_PROPS = {
   key: true,
@@ -3111,12 +3091,10 @@ module.exports = ReactElement;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -3229,37 +3207,35 @@ module.exports = PooledClass;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(35);
 
-var ReactBaseClasses = __webpack_require__(54);
-var ReactChildren = __webpack_require__(109);
-var ReactDOMFactories = __webpack_require__(113);
+var ReactBaseClasses = __webpack_require__(55);
+var ReactChildren = __webpack_require__(111);
+var ReactDOMFactories = __webpack_require__(115);
 var ReactElement = __webpack_require__(16);
-var ReactPropTypes = __webpack_require__(117);
-var ReactVersion = __webpack_require__(120);
+var ReactPropTypes = __webpack_require__(119);
+var ReactVersion = __webpack_require__(123);
 
-var createReactClass = __webpack_require__(121);
-var onlyChild = __webpack_require__(123);
+var createReactClass = __webpack_require__(124);
+var onlyChild = __webpack_require__(127);
 
 var createElement = ReactElement.createElement;
 var createFactory = ReactElement.createFactory;
 var cloneElement = ReactElement.cloneElement;
 
 if (process.env.NODE_ENV !== 'production') {
-  var lowPriorityWarning = __webpack_require__(35);
+  var lowPriorityWarning = __webpack_require__(36);
   var canDefineProperty = __webpack_require__(26);
-  var ReactElementValidator = __webpack_require__(58);
+  var ReactElementValidator = __webpack_require__(59);
   var didWarnPropTypesDeprecated = false;
   createElement = ReactElementValidator.createElement;
   createFactory = ReactElementValidator.createFactory;
@@ -3368,11 +3344,9 @@ module.exports = React;
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -3411,18 +3385,16 @@ module.exports = reactProdInvariant;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var ReactRef = __webpack_require__(133);
+var ReactRef = __webpack_require__(137);
 var ReactInstrumentation = __webpack_require__(9);
 
 var warning = __webpack_require__(2);
@@ -3583,22 +3555,20 @@ module.exports = ReactReconciler;
 
 "use strict";
 /**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var DOMNamespaces = __webpack_require__(42);
+var DOMNamespaces = __webpack_require__(43);
 var setInnerHTML = __webpack_require__(31);
 
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(43);
-var setTextContent = __webpack_require__(70);
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(44);
+var setTextContent = __webpack_require__(71);
 
 var ELEMENT_NODE_TYPE = 1;
 var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
@@ -3706,22 +3676,20 @@ module.exports = DOMLazyTree;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var EventPluginHub = __webpack_require__(23);
-var EventPluginUtils = __webpack_require__(36);
+var EventPluginUtils = __webpack_require__(37);
 
-var accumulateInto = __webpack_require__(62);
-var forEachAccumulated = __webpack_require__(63);
+var accumulateInto = __webpack_require__(63);
+var forEachAccumulated = __webpack_require__(64);
 var warning = __webpack_require__(2);
 
 var getListener = EventPluginHub.getListener;
@@ -3846,12 +3814,10 @@ module.exports = EventPropagators;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -3860,11 +3826,11 @@ module.exports = EventPropagators;
 var _prodInvariant = __webpack_require__(3);
 
 var EventPluginRegistry = __webpack_require__(28);
-var EventPluginUtils = __webpack_require__(36);
-var ReactErrorUtils = __webpack_require__(37);
+var EventPluginUtils = __webpack_require__(37);
+var ReactErrorUtils = __webpack_require__(38);
 
-var accumulateInto = __webpack_require__(62);
-var forEachAccumulated = __webpack_require__(63);
+var accumulateInto = __webpack_require__(63);
+var forEachAccumulated = __webpack_require__(64);
 var invariant = __webpack_require__(1);
 
 /**
@@ -4126,12 +4092,10 @@ module.exports = EventPluginHub;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -4139,7 +4103,7 @@ module.exports = EventPluginHub;
 
 var SyntheticEvent = __webpack_require__(14);
 
-var getEventTarget = __webpack_require__(38);
+var getEventTarget = __webpack_require__(39);
 
 /**
  * @interface UIEvent
@@ -4190,12 +4154,10 @@ module.exports = SyntheticUIEvent;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -4241,12 +4203,10 @@ module.exports = ReactInstanceMap;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -4274,11 +4234,9 @@ module.exports = canDefineProperty;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -4299,12 +4257,10 @@ module.exports = emptyObject;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -4558,12 +4514,10 @@ module.exports = EventPluginRegistry;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -4792,21 +4746,19 @@ module.exports = TransactionImpl;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var SyntheticUIEvent = __webpack_require__(24);
-var ViewportMetrics = __webpack_require__(69);
+var ViewportMetrics = __webpack_require__(70);
 
-var getEventModifierState = __webpack_require__(40);
+var getEventModifierState = __webpack_require__(41);
 
 /**
  * @interface MouseEvent
@@ -4869,24 +4821,22 @@ module.exports = SyntheticMouseEvent;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var ExecutionEnvironment = __webpack_require__(7);
-var DOMNamespaces = __webpack_require__(42);
+var DOMNamespaces = __webpack_require__(43);
 
 var WHITESPACE_TEST = /^[ \r\n\t\f]/;
 var NONVISIBLE_TEST = /<(!--|link|noscript|meta|script|style)[ \r\n\t\f\/>]/;
 
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(43);
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(44);
 
 // SVG temp container for IE lacking innerHTML
 var reusableSVGContainer;
@@ -4972,12 +4922,10 @@ module.exports = setInnerHTML;
 
 "use strict";
 /**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2016-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * Based on the escape-html library, which is used under the MIT License below:
  *
@@ -5099,25 +5047,23 @@ module.exports = escapeTextContentForBrowser;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var EventPluginRegistry = __webpack_require__(28);
-var ReactEventEmitterMixin = __webpack_require__(159);
-var ViewportMetrics = __webpack_require__(69);
+var ReactEventEmitterMixin = __webpack_require__(163);
+var ViewportMetrics = __webpack_require__(70);
 
-var getVendorPrefixedEventName = __webpack_require__(160);
-var isEventSupported = __webpack_require__(39);
+var getVendorPrefixedEventName = __webpack_require__(164);
+var isEventSupported = __webpack_require__(40);
 
 /**
  * Summary of `ReactBrowserEventEmitter` event handling:
@@ -5426,9 +5372,8 @@ module.exports = ReactBrowserEventEmitter;
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
-exports.i(__webpack_require__(90), "");
 exports.i(__webpack_require__(91), "");
 exports.i(__webpack_require__(92), "");
 exports.i(__webpack_require__(93), "");
@@ -5445,6 +5390,8 @@ exports.i(__webpack_require__(103), "");
 exports.i(__webpack_require__(104), "");
 exports.i(__webpack_require__(105), "");
 exports.i(__webpack_require__(106), "");
+exports.i(__webpack_require__(107), "");
+exports.i(__webpack_require__(108), "");
 
 // module
 exports.push([module.i, "", ""]);
@@ -5457,13 +5404,108 @@ exports.push([module.i, "", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-2015, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -5524,17 +5566,15 @@ module.exports = lowPriorityWarning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -5542,7 +5582,7 @@ module.exports = lowPriorityWarning;
 
 var _prodInvariant = __webpack_require__(3);
 
-var ReactErrorUtils = __webpack_require__(37);
+var ReactErrorUtils = __webpack_require__(38);
 
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
@@ -5756,17 +5796,15 @@ module.exports = EventPluginUtils;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -5823,7 +5861,9 @@ if (process.env.NODE_ENV !== 'production') {
   if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' && typeof document !== 'undefined' && typeof document.createEvent === 'function') {
     var fakeNode = document.createElement('react');
     ReactErrorUtils.invokeGuardedCallback = function (name, func, a) {
-      var boundFunc = func.bind(null, a);
+      var boundFunc = function () {
+        func(a);
+      };
       var evtType = 'react-' + name;
       fakeNode.addEventListener(evtType, boundFunc, false);
       var evt = document.createEvent('Event');
@@ -5838,17 +5878,15 @@ module.exports = ReactErrorUtils;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -5878,17 +5916,15 @@ function getEventTarget(nativeEvent) {
 module.exports = getEventTarget;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -5943,17 +5979,15 @@ function isEventSupported(eventNameSuffix, capture) {
 module.exports = isEventSupported;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -5991,30 +6025,28 @@ function getEventModifierState(nativeEvent) {
 module.exports = getEventModifierState;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var DOMLazyTree = __webpack_require__(21);
-var Danger = __webpack_require__(144);
-var ReactDOMComponentTree = __webpack_require__(5);
+var Danger = __webpack_require__(148);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactInstrumentation = __webpack_require__(9);
 
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(43);
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(44);
 var setInnerHTML = __webpack_require__(31);
-var setTextContent = __webpack_require__(70);
+var setTextContent = __webpack_require__(71);
 
 function getNodeAfter(parentNode, node) {
   // Special case for text components, which return [open, close] comments
@@ -6223,17 +6255,15 @@ module.exports = DOMChildrenOperations;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -6248,17 +6278,15 @@ var DOMNamespaces = {
 module.exports = DOMNamespaces;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -6285,17 +6313,15 @@ var createMicrosoftUnsafeLocalFunction = function (func) {
 module.exports = createMicrosoftUnsafeLocalFunction;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -6303,8 +6329,8 @@ module.exports = createMicrosoftUnsafeLocalFunction;
 
 var _prodInvariant = __webpack_require__(3);
 
-var ReactPropTypesSecret = __webpack_require__(74);
-var propTypesFactory = __webpack_require__(59);
+var ReactPropTypesSecret = __webpack_require__(75);
+var propTypesFactory = __webpack_require__(60);
 
 var React = __webpack_require__(18);
 var PropTypes = propTypesFactory(React.isValidElement);
@@ -6429,17 +6455,15 @@ module.exports = LinkedValueUtils;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -6479,17 +6503,15 @@ module.exports = ReactComponentEnvironment;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  * 
@@ -6552,17 +6574,15 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -6599,17 +6619,15 @@ function shouldUpdateReactComponent(prevElement, nextElement) {
 module.exports = shouldUpdateReactComponent;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -6663,17 +6681,15 @@ var KeyEscapeUtils = {
 module.exports = KeyEscapeUtils;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -6903,23 +6919,21 @@ module.exports = ReactUpdateQueue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var emptyFunction = __webpack_require__(11);
 var warning = __webpack_require__(2);
@@ -7280,17 +7294,15 @@ module.exports = validateDOMNesting;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -7335,7 +7347,7 @@ function getEventCharCode(nativeEvent) {
 module.exports = getEventCharCode;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7352,7 +7364,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(10);
-var Svg = __webpack_require__(53);
+var Svg = __webpack_require__(54);
 
 var HeroPortrait = function (_React$Component) {
     _inherits(HeroPortrait, _React$Component);
@@ -7404,7 +7416,7 @@ var HeroPortrait = function (_React$Component) {
 module.exports = HeroPortrait;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7421,7 +7433,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(10);
-var path = __webpack_require__(214);
+var path = __webpack_require__(218);
 
 var Svg = function (_React$Component) {
     _inherits(Svg, _React$Component);
@@ -7443,7 +7455,7 @@ var Svg = function (_React$Component) {
             var self = this;
 
             if (true) {
-                return __webpack_require__(215)("./" + this.props.src);
+                return __webpack_require__(219)("./" + this.props.src);
             } else {
                 var fs = require('fs');
 
@@ -7467,31 +7479,29 @@ var Svg = function (_React$Component) {
 module.exports = Svg;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var _prodInvariant = __webpack_require__(19),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(35);
 
-var ReactNoopUpdateQueue = __webpack_require__(55);
+var ReactNoopUpdateQueue = __webpack_require__(56);
 
 var canDefineProperty = __webpack_require__(26);
 var emptyObject = __webpack_require__(27);
 var invariant = __webpack_require__(1);
-var lowPriorityWarning = __webpack_require__(35);
+var lowPriorityWarning = __webpack_require__(36);
 
 /**
  * Base class helpers for the updating state of a component.
@@ -7616,17 +7626,15 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -7717,17 +7725,15 @@ module.exports = ReactNoopUpdateQueue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -7742,17 +7748,15 @@ var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol
 module.exports = REACT_ELEMENT_TYPE;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -7788,17 +7792,15 @@ function getIteratorFn(maybeIterable) {
 module.exports = getIteratorFn;
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -7815,12 +7817,12 @@ var ReactCurrentOwner = __webpack_require__(12);
 var ReactComponentTreeHook = __webpack_require__(8);
 var ReactElement = __webpack_require__(16);
 
-var checkReactTypeSpec = __webpack_require__(114);
+var checkReactTypeSpec = __webpack_require__(116);
 
 var canDefineProperty = __webpack_require__(26);
-var getIteratorFn = __webpack_require__(57);
+var getIteratorFn = __webpack_require__(58);
 var warning = __webpack_require__(2);
-var lowPriorityWarning = __webpack_require__(35);
+var lowPriorityWarning = __webpack_require__(36);
 
 function getDeclarationErrorAddendum() {
   if (ReactCurrentOwner.current) {
@@ -8049,17 +8051,15 @@ module.exports = ReactElementValidator;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -8068,7 +8068,7 @@ module.exports = ReactElementValidator;
 // Therefore we re-export development-only version with all the PropTypes checks here.
 // However if one is migrating to the `prop-types` npm library, they will go through the
 // `index.js` entry point, and it will branch depending on the environment.
-var factory = __webpack_require__(118);
+var factory = __webpack_require__(120);
 module.exports = function(isValidElement) {
   // It is still allowed in 15.5.
   var throwOnDirectAccess = false;
@@ -8077,17 +8077,15 @@ module.exports = function(isValidElement) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -8098,17 +8096,15 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -8121,17 +8117,15 @@ var ReactDOMComponentFlags = {
 module.exports = ReactDOMComponentFlags;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -8185,17 +8179,15 @@ module.exports = accumulateInto;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -8221,17 +8213,15 @@ function forEachAccumulated(arr, cb, scope) {
 module.exports = forEachAccumulated;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -8259,17 +8249,15 @@ function getTextContentAccessor() {
 module.exports = getTextContentAccessor;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -8384,17 +8372,15 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -8411,23 +8397,21 @@ var ReactFeatureFlags = {
 module.exports = ReactFeatureFlags;
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 
 function isCheckable(elem) {
   var type = elem.type;
@@ -8444,7 +8428,7 @@ function attachTracker(inst, tracker) {
 }
 
 function detachTracker(inst) {
-  delete inst._wrapperState.valueTracker;
+  inst._wrapperState.valueTracker = null;
 }
 
 function getValueFromNode(node) {
@@ -8539,17 +8523,15 @@ var inputValueTracking = {
 module.exports = inputValueTracking;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -8595,17 +8577,15 @@ function isTextInputElement(elem) {
 module.exports = isTextInputElement;
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -8625,17 +8605,15 @@ var ViewportMetrics = {
 module.exports = ViewportMetrics;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -8682,17 +8660,15 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = setTextContent;
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -8714,17 +8690,15 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -8743,6 +8717,7 @@ var isUnitlessNumber = {
   boxFlexGroup: true,
   boxOrdinalGroup: true,
   columnCount: true,
+  columns: true,
   flex: true,
   flexGrow: true,
   flexPositive: true,
@@ -8873,27 +8848,25 @@ var CSSProperty = {
 module.exports = CSSProperty;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var DOMProperty = __webpack_require__(15);
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactInstrumentation = __webpack_require__(9);
 
-var quoteAttributeValueForBrowser = __webpack_require__(158);
+var quoteAttributeValueForBrowser = __webpack_require__(162);
 var warning = __webpack_require__(2);
 
 var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + DOMProperty.ATTRIBUTE_NAME_START_CHAR + '][' + DOMProperty.ATTRIBUTE_NAME_CHAR + ']*$');
@@ -9114,17 +9087,15 @@ module.exports = DOMPropertyOperations;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -9136,26 +9107,24 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
-var LinkedValueUtils = __webpack_require__(44);
-var ReactDOMComponentTree = __webpack_require__(5);
+var LinkedValueUtils = __webpack_require__(45);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactUpdates = __webpack_require__(13);
 
 var warning = __webpack_require__(2);
@@ -9342,30 +9311,28 @@ module.exports = ReactDOMSelect;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var _prodInvariant = __webpack_require__(3),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(6);
 
-var ReactCompositeComponent = __webpack_require__(166);
-var ReactEmptyComponent = __webpack_require__(78);
-var ReactHostComponent = __webpack_require__(79);
+var ReactCompositeComponent = __webpack_require__(170);
+var ReactEmptyComponent = __webpack_require__(79);
+var ReactHostComponent = __webpack_require__(80);
 
-var getNextDebugID = __webpack_require__(169);
+var getNextDebugID = __webpack_require__(173);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
@@ -9477,17 +9444,15 @@ module.exports = instantiateReactComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -9523,17 +9488,15 @@ module.exports = ReactNodeTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -9558,17 +9521,15 @@ ReactEmptyComponent.injection = ReactEmptyComponentInjection;
 module.exports = ReactEmptyComponent;
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -9632,17 +9593,15 @@ module.exports = ReactHostComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -9651,11 +9610,11 @@ module.exports = ReactHostComponent;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(12);
-var REACT_ELEMENT_TYPE = __webpack_require__(170);
+var REACT_ELEMENT_TYPE = __webpack_require__(174);
 
-var getIteratorFn = __webpack_require__(171);
+var getIteratorFn = __webpack_require__(175);
 var invariant = __webpack_require__(1);
-var KeyEscapeUtils = __webpack_require__(48);
+var KeyEscapeUtils = __webpack_require__(49);
 var warning = __webpack_require__(2);
 
 var SEPARATOR = '.';
@@ -9814,7 +9773,7 @@ module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9822,11 +9781,9 @@ module.exports = traverseAllChildren;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -9897,27 +9854,25 @@ module.exports = EventListener;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var ReactDOMSelection = __webpack_require__(183);
+var ReactDOMSelection = __webpack_require__(187);
 
-var containsNode = __webpack_require__(185);
-var focusNode = __webpack_require__(71);
-var getActiveElement = __webpack_require__(83);
+var containsNode = __webpack_require__(189);
+var focusNode = __webpack_require__(72);
+var getActiveElement = __webpack_require__(84);
 
 function isInDocument(node) {
   return containsNode(document.documentElement, node);
@@ -10025,7 +9980,7 @@ var ReactInputSelection = {
 module.exports = ReactInputSelection;
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10033,11 +9988,9 @@ module.exports = ReactInputSelection;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -10069,17 +10022,15 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -10092,22 +10043,22 @@ var DOMProperty = __webpack_require__(15);
 var React = __webpack_require__(18);
 var ReactBrowserEventEmitter = __webpack_require__(33);
 var ReactCurrentOwner = __webpack_require__(12);
-var ReactDOMComponentTree = __webpack_require__(5);
-var ReactDOMContainerInfo = __webpack_require__(200);
-var ReactDOMFeatureFlags = __webpack_require__(201);
-var ReactFeatureFlags = __webpack_require__(66);
+var ReactDOMComponentTree = __webpack_require__(4);
+var ReactDOMContainerInfo = __webpack_require__(204);
+var ReactDOMFeatureFlags = __webpack_require__(205);
+var ReactFeatureFlags = __webpack_require__(67);
 var ReactInstanceMap = __webpack_require__(25);
 var ReactInstrumentation = __webpack_require__(9);
-var ReactMarkupChecksum = __webpack_require__(202);
+var ReactMarkupChecksum = __webpack_require__(206);
 var ReactReconciler = __webpack_require__(20);
-var ReactUpdateQueue = __webpack_require__(49);
+var ReactUpdateQueue = __webpack_require__(50);
 var ReactUpdates = __webpack_require__(13);
 
 var emptyObject = __webpack_require__(27);
-var instantiateReactComponent = __webpack_require__(76);
+var instantiateReactComponent = __webpack_require__(77);
 var invariant = __webpack_require__(1);
 var setInnerHTML = __webpack_require__(31);
-var shouldUpdateReactComponent = __webpack_require__(47);
+var shouldUpdateReactComponent = __webpack_require__(48);
 var warning = __webpack_require__(2);
 
 var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
@@ -10613,23 +10564,21 @@ module.exports = ReactMount;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var ReactNodeTypes = __webpack_require__(77);
+var ReactNodeTypes = __webpack_require__(78);
 
 function getHostComponentFromComposite(inst) {
   var type;
@@ -10648,7 +10597,7 @@ function getHostComponentFromComposite(inst) {
 module.exports = getHostComponentFromComposite;
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10680,34 +10629,34 @@ var Players = function () {
 module.exports = Players;
 
 /***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.decode = exports.parse = __webpack_require__(247);
-exports.encode = exports.stringify = __webpack_require__(248);
-
-
-/***/ }),
 /* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(89);
+exports.decode = exports.parse = __webpack_require__(251);
+exports.encode = exports.stringify = __webpack_require__(252);
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(90);
 
 var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(124);
+var _reactDom = __webpack_require__(128);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Web = __webpack_require__(210);
+var _Web = __webpack_require__(214);
 
 var _Web2 = _interopRequireDefault(_Web);
 
@@ -10716,7 +10665,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_Web2.default, null), document.getElementById('hotstube'));
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -10730,7 +10679,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(107)(content, options);
+var update = __webpack_require__(109)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(true) {
@@ -10747,10 +10696,10 @@ if(true) {
 }
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
@@ -10761,29 +10710,15 @@ exports.push([module.i, "/* Collection default theme */\n\n.ReactVirtualized__Co
 
 
 /***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(6)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "/*!\n  Shoelace.css 1.0.0-beta6\n  (c) A Beautiful Site, LLC\n\n  Released under the MIT license\n  Source: https://github.com/claviska/shoelace-css\n*/\n\n/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}[hidden],template{display:none}\n\n/*! Variables */\n\n:root {\n  /* Fonts */\n  --font-sans-serif: sans-serif;\n  --font-serif: serif;\n  --font-system: -apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif;\n  --font-monospace: Menlo, Consolas, \"DejaVu Sans Mono\", monospace;\n\n  /* Colors (most courtesy of http://clrs.cc/) */\n  --color-primary: tomato;\n  --color-white: white;\n  --color-navy: #001f3f;\n  --color-blue: #0074d9;\n  --color-aqua: #7fdbff;\n  --color-teal: #39cccc;\n  --color-olive: #3d9970;\n  --color-green: #2ecc40;\n  --color-lime: #01ff70;\n  --color-yellow: #ffdc00;\n  --color-orange: #ff851b;\n  --color-red: #ff4136;\n  --color-maroon: #85144b;\n  --color-fuchsia: #f012be;\n  --color-purple: #b10dc9;\n  --color-black: #111;\n  --color-gray: #aaa;\n  --color-silver: #ddd;\n  --color-darkgray: #2a2a2a;\n  --color-input-fg: #666;\n  \n\n  /* States */\n  --state-success: var(--color-green);\n  --state-info: var(--color-aqua);\n  --state-warning: var(--color-orange);\n  --state-danger: var(--color-red);\n  --state-inverse: var(--color-black);\n\n  /* Components */\n  --component-bg-color: #f2f2f2;\n  --component-border-color: #ddd;\n  --component-border-radius: 0;\n  --component-border-width: 1px;\n  --component-spacing: 1rem;\n  --component-spacing-big: 2rem;\n  --component-spacing-small: .5rem;\n\n  /* Content */\n  --body-bg-color: var(--color-darkgray);\n  --body-color: var(--color-silver);\n  --font-family: var(--font-system);\n  --font-size: 1rem; /* Most browsers use a default font size of 16px */\n  --font-size-big: 1.25rem;\n  --font-size-small: .875rem;\n  --font-weight-light: 300;\n  --font-weight: 400;\n  --font-weight-bold: 700;\n  --line-height: 1.5;\n  --text-muted: var(--color-gray);\n\n  --code-font-size: 90%;\n  --code-color: var(--color-black);\n  --code-border-radius: var(--component-border-radius);\n  --code-bg-color: var(--component-bg-color);\n  --code-spacing-x: calc(var(--font-size) * .4);\n  --code-spacing-y: calc(var(--font-size) * .2);\n\n  --headings-font-family: var(--font-system);\n  --headings-font-weight: var(--font-weight-light);\n  --headings-line-height: 1.1;\n  --headings-margin-bottom: .5rem;\n  --headings-color: inherit;\n  --headings-font-size-h1: 2rem;\n  --headings-font-size-h2: 1.75rem;\n  --headings-font-size-h3: 1.5rem;\n  --headings-font-size-h4: 1.3rem;\n  --headings-font-size-h5: 1.1rem;\n  --headings-font-size-h6: 1rem;\n\n  --hr-border-width: 1px;\n  --hr-border-color: var(--component-border-color);\n  --hr-spacing: var(--component-spacing-big);\n\n  --kbd-font-size: 90%;\n  --kbd-color: var(--color-white);\n  --kbd-border-radius: var(--component-border-radius);\n  --kbd-bg-color: var(--color-black);\n  --kbd-spacing-x: calc(var(--font-size) * .4);\n  --kbd-spacing-y: calc(var(--font-size) * .2);\n\n  --link-color: var(--color-primary);\n  --link-text-decoration: none;\n  --link-color-hover: var(--link-color);\n  --link-text-decoration-hover: underline;\n\n  --mark-color: inherit;\n  --mark-bg-color: var(--color-yellow);\n  --mark-spacing-x: calc(var(--font-size) * .4);\n  --mark-spacing-y: calc(var(--font-size) * .2);\n\n  --placeholder-color: var(--text-muted);\n\n  --pre-color: var(--code-color);\n  --pre-border-radius: var(--component-border-radius);\n  --pre-bg-color: var(--code-bg-color);\n  --pre-max-height: none;\n\n  --selection-color: var(--color-white);\n  --selection-bg-color: var(--color-primary);\n\n  /* Alerts */\n  --alert-color: var(--color-white);\n  --alert-border-radius: var(--component-border-radius);\n  --alert-bg-color-primary: var(--color-primary);\n  --alert-bg-color-success: var(--state-success);\n  --alert-bg-color-info: var(--state-info);\n  --alert-bg-color-warning: var(--state-warning);\n  --alert-bg-color-danger: var(--state-danger);\n  --alert-bg-color-inverse: var(--state-inverse);\n  --alert-spacing-x: var(--component-spacing);\n  --alert-spacing-y: var(--component-spacing);\n\n  /* Badges */\n  --badge-font-size: .8em; /* ems for relative sizing */\n  --badge-font-weight: var(--font-weight-bold);\n  --badge-color: var(--color-white);\n  --badge-border-radius: 1em;  /* ems for relative sizing */\n  --badge-bg-color-primary: var(--color-primary);\n  --badge-bg-color-success: var(--state-success);\n  --badge-bg-color-info: var(--state-info);\n  --badge-bg-color-warning: var(--state-warning);\n  --badge-bg-color-danger: var(--state-danger);\n  --badge-bg-color-inverse: var(--state-inverse);\n  --badge-spacing-x: calc(var(--component-spacing) * .5);\n  --badge-spacing-y: calc(var(--component-spacing) * .15);\n\n  /* Buttons */\n  --button-font-family: inherit;\n  --button-font-weight: inherit;\n  --button-font-size: var(--font-size);\n  --button-color: var(--color-white);\n  --button-border-radius: var(--component-border-radius);\n  --button-bg-color-primary: var(--color-primary);\n  --button-bg-color-primary-hover: var(--color-red);\n  --button-bg-color-success: var(--state-success);\n  --button-bg-color-info: var(--state-info);\n  --button-bg-color-warning: var(--state-warning);\n  --button-bg-color-danger: var(--state-danger);\n  --button-bg-color-inverse: var(--state-inverse);\n\n  /* Forms */\n  --fieldset-border-color: var(--component-border-color);\n  --fieldset-border-width: var(--component-border-width);\n  --fieldset-border-radius: var(--component-border-radius);\n  --fieldset-spacing-x: var(--component-spacing);\n  --fieldset-spacing-y: var(--component-spacing);\n\n  --input-font-family: inherit;\n  --input-font-size: var(--font-size);\n  --input-font-weight: inherit;\n  --input-height: 2rem;\n  --input-height-big: 2.75rem;\n  --input-height-small: 1.25rem;\n  --input-color: var(--color-input-fg);\n  --input-border-color: var(--component-border-color);\n  --input-border-focus-color: var(--color-primary);\n  --input-border-width: 1px;\n  --input-border-radius: var(--component-border-radius);\n  --input-bg-color: var(--color-white);\n  --input-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\n  --input-readonly-bg-color: var(--component-bg-color);\n  --input-range-track-color: var(--component-bg-color);\n  --input-range-track-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\n  --input-range-thumb-color: var(--color-primary);\n  --input-range-thumb-height: 2rem;\n\n  --input-invalid-color: var(--state-danger);\n  --input-invalid-border-color: var(--state-danger);\n  --input-valid-color: var(--state-success);\n  --input-valid-border-color: var(--state-success);\n\n  /* Loaders */\n  --loader-bg-color: var(--component-bg-color);\n  --loader-border-color: var(--color-primary);\n  --loader-border-width: .25rem;\n  --loader-size: 2rem;\n  --loader-speed: 750ms;\n  --loader-spacing-x: var(--component-spacing-small);\n  --loader-spacing-y: 0;\n\n  /* Spacing Utilties */\n  --spacing-small: var(--component-spacing);\n  --spacing-medium: calc(var(--component-spacing) * 2);\n  --spacing-big: calc(var(--component-spacing) * 4);\n\n  /* Switches */\n  --switch-bg-color: var(--component-border-color);\n  --switch-bg-color-checked: var(--color-primary);\n  --switch-border-radius: var(--switch-size);\n  --switch-size: 2rem;\n  --switch-size-small: 1rem;\n  --switch-size-big: 3rem;\n  --switch-thumb-bg-color: white;\n  --switch-thumb-border-radius: 50%;\n  --switch-thumb-spacing: 2px;\n  --switch-speed: .2s;\n\n  /* Tabs */\n  --tab-bg-color: var(--body-bg);\n  --tab-bg-color-hover: var(--body-bg);\n  --tab-bg-color-active: var(--link-color);\n  --tab-bg-color-disabled: var(--body-bg);\n  --tab-border-radius: var(--component-border-radius);\n  --tab-color: var(--link-color);\n  --tab-color-hover: var(--link-color-hover);\n  --tab-color-active: var(--color-white);\n  --tab-color-disabled: var(--text-muted);\n  --tab-spacing-x: var(--component-spacing);\n  --tab-spacing-y: calc(var(--component-spacing) / 2);\n\n  --tab-pane-border-color: var(--component-border-color);\n  --tab-pane-border-radius: var(--component-border-radius);\n  --tab-pane-border-width: var(--component-border-width);\n  --tab-pane-spacing-x: var(--component-spacing);\n  --tab-pane-spacing-y: var(--component-spacing);\n\n  /* Tables */\n  --table-border-color: var(--component-border-color);\n  --table-border-width: var(--component-border-width);\n  --table-header-bg-color: transparent;\n  --table-stripe-bg-color: var(--component-bg-color);\n  --table-spacing-x: calc(var(--component-spacing-small) * 1.5);\n  --table-spacing-y: var(--component-spacing-small);\n}\n\n/*! Content */html{box-sizing:border-box}*,:after,:before{box-sizing:inherit}body{background:var(--body-bg-color);font-family:var(--font-family);font-weight:var(--font-weight);font-size:var(--font-size);color:var(--body-color);line-height:var(--line-height)}a{color:var(--link-color);text-decoration:var(--link-text-decoration)}a:hover{color:var(--link-color-hover);text-decoration:var(--link-text-decoration-hover)}abbr[title]{text-decoration:none;border-bottom:2px dashed currentcolor}b,strong{font-weight:var(--font-weight-bold)}big,blockquote{font-size:var(--font-size-big)}blockquote{border-left:solid .4rem var(--component-border-color);padding:.5rem .5rem .5rem 1rem;margin-bottom:1rem;margin-left:0}code{font-family:var(--font-monospace);font-size:var(--code-font-size);color:var(--code-color);background-color:var(--code-bg-color);border-radius:var(--code-border-radius);padding:var(--code-spacing-y) var(--code-spacing-x)}del{color:var(--color-red)}figure{margin-top:0;margin-bottom:1rem}h1,h2,h3,h4,h5,h6{font-family:var(--headings-font-family);font-weight:var(--headings-font-weight);line-height:var(--headings-line-height);color:var(--headings-color);margin-top:0;margin-bottom:var(--headings-margin-bottom)}h1{font-size:var(--headings-font-size-h1)}h2{font-size:var(--headings-font-size-h2)}h3{font-size:var(--headings-font-size-h3)}h4{font-size:var(--headings-font-size-h4)}h5{font-size:var(--headings-font-size-h5)}h6{font-size:var(--headings-font-size-h6)}hr{border:none;border-top:solid var(--hr-border-width) var(--hr-border-color);margin:var(--hr-spacing) 0}img{height:auto;max-width:100%;vertical-align:middle}ins{color:var(--color-green)}kbd{font-family:var(--font-monospace);font-size:var(--kbd-font-size);color:var(--kbd-color);background-color:var(--kbd-bg-color);border-radius:var(--kbd-border-radius);padding:var(--kbd-spacing-y) var(--kbd-spacing-x)}mark{color:var(--mark-color);background-color:var(--mark-bg-color);padding:var(--mark-spacing-y) var(--mark-spacing-x)}p,pre{margin-top:0;margin-bottom:1rem}pre{max-height:var(--pre-max-height);overflow-y:auto;font-family:var(--font-monospace);color:var(--pre-color);background-color:var(--pre-bg-color);border-radius:var(--pre-border-radius);padding:1rem}small{font-size:var(--font-size-small)}dl{margin-bottom:1rem}dt{font-weight:var(--font-weight-bold)}dd{margin-left:0}dd,ol,ul{margin-bottom:1rem}ol,ul{line-height:var(--line-height);list-style-position:outside;padding-left:1rem;margin-top:0}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}::-webkit-input-placeholder{color:var(--placeholder-color)}::-moz-placeholder{color:var(--placeholder-color)}:-ms-input-placeholder{color:var(--placeholder-color)}:-moz-placeholder{color:var(--placeholder-color)}::-moz-selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}::selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}\n\n/*! Alerts */.alert{color:var(--alert-color);background-color:var(--alert-bg-color-primary);border-radius:var(--alert-border-radius);padding:var(--alert-spacing-y) var(--alert-spacing-x);margin-top:0;margin-bottom:1rem}.alert:empty{display:none}.alert-success{background-color:var(--alert-bg-color-success)}.alert-info{background-color:var(--alert-bg-color-info)}.alert-warning{background-color:var(--alert-bg-color-warning)}.alert-danger{background-color:var(--alert-bg-color-danger)}.alert-inverse{background-color:var(--alert-bg-color-inverse)}.alert a{color:inherit;text-decoration:underline}.alert :last-child{margin-bottom:0}\n\n/*! Badges */.badge{font-size:var(--badge-font-size);font-weight:var(--badge-font-weight);color:var(--badge-color);background-color:var(--badge-bg-color-primary);border-radius:var(--badge-border-radius);padding:var(--badge-spacing-y) var(--badge-spacing-x);vertical-align:baseline;display:inline-block}.badge:empty{display:none}.badge-success{background-color:var(--badge-bg-color-success)}.badge-info{background-color:var(--badge-bg-color-info)}.badge-warning{background-color:var(--badge-bg-color-warning)}.badge-danger{background-color:var(--badge-bg-color-danger)}.badge-inverse{background-color:var(--badge-bg-color-inverse)}\n\n/*! Buttons */\n\nbutton,\n.button {\n  font-family: var(--button-font-family);\n  font-size: var(--button-font-size);\n  font-weight: var(--button-font-weight);\n  text-align: center;\n  text-decoration: none;\n  color: var(--button-color);\n  background-color: var(--button-bg-color-primary);\n  border-radius: var(--button-border-radius);\n  border: none;\n  height: var(--input-height);\n  line-height: 1;\n  user-select: none;\n  vertical-align: middle;\n  white-space: nowrap;\n  padding: calc(var(--component-spacing) * .5) calc(var(--component-spacing) * .75);\n  box-shadow: var(--button-box-shadow);\n  cursor: pointer;\n  display: inline-block;\n  transition: .1s box-shadow, .1s background-color, .1s color;\n}\n\n.button-small {\n  font-size: calc(var(--button-font-size) * .8);\n  height: var(--input-height-small);\n  padding: calc(var(--component-spacing) * .25) calc(var(--component-spacing) * .5);\n}\n\n.button-big {\n  font-size: calc(var(--button-font-size) * 1.2);\n  height: var(--input-height-big);\n  padding: calc(var(--component-spacing) * .75) calc(var(--component-spacing) * 1);\n}\n\n.button-block {\n  width: 100% !important;\n  display: block;\n}\n\nbutton:hover,\n.button:hover {\n  color: var(--button-color);\n  text-decoration: none;\n}\n\nbutton:hover:not(:disabled),\n.button:hover:not(.disabled) {\n  box-shadow: var(--button-box-shadow-hover);\n}\n\n.button-primary:hover:not(.disabled),\nbutton.primary:hover:not(:disabled) {\n  background: var(--button-bg-color-primary-hover)\n}\n\nbutton:active:not(:disabled),\nbutton.active:not(:disabled),\n.button.active:not(.disabled) {\n  color: var(--button-color);\n}\n\nbutton:disabled,\nbutton.disabled,\n.button.disabled {\n  opacity: .5;\n  cursor: not-allowed;\n}\n\n.button-success { background-color: var(--button-bg-color-success); }\n.button-info { background-color: var(--button-bg-color-info); }\n.button-warning { background-color: var(--button-bg-color-warning); }\n.button-danger { background-color: var(--button-bg-color-danger); }\n.button-inverse { background-color: var(--button-bg-color-inverse); }\n\n.button-link {\n  background-color: transparent;\n  border: 1px solid var(--link-color);\n  color: var(--link-color);\n  text-decoration: var(--link-text-decoration);\n  box-shadow: none;\n}\n\n.button-link-tertiary:hover:not(:disabled),\n.button-link:hover:not(:disabled) {\n  background-color: transparent;\n  color: var(--link-color-hover);\n  box-shadow: none;\n}\n\n.button-link-tertiary {\n  background-color: transparent;\n  color: var(--link-color);\n  text-decoration: var(--link-text-decoration);\n  box-shadow: none;\n}\n\nlabel.button input[type=\"file\"] {\n  display: none;\n}\n\n/*! Forms */fieldset{border:solid var(--fieldset-border-width) var(--fieldset-border-color);border-radius:var(--fieldset-border-radius);padding:var(--component-spacing) calc(var(--component-spacing) * 1.5);margin-bottom:1rem}fieldset legend{font-weight:var(--font-weight-bold);padding:0 .25rem}label{display:inline-block;margin-bottom:.25rem}label+label{margin-left:1rem}input[type=color],input[type=date],input[type=datetime-local],input[type=email],input[type=month],input[type=number],input[type=password],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week],select,textarea{width:100%;font-family:var(--input-font-family);font-size:var(--input-font-size);font-weight:var(--input-font-weight);color:var(--input-color);border:solid var(--input-border-width) var(--input-border-color);border-radius:var(--input-border-radius);box-shadow:var(--input-box-shadow);background-color:var(--input-bg-color);height:var(--input-height);line-height:1;vertical-align:middle;display:block;padding-left:calc(var(--component-spacing) * .5);padding-right:calc(var(--component-spacing) * .5);margin:0;transition:border-color .1s,background-color .1s,color .1s;white-space:nowrap;-moz-appearance:none;-webkit-appearance:none}input[type=color]:focus,input[type=date]:focus,input[type=datetime-local]:focus,input[type=email]:focus,input[type=month]:focus,input[type=number]:focus,input[type=password]:focus,input[type=search]:focus,input[type=tel]:focus,input[type=text]:focus,input[type=time]:focus,input[type=url]:focus,input[type=week]:focus,select:focus,textarea:focus{outline:none;border-color:var(--input-border-focus-color)}select{position:relative;background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg width='41' height='26' viewBox='0 0 41 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000' d='M0 5.382l19.983 19.983L40.14 5.208 34.932 0 19.869 15.062 4.84.032z' fill-rule='evenodd'/%3E%3C/svg%3E\");background-position:right .4rem center;background-repeat:no-repeat;background-size:.75rem;padding-top:0;padding-bottom:0;padding-right:calc(var(--component-spacing) * .5 + 1rem)}textarea{height:auto;resize:vertical;line-height:var(--line-height);white-space:normal}input[type=color]{padding:calc(var(--component-spacing) * .5)}input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:none;border-radius:var(--input-border-radius)}input[type=checkbox],input[type=radio]{padding:0}input[disabled]{opacity:.5;cursor:not-allowed}input[readonly]{background-color:var(--input-readonly-bg-color)}input.input-small,select.input-small{height:var(--input-height-small)}input.input-small,select.input-small,textarea.input-small{font-size:calc(var(--input-font-size) * .8)}input.input-big,select.input-big{height:var(--input-height-big)}input.input-big,select.input-big,textarea.input-big{font-size:calc(var(--input-font-size) * 1.2)}input[type=range]{-webkit-appearance:none;width:100%;margin:1rem 0}input[type=range]:focus{outline:none}input[type=range]::-webkit-slider-runnable-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-webkit-slider-thumb{border:none;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer;-webkit-appearance:none;margin-top:-.5rem}input[type=range]:focus::-webkit-slider-runnable-track{background:var(--input-range-track-color)}input[type=range]::-moz-range-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-moz-range-thumb{border:none;height:1.5rem;width:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]::-ms-track{width:100%;height:.5rem;cursor:pointer;background:transparent;border-color:transparent;color:transparent}input[type=range]::-ms-fill-lower{background:#2f6ea5;border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-fill-upper{background:var(--input-range-track-color);border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-thumb{border:none;height:.5rem;width:.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]:focus::-ms-fill-lower,input[type=range]:focus::-ms-fill-upper{background:var(--input-range-track-color)}progress{width:100%;vertical-align:middle}.input-group,.input-single{margin-bottom:1rem}.input-group{width:100%;display:flex}.input-group>.button,.input-group>button,.input-group>input{border-radius:0}.input-group>.button:first-child,.input-group>button:first-child,.input-group>input:first-child{border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-group>.button:last-child,.input-group>button:last-child,.input-group>input:last-child{border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-group>input+input{border-left-width:0}.input-group>input+input:focus{border-left-width:var(--input-border-width);margin-left:calc(var(--input-border-width) * -1)}.input-addon{color:var(--text-muted);height:var(--input-height);line-height:var(--input-height);border-top:solid var(--input-border-width) var(--input-border-color);border-bottom:solid var(--input-border-width) var(--input-border-color);background:#f8f8f8;padding:0 calc(var(--component-spacing) * .5);white-space:nowrap}.input-addon-small{font-size:calc(var(--input-font-size) * .8);height:var(--input-height-small);line-height:var(--input-height-small)}.input-addon-big{font-size:calc(var(--input-font-size) * 1.2);height:var(--input-height-big);line-height:var(--input-height-big)}.input-addon:first-child{border-left:solid var(--input-border-width) var(--input-border-color);border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-addon:last-child{border-right:solid var(--input-border-width) var(--input-border-color);border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-invalid label{color:var(--input-invalid-color)!important}.input-invalid,.input-invalid input,.input-invalid select{color:var(--input-invalid-color)!important;border-color:var(--input-invalid-border-color)!important}.input-valid label{color:var(--input-valid-color)!important}.input-valid,.input-valid input,.input-valid select{color:var(--input-valid-color)!important;border-color:var(--input-valid-border-color)!important}\n\n/*! Loaders */@keyframes loader{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.loader,.loader-bg:after{width:var(--loader-size);height:var(--loader-size);border-radius:50%;border:solid var(--loader-border-width) var(--loader-bg-color);border-top-color:var(--loader-border-color);border-left-color:var(--loader-border-color);display:inline-block;animation:loader var(--loader-speed) linear infinite;vertical-align:middle;margin:var(--loader-spacing-y) var(--loader-spacing-x)}.loader-bg-small:after,.loader-small{border-width:calc(var(--loader-border-width) / 2);width:calc(var(--loader-size) / 2);height:calc(var(--loader-size) / 2)}.loader-bg-big:after,.loader-big{border-width:calc(var(--loader-border-width) * 1.5);width:calc(var(--loader-size) * 2);height:calc(var(--loader-size) * 2)}.loader-bg{position:relative!important}.loader-bg:after{content:\"\";position:absolute;top:calc(50% - var(--loader-size) / 2);left:calc(50% - var(--loader-size) / 2);margin:0}.loader-bg-small:after{position:absolute;top:calc(50% - var(--loader-size) / 4);left:calc(50% - var(--loader-size) / 4)}.loader-bg-big:after{position:absolute;top:calc(50% - var(--loader-size) / 1);left:calc(50% - var(--loader-size) / 1)}\n\n/*! Switches */.switch-small{--switch-size:var(--switch-size-small)}.switch-big{--switch-size:var(--switch-size-big)}.switch input{display:none}.switch input+label{position:relative;min-width:calc(var(--switch-size) * 2);height:var(--switch-size);line-height:var(--switch-size);border-radius:var(--switch-thumb-border-radius);display:inline-block;cursor:pointer;outline:none;user-select:none;vertical-align:middle;text-indent:calc(var(--switch-size) * 2 + .5rem)}.switch input+label:after,.switch input+label:before{content:\"\";position:absolute;top:0;left:0;width:calc(var(--switch-size) * 2);bottom:0;display:block}.switch input+label:before{right:0;background-color:var(--switch-bg-color);border-radius:var(--switch-border-radius);transition:background-color var(--switch-speed)}.switch input+label:after{top:var(--switch-thumb-spacing);left:var(--switch-thumb-spacing);width:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);height:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);border-radius:var(--switch-thumb-border-radius);background-color:var(--switch-thumb-bg-color);transition:margin var(--switch-speed)}.switch input:checked+label:before{background-color:var(--switch-bg-color-checked)}.switch input:checked+label:after{margin-left:var(--switch-size)}.switch input:disabled+label{opacity:.5;cursor:not-allowed}.switch+.switch{margin-left:1rem}\n\n/*! Progress Bars */.progress{position:relative;width:100%;height:2.25rem;line-height:2.25rem;font-size:1rem;background-color:#f2f2f2;border-radius:.25rem;display:block;overflow:hidden;margin-bottom:1.5rem;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);box-shadow:inset 0 1px 1px rgba(0,0,0,.05)}.progress .progress-bar{position:absolute;top:0;left:0;width:0;height:100%;text-align:center;color:#fff;background-color:#0074d9;-webkit-transition:width .1s;transition:width .1s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.progress.progress-indeterminate .progress-bar{width:75%!important;-webkit-animation:progress-indeterminate ease-in-out 3s infinite;animation:progress-indeterminate ease-in-out 3s infinite}.progress.progress-xs{font-size:.7rem;height:1.25rem;line-height:1.25rem}.progress.progress-sm{font-size:.8rem;height:1.75rem;line-height:1.75rem}.progress.progress-lg{font-size:1.25rem;height:2.75rem;line-height:2.75rem}.progress.progress-xl{font-size:1.5rem;height:3.25rem;line-height:3.25rem}.progress.progress-secondary .progress-bar{background-color:#aaa}.progress.progress-success .progress-bar{background-color:#2ecc40}.progress.progress-info .progress-bar{background-color:#39cccc}.progress.progress-warning .progress-bar{background-color:#ff851b}.progress.progress-danger .progress-bar{background-color:#ff4136}.progress.progress-light{background-color:#111}.progress.progress-light .progress-bar{color:#111;background-color:#fff}.progress.progress-dark{background-color:#fff}.progress.progress-dark .progress-bar{color:#fff;background-color:#111}@-webkit-keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}@keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}\n\n/*! Tabs */.tabs{width:100%}.tabs,.tabs-nav{margin-bottom:1rem}.tabs-nav{user-select:none}.tabs-nav a{color:var(--tab-color);text-decoration:none;background-color:var(--tab-bg-color);border-radius:var(--tab-border-radius);padding:var(--tab-spacing-y) var(--tab-spacing-x);display:inline-block}.tabs-nav a:hover{color:var(--tab-color-hover);background-color:var(--tab-bg-color-hover);text-decoration:none}.tabs-nav a.active{color:var(--tab-color-active);background-color:var(--tab-bg-color-active);cursor:default}.tabs-nav a.disabled{color:var(--tab-color-disabled);background-color:var(--tab-bg-color-disabled);cursor:not-allowed}.tabs-pane{border:solid var(--tab-pane-border-width) var(--tab-pane-border-color);border-radius:.25rem;padding:var(--tab-pane-spacing-y) var(--tab-pane-spacing-x)}.tabs-pane:not(.active){display:none}.tabs-pane :last-child{margin-bottom:0}\n\n/*! Tables */table{width:100%;border-collapse:collapse;margin-bottom:1rem}table caption{caption-side:bottom;font-size:var(--font-size-small);color:var(--text-muted);text-align:center;padding-top:var(--table-spacing-y)}table th{text-align:left;background:var(--table-header-bg-color);border-bottom:solid calc(var(--table-border-width) * 2) var(--table-border-color)}table td,table th{padding:var(--table-spacing-y) var(--table-spacing-x)}table td{border-bottom:solid var(--table-border-width) var(--table-border-color)}table.table-striped tr:nth-child(odd) td{background-color:var(--table-stripe-bg-color)}table.table-bordered{border:solid var(--table-border-width) var(--table-border-color)}table.table-bordered td{border:var(--table-border-width) solid var(--table-border-color)}\n\n/*! Utilties */.clearfix:after,.clearfix:before{content:\"\";display:table}.clearfix:after{clear:both}.float-left{float:left!important}.float-right{float:right!important}.width-0{width:0!important}.width-5{width:5%!important}.width-10{width:10%!important}.width-15{width:15%!important}.width-20{width:20%!important}.width-25{width:25%!important}.width-30{width:30%!important}.width-35{width:35%!important}.width-40{width:40%!important}.width-45{width:45%!important}.width-50{width:50%!important}.width-55{width:55%!important}.width-60{width:60%!important}.width-65{width:65%!important}.width-70{width:70%!important}.width-75{width:75%!important}.width-80{width:80%!important}.width-85{width:85%!important}.width-90{width:90%!important}.width-95{width:95%!important}.width-100{width:100%!important}.height-0{height:0%!important}.height-5{height:5%!important}.height-10{height:10%!important}.height-15{height:15%!important}.height-20{height:20%!important}.height-25{height:25%!important}.height-30{height:30%!important}.height-35{height:35%!important}.height-40{height:40%!important}.height-45{height:45%!important}.height-50{height:50%!important}.height-55{height:55%!important}.height-60{height:60%!important}.height-65{height:65%!important}.height-70{height:70%!important}.height-75{height:75%!important}.height-80{height:80%!important}.height-85{height:85%!important}.height-90{height:90%!important}.height-95{height:95%!important}.height-100{height:100%!important}.padding-none{padding:0!important}.padding-x-none{padding-left:0!important;padding-right:0!important}.padding-y-none{padding-bottom:0!important}.padding-t-none,.padding-y-none{padding-top:0!important}.padding-r-none{padding-right:0!important}.padding-b-none{padding-bottom:0!important}.padding-l-none{padding-left:0!important}.padding-small{padding:var(--spacing-small)!important}.padding-x-small{padding-left:var(--spacing-small)!important;padding-right:var(--spacing-small)!important}.padding-y-small{padding-bottom:var(--spacing-small)!important}.padding-t-small,.padding-y-small{padding-top:var(--spacing-small)!important}.padding-r-small{padding-right:var(--spacing-small)!important}.padding-b-small{padding-bottom:var(--spacing-small)!important}.padding-l-small{padding-left:var(--spacing-small)!important}.padding-medium{padding:var(--spacing-medium)!important}.padding-x-medium{padding-left:var(--spacing-medium)!important;padding-right:var(--spacing-medium)!important}.padding-y-medium{padding-bottom:var(--spacing-medium)!important}.padding-t-medium,.padding-y-medium{padding-top:var(--spacing-medium)!important}.padding-r-medium{padding-right:var(--spacing-medium)!important}.padding-b-medium{padding-bottom:var(--spacing-medium)!important}.padding-l-medium{padding-left:var(--spacing-medium)!important}.padding-big{padding:var(--spacing-big)!important}.padding-x-big{padding-left:var(--spacing-big)!important;padding-right:var(--spacing-big)!important}.padding-y-big{padding-bottom:var(--spacing-big)!important}.padding-t-big,.padding-y-big{padding-top:var(--spacing-big)!important}.padding-r-big{padding-right:var(--spacing-big)!important}.padding-b-big{padding-bottom:var(--spacing-big)!important}.padding-l-big{padding-left:var(--spacing-big)!important}.margin-none{margin:0!important}.margin-x-none{margin-left:0!important;margin-right:0!important}.margin-y-none{margin-bottom:0!important}.margin-t-none,.margin-y-none{margin-top:0!important}.margin-r-none{margin-right:0!important}.margin-b-none{margin-bottom:0!important}.margin-l-none{margin-left:0!important}.margin-small{margin:var(--spacing-small)!important}.margin-x-small{margin-left:var(--spacing-small)!important;margin-right:var(--spacing-small)!important}.margin-y-small{margin-bottom:var(--spacing-small)!important}.margin-t-small,.margin-y-small{margin-top:var(--spacing-small)!important}.margin-r-small{margin-right:var(--spacing-small)!important}.margin-b-small{margin-bottom:var(--spacing-small)!important}.margin-l-small{margin-left:var(--spacing-small)!important}.margin-medium{margin:var(--spacing-medium)!important}.margin-x-medium{margin-left:var(--spacing-medium)!important;margin-right:var(--spacing-medium)!important}.margin-y-medium{margin-bottom:var(--spacing-medium)!important}.margin-t-medium,.margin-y-medium{margin-top:var(--spacing-medium)!important}.margin-r-medium{margin-right:var(--spacing-medium)!important}.margin-b-medium{margin-bottom:var(--spacing-medium)!important}.margin-l-medium{margin-left:var(--spacing-medium)!important}.margin-big{margin:var(--spacing-big)!important}.margin-x-big{margin-left:var(--spacing-big)!important;margin-right:var(--spacing-big)!important}.margin-y-big{margin-bottom:var(--spacing-big)!important}.margin-t-big,.margin-y-big{margin-top:var(--spacing-big)!important}.margin-r-big{margin-right:var(--spacing-big)!important}.margin-b-big{margin-bottom:var(--spacing-big)!important}.margin-l-big{margin-left:var(--spacing-big)!important}.margin-x-auto{margin-left:auto!important;margin-right:auto!important}.margin-y-auto{margin-top:auto!important;margin-bottom:auto!important}.margin-xy-auto{margin:auto!important}.text-success{color:var(--state-success)!important}.text-info{color:var(--state-info)!important}.text-warning{color:var(--state-warning)!important}.text-danger{color:var(--state-danger)!important}.text-muted{color:var(--text-muted)!important}.text-small{font-size:var(--font-size-small)!important}.text-bold{font-weight:var(--font-weight-bold)!important}.text-italic{font-style:italic!important}.text-left{text-align:left!important}.text-right{text-align:right!important}.text-center{text-align:center!important}.text-justify{text-align:justify!important}.text-lowercase{text-transform:lowercase!important}.text-uppercase{text-transform:uppercase!important}.text-capitalize{text-transform:capitalize!important}.text-nowrap{white-space:nowrap!important}\n\n/*! Dropdowns */.dropdown{position:relative;display:inline-block}.dropdown .dropdown-trigger:after{content:\"\\25BC\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-size:.6em;vertical-align:middle;margin-left:.5em;display:inline-block;-webkit-transform:scaleY(.75);transform:scaleY(.75);margin-top:-.2em}.dropdown.dropdown-top .dropdown-trigger:after{-webkit-transform:scaleY(.75) rotate(180deg);transform:scaleY(.75) rotate(180deg)}.dropdown .dropdown-menu{position:absolute;top:calc(100% + 1px);left:0;z-index:100;min-width:10rem;max-width:25rem;max-height:none;background-color:#fff;border:1px solid #ddd;border-radius:.25rem;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.05);box-shadow:0 1px 0 rgba(0,0,0,.05);display:none;padding:.25rem 0;overflow-y:auto;-webkit-transform:translateZ(0);transform:translateZ(0)}.dropdown .dropdown-menu a{position:relative;color:#111;text-decoration:none;padding:.25rem calc(1rem + .5em);display:block;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis}.dropdown .dropdown-menu a:focus:not(.disabled){outline:none;color:#111;background-color:#f2f2f2}.dropdown .dropdown-menu a:hover:not(.disabled){color:#fff;background-color:#0074d9}.dropdown .dropdown-menu a.disabled{outline:none;cursor:not-allowed;opacity:.5}.dropdown .dropdown-menu a.checked:before{position:absolute;left:calc(.5rem - .1em);content:\"\\2713\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-weight:600}.dropdown .dropdown-menu hr{width:100%;border-top:1px solid #ddd;margin:.25rem 0}.dropdown.dropdown-top .dropdown-menu{top:auto;bottom:calc(100% + 1px)}.dropdown.dropdown-left .dropdown-menu{left:auto;right:0}.dropdown.dropdown.active .dropdown-menu{display:block}\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "body {\n    user-select: none;\n    cursor: default;\n}\n\n:focus {\n    outline: none;\n}\n\na {\n    cursor: pointer;\n}\n\nfieldset h5 {\n    font-size: 14px;\n    font-weight: 500;\n}\n\nfieldset legend {\n    font-size: 18px;\n    font-weight: 300;\n}\n\np.hint {\n    font-style: italic;\n    color: #eee;\n    margin-bottom: 0;\n    padding-bottom: 0;\n}\n\nfooter .button-link-tertiary {\n    margin-left: 1rem;\n}\n\np.hint.error {\n    color: #ff0000;\n}\n\ninput.inline {\n    display: inline-block;\n}\n\ninput[type=number].inline {\n    width: 3rem;\n    height: 1.6rem;\n    font-size: 14px;\n}\n\nbackdrop {\n    z-index: 11;\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(35,35,35,.4)\n}\n\nmodal {\n    position: fixed;\n    left: 50%;\n    top: 50%;\n    background: #fff;\n    z-index: 12;\n}\n\n\nmodal {   \n    width: 200px;\n    margin-top: -100px;\n    margin-left: -100px;\n    border-radius: 1rem;\n    padding: 1rem;\n    text-align: center;\n    color: #222;\n    font-size: 13px;\n\n}\n.progress {\n    height: 1rem;\n    margin-bottom: 0;\n}\n\n.progress-caption {\n    text-align: left;\n    padding-bottom: 4px;\n}", ""]);
+exports.push([module.i, "/*!\r\n  Shoelace.css 1.0.0-beta6\r\n  (c) A Beautiful Site, LLC\r\n\r\n  Released under the MIT license\r\n  Source: https://github.com/claviska/shoelace-css\r\n*/\r\n\r\n/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}[hidden],template{display:none}\r\n\r\n/*! Variables */\r\n\r\n:root {\r\n  /* Fonts */\r\n  --font-sans-serif: sans-serif;\r\n  --font-serif: serif;\r\n  --font-system: -apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif;\r\n  --font-monospace: Menlo, Consolas, \"DejaVu Sans Mono\", monospace;\r\n\r\n  /* Colors (most courtesy of http://clrs.cc/) */\r\n  --color-primary: tomato;\r\n  --color-white: white;\r\n  --color-navy: #001f3f;\r\n  --color-blue: #0074d9;\r\n  --color-aqua: #7fdbff;\r\n  --color-teal: #39cccc;\r\n  --color-olive: #3d9970;\r\n  --color-green: #2ecc40;\r\n  --color-lime: #01ff70;\r\n  --color-yellow: #ffdc00;\r\n  --color-orange: #ff851b;\r\n  --color-red: #ff4136;\r\n  --color-maroon: #85144b;\r\n  --color-fuchsia: #f012be;\r\n  --color-purple: #b10dc9;\r\n  --color-black: #111;\r\n  --color-gray: #aaa;\r\n  --color-silver: #ddd;\r\n  --color-darkgray: #2a2a2a;\r\n  --color-input-fg: #666;\r\n  \r\n\r\n  /* States */\r\n  --state-success: var(--color-green);\r\n  --state-info: var(--color-aqua);\r\n  --state-warning: var(--color-orange);\r\n  --state-danger: var(--color-red);\r\n  --state-inverse: var(--color-black);\r\n\r\n  /* Components */\r\n  --component-bg-color: #f2f2f2;\r\n  --component-border-color: #ddd;\r\n  --component-border-radius: 0;\r\n  --component-border-width: 1px;\r\n  --component-spacing: 1rem;\r\n  --component-spacing-big: 2rem;\r\n  --component-spacing-small: .5rem;\r\n\r\n  /* Content */\r\n  --body-bg-color: var(--color-darkgray);\r\n  --body-color: var(--color-silver);\r\n  --font-family: var(--font-system);\r\n  --font-size: 1rem; /* Most browsers use a default font size of 16px */\r\n  --font-size-big: 1.25rem;\r\n  --font-size-small: .875rem;\r\n  --font-weight-light: 300;\r\n  --font-weight: 400;\r\n  --font-weight-bold: 700;\r\n  --line-height: 1.5;\r\n  --text-muted: var(--color-gray);\r\n\r\n  --code-font-size: 90%;\r\n  --code-color: var(--color-black);\r\n  --code-border-radius: var(--component-border-radius);\r\n  --code-bg-color: var(--component-bg-color);\r\n  --code-spacing-x: calc(var(--font-size) * .4);\r\n  --code-spacing-y: calc(var(--font-size) * .2);\r\n\r\n  --headings-font-family: var(--font-system);\r\n  --headings-font-weight: var(--font-weight-light);\r\n  --headings-line-height: 1.1;\r\n  --headings-margin-bottom: .5rem;\r\n  --headings-color: inherit;\r\n  --headings-font-size-h1: 2rem;\r\n  --headings-font-size-h2: 1.75rem;\r\n  --headings-font-size-h3: 1.5rem;\r\n  --headings-font-size-h4: 1.3rem;\r\n  --headings-font-size-h5: 1.1rem;\r\n  --headings-font-size-h6: 1rem;\r\n\r\n  --hr-border-width: 1px;\r\n  --hr-border-color: var(--component-border-color);\r\n  --hr-spacing: var(--component-spacing-big);\r\n\r\n  --kbd-font-size: 90%;\r\n  --kbd-color: var(--color-white);\r\n  --kbd-border-radius: var(--component-border-radius);\r\n  --kbd-bg-color: var(--color-black);\r\n  --kbd-spacing-x: calc(var(--font-size) * .4);\r\n  --kbd-spacing-y: calc(var(--font-size) * .2);\r\n\r\n  --link-color: var(--color-primary);\r\n  --link-text-decoration: none;\r\n  --link-color-hover: var(--link-color);\r\n  --link-text-decoration-hover: underline;\r\n\r\n  --mark-color: inherit;\r\n  --mark-bg-color: var(--color-yellow);\r\n  --mark-spacing-x: calc(var(--font-size) * .4);\r\n  --mark-spacing-y: calc(var(--font-size) * .2);\r\n\r\n  --placeholder-color: var(--text-muted);\r\n\r\n  --pre-color: var(--code-color);\r\n  --pre-border-radius: var(--component-border-radius);\r\n  --pre-bg-color: var(--code-bg-color);\r\n  --pre-max-height: none;\r\n\r\n  --selection-color: var(--color-white);\r\n  --selection-bg-color: var(--color-primary);\r\n\r\n  /* Alerts */\r\n  --alert-color: var(--color-white);\r\n  --alert-border-radius: var(--component-border-radius);\r\n  --alert-bg-color-primary: var(--color-primary);\r\n  --alert-bg-color-success: var(--state-success);\r\n  --alert-bg-color-info: var(--state-info);\r\n  --alert-bg-color-warning: var(--state-warning);\r\n  --alert-bg-color-danger: var(--state-danger);\r\n  --alert-bg-color-inverse: var(--state-inverse);\r\n  --alert-spacing-x: var(--component-spacing);\r\n  --alert-spacing-y: var(--component-spacing);\r\n\r\n  /* Badges */\r\n  --badge-font-size: .8em; /* ems for relative sizing */\r\n  --badge-font-weight: var(--font-weight-bold);\r\n  --badge-color: var(--color-white);\r\n  --badge-border-radius: 1em;  /* ems for relative sizing */\r\n  --badge-bg-color-primary: var(--color-primary);\r\n  --badge-bg-color-success: var(--state-success);\r\n  --badge-bg-color-info: var(--state-info);\r\n  --badge-bg-color-warning: var(--state-warning);\r\n  --badge-bg-color-danger: var(--state-danger);\r\n  --badge-bg-color-inverse: var(--state-inverse);\r\n  --badge-spacing-x: calc(var(--component-spacing) * .5);\r\n  --badge-spacing-y: calc(var(--component-spacing) * .15);\r\n\r\n  /* Buttons */\r\n  --button-font-family: inherit;\r\n  --button-font-weight: inherit;\r\n  --button-font-size: var(--font-size);\r\n  --button-color: var(--color-white);\r\n  --button-border-radius: var(--component-border-radius);\r\n  --button-bg-color-primary: var(--color-primary);\r\n  --button-bg-color-primary-hover: var(--color-red);\r\n  --button-bg-color-success: var(--state-success);\r\n  --button-bg-color-info: var(--state-info);\r\n  --button-bg-color-warning: var(--state-warning);\r\n  --button-bg-color-danger: var(--state-danger);\r\n  --button-bg-color-inverse: var(--state-inverse);\r\n\r\n  /* Forms */\r\n  --fieldset-border-color: var(--component-border-color);\r\n  --fieldset-border-width: var(--component-border-width);\r\n  --fieldset-border-radius: var(--component-border-radius);\r\n  --fieldset-spacing-x: var(--component-spacing);\r\n  --fieldset-spacing-y: var(--component-spacing);\r\n\r\n  --input-font-family: inherit;\r\n  --input-font-size: var(--font-size);\r\n  --input-font-weight: inherit;\r\n  --input-height: 2rem;\r\n  --input-height-big: 2.75rem;\r\n  --input-height-small: 1.25rem;\r\n  --input-color: var(--color-input-fg);\r\n  --input-border-color: var(--component-border-color);\r\n  --input-border-focus-color: var(--color-primary);\r\n  --input-border-width: 1px;\r\n  --input-border-radius: var(--component-border-radius);\r\n  --input-bg-color: var(--color-white);\r\n  --input-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\r\n  --input-readonly-bg-color: var(--component-bg-color);\r\n  --input-range-track-color: var(--component-bg-color);\r\n  --input-range-track-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .05);\r\n  --input-range-thumb-color: var(--color-primary);\r\n  --input-range-thumb-height: 2rem;\r\n\r\n  --input-invalid-color: var(--state-danger);\r\n  --input-invalid-border-color: var(--state-danger);\r\n  --input-valid-color: var(--state-success);\r\n  --input-valid-border-color: var(--state-success);\r\n\r\n  /* Loaders */\r\n  --loader-bg-color: var(--component-bg-color);\r\n  --loader-border-color: var(--color-primary);\r\n  --loader-border-width: .25rem;\r\n  --loader-size: 2rem;\r\n  --loader-speed: 750ms;\r\n  --loader-spacing-x: var(--component-spacing-small);\r\n  --loader-spacing-y: 0;\r\n\r\n  /* Spacing Utilties */\r\n  --spacing-small: var(--component-spacing);\r\n  --spacing-medium: calc(var(--component-spacing) * 2);\r\n  --spacing-big: calc(var(--component-spacing) * 4);\r\n\r\n  /* Switches */\r\n  --switch-bg-color: var(--component-border-color);\r\n  --switch-bg-color-checked: var(--color-primary);\r\n  --switch-border-radius: var(--switch-size);\r\n  --switch-size: 2rem;\r\n  --switch-size-small: 1rem;\r\n  --switch-size-big: 3rem;\r\n  --switch-thumb-bg-color: white;\r\n  --switch-thumb-border-radius: 50%;\r\n  --switch-thumb-spacing: 2px;\r\n  --switch-speed: .2s;\r\n\r\n  /* Tabs */\r\n  --tab-bg-color: var(--body-bg);\r\n  --tab-bg-color-hover: var(--body-bg);\r\n  --tab-bg-color-active: var(--link-color);\r\n  --tab-bg-color-disabled: var(--body-bg);\r\n  --tab-border-radius: var(--component-border-radius);\r\n  --tab-color: var(--link-color);\r\n  --tab-color-hover: var(--link-color-hover);\r\n  --tab-color-active: var(--color-white);\r\n  --tab-color-disabled: var(--text-muted);\r\n  --tab-spacing-x: var(--component-spacing);\r\n  --tab-spacing-y: calc(var(--component-spacing) / 2);\r\n\r\n  --tab-pane-border-color: var(--component-border-color);\r\n  --tab-pane-border-radius: var(--component-border-radius);\r\n  --tab-pane-border-width: var(--component-border-width);\r\n  --tab-pane-spacing-x: var(--component-spacing);\r\n  --tab-pane-spacing-y: var(--component-spacing);\r\n\r\n  /* Tables */\r\n  --table-border-color: var(--component-border-color);\r\n  --table-border-width: var(--component-border-width);\r\n  --table-header-bg-color: transparent;\r\n  --table-stripe-bg-color: var(--component-bg-color);\r\n  --table-spacing-x: calc(var(--component-spacing-small) * 1.5);\r\n  --table-spacing-y: var(--component-spacing-small);\r\n}\r\n\r\n/*! Content */html{box-sizing:border-box}*,:after,:before{box-sizing:inherit}body{background:var(--body-bg-color);font-family:var(--font-family);font-weight:var(--font-weight);font-size:var(--font-size);color:var(--body-color);line-height:var(--line-height)}a{color:var(--link-color);text-decoration:var(--link-text-decoration)}a:hover{color:var(--link-color-hover);text-decoration:var(--link-text-decoration-hover)}abbr[title]{text-decoration:none;border-bottom:2px dashed currentcolor}b,strong{font-weight:var(--font-weight-bold)}big,blockquote{font-size:var(--font-size-big)}blockquote{border-left:solid .4rem var(--component-border-color);padding:.5rem .5rem .5rem 1rem;margin-bottom:1rem;margin-left:0}code{font-family:var(--font-monospace);font-size:var(--code-font-size);color:var(--code-color);background-color:var(--code-bg-color);border-radius:var(--code-border-radius);padding:var(--code-spacing-y) var(--code-spacing-x)}del{color:var(--color-red)}figure{margin-top:0;margin-bottom:1rem}h1,h2,h3,h4,h5,h6{font-family:var(--headings-font-family);font-weight:var(--headings-font-weight);line-height:var(--headings-line-height);color:var(--headings-color);margin-top:0;margin-bottom:var(--headings-margin-bottom)}h1{font-size:var(--headings-font-size-h1)}h2{font-size:var(--headings-font-size-h2)}h3{font-size:var(--headings-font-size-h3)}h4{font-size:var(--headings-font-size-h4)}h5{font-size:var(--headings-font-size-h5)}h6{font-size:var(--headings-font-size-h6)}hr{border:none;border-top:solid var(--hr-border-width) var(--hr-border-color);margin:var(--hr-spacing) 0}img{height:auto;max-width:100%;vertical-align:middle}ins{color:var(--color-green)}kbd{font-family:var(--font-monospace);font-size:var(--kbd-font-size);color:var(--kbd-color);background-color:var(--kbd-bg-color);border-radius:var(--kbd-border-radius);padding:var(--kbd-spacing-y) var(--kbd-spacing-x)}mark{color:var(--mark-color);background-color:var(--mark-bg-color);padding:var(--mark-spacing-y) var(--mark-spacing-x)}p,pre{margin-top:0;margin-bottom:1rem}pre{max-height:var(--pre-max-height);overflow-y:auto;font-family:var(--font-monospace);color:var(--pre-color);background-color:var(--pre-bg-color);border-radius:var(--pre-border-radius);padding:1rem}small{font-size:var(--font-size-small)}dl{margin-bottom:1rem}dt{font-weight:var(--font-weight-bold)}dd{margin-left:0}dd,ol,ul{margin-bottom:1rem}ol,ul{line-height:var(--line-height);list-style-position:outside;padding-left:1rem;margin-top:0}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}::-webkit-input-placeholder{color:var(--placeholder-color)}::-moz-placeholder{color:var(--placeholder-color)}:-ms-input-placeholder{color:var(--placeholder-color)}:-moz-placeholder{color:var(--placeholder-color)}::-moz-selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}::selection{background-color:var(--selection-bg-color);color:var(--selection-color);text-shadow:none!important}\r\n\r\n/*! Alerts */.alert{color:var(--alert-color);background-color:var(--alert-bg-color-primary);border-radius:var(--alert-border-radius);padding:var(--alert-spacing-y) var(--alert-spacing-x);margin-top:0;margin-bottom:1rem}.alert:empty{display:none}.alert-success{background-color:var(--alert-bg-color-success)}.alert-info{background-color:var(--alert-bg-color-info)}.alert-warning{background-color:var(--alert-bg-color-warning)}.alert-danger{background-color:var(--alert-bg-color-danger)}.alert-inverse{background-color:var(--alert-bg-color-inverse)}.alert a{color:inherit;text-decoration:underline}.alert :last-child{margin-bottom:0}\r\n\r\n/*! Badges */.badge{font-size:var(--badge-font-size);font-weight:var(--badge-font-weight);color:var(--badge-color);background-color:var(--badge-bg-color-primary);border-radius:var(--badge-border-radius);padding:var(--badge-spacing-y) var(--badge-spacing-x);vertical-align:baseline;display:inline-block}.badge:empty{display:none}.badge-success{background-color:var(--badge-bg-color-success)}.badge-info{background-color:var(--badge-bg-color-info)}.badge-warning{background-color:var(--badge-bg-color-warning)}.badge-danger{background-color:var(--badge-bg-color-danger)}.badge-inverse{background-color:var(--badge-bg-color-inverse)}\r\n\r\n/*! Buttons */\r\n\r\nbutton,\r\n.button {\r\n  font-family: var(--button-font-family);\r\n  font-size: var(--button-font-size);\r\n  font-weight: var(--button-font-weight);\r\n  text-align: center;\r\n  text-decoration: none;\r\n  color: var(--button-color);\r\n  background-color: var(--button-bg-color-primary);\r\n  border-radius: var(--button-border-radius);\r\n  border: none;\r\n  height: var(--input-height);\r\n  line-height: 1;\r\n  user-select: none;\r\n  vertical-align: middle;\r\n  white-space: nowrap;\r\n  padding: calc(var(--component-spacing) * .5) calc(var(--component-spacing) * .75);\r\n  box-shadow: var(--button-box-shadow);\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  transition: .1s box-shadow, .1s background-color, .1s color;\r\n}\r\n\r\n.button-small {\r\n  font-size: calc(var(--button-font-size) * .8);\r\n  height: var(--input-height-small);\r\n  padding: calc(var(--component-spacing) * .25) calc(var(--component-spacing) * .5);\r\n}\r\n\r\n.button-big {\r\n  font-size: calc(var(--button-font-size) * 1.2);\r\n  height: var(--input-height-big);\r\n  padding: calc(var(--component-spacing) * .75) calc(var(--component-spacing) * 1);\r\n}\r\n\r\n.button-block {\r\n  width: 100% !important;\r\n  display: block;\r\n}\r\n\r\nbutton:hover,\r\n.button:hover {\r\n  color: var(--button-color);\r\n  text-decoration: none;\r\n}\r\n\r\nbutton:hover:not(:disabled),\r\n.button:hover:not(.disabled) {\r\n  box-shadow: var(--button-box-shadow-hover);\r\n}\r\n\r\n.button-primary:hover:not(.disabled),\r\nbutton.primary:hover:not(:disabled) {\r\n  background: var(--button-bg-color-primary-hover)\r\n}\r\n\r\nbutton:active:not(:disabled),\r\nbutton.active:not(:disabled),\r\n.button.active:not(.disabled) {\r\n  color: var(--button-color);\r\n}\r\n\r\nbutton:disabled,\r\nbutton.disabled,\r\n.button.disabled {\r\n  opacity: .5;\r\n  cursor: not-allowed;\r\n}\r\n\r\n.button-success { background-color: var(--button-bg-color-success); }\r\n.button-info { background-color: var(--button-bg-color-info); }\r\n.button-warning { background-color: var(--button-bg-color-warning); }\r\n.button-danger { background-color: var(--button-bg-color-danger); }\r\n.button-inverse { background-color: var(--button-bg-color-inverse); }\r\n\r\n.button-link {\r\n  background-color: transparent;\r\n  border: 1px solid var(--link-color);\r\n  color: var(--link-color);\r\n  text-decoration: var(--link-text-decoration);\r\n  box-shadow: none;\r\n}\r\n\r\n.button-link-tertiary:hover:not(:disabled),\r\n.button-link:hover:not(:disabled) {\r\n  background-color: transparent;\r\n  color: var(--link-color-hover);\r\n  box-shadow: none;\r\n}\r\n\r\n.button-link-tertiary {\r\n  background-color: transparent;\r\n  color: var(--link-color);\r\n  text-decoration: var(--link-text-decoration);\r\n  box-shadow: none;\r\n}\r\n\r\nlabel.button input[type=\"file\"] {\r\n  display: none;\r\n}\r\n\r\n/*! Forms */fieldset{border:solid var(--fieldset-border-width) var(--fieldset-border-color);border-radius:var(--fieldset-border-radius);padding:var(--component-spacing) calc(var(--component-spacing) * 1.5);margin-bottom:1rem}fieldset legend{font-weight:var(--font-weight-bold);padding:0 .25rem}label{display:inline-block;margin-bottom:.25rem}label+label{margin-left:1rem}input[type=color],input[type=date],input[type=datetime-local],input[type=email],input[type=month],input[type=number],input[type=password],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week],select,textarea{width:100%;font-family:var(--input-font-family);font-size:var(--input-font-size);font-weight:var(--input-font-weight);color:var(--input-color);border:solid var(--input-border-width) var(--input-border-color);border-radius:var(--input-border-radius);box-shadow:var(--input-box-shadow);background-color:var(--input-bg-color);height:var(--input-height);line-height:1;vertical-align:middle;display:block;padding-left:calc(var(--component-spacing) * .5);padding-right:calc(var(--component-spacing) * .5);margin:0;transition:border-color .1s,background-color .1s,color .1s;white-space:nowrap;-moz-appearance:none;-webkit-appearance:none}input[type=color]:focus,input[type=date]:focus,input[type=datetime-local]:focus,input[type=email]:focus,input[type=month]:focus,input[type=number]:focus,input[type=password]:focus,input[type=search]:focus,input[type=tel]:focus,input[type=text]:focus,input[type=time]:focus,input[type=url]:focus,input[type=week]:focus,select:focus,textarea:focus{outline:none;border-color:var(--input-border-focus-color)}select{position:relative;background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg width='41' height='26' viewBox='0 0 41 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000' d='M0 5.382l19.983 19.983L40.14 5.208 34.932 0 19.869 15.062 4.84.032z' fill-rule='evenodd'/%3E%3C/svg%3E\");background-position:right .4rem center;background-repeat:no-repeat;background-size:.75rem;padding-top:0;padding-bottom:0;padding-right:calc(var(--component-spacing) * .5 + 1rem)}textarea{height:auto;resize:vertical;line-height:var(--line-height);white-space:normal}input[type=color]{padding:calc(var(--component-spacing) * .5)}input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:none;border-radius:var(--input-border-radius)}input[type=checkbox],input[type=radio]{padding:0}input[disabled]{opacity:.5;cursor:not-allowed}input[readonly]{background-color:var(--input-readonly-bg-color)}input.input-small,select.input-small{height:var(--input-height-small)}input.input-small,select.input-small,textarea.input-small{font-size:calc(var(--input-font-size) * .8)}input.input-big,select.input-big{height:var(--input-height-big)}input.input-big,select.input-big,textarea.input-big{font-size:calc(var(--input-font-size) * 1.2)}input[type=range]{-webkit-appearance:none;width:100%;margin:1rem 0}input[type=range]:focus{outline:none}input[type=range]::-webkit-slider-runnable-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-webkit-slider-thumb{border:none;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer;-webkit-appearance:none;margin-top:-.5rem}input[type=range]:focus::-webkit-slider-runnable-track{background:var(--input-range-track-color)}input[type=range]::-moz-range-track{width:100%;height:.5rem;cursor:pointer;background:var(--input-range-track-color);border-radius:var(--input-border-radius);border:none;box-shadow:var(--input-range-track-box-shadow)}input[type=range]::-moz-range-thumb{border:none;height:1.5rem;width:1.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]::-ms-track{width:100%;height:.5rem;cursor:pointer;background:transparent;border-color:transparent;color:transparent}input[type=range]::-ms-fill-lower{background:#2f6ea5;border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-fill-upper{background:var(--input-range-track-color);border:none;border-radius:var(--input-border-radius)}input[type=range]::-ms-thumb{border:none;height:.5rem;width:.5rem;border-radius:50%;background:var(--input-range-thumb-color);cursor:pointer}input[type=range]:focus::-ms-fill-lower,input[type=range]:focus::-ms-fill-upper{background:var(--input-range-track-color)}progress{width:100%;vertical-align:middle}.input-group,.input-single{margin-bottom:1rem}.input-group{width:100%;display:flex}.input-group>.button,.input-group>button,.input-group>input{border-radius:0}.input-group>.button:first-child,.input-group>button:first-child,.input-group>input:first-child{border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-group>.button:last-child,.input-group>button:last-child,.input-group>input:last-child{border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-group>input+input{border-left-width:0}.input-group>input+input:focus{border-left-width:var(--input-border-width);margin-left:calc(var(--input-border-width) * -1)}.input-addon{color:var(--text-muted);height:var(--input-height);line-height:var(--input-height);border-top:solid var(--input-border-width) var(--input-border-color);border-bottom:solid var(--input-border-width) var(--input-border-color);background:#f8f8f8;padding:0 calc(var(--component-spacing) * .5);white-space:nowrap}.input-addon-small{font-size:calc(var(--input-font-size) * .8);height:var(--input-height-small);line-height:var(--input-height-small)}.input-addon-big{font-size:calc(var(--input-font-size) * 1.2);height:var(--input-height-big);line-height:var(--input-height-big)}.input-addon:first-child{border-left:solid var(--input-border-width) var(--input-border-color);border-top-left-radius:var(--input-border-radius);border-bottom-left-radius:var(--input-border-radius)}.input-addon:last-child{border-right:solid var(--input-border-width) var(--input-border-color);border-top-right-radius:var(--input-border-radius);border-bottom-right-radius:var(--input-border-radius)}.input-invalid label{color:var(--input-invalid-color)!important}.input-invalid,.input-invalid input,.input-invalid select{color:var(--input-invalid-color)!important;border-color:var(--input-invalid-border-color)!important}.input-valid label{color:var(--input-valid-color)!important}.input-valid,.input-valid input,.input-valid select{color:var(--input-valid-color)!important;border-color:var(--input-valid-border-color)!important}\r\n\r\n/*! Loaders */@keyframes loader{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.loader,.loader-bg:after{width:var(--loader-size);height:var(--loader-size);border-radius:50%;border:solid var(--loader-border-width) var(--loader-bg-color);border-top-color:var(--loader-border-color);border-left-color:var(--loader-border-color);display:inline-block;animation:loader var(--loader-speed) linear infinite;vertical-align:middle;margin:var(--loader-spacing-y) var(--loader-spacing-x)}.loader-bg-small:after,.loader-small{border-width:calc(var(--loader-border-width) / 2);width:calc(var(--loader-size) / 2);height:calc(var(--loader-size) / 2)}.loader-bg-big:after,.loader-big{border-width:calc(var(--loader-border-width) * 1.5);width:calc(var(--loader-size) * 2);height:calc(var(--loader-size) * 2)}.loader-bg{position:relative!important}.loader-bg:after{content:\"\";position:absolute;top:calc(50% - var(--loader-size) / 2);left:calc(50% - var(--loader-size) / 2);margin:0}.loader-bg-small:after{position:absolute;top:calc(50% - var(--loader-size) / 4);left:calc(50% - var(--loader-size) / 4)}.loader-bg-big:after{position:absolute;top:calc(50% - var(--loader-size) / 1);left:calc(50% - var(--loader-size) / 1)}\r\n\r\n/*! Switches */.switch-small{--switch-size:var(--switch-size-small)}.switch-big{--switch-size:var(--switch-size-big)}.switch input{display:none}.switch input+label{position:relative;min-width:calc(var(--switch-size) * 2);height:var(--switch-size);line-height:var(--switch-size);border-radius:var(--switch-thumb-border-radius);display:inline-block;cursor:pointer;outline:none;user-select:none;vertical-align:middle;text-indent:calc(var(--switch-size) * 2 + .5rem)}.switch input+label:after,.switch input+label:before{content:\"\";position:absolute;top:0;left:0;width:calc(var(--switch-size) * 2);bottom:0;display:block}.switch input+label:before{right:0;background-color:var(--switch-bg-color);border-radius:var(--switch-border-radius);transition:background-color var(--switch-speed)}.switch input+label:after{top:var(--switch-thumb-spacing);left:var(--switch-thumb-spacing);width:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);height:calc(var(--switch-size) - var(--switch-thumb-spacing) * 2);border-radius:var(--switch-thumb-border-radius);background-color:var(--switch-thumb-bg-color);transition:margin var(--switch-speed)}.switch input:checked+label:before{background-color:var(--switch-bg-color-checked)}.switch input:checked+label:after{margin-left:var(--switch-size)}.switch input:disabled+label{opacity:.5;cursor:not-allowed}.switch+.switch{margin-left:1rem}\r\n\r\n/*! Progress Bars */.progress{position:relative;width:100%;height:2.25rem;line-height:2.25rem;font-size:1rem;background-color:#f2f2f2;border-radius:.25rem;display:block;overflow:hidden;margin-bottom:1.5rem;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);box-shadow:inset 0 1px 1px rgba(0,0,0,.05)}.progress .progress-bar{position:absolute;top:0;left:0;width:0;height:100%;text-align:center;color:#fff;background-color:#0074d9;-webkit-transition:width .1s;transition:width .1s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.progress.progress-indeterminate .progress-bar{width:75%!important;-webkit-animation:progress-indeterminate ease-in-out 3s infinite;animation:progress-indeterminate ease-in-out 3s infinite}.progress.progress-xs{font-size:.7rem;height:1.25rem;line-height:1.25rem}.progress.progress-sm{font-size:.8rem;height:1.75rem;line-height:1.75rem}.progress.progress-lg{font-size:1.25rem;height:2.75rem;line-height:2.75rem}.progress.progress-xl{font-size:1.5rem;height:3.25rem;line-height:3.25rem}.progress.progress-secondary .progress-bar{background-color:#aaa}.progress.progress-success .progress-bar{background-color:#2ecc40}.progress.progress-info .progress-bar{background-color:#39cccc}.progress.progress-warning .progress-bar{background-color:#ff851b}.progress.progress-danger .progress-bar{background-color:#ff4136}.progress.progress-light{background-color:#111}.progress.progress-light .progress-bar{color:#111;background-color:#fff}.progress.progress-dark{background-color:#fff}.progress.progress-dark .progress-bar{color:#fff;background-color:#111}@-webkit-keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}@keyframes progress-indeterminate{0%{left:-65%}50%{left:90%}to{left:-65%}}\r\n\r\n/*! Tabs */.tabs{width:100%}.tabs,.tabs-nav{margin-bottom:1rem}.tabs-nav{user-select:none}.tabs-nav a{color:var(--tab-color);text-decoration:none;background-color:var(--tab-bg-color);border-radius:var(--tab-border-radius);padding:var(--tab-spacing-y) var(--tab-spacing-x);display:inline-block}.tabs-nav a:hover{color:var(--tab-color-hover);background-color:var(--tab-bg-color-hover);text-decoration:none}.tabs-nav a.active{color:var(--tab-color-active);background-color:var(--tab-bg-color-active);cursor:default}.tabs-nav a.disabled{color:var(--tab-color-disabled);background-color:var(--tab-bg-color-disabled);cursor:not-allowed}.tabs-pane{border:solid var(--tab-pane-border-width) var(--tab-pane-border-color);border-radius:.25rem;padding:var(--tab-pane-spacing-y) var(--tab-pane-spacing-x)}.tabs-pane:not(.active){display:none}.tabs-pane :last-child{margin-bottom:0}\r\n\r\n/*! Tables */table{width:100%;border-collapse:collapse;margin-bottom:1rem}table caption{caption-side:bottom;font-size:var(--font-size-small);color:var(--text-muted);text-align:center;padding-top:var(--table-spacing-y)}table th{text-align:left;background:var(--table-header-bg-color);border-bottom:solid calc(var(--table-border-width) * 2) var(--table-border-color)}table td,table th{padding:var(--table-spacing-y) var(--table-spacing-x)}table td{border-bottom:solid var(--table-border-width) var(--table-border-color)}table.table-striped tr:nth-child(odd) td{background-color:var(--table-stripe-bg-color)}table.table-bordered{border:solid var(--table-border-width) var(--table-border-color)}table.table-bordered td{border:var(--table-border-width) solid var(--table-border-color)}\r\n\r\n/*! Utilties */.clearfix:after,.clearfix:before{content:\"\";display:table}.clearfix:after{clear:both}.float-left{float:left!important}.float-right{float:right!important}.width-0{width:0!important}.width-5{width:5%!important}.width-10{width:10%!important}.width-15{width:15%!important}.width-20{width:20%!important}.width-25{width:25%!important}.width-30{width:30%!important}.width-35{width:35%!important}.width-40{width:40%!important}.width-45{width:45%!important}.width-50{width:50%!important}.width-55{width:55%!important}.width-60{width:60%!important}.width-65{width:65%!important}.width-70{width:70%!important}.width-75{width:75%!important}.width-80{width:80%!important}.width-85{width:85%!important}.width-90{width:90%!important}.width-95{width:95%!important}.width-100{width:100%!important}.height-0{height:0%!important}.height-5{height:5%!important}.height-10{height:10%!important}.height-15{height:15%!important}.height-20{height:20%!important}.height-25{height:25%!important}.height-30{height:30%!important}.height-35{height:35%!important}.height-40{height:40%!important}.height-45{height:45%!important}.height-50{height:50%!important}.height-55{height:55%!important}.height-60{height:60%!important}.height-65{height:65%!important}.height-70{height:70%!important}.height-75{height:75%!important}.height-80{height:80%!important}.height-85{height:85%!important}.height-90{height:90%!important}.height-95{height:95%!important}.height-100{height:100%!important}.padding-none{padding:0!important}.padding-x-none{padding-left:0!important;padding-right:0!important}.padding-y-none{padding-bottom:0!important}.padding-t-none,.padding-y-none{padding-top:0!important}.padding-r-none{padding-right:0!important}.padding-b-none{padding-bottom:0!important}.padding-l-none{padding-left:0!important}.padding-small{padding:var(--spacing-small)!important}.padding-x-small{padding-left:var(--spacing-small)!important;padding-right:var(--spacing-small)!important}.padding-y-small{padding-bottom:var(--spacing-small)!important}.padding-t-small,.padding-y-small{padding-top:var(--spacing-small)!important}.padding-r-small{padding-right:var(--spacing-small)!important}.padding-b-small{padding-bottom:var(--spacing-small)!important}.padding-l-small{padding-left:var(--spacing-small)!important}.padding-medium{padding:var(--spacing-medium)!important}.padding-x-medium{padding-left:var(--spacing-medium)!important;padding-right:var(--spacing-medium)!important}.padding-y-medium{padding-bottom:var(--spacing-medium)!important}.padding-t-medium,.padding-y-medium{padding-top:var(--spacing-medium)!important}.padding-r-medium{padding-right:var(--spacing-medium)!important}.padding-b-medium{padding-bottom:var(--spacing-medium)!important}.padding-l-medium{padding-left:var(--spacing-medium)!important}.padding-big{padding:var(--spacing-big)!important}.padding-x-big{padding-left:var(--spacing-big)!important;padding-right:var(--spacing-big)!important}.padding-y-big{padding-bottom:var(--spacing-big)!important}.padding-t-big,.padding-y-big{padding-top:var(--spacing-big)!important}.padding-r-big{padding-right:var(--spacing-big)!important}.padding-b-big{padding-bottom:var(--spacing-big)!important}.padding-l-big{padding-left:var(--spacing-big)!important}.margin-none{margin:0!important}.margin-x-none{margin-left:0!important;margin-right:0!important}.margin-y-none{margin-bottom:0!important}.margin-t-none,.margin-y-none{margin-top:0!important}.margin-r-none{margin-right:0!important}.margin-b-none{margin-bottom:0!important}.margin-l-none{margin-left:0!important}.margin-small{margin:var(--spacing-small)!important}.margin-x-small{margin-left:var(--spacing-small)!important;margin-right:var(--spacing-small)!important}.margin-y-small{margin-bottom:var(--spacing-small)!important}.margin-t-small,.margin-y-small{margin-top:var(--spacing-small)!important}.margin-r-small{margin-right:var(--spacing-small)!important}.margin-b-small{margin-bottom:var(--spacing-small)!important}.margin-l-small{margin-left:var(--spacing-small)!important}.margin-medium{margin:var(--spacing-medium)!important}.margin-x-medium{margin-left:var(--spacing-medium)!important;margin-right:var(--spacing-medium)!important}.margin-y-medium{margin-bottom:var(--spacing-medium)!important}.margin-t-medium,.margin-y-medium{margin-top:var(--spacing-medium)!important}.margin-r-medium{margin-right:var(--spacing-medium)!important}.margin-b-medium{margin-bottom:var(--spacing-medium)!important}.margin-l-medium{margin-left:var(--spacing-medium)!important}.margin-big{margin:var(--spacing-big)!important}.margin-x-big{margin-left:var(--spacing-big)!important;margin-right:var(--spacing-big)!important}.margin-y-big{margin-bottom:var(--spacing-big)!important}.margin-t-big,.margin-y-big{margin-top:var(--spacing-big)!important}.margin-r-big{margin-right:var(--spacing-big)!important}.margin-b-big{margin-bottom:var(--spacing-big)!important}.margin-l-big{margin-left:var(--spacing-big)!important}.margin-x-auto{margin-left:auto!important;margin-right:auto!important}.margin-y-auto{margin-top:auto!important;margin-bottom:auto!important}.margin-xy-auto{margin:auto!important}.text-success{color:var(--state-success)!important}.text-info{color:var(--state-info)!important}.text-warning{color:var(--state-warning)!important}.text-danger{color:var(--state-danger)!important}.text-muted{color:var(--text-muted)!important}.text-small{font-size:var(--font-size-small)!important}.text-bold{font-weight:var(--font-weight-bold)!important}.text-italic{font-style:italic!important}.text-left{text-align:left!important}.text-right{text-align:right!important}.text-center{text-align:center!important}.text-justify{text-align:justify!important}.text-lowercase{text-transform:lowercase!important}.text-uppercase{text-transform:uppercase!important}.text-capitalize{text-transform:capitalize!important}.text-nowrap{white-space:nowrap!important}\r\n\r\n/*! Dropdowns */.dropdown{position:relative;display:inline-block}.dropdown .dropdown-trigger:after{content:\"\\25BC\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-size:.6em;vertical-align:middle;margin-left:.5em;display:inline-block;-webkit-transform:scaleY(.75);transform:scaleY(.75);margin-top:-.2em}.dropdown.dropdown-top .dropdown-trigger:after{-webkit-transform:scaleY(.75) rotate(180deg);transform:scaleY(.75) rotate(180deg)}.dropdown .dropdown-menu{position:absolute;top:calc(100% + 1px);left:0;z-index:100;min-width:10rem;max-width:25rem;max-height:none;background-color:#fff;border:1px solid #ddd;border-radius:.25rem;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.05);box-shadow:0 1px 0 rgba(0,0,0,.05);display:none;padding:.25rem 0;overflow-y:auto;-webkit-transform:translateZ(0);transform:translateZ(0)}.dropdown .dropdown-menu a{position:relative;color:#111;text-decoration:none;padding:.25rem calc(1rem + .5em);display:block;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis}.dropdown .dropdown-menu a:focus:not(.disabled){outline:none;color:#111;background-color:#f2f2f2}.dropdown .dropdown-menu a:hover:not(.disabled){color:#fff;background-color:#0074d9}.dropdown .dropdown-menu a.disabled{outline:none;cursor:not-allowed;opacity:.5}.dropdown .dropdown-menu a.checked:before{position:absolute;left:calc(.5rem - .1em);content:\"\\2713\";font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue;font-weight:600}.dropdown .dropdown-menu hr{width:100%;border-top:1px solid #ddd;margin:.25rem 0}.dropdown.dropdown-top .dropdown-menu{top:auto;bottom:calc(100% + 1px)}.dropdown.dropdown-left .dropdown-menu{left:auto;right:0}.dropdown.dropdown.active .dropdown-menu{display:block}\r\n", ""]);
 
 // exports
 
@@ -10792,12 +10727,12 @@ exports.push([module.i, "body {\n    user-select: none;\n    cursor: default;\n}
 /* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n\n.with-sidebar config-window,\ncontent.with-sidebar {\n    left: 300px;\n}\n\n", ""]);
+exports.push([module.i, "body {\r\n    user-select: none;\r\n    cursor: default;\r\n}\r\n\r\n:focus {\r\n    outline: none;\r\n}\r\n\r\na {\r\n    cursor: pointer;\r\n}\r\n\r\nfieldset h5 {\r\n    font-size: 14px;\r\n    font-weight: 500;\r\n}\r\n\r\nfieldset legend {\r\n    font-size: 18px;\r\n    font-weight: 300;\r\n}\r\n\r\np.hint {\r\n    font-style: italic;\r\n    color: #eee;\r\n    margin-bottom: 0;\r\n    padding-bottom: 0;\r\n}\r\n\r\nfooter .button-link-tertiary {\r\n    margin-left: 1rem;\r\n}\r\n\r\np.hint.error {\r\n    color: #ff0000;\r\n}\r\n\r\ninput.inline {\r\n    display: inline-block;\r\n}\r\n\r\ninput[type=number].inline {\r\n    width: 3rem;\r\n    height: 1.6rem;\r\n    font-size: 14px;\r\n}\r\n\r\nbackdrop {\r\n    z-index: 11;\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    background: rgba(35,35,35,.4)\r\n}\r\n\r\nmodal {\r\n    position: fixed;\r\n    left: 50%;\r\n    top: 50%;\r\n    background: #fff;\r\n    z-index: 12;\r\n}\r\n\r\n\r\nmodal {   \r\n    width: 200px;\r\n    margin-top: -100px;\r\n    margin-left: -100px;\r\n    border-radius: 1rem;\r\n    padding: 1rem;\r\n    text-align: center;\r\n    color: #222;\r\n    font-size: 13px;\r\n\r\n}\r\n.progress {\r\n    height: 1rem;\r\n    margin-bottom: 0;\r\n}\r\n\r\n.progress-caption {\r\n    text-align: left;\r\n    padding-bottom: 4px;\r\n}", ""]);
 
 // exports
 
@@ -10806,12 +10741,12 @@ exports.push([module.i, "content {\n    position: absolute;\n    top: 0;\n    le
 /* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "svg {\n    line-height: 0;\n}", ""]);
+exports.push([module.i, "content {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n}\r\n\r\n.with-sidebar config-window,\r\ncontent.with-sidebar {\r\n    left: 300px;\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -10820,12 +10755,12 @@ exports.push([module.i, "svg {\n    line-height: 0;\n}", ""]);
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://daneden.me/animate\n * Version - 3.5.2\n * Licensed under the MIT license - http://opensource.org/licenses/MIT\n *\n * Copyright (c) 2017 Daniel Eden\n */\n\n.animated {\n  animation-duration: 1s;\n  animation-fill-mode: both;\n}\n\n.animated.infinite {\n  animation-iteration-count: infinite;\n}\n\n.animated.hinge {\n  animation-duration: 2s;\n}\n\n.animated.flipOutX,\n.animated.flipOutY,\n.animated.bounceIn,\n.animated.bounceOut {\n  animation-duration: .75s;\n}\n\n@keyframes bounce {\n  from, 20%, 53%, 80%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    transform: translate3d(0,0,0);\n  }\n\n  40%, 43% {\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    transform: translate3d(0, -30px, 0);\n  }\n\n  70% {\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    transform: translate3d(0, -15px, 0);\n  }\n\n  90% {\n    transform: translate3d(0,-4px,0);\n  }\n}\n\n.bounce {\n  animation-name: bounce;\n  transform-origin: center bottom;\n}\n\n@keyframes flash {\n  from, 50%, to {\n    opacity: 1;\n  }\n\n  25%, 75% {\n    opacity: 0;\n  }\n}\n\n.flash {\n  animation-name: flash;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes pulse {\n  from {\n    transform: scale3d(1, 1, 1);\n  }\n\n  50% {\n    transform: scale3d(1.05, 1.05, 1.05);\n  }\n\n  to {\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.pulse {\n  animation-name: pulse;\n}\n\n@keyframes rubberBand {\n  from {\n    transform: scale3d(1, 1, 1);\n  }\n\n  30% {\n    transform: scale3d(1.25, 0.75, 1);\n  }\n\n  40% {\n    transform: scale3d(0.75, 1.25, 1);\n  }\n\n  50% {\n    transform: scale3d(1.15, 0.85, 1);\n  }\n\n  65% {\n    transform: scale3d(.95, 1.05, 1);\n  }\n\n  75% {\n    transform: scale3d(1.05, .95, 1);\n  }\n\n  to {\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.rubberBand {\n  animation-name: rubberBand;\n}\n\n@keyframes shake {\n  from, to {\n    transform: translate3d(0, 0, 0);\n  }\n\n  10%, 30%, 50%, 70%, 90% {\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  20%, 40%, 60%, 80% {\n    transform: translate3d(10px, 0, 0);\n  }\n}\n\n.shake {\n  animation-name: shake;\n}\n\n@keyframes headShake {\n  0% {\n    transform: translateX(0);\n  }\n\n  6.5% {\n    transform: translateX(-6px) rotateY(-9deg);\n  }\n\n  18.5% {\n    transform: translateX(5px) rotateY(7deg);\n  }\n\n  31.5% {\n    transform: translateX(-3px) rotateY(-5deg);\n  }\n\n  43.5% {\n    transform: translateX(2px) rotateY(3deg);\n  }\n\n  50% {\n    transform: translateX(0);\n  }\n}\n\n.headShake {\n  animation-timing-function: ease-in-out;\n  animation-name: headShake;\n}\n\n@keyframes swing {\n  20% {\n    transform: rotate3d(0, 0, 1, 15deg);\n  }\n\n  40% {\n    transform: rotate3d(0, 0, 1, -10deg);\n  }\n\n  60% {\n    transform: rotate3d(0, 0, 1, 5deg);\n  }\n\n  80% {\n    transform: rotate3d(0, 0, 1, -5deg);\n  }\n\n  to {\n    transform: rotate3d(0, 0, 1, 0deg);\n  }\n}\n\n.swing {\n  transform-origin: top center;\n  animation-name: swing;\n}\n\n@keyframes tada {\n  from {\n    transform: scale3d(1, 1, 1);\n  }\n\n  10%, 20% {\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n  }\n\n  30%, 50%, 70%, 90% {\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n  }\n\n  40%, 60%, 80% {\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n  }\n\n  to {\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.tada {\n  animation-name: tada;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes wobble {\n  from {\n    transform: none;\n  }\n\n  15% {\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n  }\n\n  30% {\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n  }\n\n  45% {\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n  }\n\n  60% {\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n  }\n\n  75% {\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.wobble {\n  animation-name: wobble;\n}\n\n@keyframes jello {\n  from, 11.1%, to {\n    transform: none;\n  }\n\n  22.2% {\n    transform: skewX(-12.5deg) skewY(-12.5deg);\n  }\n\n  33.3% {\n    transform: skewX(6.25deg) skewY(6.25deg);\n  }\n\n  44.4% {\n    transform: skewX(-3.125deg) skewY(-3.125deg);\n  }\n\n  55.5% {\n    transform: skewX(1.5625deg) skewY(1.5625deg);\n  }\n\n  66.6% {\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\n  }\n\n  77.7% {\n    transform: skewX(0.390625deg) skewY(0.390625deg);\n  }\n\n  88.8% {\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n  }\n}\n\n.jello {\n  animation-name: jello;\n  transform-origin: center;\n}\n\n@keyframes bounceIn {\n  from, 20%, 40%, 60%, 80%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n\n  20% {\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  40% {\n    transform: scale3d(.9, .9, .9);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(1.03, 1.03, 1.03);\n  }\n\n  80% {\n    transform: scale3d(.97, .97, .97);\n  }\n\n  to {\n    opacity: 1;\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.bounceIn {\n  animation-name: bounceIn;\n}\n\n@keyframes bounceInDown {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(0, 25px, 0);\n  }\n\n  75% {\n    transform: translate3d(0, -10px, 0);\n  }\n\n  90% {\n    transform: translate3d(0, 5px, 0);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.bounceInDown {\n  animation-name: bounceInDown;\n}\n\n@keyframes bounceInLeft {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    transform: translate3d(-3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(25px, 0, 0);\n  }\n\n  75% {\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  90% {\n    transform: translate3d(5px, 0, 0);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.bounceInLeft {\n  animation-name: bounceInLeft;\n}\n\n@keyframes bounceInRight {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    transform: translate3d(3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(-25px, 0, 0);\n  }\n\n  75% {\n    transform: translate3d(10px, 0, 0);\n  }\n\n  90% {\n    transform: translate3d(-5px, 0, 0);\n  }\n\n  to {\n    transform: none;\n  }\n}\n\n.bounceInRight {\n  animation-name: bounceInRight;\n}\n\n@keyframes bounceInUp {\n  from, 60%, 75%, 90%, to {\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    transform: translate3d(0, 3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n\n  75% {\n    transform: translate3d(0, 10px, 0);\n  }\n\n  90% {\n    transform: translate3d(0, -5px, 0);\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.bounceInUp {\n  animation-name: bounceInUp;\n}\n\n@keyframes bounceOut {\n  20% {\n    transform: scale3d(.9, .9, .9);\n  }\n\n  50%, 55% {\n    opacity: 1;\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n}\n\n.bounceOut {\n  animation-name: bounceOut;\n}\n\n@keyframes bounceOutDown {\n  20% {\n    transform: translate3d(0, 10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, -20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.bounceOutDown {\n  animation-name: bounceOutDown;\n}\n\n@keyframes bounceOutLeft {\n  20% {\n    opacity: 1;\n    transform: translate3d(20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.bounceOutLeft {\n  animation-name: bounceOutLeft;\n}\n\n@keyframes bounceOutRight {\n  20% {\n    opacity: 1;\n    transform: translate3d(-20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.bounceOutRight {\n  animation-name: bounceOutRight;\n}\n\n@keyframes bounceOutUp {\n  20% {\n    transform: translate3d(0, -10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    transform: translate3d(0, 20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.bounceOutUp {\n  animation-name: bounceOutUp;\n}\n\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n.fadeIn {\n  animation-name: fadeIn;\n}\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInDown {\n  animation-name: fadeInDown;\n}\n\n@keyframes fadeInDownBig {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInDownBig {\n  animation-name: fadeInDownBig;\n}\n\n@keyframes fadeInLeft {\n  from {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInLeft {\n  animation-name: fadeInLeft;\n}\n\n@keyframes fadeInLeftBig {\n  from {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInLeftBig {\n  animation-name: fadeInLeftBig;\n}\n\n@keyframes fadeInRight {\n  from {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInRight {\n  animation-name: fadeInRight;\n}\n\n@keyframes fadeInRightBig {\n  from {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInRightBig {\n  animation-name: fadeInRightBig;\n}\n\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInUp {\n  animation-name: fadeInUp;\n}\n\n@keyframes fadeInUpBig {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.fadeInUpBig {\n  animation-name: fadeInUpBig;\n}\n\n@keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.fadeOut {\n  animation-name: fadeOut;\n}\n\n@keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.fadeOutDown {\n  animation-name: fadeOutDown;\n}\n\n@keyframes fadeOutDownBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.fadeOutDownBig {\n  animation-name: fadeOutDownBig;\n}\n\n@keyframes fadeOutLeft {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.fadeOutLeft {\n  animation-name: fadeOutLeft;\n}\n\n@keyframes fadeOutLeftBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.fadeOutLeftBig {\n  animation-name: fadeOutLeftBig;\n}\n\n@keyframes fadeOutRight {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.fadeOutRight {\n  animation-name: fadeOutRight;\n}\n\n@keyframes fadeOutRightBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.fadeOutRightBig {\n  animation-name: fadeOutRightBig;\n}\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.fadeOutUp {\n  animation-name: fadeOutUp;\n}\n\n@keyframes fadeOutUpBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.fadeOutUpBig {\n  animation-name: fadeOutUpBig;\n}\n\n@keyframes flip {\n  from {\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    animation-timing-function: ease-out;\n  }\n\n  40% {\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    animation-timing-function: ease-out;\n  }\n\n  50% {\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    animation-timing-function: ease-in;\n  }\n\n  80% {\n    transform: perspective(400px) scale3d(.95, .95, .95);\n    animation-timing-function: ease-in;\n  }\n\n  to {\n    transform: perspective(400px);\n    animation-timing-function: ease-in;\n  }\n}\n\n.animated.flip {\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  animation-name: flip;\n}\n\n@keyframes flipInX {\n  from {\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n  }\n\n  to {\n    transform: perspective(400px);\n  }\n}\n\n.flipInX {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  animation-name: flipInX;\n}\n\n@keyframes flipInY {\n  from {\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n  }\n\n  to {\n    transform: perspective(400px);\n  }\n}\n\n.flipInY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  animation-name: flipInY;\n}\n\n@keyframes flipOutX {\n  from {\n    transform: perspective(400px);\n  }\n\n  30% {\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    opacity: 1;\n  }\n\n  to {\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutX {\n  animation-name: flipOutX;\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n}\n\n@keyframes flipOutY {\n  from {\n    transform: perspective(400px);\n  }\n\n  30% {\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    opacity: 1;\n  }\n\n  to {\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  animation-name: flipOutY;\n}\n\n@keyframes lightSpeedIn {\n  from {\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n\n  60% {\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n\n  80% {\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n\n  to {\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.lightSpeedIn {\n  animation-name: lightSpeedIn;\n  animation-timing-function: ease-out;\n}\n\n@keyframes lightSpeedOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n\n.lightSpeedOut {\n  animation-name: lightSpeedOut;\n  animation-timing-function: ease-in;\n}\n\n@keyframes rotateIn {\n  from {\n    transform-origin: center;\n    transform: rotate3d(0, 0, 1, -200deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: center;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateIn {\n  animation-name: rotateIn;\n}\n\n@keyframes rotateInDownLeft {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownLeft {\n  animation-name: rotateInDownLeft;\n}\n\n@keyframes rotateInDownRight {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownRight {\n  animation-name: rotateInDownRight;\n}\n\n@keyframes rotateInUpLeft {\n  from {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpLeft {\n  animation-name: rotateInUpLeft;\n}\n\n@keyframes rotateInUpRight {\n  from {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpRight {\n  animation-name: rotateInUpRight;\n}\n\n@keyframes rotateOut {\n  from {\n    transform-origin: center;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: center;\n    transform: rotate3d(0, 0, 1, 200deg);\n    opacity: 0;\n  }\n}\n\n.rotateOut {\n  animation-name: rotateOut;\n}\n\n@keyframes rotateOutDownLeft {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownLeft {\n  animation-name: rotateOutDownLeft;\n}\n\n@keyframes rotateOutDownRight {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownRight {\n  animation-name: rotateOutDownRight;\n}\n\n@keyframes rotateOutUpLeft {\n  from {\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: left bottom;\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpLeft {\n  animation-name: rotateOutUpLeft;\n}\n\n@keyframes rotateOutUpRight {\n  from {\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    transform-origin: right bottom;\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpRight {\n  animation-name: rotateOutUpRight;\n}\n\n@keyframes hinge {\n  0% {\n    transform-origin: top left;\n    animation-timing-function: ease-in-out;\n  }\n\n  20%, 60% {\n    transform: rotate3d(0, 0, 1, 80deg);\n    transform-origin: top left;\n    animation-timing-function: ease-in-out;\n  }\n\n  40%, 80% {\n    transform: rotate3d(0, 0, 1, 60deg);\n    transform-origin: top left;\n    animation-timing-function: ease-in-out;\n    opacity: 1;\n  }\n\n  to {\n    transform: translate3d(0, 700px, 0);\n    opacity: 0;\n  }\n}\n\n.hinge {\n  animation-name: hinge;\n}\n\n@keyframes jackInTheBox {\n  from {\n    opacity: 0;\n    transform: scale(0.1) rotate(30deg);\n    transform-origin: center bottom;\n  }\n\n  50% {\n    transform: rotate(-10deg);\n  }\n\n  70% {\n    transform: rotate(3deg);\n  }\n\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n\n.jackInTheBox {\n  animation-name: jackInTheBox;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes rollIn {\n  from {\n    opacity: 0;\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n  }\n\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n\n.rollIn {\n  animation-name: rollIn;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@keyframes rollOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n  }\n}\n\n.rollOut {\n  animation-name: rollOut;\n}\n\n@keyframes zoomIn {\n  from {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n\n  50% {\n    opacity: 1;\n  }\n}\n\n.zoomIn {\n  animation-name: zoomIn;\n}\n\n@keyframes zoomInDown {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInDown {\n  animation-name: zoomInDown;\n}\n\n@keyframes zoomInLeft {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInLeft {\n  animation-name: zoomInLeft;\n}\n\n@keyframes zoomInRight {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInRight {\n  animation-name: zoomInRight;\n}\n\n@keyframes zoomInUp {\n  from {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInUp {\n  animation-name: zoomInUp;\n}\n\n@keyframes zoomOut {\n  from {\n    opacity: 1;\n  }\n\n  50% {\n    opacity: 0;\n    transform: scale3d(.3, .3, .3);\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.zoomOut {\n  animation-name: zoomOut;\n}\n\n@keyframes zoomOutDown {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutDown {\n  animation-name: zoomOutDown;\n}\n\n@keyframes zoomOutLeft {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale(.1) translate3d(-2000px, 0, 0);\n    transform-origin: left center;\n  }\n}\n\n.zoomOutLeft {\n  animation-name: zoomOutLeft;\n}\n\n@keyframes zoomOutRight {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale(.1) translate3d(2000px, 0, 0);\n    transform-origin: right center;\n  }\n}\n\n.zoomOutRight {\n  animation-name: zoomOutRight;\n}\n\n@keyframes zoomOutUp {\n  40% {\n    opacity: 1;\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    transform-origin: center bottom;\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutUp {\n  animation-name: zoomOutUp;\n}\n\n@keyframes slideInDown {\n  from {\n    transform: translate3d(0, -100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInDown {\n  animation-name: slideInDown;\n}\n\n@keyframes slideInLeft {\n  from {\n    transform: translate3d(-100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInLeft {\n  animation-name: slideInLeft;\n}\n\n@keyframes slideInRight {\n  from {\n    transform: translate3d(100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInRight {\n  animation-name: slideInRight;\n}\n\n@keyframes slideInUp {\n  from {\n    transform: translate3d(0, 100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInUp {\n  animation-name: slideInUp;\n}\n\n@keyframes slideOutDown {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.slideOutDown {\n  animation-name: slideOutDown;\n}\n\n@keyframes slideOutLeft {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.slideOutLeft {\n  animation-name: slideOutLeft;\n}\n\n@keyframes slideOutRight {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.slideOutRight {\n  animation-name: slideOutRight;\n}\n\n@keyframes slideOutUp {\n  from {\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.slideOutUp {\n  animation-name: slideOutUp;\n}\n", ""]);
+exports.push([module.i, "svg {\r\n    line-height: 0;\r\n}", ""]);
 
 // exports
 
@@ -10834,12 +10769,12 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "recording-indicator {\n    display: block;\n}\n\nrecording-dot {\n    border-radius: 100%;\n    background: #ea2f2c;\n    display: inline-block;\n    width: .6rem;\n    height: .6rem;\n    animation: blink-animation 3s steps(3, start) infinite;\n}\n\nis-recording {\n    text-transform: uppercase;\n}\n\nstopped-recording svg {\n    width: 1.2rem;\n    height: 1.2rem;\n    display: inline-block;\n    fill: #888;\n    vertical-align: middle;\n}\n\n@keyframes blink-animation {\n  to {\n    visibility: hidden;\n  }\n}\n@-webkit-keyframes blink-animation {\n  to {\n    visibility: hidden;\n  }\n}\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n\r\n/*!\r\n * animate.css -http://daneden.me/animate\r\n * Version - 3.5.2\r\n * Licensed under the MIT license - http://opensource.org/licenses/MIT\r\n *\r\n * Copyright (c) 2017 Daniel Eden\r\n */\r\n\r\n.animated {\r\n  animation-duration: 1s;\r\n  animation-fill-mode: both;\r\n}\r\n\r\n.animated.infinite {\r\n  animation-iteration-count: infinite;\r\n}\r\n\r\n.animated.hinge {\r\n  animation-duration: 2s;\r\n}\r\n\r\n.animated.flipOutX,\r\n.animated.flipOutY,\r\n.animated.bounceIn,\r\n.animated.bounceOut {\r\n  animation-duration: .75s;\r\n}\r\n\r\n@keyframes bounce {\r\n  from, 20%, 53%, 80%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n    transform: translate3d(0,0,0);\r\n  }\r\n\r\n  40%, 43% {\r\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\r\n    transform: translate3d(0, -30px, 0);\r\n  }\r\n\r\n  70% {\r\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\r\n    transform: translate3d(0, -15px, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(0,-4px,0);\r\n  }\r\n}\r\n\r\n.bounce {\r\n  animation-name: bounce;\r\n  transform-origin: center bottom;\r\n}\r\n\r\n@keyframes flash {\r\n  from, 50%, to {\r\n    opacity: 1;\r\n  }\r\n\r\n  25%, 75% {\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.flash {\r\n  animation-name: flash;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes pulse {\r\n  from {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n\r\n  50% {\r\n    transform: scale3d(1.05, 1.05, 1.05);\r\n  }\r\n\r\n  to {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.pulse {\r\n  animation-name: pulse;\r\n}\r\n\r\n@keyframes rubberBand {\r\n  from {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n\r\n  30% {\r\n    transform: scale3d(1.25, 0.75, 1);\r\n  }\r\n\r\n  40% {\r\n    transform: scale3d(0.75, 1.25, 1);\r\n  }\r\n\r\n  50% {\r\n    transform: scale3d(1.15, 0.85, 1);\r\n  }\r\n\r\n  65% {\r\n    transform: scale3d(.95, 1.05, 1);\r\n  }\r\n\r\n  75% {\r\n    transform: scale3d(1.05, .95, 1);\r\n  }\r\n\r\n  to {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.rubberBand {\r\n  animation-name: rubberBand;\r\n}\r\n\r\n@keyframes shake {\r\n  from, to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  10%, 30%, 50%, 70%, 90% {\r\n    transform: translate3d(-10px, 0, 0);\r\n  }\r\n\r\n  20%, 40%, 60%, 80% {\r\n    transform: translate3d(10px, 0, 0);\r\n  }\r\n}\r\n\r\n.shake {\r\n  animation-name: shake;\r\n}\r\n\r\n@keyframes headShake {\r\n  0% {\r\n    transform: translateX(0);\r\n  }\r\n\r\n  6.5% {\r\n    transform: translateX(-6px) rotateY(-9deg);\r\n  }\r\n\r\n  18.5% {\r\n    transform: translateX(5px) rotateY(7deg);\r\n  }\r\n\r\n  31.5% {\r\n    transform: translateX(-3px) rotateY(-5deg);\r\n  }\r\n\r\n  43.5% {\r\n    transform: translateX(2px) rotateY(3deg);\r\n  }\r\n\r\n  50% {\r\n    transform: translateX(0);\r\n  }\r\n}\r\n\r\n.headShake {\r\n  animation-timing-function: ease-in-out;\r\n  animation-name: headShake;\r\n}\r\n\r\n@keyframes swing {\r\n  20% {\r\n    transform: rotate3d(0, 0, 1, 15deg);\r\n  }\r\n\r\n  40% {\r\n    transform: rotate3d(0, 0, 1, -10deg);\r\n  }\r\n\r\n  60% {\r\n    transform: rotate3d(0, 0, 1, 5deg);\r\n  }\r\n\r\n  80% {\r\n    transform: rotate3d(0, 0, 1, -5deg);\r\n  }\r\n\r\n  to {\r\n    transform: rotate3d(0, 0, 1, 0deg);\r\n  }\r\n}\r\n\r\n.swing {\r\n  transform-origin: top center;\r\n  animation-name: swing;\r\n}\r\n\r\n@keyframes tada {\r\n  from {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n\r\n  10%, 20% {\r\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\r\n  }\r\n\r\n  30%, 50%, 70%, 90% {\r\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\r\n  }\r\n\r\n  40%, 60%, 80% {\r\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\r\n  }\r\n\r\n  to {\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.tada {\r\n  animation-name: tada;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes wobble {\r\n  from {\r\n    transform: none;\r\n  }\r\n\r\n  15% {\r\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\r\n  }\r\n\r\n  30% {\r\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\r\n  }\r\n\r\n  45% {\r\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\r\n  }\r\n\r\n  60% {\r\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.wobble {\r\n  animation-name: wobble;\r\n}\r\n\r\n@keyframes jello {\r\n  from, 11.1%, to {\r\n    transform: none;\r\n  }\r\n\r\n  22.2% {\r\n    transform: skewX(-12.5deg) skewY(-12.5deg);\r\n  }\r\n\r\n  33.3% {\r\n    transform: skewX(6.25deg) skewY(6.25deg);\r\n  }\r\n\r\n  44.4% {\r\n    transform: skewX(-3.125deg) skewY(-3.125deg);\r\n  }\r\n\r\n  55.5% {\r\n    transform: skewX(1.5625deg) skewY(1.5625deg);\r\n  }\r\n\r\n  66.6% {\r\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\r\n  }\r\n\r\n  77.7% {\r\n    transform: skewX(0.390625deg) skewY(0.390625deg);\r\n  }\r\n\r\n  88.8% {\r\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\r\n  }\r\n}\r\n\r\n.jello {\r\n  animation-name: jello;\r\n  transform-origin: center;\r\n}\r\n\r\n@keyframes bounceIn {\r\n  from, 20%, 40%, 60%, 80%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  0% {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n\r\n  20% {\r\n    transform: scale3d(1.1, 1.1, 1.1);\r\n  }\r\n\r\n  40% {\r\n    transform: scale3d(.9, .9, .9);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(1.03, 1.03, 1.03);\r\n  }\r\n\r\n  80% {\r\n    transform: scale3d(.97, .97, .97);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: scale3d(1, 1, 1);\r\n  }\r\n}\r\n\r\n.bounceIn {\r\n  animation-name: bounceIn;\r\n}\r\n\r\n@keyframes bounceInDown {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  0% {\r\n    opacity: 0;\r\n    transform: translate3d(0, -3000px, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(0, 25px, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(0, -10px, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(0, 5px, 0);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.bounceInDown {\r\n  animation-name: bounceInDown;\r\n}\r\n\r\n@keyframes bounceInLeft {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  0% {\r\n    opacity: 0;\r\n    transform: translate3d(-3000px, 0, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(25px, 0, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(-10px, 0, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(5px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.bounceInLeft {\r\n  animation-name: bounceInLeft;\r\n}\r\n\r\n@keyframes bounceInRight {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(3000px, 0, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(-25px, 0, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(10px, 0, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(-5px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.bounceInRight {\r\n  animation-name: bounceInRight;\r\n}\r\n\r\n@keyframes bounceInUp {\r\n  from, 60%, 75%, 90%, to {\r\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\r\n  }\r\n\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, 3000px, 0);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: translate3d(0, -20px, 0);\r\n  }\r\n\r\n  75% {\r\n    transform: translate3d(0, 10px, 0);\r\n  }\r\n\r\n  90% {\r\n    transform: translate3d(0, -5px, 0);\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.bounceInUp {\r\n  animation-name: bounceInUp;\r\n}\r\n\r\n@keyframes bounceOut {\r\n  20% {\r\n    transform: scale3d(.9, .9, .9);\r\n  }\r\n\r\n  50%, 55% {\r\n    opacity: 1;\r\n    transform: scale3d(1.1, 1.1, 1.1);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n}\r\n\r\n.bounceOut {\r\n  animation-name: bounceOut;\r\n}\r\n\r\n@keyframes bounceOutDown {\r\n  20% {\r\n    transform: translate3d(0, 10px, 0);\r\n  }\r\n\r\n  40%, 45% {\r\n    opacity: 1;\r\n    transform: translate3d(0, -20px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, 2000px, 0);\r\n  }\r\n}\r\n\r\n.bounceOutDown {\r\n  animation-name: bounceOutDown;\r\n}\r\n\r\n@keyframes bounceOutLeft {\r\n  20% {\r\n    opacity: 1;\r\n    transform: translate3d(20px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(-2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.bounceOutLeft {\r\n  animation-name: bounceOutLeft;\r\n}\r\n\r\n@keyframes bounceOutRight {\r\n  20% {\r\n    opacity: 1;\r\n    transform: translate3d(-20px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.bounceOutRight {\r\n  animation-name: bounceOutRight;\r\n}\r\n\r\n@keyframes bounceOutUp {\r\n  20% {\r\n    transform: translate3d(0, -10px, 0);\r\n  }\r\n\r\n  40%, 45% {\r\n    opacity: 1;\r\n    transform: translate3d(0, 20px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, -2000px, 0);\r\n  }\r\n}\r\n\r\n.bounceOutUp {\r\n  animation-name: bounceOutUp;\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.fadeIn {\r\n  animation-name: fadeIn;\r\n}\r\n\r\n@keyframes fadeInDown {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, -100%, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInDown {\r\n  animation-name: fadeInDown;\r\n}\r\n\r\n@keyframes fadeInDownBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, -2000px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInDownBig {\r\n  animation-name: fadeInDownBig;\r\n}\r\n\r\n@keyframes fadeInLeft {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(-100%, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInLeft {\r\n  animation-name: fadeInLeft;\r\n}\r\n\r\n@keyframes fadeInLeftBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(-2000px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInLeftBig {\r\n  animation-name: fadeInLeftBig;\r\n}\r\n\r\n@keyframes fadeInRight {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(100%, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInRight {\r\n  animation-name: fadeInRight;\r\n}\r\n\r\n@keyframes fadeInRightBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(2000px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInRightBig {\r\n  animation-name: fadeInRightBig;\r\n}\r\n\r\n@keyframes fadeInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, 100%, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInUp {\r\n  animation-name: fadeInUp;\r\n}\r\n\r\n@keyframes fadeInUpBig {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(0, 2000px, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.fadeInUpBig {\r\n  animation-name: fadeInUpBig;\r\n}\r\n\r\n@keyframes fadeOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.fadeOut {\r\n  animation-name: fadeOut;\r\n}\r\n\r\n@keyframes fadeOutDown {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, 100%, 0);\r\n  }\r\n}\r\n\r\n.fadeOutDown {\r\n  animation-name: fadeOutDown;\r\n}\r\n\r\n@keyframes fadeOutDownBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, 2000px, 0);\r\n  }\r\n}\r\n\r\n.fadeOutDownBig {\r\n  animation-name: fadeOutDownBig;\r\n}\r\n\r\n@keyframes fadeOutLeft {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(-100%, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutLeft {\r\n  animation-name: fadeOutLeft;\r\n}\r\n\r\n@keyframes fadeOutLeftBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(-2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutLeftBig {\r\n  animation-name: fadeOutLeftBig;\r\n}\r\n\r\n@keyframes fadeOutRight {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(100%, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutRight {\r\n  animation-name: fadeOutRight;\r\n}\r\n\r\n@keyframes fadeOutRightBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(2000px, 0, 0);\r\n  }\r\n}\r\n\r\n.fadeOutRightBig {\r\n  animation-name: fadeOutRightBig;\r\n}\r\n\r\n@keyframes fadeOutUp {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, -100%, 0);\r\n  }\r\n}\r\n\r\n.fadeOutUp {\r\n  animation-name: fadeOutUp;\r\n}\r\n\r\n@keyframes fadeOutUpBig {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(0, -2000px, 0);\r\n  }\r\n}\r\n\r\n.fadeOutUpBig {\r\n  animation-name: fadeOutUpBig;\r\n}\r\n\r\n@keyframes flip {\r\n  from {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\r\n    animation-timing-function: ease-out;\r\n  }\r\n\r\n  40% {\r\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\r\n    animation-timing-function: ease-out;\r\n  }\r\n\r\n  50% {\r\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  80% {\r\n    transform: perspective(400px) scale3d(.95, .95, .95);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px);\r\n    animation-timing-function: ease-in;\r\n  }\r\n}\r\n\r\n.animated.flip {\r\n  -webkit-backface-visibility: visible;\r\n  backface-visibility: visible;\r\n  animation-name: flip;\r\n}\r\n\r\n@keyframes flipInX {\r\n  from {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\r\n    animation-timing-function: ease-in;\r\n    opacity: 0;\r\n  }\r\n\r\n  40% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  60% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  80% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px);\r\n  }\r\n}\r\n\r\n.flipInX {\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n  animation-name: flipInX;\r\n}\r\n\r\n@keyframes flipInY {\r\n  from {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\r\n    animation-timing-function: ease-in;\r\n    opacity: 0;\r\n  }\r\n\r\n  40% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\r\n    animation-timing-function: ease-in;\r\n  }\r\n\r\n  60% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  80% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px);\r\n  }\r\n}\r\n\r\n.flipInY {\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n  animation-name: flipInY;\r\n}\r\n\r\n@keyframes flipOutX {\r\n  from {\r\n    transform: perspective(400px);\r\n  }\r\n\r\n  30% {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.flipOutX {\r\n  animation-name: flipOutX;\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n}\r\n\r\n@keyframes flipOutY {\r\n  from {\r\n    transform: perspective(400px);\r\n  }\r\n\r\n  30% {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.flipOutY {\r\n  -webkit-backface-visibility: visible !important;\r\n  backface-visibility: visible !important;\r\n  animation-name: flipOutY;\r\n}\r\n\r\n@keyframes lightSpeedIn {\r\n  from {\r\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  60% {\r\n    transform: skewX(20deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  80% {\r\n    transform: skewX(-5deg);\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.lightSpeedIn {\r\n  animation-name: lightSpeedIn;\r\n  animation-timing-function: ease-out;\r\n}\r\n\r\n@keyframes lightSpeedOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(100%, 0, 0) skewX(30deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.lightSpeedOut {\r\n  animation-name: lightSpeedOut;\r\n  animation-timing-function: ease-in;\r\n}\r\n\r\n@keyframes rotateIn {\r\n  from {\r\n    transform-origin: center;\r\n    transform: rotate3d(0, 0, 1, -200deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: center;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateIn {\r\n  animation-name: rotateIn;\r\n}\r\n\r\n@keyframes rotateInDownLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, -45deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInDownLeft {\r\n  animation-name: rotateInDownLeft;\r\n}\r\n\r\n@keyframes rotateInDownRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, 45deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInDownRight {\r\n  animation-name: rotateInDownRight;\r\n}\r\n\r\n@keyframes rotateInUpLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, 45deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInUpLeft {\r\n  animation-name: rotateInUpLeft;\r\n}\r\n\r\n@keyframes rotateInUpRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, -90deg);\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: none;\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.rotateInUpRight {\r\n  animation-name: rotateInUpRight;\r\n}\r\n\r\n@keyframes rotateOut {\r\n  from {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: center;\r\n    transform: rotate3d(0, 0, 1, 200deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOut {\r\n  animation-name: rotateOut;\r\n}\r\n\r\n@keyframes rotateOutDownLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, 45deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutDownLeft {\r\n  animation-name: rotateOutDownLeft;\r\n}\r\n\r\n@keyframes rotateOutDownRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, -45deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutDownRight {\r\n  animation-name: rotateOutDownRight;\r\n}\r\n\r\n@keyframes rotateOutUpLeft {\r\n  from {\r\n    transform-origin: left bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: left bottom;\r\n    transform: rotate3d(0, 0, 1, -45deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutUpLeft {\r\n  animation-name: rotateOutUpLeft;\r\n}\r\n\r\n@keyframes rotateOutUpRight {\r\n  from {\r\n    transform-origin: right bottom;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform-origin: right bottom;\r\n    transform: rotate3d(0, 0, 1, 90deg);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.rotateOutUpRight {\r\n  animation-name: rotateOutUpRight;\r\n}\r\n\r\n@keyframes hinge {\r\n  0% {\r\n    transform-origin: top left;\r\n    animation-timing-function: ease-in-out;\r\n  }\r\n\r\n  20%, 60% {\r\n    transform: rotate3d(0, 0, 1, 80deg);\r\n    transform-origin: top left;\r\n    animation-timing-function: ease-in-out;\r\n  }\r\n\r\n  40%, 80% {\r\n    transform: rotate3d(0, 0, 1, 60deg);\r\n    transform-origin: top left;\r\n    animation-timing-function: ease-in-out;\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 700px, 0);\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.hinge {\r\n  animation-name: hinge;\r\n}\r\n\r\n@keyframes jackInTheBox {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale(0.1) rotate(30deg);\r\n    transform-origin: center bottom;\r\n  }\r\n\r\n  50% {\r\n    transform: rotate(-10deg);\r\n  }\r\n\r\n  70% {\r\n    transform: rotate(3deg);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: scale(1);\r\n  }\r\n}\r\n\r\n.jackInTheBox {\r\n  animation-name: jackInTheBox;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes rollIn {\r\n  from {\r\n    opacity: 0;\r\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.rollIn {\r\n  animation-name: rollIn;\r\n}\r\n\r\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\r\n\r\n@keyframes rollOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\r\n  }\r\n}\r\n\r\n.rollOut {\r\n  animation-name: rollOut;\r\n}\r\n\r\n@keyframes zoomIn {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n\r\n  50% {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.zoomIn {\r\n  animation-name: zoomIn;\r\n}\r\n\r\n@keyframes zoomInDown {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInDown {\r\n  animation-name: zoomInDown;\r\n}\r\n\r\n@keyframes zoomInLeft {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInLeft {\r\n  animation-name: zoomInLeft;\r\n}\r\n\r\n@keyframes zoomInRight {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInRight {\r\n  animation-name: zoomInRight;\r\n}\r\n\r\n@keyframes zoomInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomInUp {\r\n  animation-name: zoomInUp;\r\n}\r\n\r\n@keyframes zoomOut {\r\n  from {\r\n    opacity: 1;\r\n  }\r\n\r\n  50% {\r\n    opacity: 0;\r\n    transform: scale3d(.3, .3, .3);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n  }\r\n}\r\n\r\n.zoomOut {\r\n  animation-name: zoomOut;\r\n}\r\n\r\n@keyframes zoomOutDown {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomOutDown {\r\n  animation-name: zoomOutDown;\r\n}\r\n\r\n@keyframes zoomOutLeft {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale(.1) translate3d(-2000px, 0, 0);\r\n    transform-origin: left center;\r\n  }\r\n}\r\n\r\n.zoomOutLeft {\r\n  animation-name: zoomOutLeft;\r\n}\r\n\r\n@keyframes zoomOutRight {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale(.1) translate3d(2000px, 0, 0);\r\n    transform-origin: right center;\r\n  }\r\n}\r\n\r\n.zoomOutRight {\r\n  animation-name: zoomOutRight;\r\n}\r\n\r\n@keyframes zoomOutUp {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n\r\n.zoomOutUp {\r\n  animation-name: zoomOutUp;\r\n}\r\n\r\n@keyframes slideInDown {\r\n  from {\r\n    transform: translate3d(0, -100%, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInDown {\r\n  animation-name: slideInDown;\r\n}\r\n\r\n@keyframes slideInLeft {\r\n  from {\r\n    transform: translate3d(-100%, 0, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInLeft {\r\n  animation-name: slideInLeft;\r\n}\r\n\r\n@keyframes slideInRight {\r\n  from {\r\n    transform: translate3d(100%, 0, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInRight {\r\n  animation-name: slideInRight;\r\n}\r\n\r\n@keyframes slideInUp {\r\n  from {\r\n    transform: translate3d(0, 100%, 0);\r\n    visibility: visible;\r\n  }\r\n\r\n  to {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n}\r\n\r\n.slideInUp {\r\n  animation-name: slideInUp;\r\n}\r\n\r\n@keyframes slideOutDown {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(0, 100%, 0);\r\n  }\r\n}\r\n\r\n.slideOutDown {\r\n  animation-name: slideOutDown;\r\n}\r\n\r\n@keyframes slideOutLeft {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(-100%, 0, 0);\r\n  }\r\n}\r\n\r\n.slideOutLeft {\r\n  animation-name: slideOutLeft;\r\n}\r\n\r\n@keyframes slideOutRight {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(100%, 0, 0);\r\n  }\r\n}\r\n\r\n.slideOutRight {\r\n  animation-name: slideOutRight;\r\n}\r\n\r\n@keyframes slideOutUp {\r\n  from {\r\n    transform: translate3d(0, 0, 0);\r\n  }\r\n\r\n  to {\r\n    visibility: hidden;\r\n    transform: translate3d(0, -100%, 0);\r\n  }\r\n}\r\n\r\n.slideOutUp {\r\n  animation-name: slideOutUp;\r\n}\r\n", ""]);
 
 // exports
 
@@ -10848,12 +10783,12 @@ exports.push([module.i, "recording-indicator {\n    display: block;\n}\n\nrecord
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "splash-screen {\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    top: 0;\n    text-align: center;\n}\n\nsplash-screen .logo {\n    width: 14rem;\n    display: inline-block;\n    margin-bottom: 1rem;\n    margin-top: 4rem;\n}\n\nsplash-screen h1 {\n    margin-top: 1rem;\n}\n\nvideo-toolbar {\n    display: block;\n    width: 24rem;\n    margin: 0 auto;\n    text-align: left;\n}\n\nsplash-screen .instructions {\n    width: 500px;\n    margin: 0 auto;\n    background: #222;\n    padding: 1rem;\n    border-radius: 10px;\n    text-align: left;\n    font-size: 13px;\n    margin-bottom: 2rem;\n}\n\nsplash-screen .current-version {\n    position: absolute;\n    color: #666;\n    font-size: 13px;\n    top: .5rem;\n    right: .5rem;\n}\n\nsplash-screen.changelog {\n    text-align: left;\n    padding: 2.8rem;\n}", ""]);
+exports.push([module.i, "recording-indicator {\r\n    display: block;\r\n}\r\n\r\nrecording-dot {\r\n    border-radius: 100%;\r\n    background: #ea2f2c;\r\n    display: inline-block;\r\n    width: .6rem;\r\n    height: .6rem;\r\n    animation: blink-animation 3s steps(3, start) infinite;\r\n}\r\n\r\nis-recording {\r\n    text-transform: uppercase;\r\n}\r\n\r\nstopped-recording svg {\r\n    width: 1.2rem;\r\n    height: 1.2rem;\r\n    display: inline-block;\r\n    fill: #888;\r\n    vertical-align: middle;\r\n}\r\n\r\n@keyframes blink-animation {\r\n  to {\r\n    visibility: hidden;\r\n  }\r\n}\r\n@-webkit-keyframes blink-animation {\r\n  to {\r\n    visibility: hidden;\r\n  }\r\n}\r\n", ""]);
 
 // exports
 
@@ -10862,12 +10797,12 @@ exports.push([module.i, "splash-screen {\n    position: absolute;\n    right: 0;
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "toolbar {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    position: absolute;\n}\n\ndrag-region {\n    -webkit-app-region: drag;\n    position: absolute;\n    width: 100%;\n    height: 3rem;\n    right: 2rem;\n}\n\nclose-button {\n    position: absolute;\n    display: block;\n    fill: #bbb;\n    right: 1rem;\n    top: .8rem;\n    height: 1rem;\n    width: 1rem;\n}\n\nclose-button:hover {\n    fill: #fff;\n    cursor: pointer;\n}\n\n\nclose-button img {\n    fill: #bbb;\n}", ""]);
+exports.push([module.i, "splash-screen {\r\n    position: absolute;\r\n    right: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    text-align: center;\r\n}\r\n\r\nsplash-screen .logo {\r\n    width: 14rem;\r\n    display: inline-block;\r\n    margin-bottom: 1rem;\r\n    margin-top: 4rem;\r\n}\r\n\r\nsplash-screen h1 {\r\n    margin-top: 1rem;\r\n}\r\n\r\nvideo-toolbar {\r\n    display: block;\r\n    width: 24rem;\r\n    margin: 0 auto;\r\n    text-align: left;\r\n}\r\n\r\nsplash-screen .instructions {\r\n    width: 500px;\r\n    margin: 0 auto;\r\n    background: #222;\r\n    padding: 1rem;\r\n    border-radius: 10px;\r\n    text-align: left;\r\n    font-size: 13px;\r\n    margin-bottom: 2rem;\r\n}\r\n\r\nsplash-screen .current-version {\r\n    position: absolute;\r\n    color: #666;\r\n    font-size: 13px;\r\n    top: .5rem;\r\n    right: .5rem;\r\n}\r\n\r\nsplash-screen.changelog {\r\n    text-align: left;\r\n    padding: 2.8rem;\r\n}", ""]);
 
 // exports
 
@@ -10876,12 +10811,12 @@ exports.push([module.i, "toolbar {\n    display: block;\n    width: 100%;\n    h
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "\nconfig .settings-button svg {\n    position: fixed;\n    width: 1.4rem;\n    bottom: 1rem;\n    right: 1rem;\n    height: 1.4rem;\n    fill: #ccc;\n    cursor: pointer;\n}\n\nconfig .settings-button svg:hover {\n    fill: #f6f6f6;\n}\n\nconfig fieldset input {\n    margin-right: 4px;\n}\n\nconfig fieldset input[type=number] {\n    margin: 0 4px;\n}\n\nconfig-window {\n    position: fixed;\n    background: #222;\n    padding: 1rem;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 100;\n}\n\nconfig-window footer .button {\n    margin-right: 1rem;\n}\n\nconfig-window footer {\n    position: absolute;\n    bottom: 1rem;\n    left: 1rem;\n    right: 1rem;\n}\n\np.hint-sub {\n    color: #777;\n}", ""]);
+exports.push([module.i, "toolbar {\r\n    display: block;\r\n    width: 100%;\r\n    height: 3rem;\r\n    position: absolute;\r\n}\r\n\r\ndrag-region {\r\n    -webkit-app-region: drag;\r\n    position: absolute;\r\n    width: 100%;\r\n    height: 3rem;\r\n    right: 2rem;\r\n}\r\n\r\nclose-button {\r\n    position: absolute;\r\n    display: block;\r\n    fill: #bbb;\r\n    right: 1rem;\r\n    top: .8rem;\r\n    height: 1rem;\r\n    width: 1rem;\r\n}\r\n\r\nclose-button:hover {\r\n    fill: #fff;\r\n    cursor: pointer;\r\n}\r\n\r\n\r\nclose-button img {\r\n    fill: #bbb;\r\n}", ""]);
 
 // exports
 
@@ -10890,12 +10825,12 @@ exports.push([module.i, "\nconfig .settings-button svg {\n    position: fixed;\n
 /* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "sidebar-row {\n    font-size: 14px;\n    cursor: pointer;\n    width: 300px;\n    height: 45px;\n    display: block;\n}\n\nsidebar-row.selected {\n    background: #444;\n    color: #eee;\n}\n\nsidebar-row.selected a {\n    color: #efefef;\n}\n\nsidebar-row a {\n    position: absolute;\n    top: 12px;\n    left: 45px;\n}\n\nsidebar-row a:hover {\n    text-decoration: none;\n}\n\nsidebar-row .date {\n    font-size: 12px;\n    position: absolute;\n    right: 4px;\n    color: #ccc;\n    top: 15px;\n}\n\nsidebar-row.corrupt a {\n    color: #666;\n}\n\nsidebar-row.corrupt .date {\n    color: #444;\n}\n\nsidebar-row.patch {\n    background: #0075c4;\n    color: #fff;\n    font-size: 12px;\n    padding: 6px;\n    margin-top: 8px;\n    height: 28px;\n}\n\nsidebar-row.patch .date {\n    top: 13px;\n    color: #fff;\n}\n\nsidebar-row.patch .summary {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    width: 205px;\n}\n\nsidebar-row.patch.selected {\n    background: #0099ff;\n}\n\n\nsidebar-row .highlight svg {\n    width: 14px;\n    fill: #0075c4;\n    right: 63px;\n    position: absolute;\n    top: 18px;\n}\n\nsidebar hero-portrait {\n    position: absolute;\n    top: 4px;\n    left: 4px;\n}\n\nhero-portrait {\n    width: 36px;\n    height: 36px;\n    border-radius: 4px;\n    display: inline-block;\n    background: #333;\n    background-size: cover;\n    vertical-align: text-bottom;\n}\n\nhero-portrait.small {\n    width: 16px;\n    height: 16px;\n    border-radius: 2px;\n}\n\n    \n.ReactVirtualized__Grid::-webkit-scrollbar-track\n{\n\tbackground-color: #1f1f1f;\n}\n\n.ReactVirtualized__Grid::-webkit-scrollbar\n{\n\twidth: 12px;\n\tbackground-color: #1f1f1f;\n    border-right: 1px solid #000;\n}\n\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb\n{\n    border: 1px solid #1f1f1f;\n\tbackground-color: #666;\n}\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover\n{\n\tbackground-color: #999;\n}\n\nsidebar {\n    position: fixed;\n    bottom: 0;\n    top: 0;\n    width: 300px;\n    background: #1f1f1f;\n    z-index: 10;\n}\n\nsidebar-toggle {\n    position: absolute;\n    padding: .4rem;\n    padding-bottom: 0;\n    background: #555;\n    cursor: pointer;\n    z-index: 10;\n}\n\nsidebar-toggle svg {\n    fill: #bbb;\n    width: 1.6rem;\n    height: 1.6rem;\n}\n\nsidebar-toggle:hover svg {\n    fill: #f6f6f6;\n}\n\nsidebar close {\n    width: 2.4rem;\n    height: 2.4rem;\n    position: absolute;\n    background: #555;\n    z-index: 10;\n    right: -2.35rem;\n    top: 0;\n    cursor: pointer;\n}\n\nsidebar close svg {\n    fill: #bbb;\n    width: 2.4rem;\n    height: 2.4rem;\n    margin-left: -3px;\n}\n\nsidebar close svg:hover {    \n    fill: #f6f6f6;\n}\n\n\nsidebar search input[type=text] {\n    margin: 3px;\n    background: #1a1a1a;\n    width: 260px;\n    border: 1px solid #111;\n    font-size: 13px;\n    color: #aaa;\n}\nsidebar search input[type=text]::placeholder {\n    color: transparent;\n}\nsidebar search input[type=text]:focus::placeholder {\n    color: #666;\n}\n\nsidebar .omitted-results {\n    text-align: center;\n    color: #777;\n    font-size: 12px;\n    padding: 8px;\n}\n\nsidebar search .search svg {\n    fill: #555;\n    width: 1.3rem;\n    height: 1.3rem;\n    position: absolute;\n    display: block;\n    left: 233px;\n    top: 8px;\n}\nsidebar search .cancel svg {\n    fill: #777;\n    width: 1rem;\n    height: 1rem;\n    position: absolute;\n    left: 240px;\n    top: 10px;\n    display: none;\n}\n\nsidebar search .search.is-searching svg {\n    display: none;\n}\n\nsidebar search .cancel.is-searching svg {\n    display: block;\n}\n\nsidebar search .filters svg {\n    fill: #555;\n    width: 1.3rem;\n    height: 1.3rem;\n    position: absolute;\n    left: 270px;\n    top: 8px;\n}\n\nsidebar search svg:hover {\n    fill: #888;\n    cursor: pointer;\n}", ""]);
+exports.push([module.i, "\r\nconfig .settings-button svg {\r\n    position: fixed;\r\n    width: 1.4rem;\r\n    bottom: 1rem;\r\n    right: 1rem;\r\n    height: 1.4rem;\r\n    fill: #ccc;\r\n    cursor: pointer;\r\n}\r\n\r\nconfig .settings-button svg:hover {\r\n    fill: #f6f6f6;\r\n}\r\n\r\nconfig fieldset input {\r\n    margin-right: 4px;\r\n}\r\n\r\nconfig fieldset input[type=number] {\r\n    margin: 0 4px;\r\n}\r\n\r\nconfig-window {\r\n    position: fixed;\r\n    background: #222;\r\n    padding: 1rem;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    z-index: 100;\r\n}\r\n\r\nconfig-window footer .button {\r\n    margin-right: 1rem;\r\n}\r\n\r\nconfig-window footer {\r\n    position: absolute;\r\n    bottom: 1rem;\r\n    left: 1rem;\r\n    right: 1rem;\r\n}\r\n\r\np.hint-sub {\r\n    color: #777;\r\n}", ""]);
 
 // exports
 
@@ -10904,12 +10839,12 @@ exports.push([module.i, "sidebar-row {\n    font-size: 14px;\n    cursor: pointe
 /* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "status-bar {\n    font-size: 12px;\n    padding: 4px;\n    position: fixed;\n    bottom: 10px;\n    margin-left: 10px;\n    color: #aaa;\n    z-index: 5;\n}\n\nstatus-bar svg {\n    width: 16px;\n    height: 16px;\n    fill: #aaa;\n    vertical-align: middle\n}\n\nstatus-bar .discord {\n    margin-right: 5px;\n}\n\nstatus-bar a {\n    color: #aaa;\n}\n\nstatus-bar a:hover {\n    text-decoration: none;\n    color: #aaa;\n}", ""]);
+exports.push([module.i, "sidebar-row {\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n    width: 300px;\r\n    height: 45px;\r\n    display: block;\r\n}\r\n\r\nsidebar-row.selected {\r\n    background: #444;\r\n    color: #eee;\r\n}\r\n\r\nsidebar-row.selected a {\r\n    color: #efefef;\r\n}\r\n\r\nsidebar-row a {\r\n    position: absolute;\r\n    top: 12px;\r\n    left: 45px;\r\n}\r\n\r\nsidebar-row a:hover {\r\n    text-decoration: none;\r\n}\r\n\r\nsidebar-row .date {\r\n    font-size: 12px;\r\n    position: absolute;\r\n    right: 4px;\r\n    color: #ccc;\r\n    top: 15px;\r\n}\r\n\r\nsidebar-row.corrupt a {\r\n    color: #666;\r\n}\r\n\r\nsidebar-row.corrupt .date {\r\n    color: #444;\r\n}\r\n\r\nsidebar-row.patch {\r\n    background: #0075c4;\r\n    color: #fff;\r\n    font-size: 12px;\r\n    padding: 6px;\r\n    margin-top: 8px;\r\n    height: 28px;\r\n}\r\n\r\nsidebar-row.patch .date {\r\n    top: 13px;\r\n    color: #fff;\r\n}\r\n\r\nsidebar-row.patch .summary {\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    width: 205px;\r\n}\r\n\r\nsidebar-row.patch.selected {\r\n    background: #0099ff;\r\n}\r\n\r\n\r\nsidebar-row .highlight svg {\r\n    width: 14px;\r\n    fill: #0075c4;\r\n    right: 63px;\r\n    position: absolute;\r\n    top: 18px;\r\n}\r\n\r\nsidebar hero-portrait {\r\n    position: absolute;\r\n    top: 4px;\r\n    left: 4px;\r\n}\r\n\r\nhero-portrait {\r\n    width: 36px;\r\n    height: 36px;\r\n    border-radius: 4px;\r\n    display: inline-block;\r\n    background: #333;\r\n    background-size: cover;\r\n    vertical-align: text-bottom;\r\n}\r\n\r\nhero-portrait.small {\r\n    width: 16px;\r\n    height: 16px;\r\n    border-radius: 2px;\r\n}\r\n\r\n    \r\n.ReactVirtualized__Grid::-webkit-scrollbar-track\r\n{\r\n\tbackground-color: #1f1f1f;\r\n}\r\n\r\n.ReactVirtualized__Grid::-webkit-scrollbar\r\n{\r\n\twidth: 12px;\r\n\tbackground-color: #1f1f1f;\r\n    border-right: 1px solid #000;\r\n}\r\n\r\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb\r\n{\r\n    border: 1px solid #1f1f1f;\r\n\tbackground-color: #666;\r\n}\r\n.ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover\r\n{\r\n\tbackground-color: #999;\r\n}\r\n\r\nsidebar {\r\n    position: fixed;\r\n    bottom: 0;\r\n    top: 0;\r\n    width: 300px;\r\n    background: #1f1f1f;\r\n    z-index: 10;\r\n}\r\n\r\nsidebar-toggle {\r\n    position: absolute;\r\n    padding: .4rem;\r\n    padding-bottom: 0;\r\n    background: #555;\r\n    cursor: pointer;\r\n    z-index: 10;\r\n}\r\n\r\nsidebar-toggle svg {\r\n    fill: #bbb;\r\n    width: 1.6rem;\r\n    height: 1.6rem;\r\n}\r\n\r\nsidebar-toggle:hover svg {\r\n    fill: #f6f6f6;\r\n}\r\n\r\nsidebar close {\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    position: absolute;\r\n    background: #555;\r\n    z-index: 10;\r\n    right: -2.35rem;\r\n    top: 0;\r\n    cursor: pointer;\r\n}\r\n\r\nsidebar close svg {\r\n    fill: #bbb;\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    margin-left: -3px;\r\n}\r\n\r\nsidebar close svg:hover {    \r\n    fill: #f6f6f6;\r\n}\r\n\r\n\r\nsidebar search input[type=text] {\r\n    margin: 3px;\r\n    background: #1a1a1a;\r\n    width: 260px;\r\n    border: 1px solid #111;\r\n    font-size: 13px;\r\n    color: #aaa;\r\n}\r\nsidebar search input[type=text]::placeholder {\r\n    color: transparent;\r\n}\r\nsidebar search input[type=text]:focus::placeholder {\r\n    color: #666;\r\n}\r\n\r\nsidebar .omitted-results {\r\n    text-align: center;\r\n    color: #777;\r\n    font-size: 12px;\r\n    padding: 8px;\r\n}\r\n\r\nsidebar search .search svg {\r\n    fill: #555;\r\n    width: 1.3rem;\r\n    height: 1.3rem;\r\n    position: absolute;\r\n    display: block;\r\n    left: 233px;\r\n    top: 8px;\r\n}\r\nsidebar search .cancel svg {\r\n    fill: #777;\r\n    width: 1rem;\r\n    height: 1rem;\r\n    position: absolute;\r\n    left: 240px;\r\n    top: 10px;\r\n    display: none;\r\n}\r\n\r\nsidebar search .search.is-searching svg {\r\n    display: none;\r\n}\r\n\r\nsidebar search .cancel.is-searching svg {\r\n    display: block;\r\n}\r\n\r\nsidebar search .filters svg {\r\n    fill: #555;\r\n    width: 1.3rem;\r\n    height: 1.3rem;\r\n    position: absolute;\r\n    left: 270px;\r\n    top: 8px;\r\n}\r\n\r\nsidebar search svg:hover {\r\n    fill: #888;\r\n    cursor: pointer;\r\n}", ""]);
 
 // exports
 
@@ -10918,12 +10853,12 @@ exports.push([module.i, "status-bar {\n    font-size: 12px;\n    padding: 4px;\n
 /* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "game {\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    top: 0;\n    background: #222;\n    background-size: cover;\n}\n\ngame header {\n    text-align: center;\n    padding: 1rem 1rem 0 1rem;\n    height: 158px;\n    font-size: 14px;\n    background: rgba(25,25,25,.68);\n}\n\ngame header .time {\n    font-size: 20px;\n}\n\ngame header .kills {\n    position: absolute;\n    width: 300px;\n    font-size: 30px;\n    left: 50%;\n    margin-left: -150px;\n    text-align: left;\n}\n\ngame header .actions {\n    position: absolute;\n    right: 7.2rem;\n    top: 3rem;\n}\n\ngame header .dropdown-trigger {\n    background: transparent;\n    border: 1px solid #fff;\n    border-radius: 4px;\n    font-weight: normal;\n    padding: 6px 8px;\n    height: auto;\n}\ngame header .dropdown .dropdown-menu {\n    min-width: 8rem;\n}\n\ngame header .dropdown .dropdown-trigger:after {\n    content: '';\n    margin: 0;\n}\n\ngame header .dropdown {\n    text-align: left;\n}\n\ngame header .outcome {\n    text-transform: uppercase;\n    font-size: 14px;\n    vertical-align: middle;\n    margin-left: 7px;\n}\ngame header .outcome.win {\n    color: #ffe834;\n    font-weight: bold;\n}\n\ngame h1 {\n    padding-top: 1rem;\n    text-align: center;\n}\n\ngame .tabs {\n    text-align: center;\n    padding: 0;\n    margin: 0;\n}\n\ngame .tabs li {\n    list-style-type: none;\n    display: inline-block;\n    width: 90px;\n    margin: 0 12px;\n    text-align: center;\n}\n\ngame .tabs li a:hover {\n    text-decoration: none;\n}\n\ngame .tabs li.active a {\n    color: #fff;\n}\n\ngame .tabs li.active:after {\n    width: 0;\n    height: 0;\n    border-style: solid;\n    border-width: 0 7.5px 8px 7.5px;\n    border-color: transparent transparent rgba(25,25,25,.95) transparent;\n    content: '';\n    display: block;\n    left: 50%;\n    margin-left: -5px;\n    top: 4px;\n    position: relative;\n}\n\ntab-content {\n    padding: 1rem;\n    display: block;\n    background: rgba(25,25,25,.95)\n}\n\ngame.corrupt {\n    text-align: center;\n    font-size: 13px;\n}\n\ngame.corrupt svg {\n    width: 12rem;\n    height: 12rem;\n    fill: #fff;\n    margin-top: 3rem;\n}\n\ngame.corrupt .subdued svg {\n    fill: #555;\n}\n\ngame.corrupt h1 {\n    text-align: center;\n    margin-bottom: 1rem;\n}\n\ngame.corrupt .reasons {\n    width: 465px;\n    background: #222;\n    padding: 1rem;\n    border-radius: 1rem;\n    text-align: left;\n    margin: 1rem auto;\n    margin-top: 0;\n}\n\ngame.web tab-content timeline {\n    width: 800px;\n    margin: 0 auto;\n}\n\nplayer-name {\n    display:inline-block;\n}\n\n.red {\n    color: #E60E0E\n}\n\n.blue {\n    color: #0075c4;\n}\n\nhighlight-reel {\n    display: block;\n    position: relative;\n    cursor: pointer;\n}\n\nvideo {\n    cursor: pointer;\n}\n\n.video-embed {\n    width: 640px;\n    margin: 4px;\n    border: 1px solid #222;\n}\n\nvideo-controls {    \n    position: absolute;\n    width: 640px;\n    bottom: 0;\n    top: 0;\n    margin-bottom: 4px;\n    background: rgba(15,15,15,.5);\n    cursor: pointer;\n}\n\nhighlight-reel:hover video-controls:after {    \n    border-color: transparent transparent transparent rgba(210,210,210,1)\n}\n\nvideo-controls:after {\n    width: 0;\n    height: 0;\n    content: ' ';\n    display: block;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    margin-left: -37.5px;\n    margin-top: -37.5px;\n    border-style: solid;\n    border-width: 50px 0 50px 75px;\n    border-color: transparent transparent transparent rgba(200,200,200,.8)\n}\n\n.video-options {\n    float: right;\n}\n\n.video-options svg {\n    width: 1rem;\n    height: 1rem;\n    margin: 0;\n    margin-left: .5rem;\n    fill: #ccc;\n    position: static;\n    cursor: pointer;\n} \n\n.video-options svg:hover {\n    color: #dadada;\n}\n", ""]);
+exports.push([module.i, "status-bar {\r\n    font-size: 12px;\r\n    padding: 4px;\r\n    position: fixed;\r\n    bottom: 10px;\r\n    margin-left: 10px;\r\n    color: #aaa;\r\n    z-index: 5;\r\n}\r\n\r\nstatus-bar svg {\r\n    width: 16px;\r\n    height: 16px;\r\n    fill: #aaa;\r\n    vertical-align: middle\r\n}\r\n\r\nstatus-bar .discord {\r\n    margin-right: 5px;\r\n}\r\n\r\nstatus-bar a {\r\n    color: #aaa;\r\n}\r\n\r\nstatus-bar a:hover {\r\n    text-decoration: none;\r\n    color: #aaa;\r\n}", ""]);
 
 // exports
 
@@ -10932,12 +10867,12 @@ exports.push([module.i, "game {\n    position: absolute;\n    right: 0;\n    lef
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "patch-notes {\n    padding: 1rem;\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    top: 0;\n}\n\n\npatch-notes a.external {\n    position: absolute;\n    right: 10px;\n    top: 10px;\n    font-size: 14px;\n    color: #0099ff;\n    text-decoration: underline;\n}\n\npatch-notes a.external svg {\n    margin-left: 7px;\n    margin-top: 2px;\n    width: 16px;\n    height: 16px;\n    vertical-align: text-bottom;\n    fill: #0099ff;\n}\n\npatch-notes h3 {\n    margin-left: 30px;\n    width: 600px;\n    margin-top: -6px;\n}\n\npatch-notes webview {\n    width: 770px;\n    height: 480px;\n    margin-top: 18px;\n    border: 1px solid #222;\n}", ""]);
+exports.push([module.i, "game {\r\n    position: absolute;\r\n    right: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    background: #222;\r\n    background-size: cover;\r\n}\r\n\r\ngame header {\r\n    text-align: center;\r\n    padding: 1rem 1rem 0 1rem;\r\n    height: 158px;\r\n    font-size: 14px;\r\n    background: rgba(25,25,25,.68);\r\n}\r\n\r\ngame header .time {\r\n    font-size: 20px;\r\n}\r\n\r\ngame header .kills {\r\n    position: absolute;\r\n    width: 300px;\r\n    font-size: 30px;\r\n    left: 50%;\r\n    margin-left: -150px;\r\n    text-align: left;\r\n}\r\n\r\ngame header .actions {\r\n    position: absolute;\r\n    right: 7.2rem;\r\n    top: 3rem;\r\n}\r\n\r\ngame header .dropdown-trigger {\r\n    background: transparent;\r\n    border: 1px solid #fff;\r\n    border-radius: 4px;\r\n    font-weight: normal;\r\n    padding: 6px 8px;\r\n    height: auto;\r\n}\r\ngame header .dropdown .dropdown-menu {\r\n    min-width: 8rem;\r\n}\r\n\r\ngame header .dropdown .dropdown-trigger:after {\r\n    content: '';\r\n    margin: 0;\r\n}\r\n\r\ngame header .dropdown {\r\n    text-align: left;\r\n}\r\n\r\ngame header .outcome {\r\n    text-transform: uppercase;\r\n    font-size: 14px;\r\n    vertical-align: middle;\r\n    margin-left: 7px;\r\n}\r\ngame header .outcome.win {\r\n    color: #ffe834;\r\n    font-weight: bold;\r\n}\r\n\r\ngame h1 {\r\n    padding-top: 1rem;\r\n    text-align: center;\r\n}\r\n\r\ngame .tabs {\r\n    text-align: center;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\ngame .tabs li {\r\n    list-style-type: none;\r\n    display: inline-block;\r\n    width: 90px;\r\n    margin: 0 12px;\r\n    text-align: center;\r\n}\r\n\r\ngame .tabs li a:hover {\r\n    text-decoration: none;\r\n}\r\n\r\ngame .tabs li.active a {\r\n    color: #fff;\r\n}\r\n\r\ngame .tabs li.active:after {\r\n    width: 0;\r\n    height: 0;\r\n    border-style: solid;\r\n    border-width: 0 7.5px 8px 7.5px;\r\n    border-color: transparent transparent rgba(25,25,25,.95) transparent;\r\n    content: '';\r\n    display: block;\r\n    left: 50%;\r\n    margin-left: -5px;\r\n    top: 4px;\r\n    position: relative;\r\n}\r\n\r\ntab-content {\r\n    padding: 1rem;\r\n    display: block;\r\n    background: rgba(25,25,25,.95)\r\n}\r\n\r\ngame.corrupt {\r\n    text-align: center;\r\n    font-size: 13px;\r\n}\r\n\r\ngame.corrupt svg {\r\n    width: 12rem;\r\n    height: 12rem;\r\n    fill: #fff;\r\n    margin-top: 3rem;\r\n}\r\n\r\ngame.corrupt .subdued svg {\r\n    fill: #555;\r\n}\r\n\r\ngame.corrupt h1 {\r\n    text-align: center;\r\n    margin-bottom: 1rem;\r\n}\r\n\r\ngame.corrupt .reasons {\r\n    width: 465px;\r\n    background: #222;\r\n    padding: 1rem;\r\n    border-radius: 1rem;\r\n    text-align: left;\r\n    margin: 1rem auto;\r\n    margin-top: 0;\r\n}\r\n\r\ngame.web tab-content timeline {\r\n    width: 800px;\r\n    margin: 0 auto;\r\n}\r\n\r\nplayer-name {\r\n    display:inline-block;\r\n}\r\n\r\n.red {\r\n    color: #E60E0E\r\n}\r\n\r\n.blue {\r\n    color: #0075c4;\r\n}\r\n\r\nhighlight-reel {\r\n    display: block;\r\n    position: relative;\r\n    cursor: pointer;\r\n}\r\n\r\nvideo {\r\n    cursor: pointer;\r\n}\r\n\r\n.video-embed {\r\n    width: 640px;\r\n    margin: 4px;\r\n    border: 1px solid #222;\r\n}\r\n\r\nvideo-controls {    \r\n    position: absolute;\r\n    width: 640px;\r\n    bottom: 0;\r\n    top: 0;\r\n    margin-bottom: 4px;\r\n    background: rgba(15,15,15,.5);\r\n    cursor: pointer;\r\n}\r\n\r\nhighlight-reel:hover video-controls:after {    \r\n    border-color: transparent transparent transparent rgba(210,210,210,1)\r\n}\r\n\r\nvideo-controls:after {\r\n    width: 0;\r\n    height: 0;\r\n    content: ' ';\r\n    display: block;\r\n    position: absolute;\r\n    left: 50%;\r\n    top: 50%;\r\n    margin-left: -37.5px;\r\n    margin-top: -37.5px;\r\n    border-style: solid;\r\n    border-width: 50px 0 50px 75px;\r\n    border-color: transparent transparent transparent rgba(200,200,200,.8)\r\n}\r\n\r\n.video-options {\r\n    float: right;\r\n}\r\n\r\n.video-options svg {\r\n    width: 1rem;\r\n    height: 1rem;\r\n    margin: 0;\r\n    margin-left: .5rem;\r\n    fill: #ccc;\r\n    position: static;\r\n    cursor: pointer;\r\n} \r\n\r\n.video-options svg:hover {\r\n    color: #dadada;\r\n}\r\n", ""]);
 
 // exports
 
@@ -10946,12 +10881,12 @@ exports.push([module.i, "patch-notes {\n    padding: 1rem;\n    position: absolu
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "\n.timeline {\n    padding: 1rem;\n    display: block;\n    position: relative;\n}\n\ntimeline {\n    display: block;\n    border-left: 2px solid #E4B406;\n    margin-left: 40px;\n}\n\ntimeline::before {\n    display: block;\n    content: '';\n    width: 21px;\n    height: 2px;\n    background: #E4B406;\n    margin-left: -11px;\n}\n\ntimeline-marker.hash::before {\n    position: absolute;\n    display: block;\n    content: '';\n    margin-left: -16px;\n    margin-top: 12px;\n    width: 8px;\n    height: 2px;\n    background: #E4B406;\n}\ntimeline-marker.hash {\n    display: block;\n    margin: 1rem;\n    color: #fafafa;\n}\n\ntimeline-marker.circle {\n    border: 2px solid #E4B406;\n    border-radius: 100%;\n    width: 2.4rem;\n    height: 2.4rem;\n    margin-left: -1.2rem;\n    color: #fafafa;\n    display: block;\n    background: #111;\n}\n\ntimeline-marker.circle .label {\n    text-align: center;\n    font-size: 18px;\n    margin-top: 3px;\n    margin-left: -1px;  \n}\n\ntimeline-marker.circle .content {\n    margin-left: 45px;\n    position: absolute;\n    margin-top: -28px;\n}\n\ntimeline-event::before {\n    position: absolute;\n    display: block;\n    content: '';\n    margin-left: -16px;\n    margin-top: 6px;\n    width: 0;\n    height: 0;\n    border-style: solid;\n    border-width: 6px 0 6px 8px;\n    border-color: transparent transparent transparent #E4B406;\n}\n\ntimeline-event svg {\n    fill: #fafafa;\n    width: 2.4rem;\n    height: 2.4rem;\n    margin-left: -3.5rem;\n    margin-top: -.3rem;\n    position: absolute;\n}\n\ntimeline-event .fight svg {\n    width: 1.8rem;\n    height: 1.8rem;\n    margin-top: 0;\n    margin-left: -3.3rem;\n}\n\ntimeline-event .death svg {\n    width: 1.8rem;\n    height: 1.8rem;\n    margin-top: 0;\n    margin-left: -3.3rem;\n}\n\ntimeline-event {\n    display: block;\n    margin: 1rem;\n}\n\ntimeline-event .time {\n    font-weight: bold;\n    color: #fafafa;\n}\n\ntimeline-event .content {\n    background: #333;\n    padding: 1rem;\n    margin-top: 4px;\n}\n\ntimeline-event hero-portrait {\n    width: 1.4rem;\n    height: 1.4rem;\n    margin: 0 3px;\n    border: 1px solid #222;\n}", ""]);
+exports.push([module.i, "patch-notes {\r\n    padding: 1rem;\r\n    position: absolute;\r\n    right: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n}\r\n\r\n\r\npatch-notes a.external {\r\n    position: absolute;\r\n    right: 10px;\r\n    top: 10px;\r\n    font-size: 14px;\r\n    color: #0099ff;\r\n    text-decoration: underline;\r\n}\r\n\r\npatch-notes a.external svg {\r\n    margin-left: 7px;\r\n    margin-top: 2px;\r\n    width: 16px;\r\n    height: 16px;\r\n    vertical-align: text-bottom;\r\n    fill: #0099ff;\r\n}\r\n\r\npatch-notes h3 {\r\n    margin-left: 30px;\r\n    width: 600px;\r\n    margin-top: -6px;\r\n}\r\n\r\npatch-notes webview {\r\n    width: 770px;\r\n    height: 480px;\r\n    margin-top: 18px;\r\n    border: 1px solid #222;\r\n}", ""]);
 
 // exports
 
@@ -10960,12 +10895,12 @@ exports.push([module.i, "\n.timeline {\n    padding: 1rem;\n    display: block;\
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "game-scores thead hero-portrait {\n    width: 26px;\n    height: 26px;\n}\n\ngame-scores table {\n    font-size: 13px;\n}\n\ngame-scores table thead th {\n    border-bottom-color: #E4B406;\n    height: 140px;\n    vertical-align: bottom;\n}\n\ngame-scores table tbody th {\n    border-bottom-width: 1px;\n    border-right: 1px solid #666\n}\n\ngame-scores table tbody td {\n    text-align: center;\n}\n\ngame-scores .axis-label {\n    position: absolute;\n    transform: rotate(290deg);\n    margin-top: -40px;\n    text-align: left;\n    transform-origin: 25%;\n}\n\ngame-scores .length-4 {\n    font-size: 12px;\n}\ngame-scores .length-5 {\n    font-size: 11px;\n}\ngame-scores .length-6 {\n    font-size: 10px;\n}", ""]);
+exports.push([module.i, "\r\n.timeline {\r\n    padding: 1rem;\r\n    display: block;\r\n    position: relative;\r\n}\r\n\r\ntimeline {\r\n    display: block;\r\n    border-left: 2px solid #E4B406;\r\n    margin-left: 40px;\r\n}\r\n\r\ntimeline::before {\r\n    display: block;\r\n    content: '';\r\n    width: 21px;\r\n    height: 2px;\r\n    background: #E4B406;\r\n    margin-left: -11px;\r\n}\r\n\r\ntimeline-marker.hash::before {\r\n    position: absolute;\r\n    display: block;\r\n    content: '';\r\n    margin-left: -16px;\r\n    margin-top: 12px;\r\n    width: 8px;\r\n    height: 2px;\r\n    background: #E4B406;\r\n}\r\ntimeline-marker.hash {\r\n    display: block;\r\n    margin: 1rem;\r\n    color: #fafafa;\r\n}\r\n\r\ntimeline-marker.circle {\r\n    border: 2px solid #E4B406;\r\n    border-radius: 100%;\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    margin-left: -1.2rem;\r\n    color: #fafafa;\r\n    display: block;\r\n    background: #111;\r\n}\r\n\r\ntimeline-marker.circle .label {\r\n    text-align: center;\r\n    font-size: 18px;\r\n    margin-top: 3px;\r\n    margin-left: -1px;  \r\n}\r\n\r\ntimeline-marker.circle .content {\r\n    margin-left: 45px;\r\n    position: absolute;\r\n    margin-top: -28px;\r\n}\r\n\r\ntimeline-event::before {\r\n    position: absolute;\r\n    display: block;\r\n    content: '';\r\n    margin-left: -16px;\r\n    margin-top: 6px;\r\n    width: 0;\r\n    height: 0;\r\n    border-style: solid;\r\n    border-width: 6px 0 6px 8px;\r\n    border-color: transparent transparent transparent #E4B406;\r\n}\r\n\r\ntimeline-event svg {\r\n    fill: #fafafa;\r\n    width: 2.4rem;\r\n    height: 2.4rem;\r\n    margin-left: -3.5rem;\r\n    margin-top: -.3rem;\r\n    position: absolute;\r\n}\r\n\r\ntimeline-event .fight svg {\r\n    width: 1.8rem;\r\n    height: 1.8rem;\r\n    margin-top: 0;\r\n    margin-left: -3.3rem;\r\n}\r\n\r\ntimeline-event .death svg {\r\n    width: 1.8rem;\r\n    height: 1.8rem;\r\n    margin-top: 0;\r\n    margin-left: -3.3rem;\r\n}\r\n\r\ntimeline-event {\r\n    display: block;\r\n    margin: 1rem;\r\n}\r\n\r\ntimeline-event .time {\r\n    font-weight: bold;\r\n    color: #fafafa;\r\n}\r\n\r\ntimeline-event .content {\r\n    background: #333;\r\n    padding: 1rem;\r\n    margin-top: 4px;\r\n}\r\n\r\ntimeline-event hero-portrait {\r\n    width: 1.4rem;\r\n    height: 1.4rem;\r\n    margin: 0 3px;\r\n    border: 1px solid #222;\r\n}", ""]);
 
 // exports
 
@@ -10974,18 +10909,46 @@ exports.push([module.i, "game-scores thead hero-portrait {\n    width: 26px;\n  
 /* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(5)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "download-new-version-popup {\n    position: absolute;\n    top: 0;\n    right: 0;\n    left: 0;\n    height: 2rem;\n    z-index: 15;\n    background: #0075c4;\n    color: #fff;\n    text-align: center;\n    font-size: 13px;\n    padding: 6px;\n}\n\ndownload-new-version-popup a {\n    text-decoration: underline;\n    color: #fff;\n    margin-left: .3rem;\n}\ndownload-new-version-popup a:hover {\n    color: #fff;\n}", ""]);
+exports.push([module.i, "game-scores thead hero-portrait {\r\n    width: 26px;\r\n    height: 26px;\r\n}\r\n\r\ngame-scores table {\r\n    font-size: 13px;\r\n}\r\n\r\ngame-scores table thead th {\r\n    border-bottom-color: #E4B406;\r\n    height: 140px;\r\n    vertical-align: bottom;\r\n}\r\n\r\ngame-scores table tbody th {\r\n    border-bottom-width: 1px;\r\n    border-right: 1px solid #666\r\n}\r\n\r\ngame-scores table tbody td {\r\n    text-align: center;\r\n}\r\n\r\ngame-scores .axis-label {\r\n    position: absolute;\r\n    transform: rotate(290deg);\r\n    margin-top: -40px;\r\n    text-align: left;\r\n    transform-origin: 25%;\r\n}\r\n\r\ngame-scores .length-4 {\r\n    font-size: 12px;\r\n}\r\ngame-scores .length-5 {\r\n    font-size: 11px;\r\n}\r\ngame-scores .length-6 {\r\n    font-size: 10px;\r\n}", ""]);
 
 // exports
 
 
 /***/ }),
 /* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "download-new-version-popup {\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    left: 0;\r\n    height: 2rem;\r\n    z-index: 15;\r\n    background: #0075c4;\r\n    color: #fff;\r\n    text-align: center;\r\n    font-size: 13px;\r\n    padding: 6px;\r\n}\r\n\r\ndownload-new-version-popup a {\r\n    text-decoration: underline;\r\n    color: #fff;\r\n    margin-left: .3rem;\r\n}\r\ndownload-new-version-popup a:hover {\r\n    color: #fff;\r\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "sharing-credentials {\r\n    position: fixed;\r\n    display: block;\r\n    width: 520px;\r\n    top: 90px;\r\n    z-index: 20;\r\n    background: #fff;\r\n    color: #333;\r\n    padding: 1rem;\r\n    border-radius: 1rem;\r\n}\r\n\r\nsharing-credentials .streamable {\r\n    width: 200px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n\r\n\r\nsharing-credentials .error {\r\n    color: #ff0000;\r\n}\r\n\r\nsharing-credentials label {\r\n    padding-top: .4rem;\r\n}\r\nsharing-credentials .buttons {\r\n    padding-top: 1rem;\r\n}\r\nsharing-credentials .buttons button {\r\n    margin-right: .5rem;\r\n}\r\n\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -11031,7 +10994,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(108);
+var	fixUrls = __webpack_require__(110);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -11344,7 +11307,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports) {
 
 
@@ -11439,27 +11402,25 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var PooledClass = __webpack_require__(110);
+var PooledClass = __webpack_require__(112);
 var ReactElement = __webpack_require__(16);
 
 var emptyFunction = __webpack_require__(11);
-var traverseAllChildren = __webpack_require__(111);
+var traverseAllChildren = __webpack_require__(113);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
 var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -11635,17 +11596,15 @@ var ReactChildren = {
 module.exports = ReactChildren;
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -11753,17 +11712,15 @@ module.exports = PooledClass;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -11772,11 +11729,11 @@ module.exports = PooledClass;
 var _prodInvariant = __webpack_require__(19);
 
 var ReactCurrentOwner = __webpack_require__(12);
-var REACT_ELEMENT_TYPE = __webpack_require__(56);
+var REACT_ELEMENT_TYPE = __webpack_require__(57);
 
-var getIteratorFn = __webpack_require__(57);
+var getIteratorFn = __webpack_require__(58);
 var invariant = __webpack_require__(1);
-var KeyEscapeUtils = __webpack_require__(112);
+var KeyEscapeUtils = __webpack_require__(114);
 var warning = __webpack_require__(2);
 
 var SEPARATOR = '.';
@@ -11935,17 +11892,15 @@ module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -11999,17 +11954,15 @@ var KeyEscapeUtils = {
 module.exports = KeyEscapeUtils;
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -12024,7 +11977,7 @@ var ReactElement = __webpack_require__(16);
  */
 var createDOMFactory = ReactElement.createFactory;
 if (process.env.NODE_ENV !== 'production') {
-  var ReactElementValidator = __webpack_require__(58);
+  var ReactElementValidator = __webpack_require__(59);
   createDOMFactory = ReactElementValidator.createFactory;
 }
 
@@ -12174,17 +12127,15 @@ module.exports = ReactDOMFactories;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -12192,8 +12143,8 @@ module.exports = ReactDOMFactories;
 
 var _prodInvariant = __webpack_require__(19);
 
-var ReactPropTypeLocationNames = __webpack_require__(115);
-var ReactPropTypesSecret = __webpack_require__(116);
+var ReactPropTypeLocationNames = __webpack_require__(117);
+var ReactPropTypesSecret = __webpack_require__(118);
 
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
@@ -12267,17 +12218,15 @@ module.exports = checkReactTypeSpec;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -12298,17 +12247,15 @@ module.exports = ReactPropTypeLocationNames;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -12320,17 +12267,15 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -12339,22 +12284,20 @@ module.exports = ReactPropTypesSecret;
 var _require = __webpack_require__(16),
     isValidElement = _require.isValidElement;
 
-var factory = __webpack_require__(59);
+var factory = __webpack_require__(60);
 
 module.exports = factory(isValidElement);
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -12362,9 +12305,10 @@ module.exports = factory(isValidElement);
 var emptyFunction = __webpack_require__(11);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
+var assign = __webpack_require__(121);
 
-var ReactPropTypesSecret = __webpack_require__(60);
-var checkPropTypes = __webpack_require__(119);
+var ReactPropTypesSecret = __webpack_require__(61);
+var checkPropTypes = __webpack_require__(122);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -12460,7 +12404,8 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
     objectOf: createObjectOfTypeChecker,
     oneOf: createEnumTypeChecker,
     oneOfType: createUnionTypeChecker,
-    shape: createShapeTypeChecker
+    shape: createShapeTypeChecker,
+    exact: createStrictShapeTypeChecker,
   };
 
   /**
@@ -12675,7 +12620,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       if (typeof checker !== 'function') {
         warning(
           false,
-          'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' +
+          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
           'received %s at index %s.',
           getPostfixForTypeWarning(checker),
           i
@@ -12726,6 +12671,36 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       }
       return null;
     }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createStrictShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      // We need to check all keys in case some are required but missing from
+      // props.
+      var allKeys = assign({}, props[propName], shapeTypes);
+      for (var key in allKeys) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          return new PropTypeError(
+            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
+            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
+            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+          );
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+
     return createChainableTypeChecker(validate);
   }
 
@@ -12864,17 +12839,112 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 119 */
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -12882,7 +12952,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(1);
   var warning = __webpack_require__(2);
-  var ReactPropTypesSecret = __webpack_require__(60);
+  var ReactPropTypesSecret = __webpack_require__(61);
   var loggedTypeFailures = {};
 }
 
@@ -12908,7 +12978,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
         try {
           // This is intentionally an invariant that gets caught. It's the same
           // behavior as without this statement except with a better message.
-          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'React.PropTypes.', componentName || 'React class', location, typeSpecName);
+          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
           error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
         } catch (ex) {
           error = ex;
@@ -12933,70 +13003,64 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 120 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-module.exports = '15.6.1';
+module.exports = '15.6.2';
 
 /***/ }),
-/* 121 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _require = __webpack_require__(54),
+var _require = __webpack_require__(55),
     Component = _require.Component;
 
 var _require2 = __webpack_require__(16),
     isValidElement = _require2.isValidElement;
 
-var ReactNoopUpdateQueue = __webpack_require__(55);
-var factory = __webpack_require__(122);
+var ReactNoopUpdateQueue = __webpack_require__(56);
+var factory = __webpack_require__(125);
 
 module.exports = factory(Component, isValidElement, ReactNoopUpdateQueue);
 
 /***/ }),
-/* 122 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(126);
 
 var emptyObject = __webpack_require__(27);
 var _invariant = __webpack_require__(1);
@@ -13860,17 +13924,112 @@ module.exports = factory;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 123 */
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -13904,27 +14063,25 @@ module.exports = onlyChild;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 124 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(125);
+module.exports = __webpack_require__(129);
 
 
 /***/ }),
-/* 125 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -13932,16 +14089,16 @@ module.exports = __webpack_require__(125);
 
 
 
-var ReactDOMComponentTree = __webpack_require__(5);
-var ReactDefaultInjection = __webpack_require__(126);
-var ReactMount = __webpack_require__(84);
+var ReactDOMComponentTree = __webpack_require__(4);
+var ReactDefaultInjection = __webpack_require__(130);
+var ReactMount = __webpack_require__(85);
 var ReactReconciler = __webpack_require__(20);
 var ReactUpdates = __webpack_require__(13);
-var ReactVersion = __webpack_require__(204);
+var ReactVersion = __webpack_require__(208);
 
-var findDOMNode = __webpack_require__(205);
-var getHostComponentFromComposite = __webpack_require__(85);
-var renderSubtreeIntoContainer = __webpack_require__(206);
+var findDOMNode = __webpack_require__(209);
+var getHostComponentFromComposite = __webpack_require__(86);
+var renderSubtreeIntoContainer = __webpack_require__(210);
 var warning = __webpack_require__(2);
 
 ReactDefaultInjection.inject();
@@ -14018,9 +14175,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 if (process.env.NODE_ENV !== 'production') {
   var ReactInstrumentation = __webpack_require__(9);
-  var ReactDOMUnknownPropertyHook = __webpack_require__(207);
-  var ReactDOMNullInputValuePropHook = __webpack_require__(208);
-  var ReactDOMInvalidARIAHook = __webpack_require__(209);
+  var ReactDOMUnknownPropertyHook = __webpack_require__(211);
+  var ReactDOMNullInputValuePropHook = __webpack_require__(212);
+  var ReactDOMInvalidARIAHook = __webpack_require__(213);
 
   ReactInstrumentation.debugTool.addHook(ReactDOMUnknownPropertyHook);
   ReactInstrumentation.debugTool.addHook(ReactDOMNullInputValuePropHook);
@@ -14031,41 +14188,39 @@ module.exports = ReactDOM;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 126 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var ARIADOMPropertyConfig = __webpack_require__(127);
-var BeforeInputEventPlugin = __webpack_require__(128);
-var ChangeEventPlugin = __webpack_require__(132);
-var DefaultEventPluginOrder = __webpack_require__(140);
-var EnterLeaveEventPlugin = __webpack_require__(141);
-var HTMLDOMPropertyConfig = __webpack_require__(142);
-var ReactComponentBrowserEnvironment = __webpack_require__(143);
-var ReactDOMComponent = __webpack_require__(149);
-var ReactDOMComponentTree = __webpack_require__(5);
-var ReactDOMEmptyComponent = __webpack_require__(175);
-var ReactDOMTreeTraversal = __webpack_require__(176);
-var ReactDOMTextComponent = __webpack_require__(177);
-var ReactDefaultBatchingStrategy = __webpack_require__(178);
-var ReactEventListener = __webpack_require__(179);
-var ReactInjection = __webpack_require__(181);
-var ReactReconcileTransaction = __webpack_require__(182);
-var SVGDOMPropertyConfig = __webpack_require__(188);
-var SelectEventPlugin = __webpack_require__(189);
-var SimpleEventPlugin = __webpack_require__(190);
+var ARIADOMPropertyConfig = __webpack_require__(131);
+var BeforeInputEventPlugin = __webpack_require__(132);
+var ChangeEventPlugin = __webpack_require__(136);
+var DefaultEventPluginOrder = __webpack_require__(144);
+var EnterLeaveEventPlugin = __webpack_require__(145);
+var HTMLDOMPropertyConfig = __webpack_require__(146);
+var ReactComponentBrowserEnvironment = __webpack_require__(147);
+var ReactDOMComponent = __webpack_require__(153);
+var ReactDOMComponentTree = __webpack_require__(4);
+var ReactDOMEmptyComponent = __webpack_require__(179);
+var ReactDOMTreeTraversal = __webpack_require__(180);
+var ReactDOMTextComponent = __webpack_require__(181);
+var ReactDefaultBatchingStrategy = __webpack_require__(182);
+var ReactEventListener = __webpack_require__(183);
+var ReactInjection = __webpack_require__(185);
+var ReactReconcileTransaction = __webpack_require__(186);
+var SVGDOMPropertyConfig = __webpack_require__(192);
+var SelectEventPlugin = __webpack_require__(193);
+var SimpleEventPlugin = __webpack_require__(194);
 
 var alreadyInjected = false;
 
@@ -14122,17 +14277,15 @@ module.exports = {
 };
 
 /***/ }),
-/* 127 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -14201,17 +14354,15 @@ var ARIADOMPropertyConfig = {
 module.exports = ARIADOMPropertyConfig;
 
 /***/ }),
-/* 128 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -14219,9 +14370,9 @@ module.exports = ARIADOMPropertyConfig;
 
 var EventPropagators = __webpack_require__(22);
 var ExecutionEnvironment = __webpack_require__(7);
-var FallbackCompositionState = __webpack_require__(129);
-var SyntheticCompositionEvent = __webpack_require__(130);
-var SyntheticInputEvent = __webpack_require__(131);
+var FallbackCompositionState = __webpack_require__(133);
+var SyntheticCompositionEvent = __webpack_require__(134);
+var SyntheticInputEvent = __webpack_require__(135);
 
 var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 var START_KEYCODE = 229;
@@ -14590,27 +14741,25 @@ var BeforeInputEventPlugin = {
 module.exports = BeforeInputEventPlugin;
 
 /***/ }),
-/* 129 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var PooledClass = __webpack_require__(17);
 
-var getTextContentAccessor = __webpack_require__(64);
+var getTextContentAccessor = __webpack_require__(65);
 
 /**
  * This helper class stores information about text content of a target node,
@@ -14690,17 +14839,15 @@ PooledClass.addPoolingTo(FallbackCompositionState);
 module.exports = FallbackCompositionState;
 
 /***/ }),
-/* 130 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -14731,17 +14878,15 @@ SyntheticEvent.augmentClass(SyntheticCompositionEvent, CompositionEventInterface
 module.exports = SyntheticCompositionEvent;
 
 /***/ }),
-/* 131 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -14773,17 +14918,15 @@ SyntheticEvent.augmentClass(SyntheticInputEvent, InputEventInterface);
 module.exports = SyntheticInputEvent;
 
 /***/ }),
-/* 132 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -14792,14 +14935,14 @@ module.exports = SyntheticInputEvent;
 var EventPluginHub = __webpack_require__(23);
 var EventPropagators = __webpack_require__(22);
 var ExecutionEnvironment = __webpack_require__(7);
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactUpdates = __webpack_require__(13);
 var SyntheticEvent = __webpack_require__(14);
 
-var inputValueTracking = __webpack_require__(67);
-var getEventTarget = __webpack_require__(38);
-var isEventSupported = __webpack_require__(39);
-var isTextInputElement = __webpack_require__(68);
+var inputValueTracking = __webpack_require__(68);
+var getEventTarget = __webpack_require__(39);
+var isEventSupported = __webpack_require__(40);
+var isTextInputElement = __webpack_require__(69);
 
 var eventTypes = {
   change: {
@@ -14908,7 +15051,7 @@ if (ExecutionEnvironment.canUseDOM) {
   // IE9 claims to support the input event but fails to trigger it when
   // deleting text, so we ignore its input events.
 
-  isInputEventSupported = isEventSupported('input') && (!('documentMode' in document) || document.documentMode > 9);
+  isInputEventSupported = isEventSupported('input') && (!document.documentMode || document.documentMode > 9);
 }
 
 /**
@@ -15090,24 +15233,22 @@ var ChangeEventPlugin = {
 module.exports = ChangeEventPlugin;
 
 /***/ }),
-/* 133 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
 
 
 
-var ReactOwner = __webpack_require__(134);
+var ReactOwner = __webpack_require__(138);
 
 var ReactRef = {};
 
@@ -15184,17 +15325,15 @@ ReactRef.detachRefs = function (instance, element) {
 module.exports = ReactRef;
 
 /***/ }),
-/* 134 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -15283,29 +15422,27 @@ module.exports = ReactOwner;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 135 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2016-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
 
 
 
-var ReactInvalidSetStateWarningHook = __webpack_require__(136);
-var ReactHostOperationHistoryHook = __webpack_require__(137);
+var ReactInvalidSetStateWarningHook = __webpack_require__(140);
+var ReactHostOperationHistoryHook = __webpack_require__(141);
 var ReactComponentTreeHook = __webpack_require__(8);
 var ExecutionEnvironment = __webpack_require__(7);
 
-var performanceNow = __webpack_require__(138);
+var performanceNow = __webpack_require__(142);
 var warning = __webpack_require__(2);
 
 var hooks = [];
@@ -15650,17 +15787,15 @@ module.exports = ReactDebugTool;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 136 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2016-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -15693,17 +15828,15 @@ module.exports = ReactInvalidSetStateWarningHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 137 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2016-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -15732,7 +15865,7 @@ var ReactHostOperationHistoryHook = {
 module.exports = ReactHostOperationHistoryHook;
 
 /***/ }),
-/* 138 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15740,16 +15873,14 @@ module.exports = ReactHostOperationHistoryHook;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
 
-var performance = __webpack_require__(139);
+var performance = __webpack_require__(143);
 
 var performanceNow;
 
@@ -15771,17 +15902,15 @@ if (performance.now) {
 module.exports = performanceNow;
 
 /***/ }),
-/* 139 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -15799,17 +15928,15 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = performance || {};
 
 /***/ }),
-/* 140 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -15830,24 +15957,22 @@ var DefaultEventPluginOrder = ['ResponderEventPlugin', 'SimpleEventPlugin', 'Tap
 module.exports = DefaultEventPluginOrder;
 
 /***/ }),
-/* 141 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var EventPropagators = __webpack_require__(22);
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 var SyntheticMouseEvent = __webpack_require__(30);
 
 var eventTypes = {
@@ -15933,17 +16058,15 @@ var EnterLeaveEventPlugin = {
 module.exports = EnterLeaveEventPlugin;
 
 /***/ }),
-/* 142 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -15992,6 +16115,7 @@ var HTMLDOMPropertyConfig = {
     contentEditable: 0,
     contextMenu: 0,
     controls: HAS_BOOLEAN_VALUE,
+    controlsList: 0,
     coords: 0,
     crossOrigin: 0,
     data: 0, // For `<object />` acts as `src`.
@@ -16174,24 +16298,22 @@ var HTMLDOMPropertyConfig = {
 module.exports = HTMLDOMPropertyConfig;
 
 /***/ }),
-/* 143 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var DOMChildrenOperations = __webpack_require__(41);
-var ReactDOMIDOperations = __webpack_require__(148);
+var DOMChildrenOperations = __webpack_require__(42);
+var ReactDOMIDOperations = __webpack_require__(152);
 
 /**
  * Abstracts away all functionality of the reconciler that requires knowledge of
@@ -16207,17 +16329,15 @@ var ReactComponentBrowserEnvironment = {
 module.exports = ReactComponentBrowserEnvironment;
 
 /***/ }),
-/* 144 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -16228,7 +16348,7 @@ var _prodInvariant = __webpack_require__(3);
 var DOMLazyTree = __webpack_require__(21);
 var ExecutionEnvironment = __webpack_require__(7);
 
-var createNodesFromMarkup = __webpack_require__(145);
+var createNodesFromMarkup = __webpack_require__(149);
 var emptyFunction = __webpack_require__(11);
 var invariant = __webpack_require__(1);
 
@@ -16259,7 +16379,7 @@ module.exports = Danger;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 145 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16267,11 +16387,9 @@ module.exports = Danger;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -16280,8 +16398,8 @@ module.exports = Danger;
 
 var ExecutionEnvironment = __webpack_require__(7);
 
-var createArrayFromMixed = __webpack_require__(146);
-var getMarkupWrap = __webpack_require__(147);
+var createArrayFromMixed = __webpack_require__(150);
+var getMarkupWrap = __webpack_require__(151);
 var invariant = __webpack_require__(1);
 
 /**
@@ -16349,7 +16467,7 @@ module.exports = createNodesFromMarkup;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 146 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16357,11 +16475,9 @@ module.exports = createNodesFromMarkup;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -16482,7 +16598,7 @@ module.exports = createArrayFromMixed;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 147 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16490,11 +16606,9 @@ module.exports = createArrayFromMixed;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -16583,24 +16697,22 @@ module.exports = getMarkupWrap;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 148 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var DOMChildrenOperations = __webpack_require__(41);
-var ReactDOMComponentTree = __webpack_require__(5);
+var DOMChildrenOperations = __webpack_require__(42);
+var ReactDOMComponentTree = __webpack_require__(4);
 
 /**
  * Operations used to process updates to DOM nodes.
@@ -16621,17 +16733,15 @@ var ReactDOMIDOperations = {
 module.exports = ReactDOMIDOperations;
 
 /***/ }),
-/* 149 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -16640,34 +16750,34 @@ module.exports = ReactDOMIDOperations;
 
 
 var _prodInvariant = __webpack_require__(3),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(6);
 
-var AutoFocusUtils = __webpack_require__(150);
-var CSSPropertyOperations = __webpack_require__(151);
+var AutoFocusUtils = __webpack_require__(154);
+var CSSPropertyOperations = __webpack_require__(155);
 var DOMLazyTree = __webpack_require__(21);
-var DOMNamespaces = __webpack_require__(42);
+var DOMNamespaces = __webpack_require__(43);
 var DOMProperty = __webpack_require__(15);
-var DOMPropertyOperations = __webpack_require__(73);
+var DOMPropertyOperations = __webpack_require__(74);
 var EventPluginHub = __webpack_require__(23);
 var EventPluginRegistry = __webpack_require__(28);
 var ReactBrowserEventEmitter = __webpack_require__(33);
-var ReactDOMComponentFlags = __webpack_require__(61);
-var ReactDOMComponentTree = __webpack_require__(5);
-var ReactDOMInput = __webpack_require__(161);
-var ReactDOMOption = __webpack_require__(162);
-var ReactDOMSelect = __webpack_require__(75);
-var ReactDOMTextarea = __webpack_require__(163);
+var ReactDOMComponentFlags = __webpack_require__(62);
+var ReactDOMComponentTree = __webpack_require__(4);
+var ReactDOMInput = __webpack_require__(165);
+var ReactDOMOption = __webpack_require__(166);
+var ReactDOMSelect = __webpack_require__(76);
+var ReactDOMTextarea = __webpack_require__(167);
 var ReactInstrumentation = __webpack_require__(9);
-var ReactMultiChild = __webpack_require__(164);
-var ReactServerRenderingTransaction = __webpack_require__(173);
+var ReactMultiChild = __webpack_require__(168);
+var ReactServerRenderingTransaction = __webpack_require__(177);
 
 var emptyFunction = __webpack_require__(11);
 var escapeTextContentForBrowser = __webpack_require__(32);
 var invariant = __webpack_require__(1);
-var isEventSupported = __webpack_require__(39);
-var shallowEqual = __webpack_require__(46);
-var inputValueTracking = __webpack_require__(67);
-var validateDOMNesting = __webpack_require__(50);
+var isEventSupported = __webpack_require__(40);
+var shallowEqual = __webpack_require__(47);
+var inputValueTracking = __webpack_require__(68);
+var validateDOMNesting = __webpack_require__(51);
 var warning = __webpack_require__(2);
 
 var Flags = ReactDOMComponentFlags;
@@ -17392,6 +17502,10 @@ ReactDOMComponent.Mixin = {
         // happen after `_updateDOMProperties`. Otherwise HTML5 input validations
         // raise warnings and prevent the new value from being assigned.
         ReactDOMInput.updateWrapper(this);
+
+        // We also check that we haven't missed a value update, such as a
+        // Radio group shifting the checked value to another named radio input.
+        inputValueTracking.updateValueIfChanged(this);
         break;
       case 'textarea':
         ReactDOMTextarea.updateWrapper(this);
@@ -17637,25 +17751,23 @@ module.exports = ReactDOMComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 150 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 
-var focusNode = __webpack_require__(71);
+var focusNode = __webpack_require__(72);
 
 var AutoFocusUtils = {
   focusDOMComponent: function () {
@@ -17666,30 +17778,28 @@ var AutoFocusUtils = {
 module.exports = AutoFocusUtils;
 
 /***/ }),
-/* 151 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var CSSProperty = __webpack_require__(72);
+var CSSProperty = __webpack_require__(73);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactInstrumentation = __webpack_require__(9);
 
-var camelizeStyleName = __webpack_require__(152);
-var dangerousStyleValue = __webpack_require__(154);
-var hyphenateStyleName = __webpack_require__(155);
-var memoizeStringOnly = __webpack_require__(157);
+var camelizeStyleName = __webpack_require__(156);
+var dangerousStyleValue = __webpack_require__(158);
+var hyphenateStyleName = __webpack_require__(159);
+var memoizeStringOnly = __webpack_require__(161);
 var warning = __webpack_require__(2);
 
 var processStyleName = memoizeStringOnly(function (styleName) {
@@ -17887,24 +17997,22 @@ module.exports = CSSPropertyOperations;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 152 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
 
 
 
-var camelize = __webpack_require__(153);
+var camelize = __webpack_require__(157);
 
 var msPattern = /^-ms-/;
 
@@ -17932,7 +18040,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 153 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17940,11 +18048,9 @@ module.exports = camelizeStyleName;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -17969,23 +18075,21 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 154 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var CSSProperty = __webpack_require__(72);
+var CSSProperty = __webpack_require__(73);
 var warning = __webpack_require__(2);
 
 var isUnitlessNumber = CSSProperty.isUnitlessNumber;
@@ -18054,24 +18158,22 @@ module.exports = dangerousStyleValue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 155 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
 
 
 
-var hyphenate = __webpack_require__(156);
+var hyphenate = __webpack_require__(160);
 
 var msPattern = /^ms-/;
 
@@ -18098,7 +18200,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 156 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18106,11 +18208,9 @@ module.exports = hyphenateStyleName;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -18136,17 +18236,15 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 157 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  * @typechecks static-only
@@ -18171,17 +18269,15 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 158 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -18202,17 +18298,15 @@ function quoteAttributeValueForBrowser(value) {
 module.exports = quoteAttributeValueForBrowser;
 
 /***/ }),
-/* 159 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -18239,17 +18333,15 @@ var ReactEventEmitterMixin = {
 module.exports = ReactEventEmitterMixin;
 
 /***/ }),
-/* 160 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -18345,28 +18437,26 @@ function getVendorPrefixedEventName(eventName) {
 module.exports = getVendorPrefixedEventName;
 
 /***/ }),
-/* 161 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var _prodInvariant = __webpack_require__(3),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(6);
 
-var DOMPropertyOperations = __webpack_require__(73);
-var LinkedValueUtils = __webpack_require__(44);
-var ReactDOMComponentTree = __webpack_require__(5);
+var DOMPropertyOperations = __webpack_require__(74);
+var LinkedValueUtils = __webpack_require__(45);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactUpdates = __webpack_require__(13);
 
 var invariant = __webpack_require__(1);
@@ -18638,27 +18728,25 @@ module.exports = ReactDOMInput;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 162 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var React = __webpack_require__(18);
-var ReactDOMComponentTree = __webpack_require__(5);
-var ReactDOMSelect = __webpack_require__(75);
+var ReactDOMComponentTree = __webpack_require__(4);
+var ReactDOMSelect = __webpack_require__(76);
 
 var warning = __webpack_require__(2);
 var didWarnInvalidOptionChildren = false;
@@ -18766,27 +18854,25 @@ module.exports = ReactDOMOption;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 163 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var _prodInvariant = __webpack_require__(3),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(6);
 
-var LinkedValueUtils = __webpack_require__(44);
-var ReactDOMComponentTree = __webpack_require__(5);
+var LinkedValueUtils = __webpack_require__(45);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactUpdates = __webpack_require__(13);
 
 var invariant = __webpack_require__(1);
@@ -18932,17 +19018,15 @@ module.exports = ReactDOMTextarea;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 164 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -18950,16 +19034,16 @@ module.exports = ReactDOMTextarea;
 
 var _prodInvariant = __webpack_require__(3);
 
-var ReactComponentEnvironment = __webpack_require__(45);
+var ReactComponentEnvironment = __webpack_require__(46);
 var ReactInstanceMap = __webpack_require__(25);
 var ReactInstrumentation = __webpack_require__(9);
 
 var ReactCurrentOwner = __webpack_require__(12);
 var ReactReconciler = __webpack_require__(20);
-var ReactChildReconciler = __webpack_require__(165);
+var ReactChildReconciler = __webpack_require__(169);
 
 var emptyFunction = __webpack_require__(11);
-var flattenChildren = __webpack_require__(172);
+var flattenChildren = __webpack_require__(176);
 var invariant = __webpack_require__(1);
 
 /**
@@ -19384,17 +19468,15 @@ module.exports = ReactMultiChild;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 165 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -19402,10 +19484,10 @@ module.exports = ReactMultiChild;
 
 var ReactReconciler = __webpack_require__(20);
 
-var instantiateReactComponent = __webpack_require__(76);
-var KeyEscapeUtils = __webpack_require__(48);
-var shouldUpdateReactComponent = __webpack_require__(47);
-var traverseAllChildren = __webpack_require__(80);
+var instantiateReactComponent = __webpack_require__(77);
+var KeyEscapeUtils = __webpack_require__(49);
+var shouldUpdateReactComponent = __webpack_require__(48);
+var traverseAllChildren = __webpack_require__(81);
 var warning = __webpack_require__(2);
 
 var ReactComponentTreeHook;
@@ -19543,42 +19625,40 @@ module.exports = ReactChildReconciler;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 166 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var _prodInvariant = __webpack_require__(3),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(6);
 
 var React = __webpack_require__(18);
-var ReactComponentEnvironment = __webpack_require__(45);
+var ReactComponentEnvironment = __webpack_require__(46);
 var ReactCurrentOwner = __webpack_require__(12);
-var ReactErrorUtils = __webpack_require__(37);
+var ReactErrorUtils = __webpack_require__(38);
 var ReactInstanceMap = __webpack_require__(25);
 var ReactInstrumentation = __webpack_require__(9);
-var ReactNodeTypes = __webpack_require__(77);
+var ReactNodeTypes = __webpack_require__(78);
 var ReactReconciler = __webpack_require__(20);
 
 if (process.env.NODE_ENV !== 'production') {
-  var checkReactTypeSpec = __webpack_require__(167);
+  var checkReactTypeSpec = __webpack_require__(171);
 }
 
 var emptyObject = __webpack_require__(27);
 var invariant = __webpack_require__(1);
-var shallowEqual = __webpack_require__(46);
-var shouldUpdateReactComponent = __webpack_require__(47);
+var shallowEqual = __webpack_require__(47);
+var shouldUpdateReactComponent = __webpack_require__(48);
 var warning = __webpack_require__(2);
 
 var CompositeTypes = {
@@ -19822,7 +19902,7 @@ var ReactCompositeComponent = {
   },
 
   _constructComponent: function (doConstruct, publicProps, publicContext, updateQueue) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production' && !doConstruct) {
       ReactCurrentOwner.current = this;
       try {
         return this._constructComponentWithoutOwner(doConstruct, publicProps, publicContext, updateQueue);
@@ -20449,17 +20529,15 @@ module.exports = ReactCompositeComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 167 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -20467,8 +20545,8 @@ module.exports = ReactCompositeComponent;
 
 var _prodInvariant = __webpack_require__(3);
 
-var ReactPropTypeLocationNames = __webpack_require__(168);
-var ReactPropTypesSecret = __webpack_require__(74);
+var ReactPropTypeLocationNames = __webpack_require__(172);
+var ReactPropTypesSecret = __webpack_require__(75);
 
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
@@ -20542,17 +20620,15 @@ module.exports = checkReactTypeSpec;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 168 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -20573,17 +20649,15 @@ module.exports = ReactPropTypeLocationNames;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 169 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -20599,17 +20673,15 @@ function getNextDebugID() {
 module.exports = getNextDebugID;
 
 /***/ }),
-/* 170 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -20624,17 +20696,15 @@ var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol
 module.exports = REACT_ELEMENT_TYPE;
 
 /***/ }),
-/* 171 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -20670,25 +20740,23 @@ function getIteratorFn(maybeIterable) {
 module.exports = getIteratorFn;
 
 /***/ }),
-/* 172 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
 
 
 
-var KeyEscapeUtils = __webpack_require__(48);
-var traverseAllChildren = __webpack_require__(80);
+var KeyEscapeUtils = __webpack_require__(49);
+var traverseAllChildren = __webpack_require__(81);
 var warning = __webpack_require__(2);
 
 var ReactComponentTreeHook;
@@ -20752,28 +20820,26 @@ module.exports = flattenChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 173 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var PooledClass = __webpack_require__(17);
 var Transaction = __webpack_require__(29);
 var ReactInstrumentation = __webpack_require__(9);
-var ReactServerUpdateQueue = __webpack_require__(174);
+var ReactServerUpdateQueue = __webpack_require__(178);
 
 /**
  * Executed within the scope of the `Transaction` instance. Consider these as
@@ -20848,17 +20914,15 @@ module.exports = ReactServerRenderingTransaction;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 174 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -20867,7 +20931,7 @@ module.exports = ReactServerRenderingTransaction;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ReactUpdateQueue = __webpack_require__(49);
+var ReactUpdateQueue = __webpack_require__(50);
 
 var warning = __webpack_require__(2);
 
@@ -20993,26 +21057,24 @@ module.exports = ReactServerUpdateQueue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 175 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2014-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var DOMLazyTree = __webpack_require__(21);
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 
 var ReactDOMEmptyComponent = function (instantiate) {
   // ReactCompositeComponent uses this:
@@ -21058,17 +21120,15 @@ _assign(ReactDOMEmptyComponent.prototype, {
 module.exports = ReactDOMEmptyComponent;
 
 /***/ }),
-/* 176 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -21200,32 +21260,30 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 177 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
 var _prodInvariant = __webpack_require__(3),
-    _assign = __webpack_require__(4);
+    _assign = __webpack_require__(6);
 
-var DOMChildrenOperations = __webpack_require__(41);
+var DOMChildrenOperations = __webpack_require__(42);
 var DOMLazyTree = __webpack_require__(21);
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 
 var escapeTextContentForBrowser = __webpack_require__(32);
 var invariant = __webpack_require__(1);
-var validateDOMNesting = __webpack_require__(50);
+var validateDOMNesting = __webpack_require__(51);
 
 /**
  * Text nodes violate a couple assumptions that React makes about components:
@@ -21368,23 +21426,21 @@ module.exports = ReactDOMTextComponent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 178 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
 var ReactUpdates = __webpack_require__(13);
 var Transaction = __webpack_require__(29);
@@ -21441,32 +21497,30 @@ var ReactDefaultBatchingStrategy = {
 module.exports = ReactDefaultBatchingStrategy;
 
 /***/ }),
-/* 179 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
-var EventListener = __webpack_require__(81);
+var EventListener = __webpack_require__(82);
 var ExecutionEnvironment = __webpack_require__(7);
 var PooledClass = __webpack_require__(17);
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactUpdates = __webpack_require__(13);
 
-var getEventTarget = __webpack_require__(38);
-var getUnboundedScrollPosition = __webpack_require__(180);
+var getEventTarget = __webpack_require__(39);
+var getUnboundedScrollPosition = __webpack_require__(184);
 
 /**
  * Find the deepest React component completely containing the root of the
@@ -21601,17 +21655,15 @@ var ReactEventListener = {
 module.exports = ReactEventListener;
 
 /***/ }),
-/* 180 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -21645,17 +21697,15 @@ function getUnboundedScrollPosition(scrollable) {
 module.exports = getUnboundedScrollPosition;
 
 /***/ }),
-/* 181 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -21663,11 +21713,11 @@ module.exports = getUnboundedScrollPosition;
 
 var DOMProperty = __webpack_require__(15);
 var EventPluginHub = __webpack_require__(23);
-var EventPluginUtils = __webpack_require__(36);
-var ReactComponentEnvironment = __webpack_require__(45);
-var ReactEmptyComponent = __webpack_require__(78);
+var EventPluginUtils = __webpack_require__(37);
+var ReactComponentEnvironment = __webpack_require__(46);
+var ReactEmptyComponent = __webpack_require__(79);
 var ReactBrowserEventEmitter = __webpack_require__(33);
-var ReactHostComponent = __webpack_require__(79);
+var ReactHostComponent = __webpack_require__(80);
 var ReactUpdates = __webpack_require__(13);
 
 var ReactInjection = {
@@ -21684,31 +21734,29 @@ var ReactInjection = {
 module.exports = ReactInjection;
 
 /***/ }),
-/* 182 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var _assign = __webpack_require__(4);
+var _assign = __webpack_require__(6);
 
-var CallbackQueue = __webpack_require__(65);
+var CallbackQueue = __webpack_require__(66);
 var PooledClass = __webpack_require__(17);
 var ReactBrowserEventEmitter = __webpack_require__(33);
-var ReactInputSelection = __webpack_require__(82);
+var ReactInputSelection = __webpack_require__(83);
 var ReactInstrumentation = __webpack_require__(9);
 var Transaction = __webpack_require__(29);
-var ReactUpdateQueue = __webpack_require__(49);
+var ReactUpdateQueue = __webpack_require__(50);
 
 /**
  * Ensures that, when possible, the selection range (currently selected text
@@ -21868,17 +21916,15 @@ module.exports = ReactReconcileTransaction;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 183 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -21886,8 +21932,8 @@ module.exports = ReactReconcileTransaction;
 
 var ExecutionEnvironment = __webpack_require__(7);
 
-var getNodeForCharacterOffset = __webpack_require__(184);
-var getTextContentAccessor = __webpack_require__(64);
+var getNodeForCharacterOffset = __webpack_require__(188);
+var getTextContentAccessor = __webpack_require__(65);
 
 /**
  * While `isCollapsed` is available on the Selection object and `collapsed`
@@ -22085,17 +22131,15 @@ var ReactDOMSelection = {
 module.exports = ReactDOMSelection;
 
 /***/ }),
-/* 184 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -22164,7 +22208,7 @@ function getNodeForCharacterOffset(root, offset) {
 module.exports = getNodeForCharacterOffset;
 
 /***/ }),
-/* 185 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22172,16 +22216,14 @@ module.exports = getNodeForCharacterOffset;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
 
-var isTextNode = __webpack_require__(186);
+var isTextNode = __webpack_require__(190);
 
 /*eslint-disable no-bitwise */
 
@@ -22209,7 +22251,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 186 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22217,16 +22259,14 @@ module.exports = containsNode;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
 
-var isNode = __webpack_require__(187);
+var isNode = __webpack_require__(191);
 
 /**
  * @param {*} object The object to check.
@@ -22239,7 +22279,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 187 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22247,11 +22287,9 @@ module.exports = isTextNode;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
  */
@@ -22269,17 +22307,15 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 188 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -22576,17 +22612,15 @@ Object.keys(ATTRS).forEach(function (key) {
 module.exports = SVGDOMPropertyConfig;
 
 /***/ }),
-/* 189 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -22594,13 +22628,13 @@ module.exports = SVGDOMPropertyConfig;
 
 var EventPropagators = __webpack_require__(22);
 var ExecutionEnvironment = __webpack_require__(7);
-var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInputSelection = __webpack_require__(82);
+var ReactDOMComponentTree = __webpack_require__(4);
+var ReactInputSelection = __webpack_require__(83);
 var SyntheticEvent = __webpack_require__(14);
 
-var getActiveElement = __webpack_require__(83);
-var isTextInputElement = __webpack_require__(68);
-var shallowEqual = __webpack_require__(46);
+var getActiveElement = __webpack_require__(84);
+var isTextInputElement = __webpack_require__(69);
+var shallowEqual = __webpack_require__(47);
 
 var skipSelectionChangeEvent = ExecutionEnvironment.canUseDOM && 'documentMode' in document && document.documentMode <= 11;
 
@@ -22769,17 +22803,15 @@ var SelectEventPlugin = {
 module.exports = SelectEventPlugin;
 
 /***/ }),
-/* 190 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -22788,23 +22820,23 @@ module.exports = SelectEventPlugin;
 
 var _prodInvariant = __webpack_require__(3);
 
-var EventListener = __webpack_require__(81);
+var EventListener = __webpack_require__(82);
 var EventPropagators = __webpack_require__(22);
-var ReactDOMComponentTree = __webpack_require__(5);
-var SyntheticAnimationEvent = __webpack_require__(191);
-var SyntheticClipboardEvent = __webpack_require__(192);
+var ReactDOMComponentTree = __webpack_require__(4);
+var SyntheticAnimationEvent = __webpack_require__(195);
+var SyntheticClipboardEvent = __webpack_require__(196);
 var SyntheticEvent = __webpack_require__(14);
-var SyntheticFocusEvent = __webpack_require__(193);
-var SyntheticKeyboardEvent = __webpack_require__(194);
+var SyntheticFocusEvent = __webpack_require__(197);
+var SyntheticKeyboardEvent = __webpack_require__(198);
 var SyntheticMouseEvent = __webpack_require__(30);
-var SyntheticDragEvent = __webpack_require__(196);
-var SyntheticTouchEvent = __webpack_require__(197);
-var SyntheticTransitionEvent = __webpack_require__(198);
+var SyntheticDragEvent = __webpack_require__(200);
+var SyntheticTouchEvent = __webpack_require__(201);
+var SyntheticTransitionEvent = __webpack_require__(202);
 var SyntheticUIEvent = __webpack_require__(24);
-var SyntheticWheelEvent = __webpack_require__(199);
+var SyntheticWheelEvent = __webpack_require__(203);
 
 var emptyFunction = __webpack_require__(11);
-var getEventCharCode = __webpack_require__(51);
+var getEventCharCode = __webpack_require__(52);
 var invariant = __webpack_require__(1);
 
 /**
@@ -23001,17 +23033,15 @@ module.exports = SimpleEventPlugin;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 191 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23045,17 +23075,15 @@ SyntheticEvent.augmentClass(SyntheticAnimationEvent, AnimationEventInterface);
 module.exports = SyntheticAnimationEvent;
 
 /***/ }),
-/* 192 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23088,17 +23116,15 @@ SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 module.exports = SyntheticClipboardEvent;
 
 /***/ }),
-/* 193 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23129,17 +23155,15 @@ SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 module.exports = SyntheticFocusEvent;
 
 /***/ }),
-/* 194 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23147,9 +23171,9 @@ module.exports = SyntheticFocusEvent;
 
 var SyntheticUIEvent = __webpack_require__(24);
 
-var getEventCharCode = __webpack_require__(51);
-var getEventKey = __webpack_require__(195);
-var getEventModifierState = __webpack_require__(40);
+var getEventCharCode = __webpack_require__(52);
+var getEventKey = __webpack_require__(199);
+var getEventModifierState = __webpack_require__(41);
 
 /**
  * @interface KeyboardEvent
@@ -23218,23 +23242,21 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 module.exports = SyntheticKeyboardEvent;
 
 /***/ }),
-/* 195 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var getEventCharCode = __webpack_require__(51);
+var getEventCharCode = __webpack_require__(52);
 
 /**
  * Normalization of deprecated HTML5 `key` values
@@ -23335,17 +23357,15 @@ function getEventKey(nativeEvent) {
 module.exports = getEventKey;
 
 /***/ }),
-/* 196 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23376,17 +23396,15 @@ SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 module.exports = SyntheticDragEvent;
 
 /***/ }),
-/* 197 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23394,7 +23412,7 @@ module.exports = SyntheticDragEvent;
 
 var SyntheticUIEvent = __webpack_require__(24);
 
-var getEventModifierState = __webpack_require__(40);
+var getEventModifierState = __webpack_require__(41);
 
 /**
  * @interface TouchEvent
@@ -23426,17 +23444,15 @@ SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 module.exports = SyntheticTouchEvent;
 
 /***/ }),
-/* 198 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23470,17 +23486,15 @@ SyntheticEvent.augmentClass(SyntheticTransitionEvent, TransitionEventInterface);
 module.exports = SyntheticTransitionEvent;
 
 /***/ }),
-/* 199 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23526,23 +23540,21 @@ SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 module.exports = SyntheticWheelEvent;
 
 /***/ }),
-/* 200 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var validateDOMNesting = __webpack_require__(50);
+var validateDOMNesting = __webpack_require__(51);
 
 var DOC_NODE_TYPE = 9;
 
@@ -23565,17 +23577,15 @@ module.exports = ReactDOMContainerInfo;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 201 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23589,23 +23599,21 @@ var ReactDOMFeatureFlags = {
 module.exports = ReactDOMFeatureFlags;
 
 /***/ }),
-/* 202 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var adler32 = __webpack_require__(203);
+var adler32 = __webpack_require__(207);
 
 var TAG_END = /\/?>/;
 var COMMENT_START = /^<\!\-\-/;
@@ -23644,17 +23652,15 @@ var ReactMarkupChecksum = {
 module.exports = ReactMarkupChecksum;
 
 /***/ }),
-/* 203 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -23693,36 +23699,32 @@ function adler32(data) {
 module.exports = adler32;
 
 /***/ }),
-/* 204 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-module.exports = '15.6.1';
+module.exports = '15.6.2';
 
 /***/ }),
-/* 205 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23731,10 +23733,10 @@ module.exports = '15.6.1';
 var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(12);
-var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMComponentTree = __webpack_require__(4);
 var ReactInstanceMap = __webpack_require__(25);
 
-var getHostComponentFromComposite = __webpack_require__(85);
+var getHostComponentFromComposite = __webpack_require__(86);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
@@ -23778,38 +23780,34 @@ module.exports = findDOMNode;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 206 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
 
 
-var ReactMount = __webpack_require__(84);
+var ReactMount = __webpack_require__(85);
 
 module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ }),
-/* 207 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23917,17 +23915,15 @@ module.exports = ReactDOMUnknownPropertyHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 208 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -23966,17 +23962,15 @@ module.exports = ReactDOMNullInputValuePropHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 209 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -24065,7 +24059,7 @@ module.exports = ReactDOMInvalidARIAHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 210 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24080,8 +24074,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(10);
-var Game = __webpack_require__(211);
-var qs = __webpack_require__(87);
+var Game = __webpack_require__(215);
+var qs = __webpack_require__(88);
 
 var Web = function (_React$Component) {
     _inherits(Web, _React$Component);
@@ -24131,7 +24125,7 @@ var Web = function (_React$Component) {
 module.exports = Web;
 
 /***/ }),
-/* 211 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24146,8 +24140,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(10);
-var Header = __webpack_require__(212);
-var Highlights = __webpack_require__(236);
+var Header = __webpack_require__(216);
+var Highlights = __webpack_require__(240);
 
 var Game = function (_React$Component) {
     _inherits(Game, _React$Component);
@@ -24190,7 +24184,7 @@ var Game = function (_React$Component) {
 module.exports = Game;
 
 /***/ }),
-/* 212 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24205,9 +24199,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(10);
-var Time = __webpack_require__(213);
-var HeroPortrait = __webpack_require__(52);
-var Players = __webpack_require__(86);
+var Time = __webpack_require__(217);
+var HeroPortrait = __webpack_require__(53);
+var Players = __webpack_require__(87);
 
 var Header = function (_React$Component) {
     _inherits(Header, _React$Component);
@@ -24222,19 +24216,11 @@ var Header = function (_React$Component) {
     }
 
     _createClass(Header, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            document.addEventListener('click', this.handleClickOutside.bind(this), true);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            document.removeEventListener('click', this.handleClickOutside.bind(this), true);
-        }
-    }, {
         key: 'handleClickOutside',
-        value: function handleClickOutside() {
-            this.setState({ menu: false });
+        value: function handleClickOutside(e) {
+            if (['dropdown-trigger', 'dropdown-menu'].indexOf(e.target.className) === -1) {
+                this.setState({ menu: false });
+            }
         }
     }, {
         key: 'render',
@@ -24265,17 +24251,23 @@ var Header = function (_React$Component) {
                 return p.id === heroId;
             })[0];
 
+            var outcome = '';
+
+            if (player && player.outcome) {
+                outcome = player.outcome;
+            }
+
             return React.createElement(
                 'header',
-                null,
+                { onClick: this.handleClickOutside.bind(this) },
                 React.createElement(
                     'h1',
                     null,
                     this.props.game.map,
                     React.createElement(
                         'span',
-                        { className: "outcome " + player.outcome.toLowerCase() },
-                        player.outcome
+                        { className: "outcome " + outcome.toLowerCase() },
+                        outcome
                     )
                 ),
                 React.createElement(
@@ -24292,17 +24284,21 @@ var Header = function (_React$Component) {
                         teamKills[1]
                     )
                 ),
-                React.createElement(
+                player ? React.createElement(
                     'span',
-                    { className: player.team },
-                    player.name
-                ),
-                ' as ',
-                React.createElement(HeroPortrait, { 'class': 'small', hero: player.hero }),
-                ' ',
-                player.hero,
-                ' ',
-                React.createElement('br', null),
+                    null,
+                    React.createElement(
+                        'span',
+                        { className: player.team },
+                        player.name
+                    ),
+                    ' as ',
+                    React.createElement(HeroPortrait, { 'class': 'small', hero: player.hero }),
+                    ' ',
+                    player.hero,
+                    ' ',
+                    React.createElement('br', null)
+                ) : null,
                 React.createElement(Time, { seconds: this.props.game.time }),
                 ' ',
                 React.createElement('br', null),
@@ -24325,7 +24321,7 @@ var Header = function (_React$Component) {
                             Object.keys(this.props.actions).map(function (label, i) {
                                 return React.createElement(
                                     'a',
-                                    { onClick: _this2.props.actions[label], key: i },
+                                    { className: 'dropdown-option', onClick: _this2.props.actions[label], key: i },
                                     label
                                 );
                             })
@@ -24359,7 +24355,7 @@ var Header = function (_React$Component) {
 module.exports = Header;
 
 /***/ }),
-/* 213 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24405,7 +24401,7 @@ var Time = function (_React$Component) {
 module.exports = Time;
 
 /***/ }),
-/* 214 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -24636,30 +24632,30 @@ var substr = 'ab'.substr(-1) === 'b'
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 215 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./angle-left.svg": 216,
-	"./bars.svg": 217,
-	"./cog.svg": 218,
-	"./death.svg": 219,
-	"./discord.svg": 220,
-	"./download.svg": 221,
-	"./ellipsis-h.svg": 222,
-	"./exclamation-triangle.svg": 223,
-	"./fight.svg": 224,
-	"./firstblood.svg": 225,
-	"./logo.svg": 226,
-	"./objective.svg": 227,
-	"./poopface.svg": 228,
-	"./search.svg": 229,
-	"./share-square.svg": 230,
-	"./sliders-h.svg": 231,
-	"./times.svg": 232,
-	"./video.svg": 233,
-	"./volume-off.svg": 234,
-	"./volume-up.svg": 235
+	"./angle-left.svg": 220,
+	"./bars.svg": 221,
+	"./cog.svg": 222,
+	"./death.svg": 223,
+	"./discord.svg": 224,
+	"./download.svg": 225,
+	"./ellipsis-h.svg": 226,
+	"./exclamation-triangle.svg": 227,
+	"./fight.svg": 228,
+	"./firstblood.svg": 229,
+	"./logo.svg": 230,
+	"./objective.svg": 231,
+	"./poopface.svg": 232,
+	"./search.svg": 233,
+	"./share-square.svg": 234,
+	"./sliders-h.svg": 235,
+	"./times.svg": 236,
+	"./video.svg": 237,
+	"./volume-off.svg": 238,
+	"./volume-up.svg": 239
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -24675,148 +24671,148 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 215;
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports) {
-
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 192 512\"><path d=\"M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z\"></path></svg>"
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports) {
-
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path d=\"M442 114H6a6 6 0 0 1-6-6V84a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6z\"></path></svg>"
-
-/***/ }),
-/* 218 */
-/***/ (function(module, exports) {
-
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M444.788 291.1l42.616 24.599c4.867 2.809 7.126 8.618 5.459 13.985-11.07 35.642-29.97 67.842-54.689 94.586a12.016 12.016 0 0 1-14.832 2.254l-42.584-24.595a191.577 191.577 0 0 1-60.759 35.13v49.182a12.01 12.01 0 0 1-9.377 11.718c-34.956 7.85-72.499 8.256-109.219.007-5.49-1.233-9.403-6.096-9.403-11.723v-49.184a191.555 191.555 0 0 1-60.759-35.13l-42.584 24.595a12.016 12.016 0 0 1-14.832-2.254c-24.718-26.744-43.619-58.944-54.689-94.586-1.667-5.366.592-11.175 5.459-13.985L67.212 291.1a193.48 193.48 0 0 1 0-70.199l-42.616-24.599c-4.867-2.809-7.126-8.618-5.459-13.985 11.07-35.642 29.97-67.842 54.689-94.586a12.016 12.016 0 0 1 14.832-2.254l42.584 24.595a191.577 191.577 0 0 1 60.759-35.13V25.759a12.01 12.01 0 0 1 9.377-11.718c34.956-7.85 72.499-8.256 109.219-.007 5.49 1.233 9.403 6.096 9.403 11.723v49.184a191.555 191.555 0 0 1 60.759 35.13l42.584-24.595a12.016 12.016 0 0 1 14.832 2.254c24.718 26.744 43.619 58.944 54.689 94.586 1.667 5.366-.592 11.175-5.459 13.985L444.788 220.9a193.485 193.485 0 0 1 0 70.2zM336 256c0-44.112-35.888-80-80-80s-80 35.888-80 80 35.888 80 80 80 80-35.888 80-80z\"></path></svg>"
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports) {
-
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 100 100\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\"><path display=\"none\" fill=\"#000000\" d=\"M-81.7,84.6c1.2-2.5,4.1-3.5,6.6-2.4c2.5,1.2,3.5,4.1,2.4,6.6l7.9,3.7l22.7,10.6l7.9,3.7 c1.2-2.5,4.1-3.5,6.6-2.4c2.5,1.2,3.5,4.1,2.4,6.6c-0.6,1.3-1.7,2.2-2.9,2.6c0.5,1.2,0.5,2.6-0.1,3.9c-1.2,2.5-4.1,3.5-6.6,2.4 c-2.5-1.2-3.5-4.1-2.4-6.6l-7.9-3.7l-22.7-10.6l-7.9-3.7c-1.2,2.5-4.1,3.5-6.6,2.4c-2.5-1.2-3.5-4.1-2.4-6.6 c0.6-1.3,1.7-2.2,2.9-2.6C-82.3,87.4-82.3,85.9-81.7,84.6z\"></path><path display=\"none\" fill=\"#000000\" d=\"M181.4,48.2h-27.2c-4.4,0-8-3.6-8-8V25.1c0-11,9-20,20-20h3.2c11,0,20,9,20,20v15.2 C189.4,44.7,185.8,48.2,181.4,48.2z\"></path><path display=\"none\" fill=\"#000000\" d=\"M173.8,60.8h-11.8c-4.4,0-8-3.6-8-8V42.2h27.8v10.6C181.8,57.2,178.2,60.8,173.8,60.8z\"></path><path display=\"none\" fill=\"#000000\" d=\"M142.9,77.7l8.2-3l31-11.3l8.2-3c-0.9-2.6,0.4-5.4,3-6.3c2.6-0.9,5.4,0.4,6.3,3 c0.5,1.3,0.4,2.8-0.2,3.9c1.2,0.5,2.2,1.5,2.7,2.9c0.9,2.6-0.4,5.4-3,6.3c-2.6,0.9-5.4-0.4-6.3-3l-8.2,3l-31,11.3l-8.2,3 c0.9,2.6-0.4,5.4-3,6.3c-2.6,0.9-5.4-0.4-6.3-3c-0.5-1.3-0.4-2.8,0.2-3.9\"></path><path display=\"none\" fill=\"#000000\" d=\"M138.8,84c-1.2-0.5-2.2-1.5-2.7-2.9c-0.9-2.6,0.4-5.4,3-6.3c2.6-0.9,5.4,0.4,6.3,3\"></path><path display=\"none\" fill=\"#000000\" d=\"M199.1,74.8c-2.6-0.9-5.4,0.4-6.3,3l-8.2-3l-31-11.3l-8.2-3c0.1-0.5,0.2-0.9,0.2-1.4 c0-2.7-2.2-4.9-4.9-4.9s-4.9,2.2-4.9,4.9c0,0.3,0,0.6,0.1,0.9c0,0.2,0.1,0.4,0.2,0.6c0,0.1,0,0.2,0.1,0.2c0.1,0.3,0.2,0.5,0.4,0.8 c0,0,0,0,0,0c0.2,0.3,0.3,0.5,0.5,0.7l0,0c-0.8,0.9-1.3,2-1.3,3.3c0,2.7,2.2,4.9,4.9,4.9c1.8,0,3.4-1,4.2-2.5l6.1,2.2l31,11.3l8.2,3 c-0.9,2.6,0.4,5.4,3,6.3c2.6,0.9,5.4-0.4,6.3-3c0.5-1.3,0.4-2.8-0.2-3.9c1.2-0.5,2.2-1.5,2.7-2.9C203,78.5,201.7,75.7,199.1,74.8z\"></path><path display=\"none\" fill=\"#000000\" d=\"M49.7-130.6h-3.2c-11.4,0-20.6,9.2-20.6,20.6v15.6c0,4.5,3.7,8.2,8.2,8.2h0.1 c0.6,0,1,0.5,1,1v1.7c0,4.5,3.7,8.2,8.2,8.2h9.3c4.5,0,8.2-3.7,8.2-8.2v-1.7c0-0.6,0.5-1,1-1h0.1c4.5,0,8.2-3.7,8.2-8.2v-15.6 C70.3-121.4,61.1-130.6,49.7-130.6z\"></path><g display=\"none\"><path display=\"inline\" fill=\"#000000\" d=\"M19.1-42.8c-2.1,0-4.2-1.1-5.3-2.9c-0.9-1.4-1.2-3-0.9-4.6c0.1-0.4-0.1-0.9-0.4-1.2 c-1.2-1-2.1-2.4-2.3-4.1c-0.3-2.4,0.8-4.9,2.9-6.2c1-0.6,2.2-1,3.4-1c2.3,0,4.4,1.3,5.5,3.2l49-17.8c-0.3-1.5,0-3.1,0.8-4.4 c1-1.6,2.6-2.7,4.6-3c0.3,0,0.6-0.1,0.9-0.1c2.1,0,4.2,1.1,5.3,2.9c0.9,1.4,1.2,3,0.9,4.6c-0.1,0.4,0.1,0.9,0.4,1.2 c1.2,1,2.1,2.4,2.3,4.1c0.3,2.4-0.8,4.9-2.9,6.2c-1,0.6-2.2,1-3.4,1c-2.3,0-4.4-1.3-5.5-3.2l-49,17.8c0.3,1.5,0,3.1-0.8,4.4 c-1,1.6-2.6,2.7-4.6,3C19.7-42.8,19.4-42.8,19.1-42.8z\"></path><path display=\"inline\" fill=\"#000000\" d=\"M77.2-83.7c1.8,0,3.5,0.9,4.5,2.5c0.8,1.2,1,2.6,0.7,3.9c-0.2,0.8,0.1,1.6,0.8,2.1 c1,0.8,1.7,2,1.9,3.4c0.3,2-0.7,4.1-2.4,5.2c-0.9,0.6-1.9,0.8-2.8,0.8c-2.2,0-4.2-1.3-5-3.5L66-66.2L32.9-54.1l-8.8,3.2 c1.1,3.1-0.8,6.6-4.3,7.1c-0.2,0-0.5,0.1-0.7,0.1c-1.8,0-3.5-0.9-4.5-2.5c-0.8-1.2-1-2.6-0.7-3.9c0.2-0.8-0.1-1.6-0.8-2.1 c-1-0.8-1.7-2-1.9-3.4c-0.3-2,0.7-4.1,2.4-5.2c0.9-0.6,1.9-0.8,2.8-0.8c2.2,0,4.2,1.3,5,3.5l8.8-3.2l33.2-12.1l8.8-3.2 c-1.1-3.1,0.8-6.6,4.3-7.1C76.7-83.7,76.9-83.7,77.2-83.7 M77.2-85.7c-0.3,0-0.7,0-1,0.1c-2.2,0.3-4.1,1.6-5.3,3.5 c-0.8,1.3-1.1,2.8-1,4.3l-7.2,2.6L29.5-63.2l-7.2,2.6c-1.4-1.9-3.5-3-5.9-3c-1.4,0-2.7,0.4-3.9,1.1c-2.4,1.5-3.7,4.4-3.3,7.2 c0.3,1.9,1.2,3.5,2.7,4.7c0.1,0.1,0.1,0.1,0.1,0.2c-0.4,1.8,0,3.7,1,5.3c1.3,2.1,3.7,3.4,6.1,3.4c0.3,0,0.7,0,1-0.1 c2.2-0.3,4.1-1.6,5.3-3.5c0.8-1.3,1.1-2.8,1-4.3l7.2-2.6l33.2-12.1l7.2-2.6c1.4,1.9,3.5,3,5.9,3c1.4,0,2.7-0.4,3.9-1.1 c2.4-1.5,3.7-4.4,3.3-7.2c-0.3-1.9-1.2-3.5-2.7-4.7c-0.1-0.1-0.1-0.1-0.1-0.2c0.4-1.8,0-3.7-1-5.3C82-84.4,79.7-85.7,77.2-85.7 L77.2-85.7z\"></path></g><path display=\"none\" fill=\"#000000\" d=\"M49-91.7l1.9,6.2c0.2,0.6-0.3,1.2-0.9,1.2h-3.8c-0.6,0-1.1-0.6-0.9-1.2l1.9-6.2 C47.5-92.5,48.7-92.5,49-91.7z\"></path><path display=\"none\" fill=\"#000000\" d=\"M37.7-92.9c-3.5,0-5.9-2.1-5.9-5.9c0-3,2.8-5,6.4-5s6.4,1.9,6.4,5 C44.5-95.8,41.2-92.9,37.7-92.9z\"></path><path display=\"none\" fill=\"#000000\" d=\"M51.4-98.8c0-3,2.8-5,6.4-5c3.5,0,6.4,1.9,6.4,5c0,3.8-2.4,5.9-5.9,5.9 C54.7-92.9,51.4-95.8,51.4-98.8z\"></path><g display=\"none\"><path display=\"inline\" fill=\"#000000\" d=\"M11.2-55.6c-0.3-2,0.7-4.1,2.4-5.2c3-1.8,6.7-0.4,7.8,2.7l8.8-3.2l33.2-12.1l8.8-3.2 c-1.1-3.1,0.8-6.6,4.3-7.1c2-0.3,4.1,0.7,5.2,2.4c0.8,1.2,1,2.6,0.7,3.9c-0.2,0.8,0.1,1.6,0.8,2.1c1,0.8,1.7,2,1.9,3.4 c0.3,2-0.7,4.1-2.4,5.2c-3,1.8-6.7,0.4-7.8-2.7L66-66.2L32.9-54.1l-8.8,3.2c1.1,3.1-0.8,6.6-4.3,7.1c-2,0.3-4.1-0.7-5.2-2.4 c-0.8-1.2-1-2.6-0.7-3.9c0.2-0.8-0.1-1.6-0.8-2.1C12.1-53,11.4-54.2,11.2-55.6z\"></path></g><path display=\"none\" fill=\"none\" d=\"M30.2-61.3l-8.8,3.2c-0.8-2.2-2.8-3.5-5-3.5c-1,0-1.9,0.3-2.8,0.8c-1.7,1.1-2.7,3.1-2.4,5.2 c0.2,1.4,0.9,2.6,1.9,3.4c0.6,0.5,0.9,1.3,0.8,2.1c-0.2,1.3,0,2.6,0.7,3.9c1,1.5,2.7,2.5,4.5,2.5c0.2,0,0.5,0,0.7-0.1 c3.5-0.5,5.4-4,4.3-7.1l8.8-3.2l15.3-5.6l-11.3-4.1L30.2-61.3z\"></path><path display=\"none\" fill=\"none\" d=\"M66-66.2l8.8-3.2c0.8,2.2,2.8,3.5,5,3.5c1,0,1.9-0.3,2.8-0.8c1.7-1.1,2.7-3.1,2.4-5.2 c-0.2-1.4-0.9-2.6-1.9-3.4c-0.6-0.5-0.9-1.3-0.8-2.1c0.2-1.3,0-2.6-0.7-3.9c-1-1.5-2.7-2.5-4.5-2.5c-0.2,0-0.5,0-0.7,0.1 c-3.5,0.5-5.4,4-4.3,7.1l-8.8,3.2l-15.3,5.6l11.3,4.1L66-66.2z\"></path><path display=\"none\" d=\"M32.9-73.4l-8.8-3.2c1.1-3.1-0.8-6.6-4.3-7.1c-2-0.3-4.1,0.7-5.2,2.4c-0.8,1.2-1,2.6-0.7,3.9 c0.2,0.8-0.1,1.6-0.8,2.1c-1,0.8-1.7,2-1.9,3.4c-0.3,2,0.7,4.1,2.4,5.2c3,1.8,6.7,0.4,7.8-2.7l8.8,3.2l3.7,1.3l11.3-4.1L32.9-73.4z\"></path><polygon display=\"none\" points=\"48.1,-59.6 59.4,-63.8 48.1,-67.9 36.8,-63.8 \"></polygon><path display=\"none\" d=\"M82.6-60.8c-3-1.8-6.7-0.4-7.8,2.7L66-61.3l-3.7-1.3l-2.9-1.1l-11.3,4.1l2.9,1.1l12.4,4.5l8.8,3.2 c-1.1,3.1,0.8,6.6,4.3,7.1c2,0.3,4.1-0.7,5.2-2.4c0.8-1.2,1-2.6,0.7-3.9c-0.2-0.8,0.1-1.6,0.8-2.1c1-0.8,1.7-2,1.9-3.4 C85.3-57.7,84.4-59.7,82.6-60.8z\"></path><polygon display=\"none\" fill=\"#000000\" points=\"48.1,-67.9 45.2,-68.9 33.9,-64.8 36.8,-63.8 \"></polygon><g><path d=\"M13.1,81.5c-0.3-2,0.7-4.1,2.4-5.2c3-1.8,6.7-0.4,7.8,2.7l8.8-3.2l33.2-12.1l8.8-3.2c-1.1-3.1,0.8-6.6,4.3-7.1 c2-0.3,4.1,0.7,5.2,2.4c0.8,1.2,1,2.6,0.7,3.9c-0.2,0.8,0.1,1.6,0.8,2.1c1,0.8,1.7,2,1.9,3.4c0.3,2-0.7,4.1-2.4,5.2 c-3,1.8-6.7,0.4-7.8-2.7L67.9,71L34.7,83.1l-8.8,3.2c1.1,3.1-0.8,6.6-4.3,7.1c-2,0.3-4.1-0.7-5.2-2.4c-0.8-1.2-1-2.6-0.7-3.9 c0.2-0.8-0.1-1.6-0.8-2.1C14,84.2,13.3,83,13.1,81.5z\"></path></g><path d=\"M51.6,6.6h-3.2c-11.4,0-20.6,9.2-20.6,20.6v15.6c0,4.5,3.7,8.2,8.2,8.2h0.1c0.6,0,1,0.5,1,1v1.7c0,4.5,3.7,8.2,8.2,8.2h9.3 c4.5,0,8.2-3.7,8.2-8.2V52c0-0.6,0.5-1,1-1H64c4.5,0,8.2-3.7,8.2-8.2V27.1C72.2,15.8,63,6.6,51.6,6.6z M39.6,44.3 c-3.5,0-5.9-2.1-5.9-5.9c0-3,2.8-5,6.4-5s6.4,1.9,6.4,5C46.4,41.4,43.1,44.3,39.6,44.3z M51.9,52.9h-3.8c-0.6,0-1.1-0.6-0.9-1.2 l1.9-6.2c0.3-0.9,1.5-0.9,1.8,0l1.9,6.2C53,52.3,52.5,52.9,51.9,52.9z M60.1,44.3c-3.5,0-6.9-2.9-6.9-5.9c0-3,2.8-5,6.4-5 s6.4,1.9,6.4,5C66,42.2,63.6,44.3,60.1,44.3z\"></path><path d=\"M84.5,76.4c-3-1.8-6.7-0.4-7.8,2.7l-13.3-4.9L52,78.3l22,8c-1.1,3.1,0.8,6.6,4.3,7.1c2,0.3,4.1-0.7,5.2-2.4 c0.8-1.2,1-2.6,0.7-3.9c-0.2-0.8,0.1-1.6,0.8-2.1c1-0.8,1.7-2,1.9-3.4C87.2,79.5,86.3,77.4,84.5,76.4z\"></path><path d=\"M15.5,70.5c3,1.8,6.7,0.4,7.8-2.7l13.3,4.9L48,68.6l-22-8c1.1-3.1-0.8-6.6-4.3-7.1c-2-0.3-4.1,0.7-5.2,2.4 c-0.8,1.2-1,2.6-0.7,3.9c0.2,0.8-0.1,1.6-0.8,2.1c-1,0.8-1.7,2-1.9,3.4C12.8,67.4,13.7,69.4,15.5,70.5z\"></path></svg>"
+webpackContext.id = 219;
 
 /***/ }),
 /* 220 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path d=\"M288.1 244.8c0 13.7-10.1 24.9-22.8 24.9-12.5 0-22.8-11.2-22.8-24.9s10.1-24.9 22.8-24.9c12.7 0 22.8 11.2 22.8 24.9zm-104.6-24.9c-12.8 0-22.8 11.2-22.8 24.9s10.3 24.9 22.8 24.9c12.8 0 22.8-11.2 22.8-24.9.2-13.7-10.1-24.9-22.8-24.9zM420 78.1V480c-56.4-49.9-38.4-33.4-103.9-94.3l11.9 41.4H74c-25.4 0-46-20.6-46-46.1V78.1C28 52.6 48.6 32 73.9 32h300.2c25.3 0 45.9 20.6 45.9 46.1zm-63.8 212.4c0-72.1-32.3-130.6-32.3-130.6-32.3-24.2-62.9-23.5-62.9-23.5l-3.1 3.6c38.1 11.6 55.8 28.4 55.8 28.4-53.2-29.2-115.7-29.2-167.3-6.5-8.3 3.8-13.2 6.5-13.2 6.5s18.6-17.7 58.9-29.3l-2.2-2.7s-30.7-.7-62.9 23.5c0 0-32.3 58.5-32.3 130.6 0 0 18.8 32.5 68.3 34 0 0 8.3-10.1 15-18.6-28.4-8.5-39.2-26.4-39.2-26.4 3.3 2.3 8.7 5.3 9.2 5.6 37.8 21.2 91.5 28.1 139.8 7.8 7.8-2.9 16.6-7.2 25.8-13.2 0 0-11.2 18.4-40.5 26.7 6.7 8.5 14.8 18.1 14.8 18.1 49.2-1.5 68.3-34 68.3-34z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 192 512\"><path d=\"M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z\"></path></svg>"
 
 /***/ }),
 /* 221 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\"><path d=\"M360 480H24c-13.3 0-24-10.7-24-24v-24c0-13.3 10.7-24 24-24h336c13.3 0 24 10.7 24 24v24c0 13.3-10.7 24-24 24zM128 56v136H40.3c-17.8 0-26.7 21.5-14.1 34.1l152.2 152.2c7.5 7.5 19.8 7.5 27.3 0l152.2-152.2c12.6-12.6 3.7-34.1-14.1-34.1H256V56c0-13.3-10.7-24-24-24h-80c-13.3 0-24 10.7-24 24z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path d=\"M442 114H6a6 6 0 0 1-6-6V84a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6z\"></path></svg>"
 
 /***/ }),
 /* 222 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M328 256c0 39.764-32.236 72-72 72s-72-32.236-72-72 32.236-72 72-72 72 32.236 72 72zm104-72c-39.764 0-72 32.236-72 72s32.236 72 72 72 72-32.236 72-72-32.236-72-72-72zm-352 0c-39.765 0-72 32.236-72 72s32.235 72 72 72 72-32.236 72-72-32.235-72-72-72z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M444.788 291.1l42.616 24.599c4.867 2.809 7.126 8.618 5.459 13.985-11.07 35.642-29.97 67.842-54.689 94.586a12.016 12.016 0 0 1-14.832 2.254l-42.584-24.595a191.577 191.577 0 0 1-60.759 35.13v49.182a12.01 12.01 0 0 1-9.377 11.718c-34.956 7.85-72.499 8.256-109.219.007-5.49-1.233-9.403-6.096-9.403-11.723v-49.184a191.555 191.555 0 0 1-60.759-35.13l-42.584 24.595a12.016 12.016 0 0 1-14.832-2.254c-24.718-26.744-43.619-58.944-54.689-94.586-1.667-5.366.592-11.175 5.459-13.985L67.212 291.1a193.48 193.48 0 0 1 0-70.199l-42.616-24.599c-4.867-2.809-7.126-8.618-5.459-13.985 11.07-35.642 29.97-67.842 54.689-94.586a12.016 12.016 0 0 1 14.832-2.254l42.584 24.595a191.577 191.577 0 0 1 60.759-35.13V25.759a12.01 12.01 0 0 1 9.377-11.718c34.956-7.85 72.499-8.256 109.219-.007 5.49 1.233 9.403 6.096 9.403 11.723v49.184a191.555 191.555 0 0 1 60.759 35.13l42.584-24.595a12.016 12.016 0 0 1 14.832 2.254c24.718 26.744 43.619 58.944 54.689 94.586 1.667 5.366-.592 11.175-5.459 13.985L444.788 220.9a193.485 193.485 0 0 1 0 70.2zM336 256c0-44.112-35.888-80-80-80s-80 35.888-80 80 35.888 80 80 80 80-35.888 80-80z\"></path></svg>"
 
 /***/ }),
 /* 223 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 100 100\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\"><path display=\"none\" fill=\"#000000\" d=\"M-81.7,84.6c1.2-2.5,4.1-3.5,6.6-2.4c2.5,1.2,3.5,4.1,2.4,6.6l7.9,3.7l22.7,10.6l7.9,3.7 c1.2-2.5,4.1-3.5,6.6-2.4c2.5,1.2,3.5,4.1,2.4,6.6c-0.6,1.3-1.7,2.2-2.9,2.6c0.5,1.2,0.5,2.6-0.1,3.9c-1.2,2.5-4.1,3.5-6.6,2.4 c-2.5-1.2-3.5-4.1-2.4-6.6l-7.9-3.7l-22.7-10.6l-7.9-3.7c-1.2,2.5-4.1,3.5-6.6,2.4c-2.5-1.2-3.5-4.1-2.4-6.6 c0.6-1.3,1.7-2.2,2.9-2.6C-82.3,87.4-82.3,85.9-81.7,84.6z\"></path><path display=\"none\" fill=\"#000000\" d=\"M181.4,48.2h-27.2c-4.4,0-8-3.6-8-8V25.1c0-11,9-20,20-20h3.2c11,0,20,9,20,20v15.2 C189.4,44.7,185.8,48.2,181.4,48.2z\"></path><path display=\"none\" fill=\"#000000\" d=\"M173.8,60.8h-11.8c-4.4,0-8-3.6-8-8V42.2h27.8v10.6C181.8,57.2,178.2,60.8,173.8,60.8z\"></path><path display=\"none\" fill=\"#000000\" d=\"M142.9,77.7l8.2-3l31-11.3l8.2-3c-0.9-2.6,0.4-5.4,3-6.3c2.6-0.9,5.4,0.4,6.3,3 c0.5,1.3,0.4,2.8-0.2,3.9c1.2,0.5,2.2,1.5,2.7,2.9c0.9,2.6-0.4,5.4-3,6.3c-2.6,0.9-5.4-0.4-6.3-3l-8.2,3l-31,11.3l-8.2,3 c0.9,2.6-0.4,5.4-3,6.3c-2.6,0.9-5.4-0.4-6.3-3c-0.5-1.3-0.4-2.8,0.2-3.9\"></path><path display=\"none\" fill=\"#000000\" d=\"M138.8,84c-1.2-0.5-2.2-1.5-2.7-2.9c-0.9-2.6,0.4-5.4,3-6.3c2.6-0.9,5.4,0.4,6.3,3\"></path><path display=\"none\" fill=\"#000000\" d=\"M199.1,74.8c-2.6-0.9-5.4,0.4-6.3,3l-8.2-3l-31-11.3l-8.2-3c0.1-0.5,0.2-0.9,0.2-1.4 c0-2.7-2.2-4.9-4.9-4.9s-4.9,2.2-4.9,4.9c0,0.3,0,0.6,0.1,0.9c0,0.2,0.1,0.4,0.2,0.6c0,0.1,0,0.2,0.1,0.2c0.1,0.3,0.2,0.5,0.4,0.8 c0,0,0,0,0,0c0.2,0.3,0.3,0.5,0.5,0.7l0,0c-0.8,0.9-1.3,2-1.3,3.3c0,2.7,2.2,4.9,4.9,4.9c1.8,0,3.4-1,4.2-2.5l6.1,2.2l31,11.3l8.2,3 c-0.9,2.6,0.4,5.4,3,6.3c2.6,0.9,5.4-0.4,6.3-3c0.5-1.3,0.4-2.8-0.2-3.9c1.2-0.5,2.2-1.5,2.7-2.9C203,78.5,201.7,75.7,199.1,74.8z\"></path><path display=\"none\" fill=\"#000000\" d=\"M49.7-130.6h-3.2c-11.4,0-20.6,9.2-20.6,20.6v15.6c0,4.5,3.7,8.2,8.2,8.2h0.1 c0.6,0,1,0.5,1,1v1.7c0,4.5,3.7,8.2,8.2,8.2h9.3c4.5,0,8.2-3.7,8.2-8.2v-1.7c0-0.6,0.5-1,1-1h0.1c4.5,0,8.2-3.7,8.2-8.2v-15.6 C70.3-121.4,61.1-130.6,49.7-130.6z\"></path><g display=\"none\"><path display=\"inline\" fill=\"#000000\" d=\"M19.1-42.8c-2.1,0-4.2-1.1-5.3-2.9c-0.9-1.4-1.2-3-0.9-4.6c0.1-0.4-0.1-0.9-0.4-1.2 c-1.2-1-2.1-2.4-2.3-4.1c-0.3-2.4,0.8-4.9,2.9-6.2c1-0.6,2.2-1,3.4-1c2.3,0,4.4,1.3,5.5,3.2l49-17.8c-0.3-1.5,0-3.1,0.8-4.4 c1-1.6,2.6-2.7,4.6-3c0.3,0,0.6-0.1,0.9-0.1c2.1,0,4.2,1.1,5.3,2.9c0.9,1.4,1.2,3,0.9,4.6c-0.1,0.4,0.1,0.9,0.4,1.2 c1.2,1,2.1,2.4,2.3,4.1c0.3,2.4-0.8,4.9-2.9,6.2c-1,0.6-2.2,1-3.4,1c-2.3,0-4.4-1.3-5.5-3.2l-49,17.8c0.3,1.5,0,3.1-0.8,4.4 c-1,1.6-2.6,2.7-4.6,3C19.7-42.8,19.4-42.8,19.1-42.8z\"></path><path display=\"inline\" fill=\"#000000\" d=\"M77.2-83.7c1.8,0,3.5,0.9,4.5,2.5c0.8,1.2,1,2.6,0.7,3.9c-0.2,0.8,0.1,1.6,0.8,2.1 c1,0.8,1.7,2,1.9,3.4c0.3,2-0.7,4.1-2.4,5.2c-0.9,0.6-1.9,0.8-2.8,0.8c-2.2,0-4.2-1.3-5-3.5L66-66.2L32.9-54.1l-8.8,3.2 c1.1,3.1-0.8,6.6-4.3,7.1c-0.2,0-0.5,0.1-0.7,0.1c-1.8,0-3.5-0.9-4.5-2.5c-0.8-1.2-1-2.6-0.7-3.9c0.2-0.8-0.1-1.6-0.8-2.1 c-1-0.8-1.7-2-1.9-3.4c-0.3-2,0.7-4.1,2.4-5.2c0.9-0.6,1.9-0.8,2.8-0.8c2.2,0,4.2,1.3,5,3.5l8.8-3.2l33.2-12.1l8.8-3.2 c-1.1-3.1,0.8-6.6,4.3-7.1C76.7-83.7,76.9-83.7,77.2-83.7 M77.2-85.7c-0.3,0-0.7,0-1,0.1c-2.2,0.3-4.1,1.6-5.3,3.5 c-0.8,1.3-1.1,2.8-1,4.3l-7.2,2.6L29.5-63.2l-7.2,2.6c-1.4-1.9-3.5-3-5.9-3c-1.4,0-2.7,0.4-3.9,1.1c-2.4,1.5-3.7,4.4-3.3,7.2 c0.3,1.9,1.2,3.5,2.7,4.7c0.1,0.1,0.1,0.1,0.1,0.2c-0.4,1.8,0,3.7,1,5.3c1.3,2.1,3.7,3.4,6.1,3.4c0.3,0,0.7,0,1-0.1 c2.2-0.3,4.1-1.6,5.3-3.5c0.8-1.3,1.1-2.8,1-4.3l7.2-2.6l33.2-12.1l7.2-2.6c1.4,1.9,3.5,3,5.9,3c1.4,0,2.7-0.4,3.9-1.1 c2.4-1.5,3.7-4.4,3.3-7.2c-0.3-1.9-1.2-3.5-2.7-4.7c-0.1-0.1-0.1-0.1-0.1-0.2c0.4-1.8,0-3.7-1-5.3C82-84.4,79.7-85.7,77.2-85.7 L77.2-85.7z\"></path></g><path display=\"none\" fill=\"#000000\" d=\"M49-91.7l1.9,6.2c0.2,0.6-0.3,1.2-0.9,1.2h-3.8c-0.6,0-1.1-0.6-0.9-1.2l1.9-6.2 C47.5-92.5,48.7-92.5,49-91.7z\"></path><path display=\"none\" fill=\"#000000\" d=\"M37.7-92.9c-3.5,0-5.9-2.1-5.9-5.9c0-3,2.8-5,6.4-5s6.4,1.9,6.4,5 C44.5-95.8,41.2-92.9,37.7-92.9z\"></path><path display=\"none\" fill=\"#000000\" d=\"M51.4-98.8c0-3,2.8-5,6.4-5c3.5,0,6.4,1.9,6.4,5c0,3.8-2.4,5.9-5.9,5.9 C54.7-92.9,51.4-95.8,51.4-98.8z\"></path><g display=\"none\"><path display=\"inline\" fill=\"#000000\" d=\"M11.2-55.6c-0.3-2,0.7-4.1,2.4-5.2c3-1.8,6.7-0.4,7.8,2.7l8.8-3.2l33.2-12.1l8.8-3.2 c-1.1-3.1,0.8-6.6,4.3-7.1c2-0.3,4.1,0.7,5.2,2.4c0.8,1.2,1,2.6,0.7,3.9c-0.2,0.8,0.1,1.6,0.8,2.1c1,0.8,1.7,2,1.9,3.4 c0.3,2-0.7,4.1-2.4,5.2c-3,1.8-6.7,0.4-7.8-2.7L66-66.2L32.9-54.1l-8.8,3.2c1.1,3.1-0.8,6.6-4.3,7.1c-2,0.3-4.1-0.7-5.2-2.4 c-0.8-1.2-1-2.6-0.7-3.9c0.2-0.8-0.1-1.6-0.8-2.1C12.1-53,11.4-54.2,11.2-55.6z\"></path></g><path display=\"none\" fill=\"none\" d=\"M30.2-61.3l-8.8,3.2c-0.8-2.2-2.8-3.5-5-3.5c-1,0-1.9,0.3-2.8,0.8c-1.7,1.1-2.7,3.1-2.4,5.2 c0.2,1.4,0.9,2.6,1.9,3.4c0.6,0.5,0.9,1.3,0.8,2.1c-0.2,1.3,0,2.6,0.7,3.9c1,1.5,2.7,2.5,4.5,2.5c0.2,0,0.5,0,0.7-0.1 c3.5-0.5,5.4-4,4.3-7.1l8.8-3.2l15.3-5.6l-11.3-4.1L30.2-61.3z\"></path><path display=\"none\" fill=\"none\" d=\"M66-66.2l8.8-3.2c0.8,2.2,2.8,3.5,5,3.5c1,0,1.9-0.3,2.8-0.8c1.7-1.1,2.7-3.1,2.4-5.2 c-0.2-1.4-0.9-2.6-1.9-3.4c-0.6-0.5-0.9-1.3-0.8-2.1c0.2-1.3,0-2.6-0.7-3.9c-1-1.5-2.7-2.5-4.5-2.5c-0.2,0-0.5,0-0.7,0.1 c-3.5,0.5-5.4,4-4.3,7.1l-8.8,3.2l-15.3,5.6l11.3,4.1L66-66.2z\"></path><path display=\"none\" d=\"M32.9-73.4l-8.8-3.2c1.1-3.1-0.8-6.6-4.3-7.1c-2-0.3-4.1,0.7-5.2,2.4c-0.8,1.2-1,2.6-0.7,3.9 c0.2,0.8-0.1,1.6-0.8,2.1c-1,0.8-1.7,2-1.9,3.4c-0.3,2,0.7,4.1,2.4,5.2c3,1.8,6.7,0.4,7.8-2.7l8.8,3.2l3.7,1.3l11.3-4.1L32.9-73.4z\"></path><polygon display=\"none\" points=\"48.1,-59.6 59.4,-63.8 48.1,-67.9 36.8,-63.8 \"></polygon><path display=\"none\" d=\"M82.6-60.8c-3-1.8-6.7-0.4-7.8,2.7L66-61.3l-3.7-1.3l-2.9-1.1l-11.3,4.1l2.9,1.1l12.4,4.5l8.8,3.2 c-1.1,3.1,0.8,6.6,4.3,7.1c2,0.3,4.1-0.7,5.2-2.4c0.8-1.2,1-2.6,0.7-3.9c-0.2-0.8,0.1-1.6,0.8-2.1c1-0.8,1.7-2,1.9-3.4 C85.3-57.7,84.4-59.7,82.6-60.8z\"></path><polygon display=\"none\" fill=\"#000000\" points=\"48.1,-67.9 45.2,-68.9 33.9,-64.8 36.8,-63.8 \"></polygon><g><path d=\"M13.1,81.5c-0.3-2,0.7-4.1,2.4-5.2c3-1.8,6.7-0.4,7.8,2.7l8.8-3.2l33.2-12.1l8.8-3.2c-1.1-3.1,0.8-6.6,4.3-7.1 c2-0.3,4.1,0.7,5.2,2.4c0.8,1.2,1,2.6,0.7,3.9c-0.2,0.8,0.1,1.6,0.8,2.1c1,0.8,1.7,2,1.9,3.4c0.3,2-0.7,4.1-2.4,5.2 c-3,1.8-6.7,0.4-7.8-2.7L67.9,71L34.7,83.1l-8.8,3.2c1.1,3.1-0.8,6.6-4.3,7.1c-2,0.3-4.1-0.7-5.2-2.4c-0.8-1.2-1-2.6-0.7-3.9 c0.2-0.8-0.1-1.6-0.8-2.1C14,84.2,13.3,83,13.1,81.5z\"></path></g><path d=\"M51.6,6.6h-3.2c-11.4,0-20.6,9.2-20.6,20.6v15.6c0,4.5,3.7,8.2,8.2,8.2h0.1c0.6,0,1,0.5,1,1v1.7c0,4.5,3.7,8.2,8.2,8.2h9.3 c4.5,0,8.2-3.7,8.2-8.2V52c0-0.6,0.5-1,1-1H64c4.5,0,8.2-3.7,8.2-8.2V27.1C72.2,15.8,63,6.6,51.6,6.6z M39.6,44.3 c-3.5,0-5.9-2.1-5.9-5.9c0-3,2.8-5,6.4-5s6.4,1.9,6.4,5C46.4,41.4,43.1,44.3,39.6,44.3z M51.9,52.9h-3.8c-0.6,0-1.1-0.6-0.9-1.2 l1.9-6.2c0.3-0.9,1.5-0.9,1.8,0l1.9,6.2C53,52.3,52.5,52.9,51.9,52.9z M60.1,44.3c-3.5,0-6.9-2.9-6.9-5.9c0-3,2.8-5,6.4-5 s6.4,1.9,6.4,5C66,42.2,63.6,44.3,60.1,44.3z\"></path><path d=\"M84.5,76.4c-3-1.8-6.7-0.4-7.8,2.7l-13.3-4.9L52,78.3l22,8c-1.1,3.1,0.8,6.6,4.3,7.1c2,0.3,4.1-0.7,5.2-2.4 c0.8-1.2,1-2.6,0.7-3.9c-0.2-0.8,0.1-1.6,0.8-2.1c1-0.8,1.7-2,1.9-3.4C87.2,79.5,86.3,77.4,84.5,76.4z\"></path><path d=\"M15.5,70.5c3,1.8,6.7,0.4,7.8-2.7l13.3,4.9L48,68.6l-22-8c1.1-3.1-0.8-6.6-4.3-7.1c-2-0.3-4.1,0.7-5.2,2.4 c-0.8,1.2-1,2.6-0.7,3.9c0.2,0.8-0.1,1.6-0.8,2.1c-1,0.8-1.7,2-1.9,3.4C12.8,67.4,13.7,69.4,15.5,70.5z\"></path></svg>"
 
 /***/ }),
 /* 224 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 25.377 29.61\" style=\"enable-background:new 0 0 25.377 23.688;\" xml:space=\"preserve\"><g><rect x=\"21.049\" y=\"18.36\" transform=\"matrix(0.7071 -0.7071 0.7071 0.7071 -8.1458 22.0536)\" width=\"3\" height=\"5.001\"></rect><polygon points=\"1.689,0 2.043,3.89 8.445,10.293 11.981,6.757 5.578,0.354 \"></polygon><polygon points=\"22.549,14.496 21.135,15.91 16.932,11.707 13.396,15.242 17.599,19.446 16.185,20.86 16.892,21.567 23.256,15.203 \"></polygon><rect x=\"0.328\" y=\"19.36\" transform=\"matrix(0.7071 -0.7071 0.7071 0.7071 -13.9217 8.1097)\" width=\"5.001\" height=\"3\"></rect><polygon points=\"23.334,3.89 23.688,0 19.799,0.354 4.242,15.91 2.828,14.496 2.121,15.203 8.485,21.567 9.192,20.86 7.778,19.446 \"></polygon></g></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path d=\"M288.1 244.8c0 13.7-10.1 24.9-22.8 24.9-12.5 0-22.8-11.2-22.8-24.9s10.1-24.9 22.8-24.9c12.7 0 22.8 11.2 22.8 24.9zm-104.6-24.9c-12.8 0-22.8 11.2-22.8 24.9s10.3 24.9 22.8 24.9c12.8 0 22.8-11.2 22.8-24.9.2-13.7-10.1-24.9-22.8-24.9zM420 78.1V480c-56.4-49.9-38.4-33.4-103.9-94.3l11.9 41.4H74c-25.4 0-46-20.6-46-46.1V78.1C28 52.6 48.6 32 73.9 32h300.2c25.3 0 45.9 20.6 45.9 46.1zm-63.8 212.4c0-72.1-32.3-130.6-32.3-130.6-32.3-24.2-62.9-23.5-62.9-23.5l-3.1 3.6c38.1 11.6 55.8 28.4 55.8 28.4-53.2-29.2-115.7-29.2-167.3-6.5-8.3 3.8-13.2 6.5-13.2 6.5s18.6-17.7 58.9-29.3l-2.2-2.7s-30.7-.7-62.9 23.5c0 0-32.3 58.5-32.3 130.6 0 0 18.8 32.5 68.3 34 0 0 8.3-10.1 15-18.6-28.4-8.5-39.2-26.4-39.2-26.4 3.3 2.3 8.7 5.3 9.2 5.6 37.8 21.2 91.5 28.1 139.8 7.8 7.8-2.9 16.6-7.2 25.8-13.2 0 0-11.2 18.4-40.5 26.7 6.7 8.5 14.8 18.1 14.8 18.1 49.2-1.5 68.3-34 68.3-34z\"></path></svg>"
 
 /***/ }),
 /* 225 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 100 125\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\"><style type=\"text/css\"> .st0{fill:#020203;} </style><path class=\"st0\" d=\"M83.5,151.1\"></path><path d=\"M65.8,13.9c0,0,15.5,27.6,15.4,36.1c-0.1,8.6-7.1,15.5-15.7,15.4c-8.6-0.1-15.5-7.1-15.4-15.7S65.8,13.9,65.8,13.9z\"></path><path d=\"M29.8,32.5c0,0,10.8,19.2,10.7,25.2c-0.1,6-5,10.8-11,10.7s-10.8-5-10.7-11S29.8,32.5,29.8,32.5z\"></path><path d=\"M47.1,64.1c0,0,7.8,13.9,7.8,18.3s-3.6,7.8-7.9,7.8c-4.3,0-7.8-3.6-7.8-7.9S47.1,64.1,47.1,64.1z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\"><path d=\"M360 480H24c-13.3 0-24-10.7-24-24v-24c0-13.3 10.7-24 24-24h336c13.3 0 24 10.7 24 24v24c0 13.3-10.7 24-24 24zM128 56v136H40.3c-17.8 0-26.7 21.5-14.1 34.1l152.2 152.2c7.5 7.5 19.8 7.5 27.3 0l152.2-152.2c12.6-12.6 3.7-34.1-14.1-34.1H256V56c0-13.3-10.7-24-24-24h-80c-13.3 0-24 10.7-24 24z\"></path></svg>"
 
 /***/ }),
 /* 226 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg viewBox=\"0 0 268 178\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:space=\"preserve\" style=\"fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;\"><path d=\"M262.329,46.905c-6.215,-18.646 -7.334,-38.301 -26.693,-41.693c-39.654,-6.949 -164.077,-6.949 -203.731,0c-19.359,3.392 -20.478,23.047 -26.693,41.693c-6.949,20.847 -6.949,62.541 0,83.388c6.215,18.646 7.334,38.301 26.693,41.694c39.654,6.949 164.077,6.949 203.731,0c19.359,-3.393 20.478,-23.048 26.693,-41.694c6.949,-20.847 6.949,-62.541 0,-83.388Z\" style=\"fill:#ff9100;\"></path><path d=\"M134.238,31.017l48.292,27.811l0,55.621l-48.292,27.811l-48.293,-27.811l0,-55.621l48.293,-27.811Z\" style=\"fill:#fff;\"></path><g><path d=\"M177.41,95.36c-0.267,-50.344 -42.4,-51.342 -42.4,-51.342l-9.586,16.794c0,0 19.364,-0.841 31.043,7.701c14.418,10.545 20.952,28.504 20.943,26.847Z\" style=\"fill:#ff9100;\"></path><path d=\"M121.515,45.191c-44.743,23.078 -26.517,61.079 -26.517,61.079l19.315,0.923c0,0 -9.534,-16.875 -7.221,-31.158c2.856,-17.634 15.896,-31.604 14.423,-30.844Z\" style=\"fill:#ff9100;\"></path><path d=\"M106.278,121.1c44.175,24.147 65.453,-12.232 65.453,-12.232l-10.05,-16.52c0,0 -8.642,17.349 -21.772,23.43c-16.209,7.508 -35.085,4.527 -33.631,5.322Z\" style=\"fill:#ff9100;\"></path></g></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M328 256c0 39.764-32.236 72-72 72s-72-32.236-72-72 32.236-72 72-72 72 32.236 72 72zm104-72c-39.764 0-72 32.236-72 72s32.236 72 72 72 72-32.236 72-72-32.236-72-72-72zm-352 0c-39.765 0-72 32.236-72 72s32.235 72 72 72 72-32.236 72-72-32.235-72-72-72z\"></path></svg>"
 
 /***/ }),
 /* 227 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 100 125\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\"><path d=\"M75.646,42.162c1.353,3.412,2.104,7.125,2.104,11.013c0,16.543-13.458,30.001-30,30.001s-30-13.458-30-30.001 c0-16.542,13.458-29.999,30-29.999c2.659,0,5.237,0.352,7.693,1.004l5.553-5.552c-4.113-1.579-8.576-2.452-13.246-2.452 c-20.432,0-37,16.566-37,36.999c0,20.435,16.568,37.001,37,37.001c20.435,0,37-16.566,37-37.001c0-5.86-1.368-11.398-3.793-16.322 L75.646,42.162z\"></path><path d=\"M47.75,37.175c1.418,0,2.784,0.211,4.085,0.58l3.726-3.995c-2.4-1.02-5.039-1.585-7.811-1.585c-11.045,0-20,8.955-20,19.999 s8.955,20.001,20,20.001c11.043,0,20-8.957,20-20.001c0-3.148-0.748-6.116-2.045-8.766l-3.74,4.011 c0.502,1.496,0.785,3.092,0.785,4.755c0,8.271-6.729,15.001-15,15.001s-15-6.729-15-15.001C32.75,43.904,39.479,37.175,47.75,37.175 z\"></path><path d=\"M59.776,27.068v8.931L48.806,47.292c-0.341-0.073-0.693-0.116-1.056-0.116c-2.762,0-5,2.239-5,5s2.238,5,5,5 c2.761,0,5-2.239,5-5c0-0.527-0.104-1.027-0.256-1.505L63.54,39.3h8.473L89.25,22.061l-8.17-0.816l4.225-4.349l-3.586-3.484 l-3.938,4.054l-0.764-7.641L59.776,27.068z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z\"></path></svg>"
 
 /***/ }),
 /* 228 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 24 30\" version=\"1.1\" x=\"0px\" y=\"0px\"><g stroke-width=\"1\" fill-rule=\"evenodd\"><g transform=\"translate(-477.000000, -189.000000)\"><g transform=\"translate(478.000000, 190.000000)\"><path d=\"M22,11.5 C22,5.42486775 17.0751322,0.5 11,0.5 C4.92486775,0.5 0,5.42486775 0,11.5 C0,17.5751322 4.92486775,22.5 11,22.5 C17.0751322,22.5 22,17.5751322 22,11.5 Z M1,11.5 C1,5.9771525 5.4771525,1.5 11,1.5 C16.5228475,1.5 21,5.9771525 21,11.5 C21,17.0228475 16.5228475,21.5 11,21.5 C5.4771525,21.5 1,17.0228475 1,11.5 Z\"></path><path d=\"M14.6269715,9.85410428 C15.3289843,9.20952831 16.2498557,8.87081744 17.4475135,8.99723754 C17.7221303,9.02622501 17.9682501,8.82710317 17.9972375,8.55248646 C18.026225,8.27786975 17.8271032,8.03174993 17.5524865,8.00276246 C16.0564095,7.8448424 14.8557263,8.28647243 13.9506403,9.1175066 C13.4824847,9.54735893 13.1906826,9.98030934 13.0468662,10.2886477 C12.9301396,10.5389065 13.0383888,10.8364071 13.2886477,10.9531338 C13.5389065,11.0698604 13.8364071,10.9616112 13.9531338,10.7113523 C14.0458396,10.5125934 14.2667015,10.1848979 14.6269715,9.85410428 Z\"></path><path d=\"M14.2269437,10.7749736 C15.2333052,10.4942375 16.3016367,10.4942375 17.2892019,10.9533919 C17.5396033,11.0698124 17.8369713,10.9611995 17.9533919,10.7107981 C18.0698124,10.4603967 17.9611995,10.1630287 17.7107981,10.0466081 C16.4761411,9.47257201 15.1741022,9.47257201 13.9582415,9.81175025 C13.6524944,9.89704191 13.4236936,9.98407817 13.2892019,10.0466081 C13.0388005,10.1630287 12.9301876,10.4603967 13.0466081,10.7107981 C13.1630287,10.9611995 13.4603967,11.0698124 13.7107981,10.9533919 C13.7985286,10.9126028 13.9771353,10.8446605 14.2269437,10.7749736 Z\"></path><path d=\"M8.04935969,9.1175066 C7.14427374,8.28647243 5.94359054,7.8448424 4.44751354,8.00276246 C4.17289683,8.03174993 3.97377499,8.27786975 4.00276246,8.55248646 C4.03174993,8.82710317 4.27786975,9.02622501 4.55248646,8.99723754 C5.75014431,8.87081744 6.67101569,9.20952831 7.37302852,9.85410428 C7.73329847,10.1848979 7.95416037,10.5125934 8.04686625,10.7113523 C8.16359291,10.9616112 8.46109346,11.0698604 8.71135232,10.9531338 C8.96161118,10.8364071 9.06986041,10.5389065 8.95313375,10.2886477 C8.80931744,9.98030934 8.5175153,9.54735893 8.04935969,9.1175066 Z\"></path><path d=\"M8.04175848,9.81175025 C6.8258978,9.47257201 5.52385892,9.47257201 4.28920193,10.0466081 C4.03880053,10.1630287 3.93018759,10.4603967 4.04660814,10.7107981 C4.1630287,10.9611995 4.46039666,11.0698124 4.71079807,10.9533919 C5.6983633,10.4942375 6.76669479,10.4942375 7.77305633,10.7749736 C8.02286473,10.8446605 8.20147136,10.9126028 8.28920193,10.9533919 C8.53960334,11.0698124 8.8369713,10.9611995 8.95339186,10.7107981 C9.06981241,10.4603967 8.96119947,10.1630287 8.71079807,10.0466081 C8.57630641,9.98407817 8.34750564,9.89704191 8.04175848,9.81175025 Z\"></path><path d=\"M15.5,18 C15.7761424,18 16,17.7761424 16,17.5 C16,17.2238576 15.7761424,17 15.5,17 L6.5,17 C6.22385763,17 6,17.2238576 6,17.5 C6,17.7761424 6.22385763,18 6.5,18 L15.5,18 Z\"></path><path d=\"M7.12176678,17.0159249 C7.24735019,16.5884205 7.42972661,16.161067 7.67752657,15.765382 C8.37314921,14.6546172 9.43608019,14 11,14 C12.5639198,14 13.6268508,14.6546172 14.3224734,15.765382 C14.5702734,16.161067 14.7526498,16.5884205 14.8782332,17.0159249 C14.9528571,17.2699557 14.9912463,17.4630987 15.0040159,17.5632435 C15.0389443,17.837168 15.289319,18.0309126 15.5632435,17.9959841 C15.837168,17.9610557 16.0309126,17.710681 15.9959841,17.4367565 C15.9768759,17.2869013 15.9283074,17.0425443 15.8376917,16.7340751 C15.6878758,16.2240795 15.4701668,15.713933 15.1699931,15.234618 C14.2999769,13.8453828 12.9272912,13 11,13 C9.07270882,13 7.70002315,13.8453828 6.83000686,15.234618 C6.52983319,15.713933 6.31212418,16.2240795 6.16230826,16.7340751 C6.07169257,17.0425443 6.02312407,17.2869013 6.00401587,17.4367565 C5.96908745,17.710681 6.16283202,17.9610557 6.4367565,17.9959841 C6.71068097,18.0309126 6.96105571,17.837168 6.99598413,17.5632435 C7.00875371,17.4630987 7.04714287,17.2699557 7.12176678,17.0159249 Z\"></path></g></g></g></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 25.377 29.61\" style=\"enable-background:new 0 0 25.377 23.688;\" xml:space=\"preserve\"><g><rect x=\"21.049\" y=\"18.36\" transform=\"matrix(0.7071 -0.7071 0.7071 0.7071 -8.1458 22.0536)\" width=\"3\" height=\"5.001\"></rect><polygon points=\"1.689,0 2.043,3.89 8.445,10.293 11.981,6.757 5.578,0.354 \"></polygon><polygon points=\"22.549,14.496 21.135,15.91 16.932,11.707 13.396,15.242 17.599,19.446 16.185,20.86 16.892,21.567 23.256,15.203 \"></polygon><rect x=\"0.328\" y=\"19.36\" transform=\"matrix(0.7071 -0.7071 0.7071 0.7071 -13.9217 8.1097)\" width=\"5.001\" height=\"3\"></rect><polygon points=\"23.334,3.89 23.688,0 19.799,0.354 4.242,15.91 2.828,14.496 2.121,15.203 8.485,21.567 9.192,20.86 7.778,19.446 \"></polygon></g></svg>"
 
 /***/ }),
 /* 229 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 100 125\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\"><style type=\"text/css\"> .st0{fill:#020203;} </style><path class=\"st0\" d=\"M83.5,151.1\"></path><path d=\"M65.8,13.9c0,0,15.5,27.6,15.4,36.1c-0.1,8.6-7.1,15.5-15.7,15.4c-8.6-0.1-15.5-7.1-15.4-15.7S65.8,13.9,65.8,13.9z\"></path><path d=\"M29.8,32.5c0,0,10.8,19.2,10.7,25.2c-0.1,6-5,10.8-11,10.7s-10.8-5-10.7-11S29.8,32.5,29.8,32.5z\"></path><path d=\"M47.1,64.1c0,0,7.8,13.9,7.8,18.3s-3.6,7.8-7.9,7.8c-4.3,0-7.8-3.6-7.8-7.9S47.1,64.1,47.1,64.1z\"></path></svg>"
 
 /***/ }),
 /* 230 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z\"></path></svg>"
+module.exports = "<svg viewBox=\"0 0 268 178\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:space=\"preserve\" style=\"fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;\"><path d=\"M262.329,46.905c-6.215,-18.646 -7.334,-38.301 -26.693,-41.693c-39.654,-6.949 -164.077,-6.949 -203.731,0c-19.359,3.392 -20.478,23.047 -26.693,41.693c-6.949,20.847 -6.949,62.541 0,83.388c6.215,18.646 7.334,38.301 26.693,41.694c39.654,6.949 164.077,6.949 203.731,0c19.359,-3.393 20.478,-23.048 26.693,-41.694c6.949,-20.847 6.949,-62.541 0,-83.388Z\" style=\"fill:#ff9100;\"></path><path d=\"M134.238,31.017l48.292,27.811l0,55.621l-48.292,27.811l-48.293,-27.811l0,-55.621l48.293,-27.811Z\" style=\"fill:#fff;\"></path><g><path d=\"M177.41,95.36c-0.267,-50.344 -42.4,-51.342 -42.4,-51.342l-9.586,16.794c0,0 19.364,-0.841 31.043,7.701c14.418,10.545 20.952,28.504 20.943,26.847Z\" style=\"fill:#ff9100;\"></path><path d=\"M121.515,45.191c-44.743,23.078 -26.517,61.079 -26.517,61.079l19.315,0.923c0,0 -9.534,-16.875 -7.221,-31.158c2.856,-17.634 15.896,-31.604 14.423,-30.844Z\" style=\"fill:#ff9100;\"></path><path d=\"M106.278,121.1c44.175,24.147 65.453,-12.232 65.453,-12.232l-10.05,-16.52c0,0 -8.642,17.349 -21.772,23.43c-16.209,7.508 -35.085,4.527 -33.631,5.322Z\" style=\"fill:#ff9100;\"></path></g></svg>"
 
 /***/ }),
 /* 231 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M576 252v8c0 6.6-5.4 12-12 12h-84v24c0 13.3-10.7 24-24 24h-16c-13.3 0-24-10.7-24-24v-24H12c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h404v-24c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24v24h84c6.6 0 12 5.4 12 12zM564 80H128V56c0-13.3-10.7-24-24-24H88c-13.3 0-24 10.7-24 24v24H12C5.4 80 0 85.4 0 92v8c0 6.6 5.4 12 12 12h52v24c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24v-24h436c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12zm0 320H288v-24c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v24H12c-6.6 0-12 5.4-12 12v8c0 6.6 5.4 12 12 12h212v24c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24v-24h276c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 100 125\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\"><path d=\"M75.646,42.162c1.353,3.412,2.104,7.125,2.104,11.013c0,16.543-13.458,30.001-30,30.001s-30-13.458-30-30.001 c0-16.542,13.458-29.999,30-29.999c2.659,0,5.237,0.352,7.693,1.004l5.553-5.552c-4.113-1.579-8.576-2.452-13.246-2.452 c-20.432,0-37,16.566-37,36.999c0,20.435,16.568,37.001,37,37.001c20.435,0,37-16.566,37-37.001c0-5.86-1.368-11.398-3.793-16.322 L75.646,42.162z\"></path><path d=\"M47.75,37.175c1.418,0,2.784,0.211,4.085,0.58l3.726-3.995c-2.4-1.02-5.039-1.585-7.811-1.585c-11.045,0-20,8.955-20,19.999 s8.955,20.001,20,20.001c11.043,0,20-8.957,20-20.001c0-3.148-0.748-6.116-2.045-8.766l-3.74,4.011 c0.502,1.496,0.785,3.092,0.785,4.755c0,8.271-6.729,15.001-15,15.001s-15-6.729-15-15.001C32.75,43.904,39.479,37.175,47.75,37.175 z\"></path><path d=\"M59.776,27.068v8.931L48.806,47.292c-0.341-0.073-0.693-0.116-1.056-0.116c-2.762,0-5,2.239-5,5s2.238,5,5,5 c2.761,0,5-2.239,5-5c0-0.527-0.104-1.027-0.256-1.505L63.54,39.3h8.473L89.25,22.061l-8.17-0.816l4.225-4.349l-3.586-3.484 l-3.938,4.054l-0.764-7.641L59.776,27.068z\"></path></svg>"
 
 /***/ }),
 /* 232 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\"><path d=\"M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 24 30\" version=\"1.1\" x=\"0px\" y=\"0px\"><g stroke-width=\"1\" fill-rule=\"evenodd\"><g transform=\"translate(-477.000000, -189.000000)\"><g transform=\"translate(478.000000, 190.000000)\"><path d=\"M22,11.5 C22,5.42486775 17.0751322,0.5 11,0.5 C4.92486775,0.5 0,5.42486775 0,11.5 C0,17.5751322 4.92486775,22.5 11,22.5 C17.0751322,22.5 22,17.5751322 22,11.5 Z M1,11.5 C1,5.9771525 5.4771525,1.5 11,1.5 C16.5228475,1.5 21,5.9771525 21,11.5 C21,17.0228475 16.5228475,21.5 11,21.5 C5.4771525,21.5 1,17.0228475 1,11.5 Z\"></path><path d=\"M14.6269715,9.85410428 C15.3289843,9.20952831 16.2498557,8.87081744 17.4475135,8.99723754 C17.7221303,9.02622501 17.9682501,8.82710317 17.9972375,8.55248646 C18.026225,8.27786975 17.8271032,8.03174993 17.5524865,8.00276246 C16.0564095,7.8448424 14.8557263,8.28647243 13.9506403,9.1175066 C13.4824847,9.54735893 13.1906826,9.98030934 13.0468662,10.2886477 C12.9301396,10.5389065 13.0383888,10.8364071 13.2886477,10.9531338 C13.5389065,11.0698604 13.8364071,10.9616112 13.9531338,10.7113523 C14.0458396,10.5125934 14.2667015,10.1848979 14.6269715,9.85410428 Z\"></path><path d=\"M14.2269437,10.7749736 C15.2333052,10.4942375 16.3016367,10.4942375 17.2892019,10.9533919 C17.5396033,11.0698124 17.8369713,10.9611995 17.9533919,10.7107981 C18.0698124,10.4603967 17.9611995,10.1630287 17.7107981,10.0466081 C16.4761411,9.47257201 15.1741022,9.47257201 13.9582415,9.81175025 C13.6524944,9.89704191 13.4236936,9.98407817 13.2892019,10.0466081 C13.0388005,10.1630287 12.9301876,10.4603967 13.0466081,10.7107981 C13.1630287,10.9611995 13.4603967,11.0698124 13.7107981,10.9533919 C13.7985286,10.9126028 13.9771353,10.8446605 14.2269437,10.7749736 Z\"></path><path d=\"M8.04935969,9.1175066 C7.14427374,8.28647243 5.94359054,7.8448424 4.44751354,8.00276246 C4.17289683,8.03174993 3.97377499,8.27786975 4.00276246,8.55248646 C4.03174993,8.82710317 4.27786975,9.02622501 4.55248646,8.99723754 C5.75014431,8.87081744 6.67101569,9.20952831 7.37302852,9.85410428 C7.73329847,10.1848979 7.95416037,10.5125934 8.04686625,10.7113523 C8.16359291,10.9616112 8.46109346,11.0698604 8.71135232,10.9531338 C8.96161118,10.8364071 9.06986041,10.5389065 8.95313375,10.2886477 C8.80931744,9.98030934 8.5175153,9.54735893 8.04935969,9.1175066 Z\"></path><path d=\"M8.04175848,9.81175025 C6.8258978,9.47257201 5.52385892,9.47257201 4.28920193,10.0466081 C4.03880053,10.1630287 3.93018759,10.4603967 4.04660814,10.7107981 C4.1630287,10.9611995 4.46039666,11.0698124 4.71079807,10.9533919 C5.6983633,10.4942375 6.76669479,10.4942375 7.77305633,10.7749736 C8.02286473,10.8446605 8.20147136,10.9126028 8.28920193,10.9533919 C8.53960334,11.0698124 8.8369713,10.9611995 8.95339186,10.7107981 C9.06981241,10.4603967 8.96119947,10.1630287 8.71079807,10.0466081 C8.57630641,9.98407817 8.34750564,9.89704191 8.04175848,9.81175025 Z\"></path><path d=\"M15.5,18 C15.7761424,18 16,17.7761424 16,17.5 C16,17.2238576 15.7761424,17 15.5,17 L6.5,17 C6.22385763,17 6,17.2238576 6,17.5 C6,17.7761424 6.22385763,18 6.5,18 L15.5,18 Z\"></path><path d=\"M7.12176678,17.0159249 C7.24735019,16.5884205 7.42972661,16.161067 7.67752657,15.765382 C8.37314921,14.6546172 9.43608019,14 11,14 C12.5639198,14 13.6268508,14.6546172 14.3224734,15.765382 C14.5702734,16.161067 14.7526498,16.5884205 14.8782332,17.0159249 C14.9528571,17.2699557 14.9912463,17.4630987 15.0040159,17.5632435 C15.0389443,17.837168 15.289319,18.0309126 15.5632435,17.9959841 C15.837168,17.9610557 16.0309126,17.710681 15.9959841,17.4367565 C15.9768759,17.2869013 15.9283074,17.0425443 15.8376917,16.7340751 C15.6878758,16.2240795 15.4701668,15.713933 15.1699931,15.234618 C14.2999769,13.8453828 12.9272912,13 11,13 C9.07270882,13 7.70002315,13.8453828 6.83000686,15.234618 C6.52983319,15.713933 6.31212418,16.2240795 6.16230826,16.7340751 C6.07169257,17.0425443 6.02312407,17.2869013 6.00401587,17.4367565 C5.96908745,17.710681 6.16283202,17.9610557 6.4367565,17.9959841 C6.71068097,18.0309126 6.96105571,17.837168 6.99598413,17.5632435 C7.00875371,17.4630987 7.04714287,17.2699557 7.12176678,17.0159249 Z\"></path></g></g></g></svg>"
 
 /***/ }),
 /* 233 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M528 64h-12.118a48 48 0 0 0-33.941 14.059L384 176v-64c0-26.51-21.49-48-48-48H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h288c26.51 0 48-21.49 48-48v-64l97.941 97.941A48 48 0 0 0 515.882 448H528c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z\"></path></svg>"
 
 /***/ }),
 /* 234 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 512\"><path d=\"M256 88.017v335.964c0 21.438-25.943 31.998-40.971 16.971L126.059 352H24c-13.255 0-24-10.745-24-24V184c0-13.255 10.745-24 24-24h102.059l88.971-88.954c15.01-15.01 40.97-4.49 40.97 16.971z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z\"></path></svg>"
 
 /***/ }),
 /* 235 */
 /***/ (function(module, exports) {
 
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M256 88.017v335.964c0 21.438-25.943 31.998-40.971 16.971L126.059 352H24c-13.255 0-24-10.745-24-24V184c0-13.255 10.745-24 24-24h102.059l88.971-88.954c15.01-15.01 40.97-4.49 40.97 16.971zm182.056-77.876C422.982.92 403.283 5.668 394.061 20.745c-9.221 15.077-4.473 34.774 10.604 43.995C468.967 104.063 512 174.983 512 256c0 73.431-36.077 142.292-96.507 184.206-14.522 10.072-18.129 30.01-8.057 44.532 10.076 14.528 30.016 18.126 44.531 8.057C529.633 438.927 576 350.406 576 256c0-103.244-54.579-194.877-137.944-245.859zM480 256c0-68.547-36.15-129.777-91.957-163.901-15.076-9.22-34.774-4.471-43.994 10.607-9.22 15.078-4.471 34.774 10.607 43.994C393.067 170.188 416 211.048 416 256c0 41.964-20.62 81.319-55.158 105.276-14.521 10.073-18.128 30.01-8.056 44.532 6.216 8.96 16.185 13.765 26.322 13.765a31.862 31.862 0 0 0 18.21-5.709C449.091 377.953 480 318.938 480 256zm-96 0c0-33.717-17.186-64.35-45.972-81.944-15.079-9.214-34.775-4.463-43.992 10.616s-4.464 34.775 10.615 43.992C314.263 234.538 320 244.757 320 256a32.056 32.056 0 0 1-13.802 26.332c-14.524 10.069-18.136 30.006-8.067 44.53 10.07 14.525 30.008 18.136 44.53 8.067C368.546 316.983 384 287.478 384 256z\"></path></svg>"
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M576 252v8c0 6.6-5.4 12-12 12h-84v24c0 13.3-10.7 24-24 24h-16c-13.3 0-24-10.7-24-24v-24H12c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h404v-24c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24v24h84c6.6 0 12 5.4 12 12zM564 80H128V56c0-13.3-10.7-24-24-24H88c-13.3 0-24 10.7-24 24v24H12C5.4 80 0 85.4 0 92v8c0 6.6 5.4 12 12 12h52v24c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24v-24h436c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12zm0 320H288v-24c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v24H12c-6.6 0-12 5.4-12 12v8c0 6.6 5.4 12 12 12h212v24c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24v-24h276c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12z\"></path></svg>"
 
 /***/ }),
 /* 236 */
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\"><path d=\"M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z\"></path></svg>"
+
+/***/ }),
+/* 237 */
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M528 64h-12.118a48 48 0 0 0-33.941 14.059L384 176v-64c0-26.51-21.49-48-48-48H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h288c26.51 0 48-21.49 48-48v-64l97.941 97.941A48 48 0 0 0 515.882 448H528c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48z\"></path></svg>"
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 512\"><path d=\"M256 88.017v335.964c0 21.438-25.943 31.998-40.971 16.971L126.059 352H24c-13.255 0-24-10.745-24-24V184c0-13.255 10.745-24 24-24h102.059l88.971-88.954c15.01-15.01 40.97-4.49 40.97 16.971z\"></path></svg>"
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path d=\"M256 88.017v335.964c0 21.438-25.943 31.998-40.971 16.971L126.059 352H24c-13.255 0-24-10.745-24-24V184c0-13.255 10.745-24 24-24h102.059l88.971-88.954c15.01-15.01 40.97-4.49 40.97 16.971zm182.056-77.876C422.982.92 403.283 5.668 394.061 20.745c-9.221 15.077-4.473 34.774 10.604 43.995C468.967 104.063 512 174.983 512 256c0 73.431-36.077 142.292-96.507 184.206-14.522 10.072-18.129 30.01-8.057 44.532 10.076 14.528 30.016 18.126 44.531 8.057C529.633 438.927 576 350.406 576 256c0-103.244-54.579-194.877-137.944-245.859zM480 256c0-68.547-36.15-129.777-91.957-163.901-15.076-9.22-34.774-4.471-43.994 10.607-9.22 15.078-4.471 34.774 10.607 43.994C393.067 170.188 416 211.048 416 256c0 41.964-20.62 81.319-55.158 105.276-14.521 10.073-18.128 30.01-8.056 44.532 6.216 8.96 16.185 13.765 26.322 13.765a31.862 31.862 0 0 0 18.21-5.709C449.091 377.953 480 318.938 480 256zm-96 0c0-33.717-17.186-64.35-45.972-81.944-15.079-9.214-34.775-4.463-43.992 10.616s-4.464 34.775 10.615 43.992C314.263 234.538 320 244.757 320 256a32.056 32.056 0 0 1-13.802 26.332c-14.524 10.069-18.136 30.006-8.067 44.53 10.07 14.525 30.008 18.136 44.53 8.067C368.546 316.983 384 287.478 384 256z\"></path></svg>"
+
+/***/ }),
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var PlayerName = __webpack_require__(237);
-var HeroPortrait = __webpack_require__(52);
-var GameTimeline = __webpack_require__(238);
-var Players = __webpack_require__(86);
+var PlayerName = __webpack_require__(241);
+var HeroPortrait = __webpack_require__(53);
+var GameTimeline = __webpack_require__(242);
+var Players = __webpack_require__(87);
 
-var _require = __webpack_require__(240),
+var _require = __webpack_require__(244),
     Timeline = _require.Timeline,
     TimelineEvent = _require.TimelineEvent,
     TimelineMarker = _require.TimelineMarker;
 
 var React = __webpack_require__(10);
-var HighlightVideoWeb = __webpack_require__(241);
-var url = __webpack_require__(242);
+var HighlightVideoWeb = __webpack_require__(245);
+var url = __webpack_require__(246);
 
 var players = null;
 
@@ -25000,20 +24996,33 @@ function renderGameOver(game, heroId) {
         return p.id === heroId;
     })[0];
 
-    var outcome = player.outcome == 'Win' ? 'wins' : 'loses';
+    if (!player) {
+        var winners = game.players.filter(function (p) {
+            return p.outcome == 'Win';
+        });
+        if (winners.length) {
+            player = winners[0];
+        }
+    }
 
-    return React.createElement(
-        TimelineMarker,
-        { type: 'circle', label: time(game.time - 35) },
-        'Game over: ',
-        React.createElement(
-            'span',
-            { className: player.team },
-            player.team
-        ),
-        ' ',
-        outcome
-    );
+    if (player) {
+
+        var outcome = player.outcome == 'Win' ? 'wins' : 'loses';
+
+        return React.createElement(
+            TimelineMarker,
+            { type: 'circle', label: time(game.time - 35) },
+            'Game over: ',
+            React.createElement(
+                'span',
+                { className: player.team },
+                player.team
+            ),
+            ' ',
+            outcome
+        );
+    }
+    return null;
 }
 
 function Highlights(props) {
@@ -25038,7 +25047,7 @@ function Highlights(props) {
 module.exports = Highlights;
 
 /***/ }),
-/* 237 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25053,7 +25062,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(10);
-var HeroPortrait = __webpack_require__(52);
+var HeroPortrait = __webpack_require__(53);
 
 var PlayerName = function (_React$Component) {
     _inherits(PlayerName, _React$Component);
@@ -25082,7 +25091,7 @@ var PlayerName = function (_React$Component) {
 module.exports = PlayerName;
 
 /***/ }),
-/* 238 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25092,7 +25101,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var GameEvent = __webpack_require__(239);
+var GameEvent = __webpack_require__(243);
 
 var GameTimeline = function () {
     function GameTimeline(game) {
@@ -25184,7 +25193,7 @@ var GameTimeline = function () {
 module.exports = GameTimeline;
 
 /***/ }),
-/* 239 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25203,14 +25212,14 @@ var GameEvent = function GameEvent(time, type, data) {
 module.exports = GameEvent;
 
 /***/ }),
-/* 240 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var React = __webpack_require__(10);
-var Svg = __webpack_require__(53);
+var Svg = __webpack_require__(54);
 
 function Timeline(props) {
     return React.createElement(
@@ -25293,7 +25302,7 @@ module.exports.TimelineEvent = TimelineEvent;
 module.exports.TimelineMarker = TimelineMarker;
 
 /***/ }),
-/* 241 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25307,7 +25316,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Svg = __webpack_require__(53);
+var Svg = __webpack_require__(54);
 var React = __webpack_require__(10);
 
 var HighlightVideoWeb = function (_React$Component) {
@@ -25358,7 +25367,7 @@ var HighlightVideoWeb = function (_React$Component) {
 module.exports = HighlightVideoWeb;
 
 /***/ }),
-/* 242 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25385,8 +25394,8 @@ module.exports = HighlightVideoWeb;
 
 
 
-var punycode = __webpack_require__(243);
-var util = __webpack_require__(246);
+var punycode = __webpack_require__(247);
+var util = __webpack_require__(250);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -25461,7 +25470,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = __webpack_require__(87);
+    querystring = __webpack_require__(88);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -26097,7 +26106,7 @@ Url.prototype.parseHost = function() {
 
 
 /***/ }),
-/* 243 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -26633,10 +26642,10 @@ Url.prototype.parseHost = function() {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(244)(module), __webpack_require__(245)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(248)(module), __webpack_require__(249)))
 
 /***/ }),
-/* 244 */
+/* 248 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -26664,7 +26673,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 245 */
+/* 249 */
 /***/ (function(module, exports) {
 
 var g;
@@ -26691,7 +26700,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 246 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26714,7 +26723,7 @@ module.exports = {
 
 
 /***/ }),
-/* 247 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26805,7 +26814,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 248 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

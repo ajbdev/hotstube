@@ -7,7 +7,7 @@ const webpack = require('webpack')
 module.exports = {
     entry: './src/ui/bootstrap_web.js',
     devServer: {
-        contentBase: './web/game',
+        contentBase: './web/games',
         hot: true
     },
     output: {

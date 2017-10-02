@@ -14,7 +14,7 @@ if (isDev) {
 } else {
     envConfig = {
         env: 'production',
-        url: 'http://hotstube.com/game/'
+        url: 'http://hotstube.com/games/'
     }
 }
 

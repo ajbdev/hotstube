@@ -10,9 +10,9 @@ glob(__dirname + '/../web/*.*', (err, files) => {
     })
 })
 
-glob(__dirname + '/../web/game/*.*', (err, files) => {
+glob(__dirname + '/../web/games/*.*', (err, files) => {
     files.map((file) => {
-        let path = 'game/' + pathResolver.basename(file)
+        let path = 'games/' + pathResolver.basename(file)
         uploadArtifact(file, path)
     })
 })

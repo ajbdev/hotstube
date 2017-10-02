@@ -1,11 +1,15 @@
 const React = require('react')
 const Header = require('../Game/Header')
-const Highlights = require('../Game/Highlights')
+const GameHighlights = require('../Game/Highlights')
+const GameScores = require('../Game/Scores')
 
 class Game extends React.Component {
     constructor() {
         super()
 
+        this.state = { 
+            tab: 'Highlights'
+        }
     }
 
     style() {
@@ -21,11 +25,30 @@ class Game extends React.Component {
         return {}
     }
 
+    changeTab(tab) {
+        this.setState({ tab: tab })
+    }
+
+    renderTab() {
+        const components = {
+            'GameHighlights': GameHighlights,
+            'GameScores': GameScores
+        }
+
+        const ContentComponent = components['Game' + this.state.tab]
+
+        return <ContentComponent game={this.props.game} />
+    }
+
     render() {
+        const tabs = ['Highlights', 'Scores']
         return (
             <game style={this.style()} className="web">
-                <Header heroId={1281664} game={this.props.game} />
-                <Highlights heroId={1281664} game={this.props.game} />
+                <Header game={this.props.game} 
+                        tabs={tabs} 
+                        changeTab={this.changeTab.bind(this)} 
+                        tab={this.state.tab} />
+                {this.renderTab()}
             </game>
         )
     }

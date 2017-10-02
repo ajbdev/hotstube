@@ -1,3 +1,9 @@
+game-scores {
+    width: 940px;
+    margin: 0 auto;
+    display: block;
+}
+
 game-scores thead hero-portrait {
     width: 26px;
     height: 26px;
@@ -5,17 +11,47 @@ game-scores thead hero-portrait {
 
 game-scores table {
     font-size: 13px;
+    margin-bottom: 2rem;
+    margin-top: 0;
 }
 
 game-scores table thead th {
     border-bottom-color: #E4B406;
-    height: 140px;
     vertical-align: bottom;
+    text-align: center;
 }
+
+game-scores .score-selector {
+    width: auto;
+    border: none;
+    color: #fff;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="white" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 12px;
+    font-size: 18px;
+}
+
 
 game-scores table tbody th {
     border-bottom-width: 1px;
     border-right: 1px solid #666
+}
+
+game-scores table tbody th.red {
+    color: #fff;
+    background: rgba(230, 14, 14, .2)
+}
+
+game-scores table tbody th.blue {
+    color: #fff;
+    background: rgba(0, 117, 196, .2)
+}
+
+game-scores table tbody th hero-portrait {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
 }
 
 game-scores table tbody td {

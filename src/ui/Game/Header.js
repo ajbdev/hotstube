@@ -30,10 +30,8 @@ class Header extends React.Component {
         game.players.map((p) => {
             teamKills[p.teamId == 0 ? 1 : 0] += deaths[p.playerId-1]
         })
-        
-        let heroId = this.props.heroId ? this.props.heroId : this.props.replay.heroId
 
-        let player = game.players.filter((p) => p.id === heroId)[0]
+        let player = players.replayOwner()
 
         let outcome = ''
 
@@ -56,11 +54,12 @@ class Header extends React.Component {
                     </span>
                 </div>
                 {player ?
-                <span>
-                <span className={player.team}>
-                    {player.name}
-                </span> as <HeroPortrait class="small" hero={player.hero} /> {player.hero} <br />
-                </span> : null}
+                    <span>
+                        <span className={player.team}>
+                            {player.name}
+                        </span> as <HeroPortrait class="small" hero={player.hero} /> {player.hero} <br />
+                    </span>
+                : <br />}
                 <Time seconds={this.props.game.time} /> <br />
                 {this.props.actions ? 
                 <div className="actions">

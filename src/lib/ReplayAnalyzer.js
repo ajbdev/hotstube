@@ -92,6 +92,13 @@ class ReplayAnalyzer extends EventEmitter {
                          if (d.m_key == 'Win/Loss') {
                              player.outcome = d.m_value
                          }
+                         let tierRegex = /Tier (\d) Choice/
+
+                         if (d.m_key.match(tierRegex)) {
+                             let level = d.m_key.match(tierRegex)[1]
+
+                             player.abilities['tier' + level] = d.m_value
+                         }
                        })
                    });
     }
@@ -215,14 +222,26 @@ class ReplayAnalyzer extends EventEmitter {
     players() {
         const births = this.replay.trackerEvents().filter((event) => event._event == 'NNet.Replay.Tracker.SUnitBornEvent' && event.m_controlPlayerId > 0 && event.m_controlPlayerId <= 10 && event.m_unitTypeName.slice(0,4) === 'Hero')
 
+        let heroIdRegex = /Accounts\/(\d+)\/(\d+)-Hero-(\d+)-(\d+)\/Replays/
+
+        let heroId = null
+        if (this.file.match(heroIdRegex)) {
+            let parts = this.file.match(heroIdRegex)
+
+            if (parts.length > 4) {
+                heroId = parts[4]
+            }
+        }
+
         this.game.players = this.replay.details().m_playerList.map((player, i) => {
             return {
                 id: player.m_toon.m_id,
-                isReplayOwner: false,
+                isReplayOwner: heroId == player.m_toon.m_id,
                 name: player.m_name.toString(),
                 hero: player.m_hero.toString(),
                 playerId: i+1,
                 outcome: null,
+                abilities: {},
                 teamId: player.m_teamId,
                 team: player.m_teamId == 0 ? 'red' : 'blue',
                 unitTagIndex: births.filter((birth) => birth.m_controlPlayerId == i+1 )[0].m_unitTagIndex

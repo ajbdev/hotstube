@@ -9,7 +9,6 @@ const pathResolver = require('path')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
 const Header = require('../Game/Header')
-const HighlightVideoComponent = require('../Game/HighlightVideoFile')
 
 class Game extends React.Component {
     constructor(props) {
@@ -28,7 +27,7 @@ class Game extends React.Component {
 
         const ContentComponent = components['Game' + this.state.tab]
 
-        return <ContentComponent highlightVideoComponent={HighlightVideoComponent} replay={this.props.replay} game={this.props.replay.game} heroId={this.props.replay.heroId} setStatus={this.props.setStatus} />
+        return <ContentComponent replay={this.props.replay} game={this.props.replay.game} />
     }
     style() {
         if (this.props.replay.game) {

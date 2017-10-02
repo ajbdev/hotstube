@@ -1,3 +1,9 @@
+Version 0.5.4
+-
+9/27/2017
+* Added Volskaya artwork
+* Fixed a bug where the program did not record unless it was opened after Heroes was already opened
+
 Version 0.5.3
 -
 9/27/2017

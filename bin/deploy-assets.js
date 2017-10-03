@@ -4,7 +4,7 @@ const pathResolver = require('path')
 
 glob('../src/assets/**/*.*', (err, files) => {
     files.map((file) => {
-        let path = 'game/' + file.substr(file.indexOf('assets'))
+        let path = 'games/' + file.substr(file.indexOf('assets'))
 
         uploadArtifact(file, path)
     })

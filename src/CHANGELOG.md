@@ -1,3 +1,9 @@
+Version 0.5.6
+-
+10/3/2017
+* Update for hotfix
+
+
 Version 0.5.5
 -
 10/2/2017

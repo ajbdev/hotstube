@@ -1,3 +1,9 @@
+Version 0.5.5
+-
+10/2/2017
+* Reformatted scores tab
+* Added scores tab to hotstube.com
+
 Version 0.5.4
 -
 9/27/2017

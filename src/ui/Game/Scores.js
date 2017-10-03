@@ -102,9 +102,6 @@ class Scores extends React.Component {
     render() {
         const game = this.props.game
 
-        console.log(game.players)
-
-
         return (
             <tab-content>
                 <game-scores>

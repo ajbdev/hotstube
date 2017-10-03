@@ -32,6 +32,10 @@ game-scores .score-selector {
     font-size: 18px;
 }
 
+game-scores .score-selector option {
+    color: #222;
+}
+
 
 game-scores table tbody th {
     border-bottom-width: 1px;

@@ -1,6 +1,8 @@
 const React = require('react')
 const PlayerName = require('./PlayerName')
 const HeroPortrait = require('./HeroPortrait')
+const Talents = require('./../../lib/Talents')
+const Talent = require('./Talent')
 
 class Scores extends React.Component { 
     constructor() {
@@ -11,7 +13,7 @@ class Scores extends React.Component {
         }
 
         this.tableColumns = {
-            'Overall': ['SoloKill','Assists','Deaths','HeroDamage','SiegeDamage','DamageTaken','ExperienceContribution'],
+            'Overall': ['SoloKill','Assists','Deaths','HeroDamage','SiegeDamage','ExperienceContribution'],
             'Damage': ['HeroDamage','SiegeDamage','StructureDamage','DamageTaken','TeamfightHeroDamage','TeamfightDamageTaken'],
             'Kills': ['Takedowns','SoloKill','Deaths','Assists','HighestKillStreak','TimeSpentDead','VengeancesPerformed','EscapesPerformed'],
             'XP': ['ExperienceContribution','SiegeDamage','MinionDamage','CreepDamage']
@@ -60,9 +62,19 @@ class Scores extends React.Component {
         let val = scores[0].values[playerIndex].toString()
 
         return (
-            <td key={playerIndex + ':' + score} className={'length-' + val.length}>
+            <td key={score} className={'length-' + val.length}>
                 {val}
             </td>
+        )
+    }
+
+    renderTalents(player) {
+        let talents = Talents.get(player.hero, player.talents)
+
+        return (
+            <div className="talent-list">
+                {talents.map((talent) => <Talent key={talent.name} hover={true} talent={talent} />)}
+            </div>
         )
     }
 
@@ -88,6 +100,7 @@ class Scores extends React.Component {
                                     <HeroPortrait hero={p.hero} />
                                     {p.name}
                                 </span>
+                                {this.renderTalents(p)}
                             </th>
                             {columns.map((col) => 
                                 this.renderScore(col, ix)

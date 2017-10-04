@@ -39,7 +39,18 @@ game-scores .score-selector option {
 
 game-scores table tbody th {
     border-bottom-width: 1px;
-    border-right: 1px solid #666
+    border-right: 1px solid #666;
+    min-width: 175px;
+}
+
+game-scores table tbody th .talent-list {
+    margin-top: 6px;
+}
+
+game-scores table tbody .talent-list talent {
+    margin-right: 3px;
+    width: 18px;
+    height: 18px;
 }
 
 game-scores table tbody th.red {
@@ -53,9 +64,10 @@ game-scores table tbody th.blue {
 }
 
 game-scores table tbody th hero-portrait {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     margin-right: 8px;
+    vertical-align: middle;
 }
 
 game-scores table tbody td {

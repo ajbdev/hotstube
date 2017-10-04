@@ -22,6 +22,7 @@ class HeroPortrait extends React.Component {
     }
 
     render() {
+
         return (
             <hero-portrait style={this.style()} {...this.props}>
                 {this.props.svg ? <Svg src={this.props.svg} /> : null}

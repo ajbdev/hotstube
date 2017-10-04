@@ -92,13 +92,6 @@ class ReplayAnalyzer extends EventEmitter {
                          if (d.m_key == 'Win/Loss') {
                              player.outcome = d.m_value
                          }
-                         let tierRegex = /Tier (\d) Choice/
-
-                         if (d.m_key.match(tierRegex)) {
-                             let level = d.m_key.match(tierRegex)[1]
-
-                             player.abilities['tier' + level] = d.m_value
-                         }
                        })
                    });
     }
@@ -107,9 +100,27 @@ class ReplayAnalyzer extends EventEmitter {
         this.chat()
         this.levels()
         this.scores()
+        this.talents()
         this.deepAnalyzed = true
         this.emit('GAME_DEEP_ANALYZED', this.game, this.file)
 
+    }
+
+    talents() {
+        let tierRegex = /Tier(\d)Talent/
+
+        let tiers = this.game.scores.filter((score) => score.type.match(tierRegex))
+
+        tiers.map((tier) => {
+            let tierNum = tier.type.match(tierRegex)[1]
+            tier.values.map((slot, playerIndex) => {
+                let player = this.game.players[playerIndex]
+
+                if (player && slot) {
+                    player.talents[parseInt(tierNum) - 1] = slot
+                }
+            })
+        })
     }
 
     scores() {
@@ -241,7 +252,7 @@ class ReplayAnalyzer extends EventEmitter {
                 hero: player.m_hero.toString(),
                 playerId: i+1,
                 outcome: null,
-                abilities: {},
+                talents: [null,null,null,null,null,null,null],
                 teamId: player.m_teamId,
                 team: player.m_teamId == 0 ? 'red' : 'blue',
                 unitTagIndex: births.filter((birth) => birth.m_controlPlayerId == i+1 )[0].m_unitTagIndex

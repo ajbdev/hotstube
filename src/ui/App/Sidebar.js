@@ -6,7 +6,7 @@ const {SidebarRow} = require('./SidebarRow')
 const path = require('path')
 const ConfigOptions = require('../../lib/Config')
 const {List, ArrowKeyStepper} = require('react-virtualized')
-const patches = require('../../patches.json')
+const patches = require('../../data/patches.json')
 
 class Sidebar extends React.Component {
     constructor() {

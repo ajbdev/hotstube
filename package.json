@@ -6,15 +6,12 @@
   "description": "Game recording, highlight reel, and scores for Heroes of the Storm",
   "scripts": {
     "clean": "rm -rf .cache ./dist/*",
-    "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 src/patches.json",
+    "update-game-patches": "./node_modules/.bin/gsjson 1t4DNDUakeiKkR8hUueJNHFL-GtEWTHOJ2b2tRG1Tuq0 src/data/patches.json",
     "start": "electron .",
     "web-dev-server": "webpack-dev-server --open",
     "webpack": "./node_modules/.bin/webpack",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "deploy-web": "node bin/deploy-web.js",
-    "deploy-assets": "node bin/deploy-assets.js",
-    "deploy-dist": "node bin/deploy-dist.js"
+    "dist": "electron-builder"
   },
   "build": {
     "appId": "hotstube",
@@ -55,6 +52,7 @@
     "ps-node": "^0.1.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-lightweight-tooltip": "0.0.4",
     "react-virtualized": "^9.9.0",
     "request": "^2.81.0",
     "rollbar": "^2.2.3",

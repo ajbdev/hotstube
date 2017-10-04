@@ -1,0 +1,13 @@
+talent {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    margin: 5px 0;
+    display: inline-block;
+    background: #333;
+    background-size: cover;
+    vertical-align: text-bottom;
+}
+.talent-tooltip {
+    color: #888;
+}

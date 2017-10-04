@@ -1,3 +1,8 @@
+Version 0.6.0
+-
+10/3/2017
+* Selected talents are now shown on the score screen and when hovering over a player name on the highlights
+
 Version 0.5.6
 -
 10/3/2017

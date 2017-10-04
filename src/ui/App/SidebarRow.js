@@ -72,7 +72,9 @@ class SidebarRow extends React.Component {
         if (replay.game) {
             let player = replay.game.players.filter((p) => p.id == replay.heroId)[0]
 
-            attrs.hero = player.hero;
+            if (player) {
+                attrs.hero = player.hero;
+            }
         }
 
         if (replay.corrupt) {

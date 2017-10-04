@@ -6,6 +6,10 @@ const {Tooltip}  = require('react-lightweight-tooltip')
 
 class PlayerName extends React.Component { 
     render() {
+        if (!this.props.player) {
+            return null
+        }
+
         let talents = 
             [<span className="talent-tooltip" key="talentTooltip">{this.props.player.hero}</span>, <br key="br" />].concat(
             Talents.get(this.props.player.hero, this.props.player.talents).map((talent) => <Talent key={talent.name} talent={talent} />)

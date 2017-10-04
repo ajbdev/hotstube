@@ -44,13 +44,6 @@ function heroes(token) {
 
         page(apiRoot + '/heroes.json')
     })
-    
-
-    // return new Promise((resolve, reject) => {
-    //     request.get({
-    //         url: apiRoot + '/heroes'
-    //     })
-    // })
 }
 
 function hero(token, id) {

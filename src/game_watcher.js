@@ -4,7 +4,7 @@ const VideoClipMaker = require('./lib/VideoClipMaker')
 const HighlightReel = require('./lib/HighlightReel') 
 const Config = require('./lib/Config')
 const fs = require('fs')
-const ps = require('ps-node')
+const {desktopCapturer} = require('electron')
 
 const pathResolver = require('path')
 
@@ -34,15 +34,18 @@ function startWatchingGame() {
 }
 
 function waitUntilGameIsRunning() {
-    ps.lookup({command: 'Heroes of the Storm'}, (err, results) => {
-        if (results.length > 0) {
-            console.log('Heroes is running')
-            startWatchingGame()
-        } else {
-            setTimeout(() => {
-                waitUntilGameIsRunning()
-            }, 5000)
+    desktopCapturer.getSources({ types: ['window', 'screen'] }, function(error, sources) {
+        for (var i in sources) {
+            let src = sources[i]
+            if (src.name === GameRecorder.WINDOW_TITLE) {
+                console.log('Game is running')
+                startWatchingGame()
+                return
+            } 
         }
+        setTimeout(() => {
+            waitUntilGameIsRunning()
+        }, 5000)
     })
 }
 waitUntilGameIsRunning()

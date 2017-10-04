@@ -5,6 +5,7 @@ const Uploader = require('../Game/Uploader')
 const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
 const GameHighlights = require('../Game/Highlights')
 const GameScores = require('../Game/Scores')
+const GameXP = require('../Game/XP')
 const pathResolver = require('path')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
@@ -22,7 +23,8 @@ class Game extends React.Component {
     renderTab() {
         const components = {
             'GameHighlights': GameHighlights,
-            'GameScores': GameScores
+            'GameScores': GameScores,
+            'GameXP': GameXP
         }
 
         const ContentComponent = components['Game' + this.state.tab]
@@ -122,7 +124,11 @@ class Game extends React.Component {
 
         const game = this.props.replay.game
 
-        const tabs = ['Highlights', 'Scores']
+        const tabs = [
+            'Highlights', 
+            'Scores'
+        //    'XP'
+        ]
 
         const actions = {
             'Upload Game': this.uploading.bind(this),

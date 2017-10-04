@@ -79,6 +79,13 @@ class ReplayAnalyzer extends EventEmitter {
         this.analyzed = true
     }
 
+    xp() {
+        let events = this.replay.trackerEvents()
+                                .filter(e => e._event === 'NNet.Replay.Tracker.SStatGameEvent' && (e.m_eventName == 'PeriodicXPBreakdown' || e.m_eventName == 'EndOfGameXPBreakdown'))
+
+        console.log(events)
+    }
+
     winner() {
         const self = this
 
@@ -101,6 +108,7 @@ class ReplayAnalyzer extends EventEmitter {
         this.levels()
         this.scores()
         this.talents()
+        this.xp()
         this.deepAnalyzed = true
         this.emit('GAME_DEEP_ANALYZED', this.game, this.file)
 

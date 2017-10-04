@@ -1,5 +1,6 @@
 const Svg = require('../App/Svg')
 const React = require('react')
+const ReactDOM = require('react-dom')
 
 class HighlightVideoWeb extends React.Component { 
     constructor() {
@@ -12,6 +13,17 @@ class HighlightVideoWeb extends React.Component {
         if (this.props.url.indexOf('streamable') > -1) {
             return this.getStreamableOembed()
         }
+        
+    }
+    componentDidUpdate() {
+        let hash = window.location.hash.replace('#', '')
+        if (hash) {
+            let node = ReactDOM.findDOMNode(this.refs[hash])
+
+            if (node) {
+                node.scrollIntoView()
+            }
+        }
     }
 
     getStreamableOembed() {
@@ -19,7 +31,6 @@ class HighlightVideoWeb extends React.Component {
         .then((resp) => {
             return resp.json()
         }).then((result) => {
-            console.log(result)
             this.setState({ embedHtml: result.html })
         })
     }
@@ -29,7 +40,9 @@ class HighlightVideoWeb extends React.Component {
             return null
         }
 
-        return <div className="video-embed" dangerouslySetInnerHTML={{__html: this.state.embedHtml}}></div>
+        return <div className="video-embed" 
+                    ref={this.props.url}
+                    dangerouslySetInnerHTML={{__html: this.state.embedHtml}}></div>
     }
 }
 

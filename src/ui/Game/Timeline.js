@@ -1,4 +1,5 @@
 const React = require('react')
+const ReactDOM = require('react-dom')
 const Svg = require('../App/Svg')
 
 function Timeline(props) {
@@ -8,17 +9,53 @@ function Timeline(props) {
         </timeline>
     )
 }
+class TimelineEvent extends React.Component {
+    
 
-function TimelineEvent(props) { 
-    return (
-        <timeline-event>
-            {props.icon ? <Svg className={props.icon} src={props.icon + ".svg"} /> : null}
-            <div className="time">{props.at}</div>
-            <div className="content">
-                {props.children}
-            </div>                
-        </timeline-event>
-    )
+    componentDidMount() {
+        let hash = window.location.hash.replace('#', '')
+        if (hash) {
+            let node = ReactDOM.findDOMNode(this.refs[hash])
+
+            if (node) {
+                node.scrollIntoView()
+            }
+        }
+    }
+
+    anchorTo() {
+        let node = ReactDOM.findDOMNode(this.refs[this.props.at])
+        if (node) {
+            node.scrollIntoView()
+            window.location = window.location.origin +
+                              window.location.pathname +
+                              window.location.search +
+                              '#' + this.props.at
+        }
+    }
+
+    renderAnchor() {
+        if (typeof IS_WEB !== 'undefined' && IS_WEB) {
+            return <Svg className="anchor" src="link.svg" onClick={this.anchorTo.bind(this)} />
+        }
+
+        return null
+    }
+
+    render() {
+        let props = this.props
+        return (
+            <timeline-event ref={props.at}>
+                {props.icon ? <Svg className={props.icon} src={props.icon + ".svg"} /> : null}
+                <div className="time">{props.at}
+                    {this.renderAnchor()}
+                </div>
+                <div className="content">
+                    {props.children}
+                </div>                
+            </timeline-event>
+        )
+    }
 }
 function TimelineMarker(props) {
     if (props.type === 'circle') {

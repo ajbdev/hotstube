@@ -118,3 +118,18 @@ timeline-event hero-portrait {
     margin: 0 3px;
     border: 1px solid #222;
 }
+
+timeline-event .anchor svg {
+    width: 16px;
+    height: 16px;
+    fill: #333;
+    cursor: pointer;
+    position: static;
+    margin-left: .4rem;
+    margin-top: 0;
+}
+
+
+timeline-event .anchor svg:hover {
+    fill: #aaa;
+}

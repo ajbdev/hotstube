@@ -5,6 +5,9 @@ const pathResolver = require('path')
 const GfycatApi = require('../../lib/GfycatApi')
 const { shell } = require('electron')
 const SharingCredentials = require('./SharingCredentials')
+const GameHash = require('../../lib/GameHash')
+const request = require('request')
+const env = require('../../env')
 
 class ShareHighlightsModal extends React.Component { 
     constructor() {
@@ -24,6 +27,31 @@ class ShareHighlightsModal extends React.Component {
             this.props.close()
         })
     }
+    
+    checkIsGameAndHighlightUploaded() { 
+        return new Promise((resolve, reject) => {
+            let hash = GameHash.hash(this.props.game)
+            request({
+                url: `https://s3.amazonaws.com/hotstube/${hash}.json`,
+                method: 'GET',
+            }, (err, response, body) => {
+                if (response.statusCode == 404) {
+                    reject('Not uploaded')
+                } else if (response.statusCode == 200) {
+                    let game = JSON.parse(body)
+
+                    if (game.highlights) {
+                        let video = game.highlights[this.props.at]
+                        if (video) {
+                            resolve(env.url + '?id=' + hash + '#' + video)
+                        }
+                    }
+                    reject('Video not found')
+                }
+            })
+        })   
+    }
+
     uploadStreamable() {
         let self = this
 
@@ -34,17 +62,23 @@ class ShareHighlightsModal extends React.Component {
             return
         }
 
-        Streamable.upload(this.props.title, this.props.highlight).then((url) => {
-            if (url) {
-                shell.openExternal(url)
-            }
-            self.props.close() 
-        }).catch((err) => {
-            if (err == 'Invalid credentials') {
-                this.setState({ captureCredentials: true, credentialsError: true })
-            } else {
+        this.checkIsGameAndHighlightUploaded().then((anchoredHighlightUrl) => {
+            console.log(anchoredHighlightUrl)
+            shell.openExternal(anchoredHighlightUrl)
+            this.props.close()
+        }, (err) => { 
+            Streamable.upload(this.props.title, this.props.highlight).then((url) => {
+                if (url) {
+                    shell.openExternal(url)
+                }
                 self.props.close() 
-            }
+            }).catch((err) => {
+                if (err == 'Invalid credentials') {
+                    this.setState({ captureCredentials: true, credentialsError: true })
+                } else {
+                    self.props.close() 
+                }
+            })
         })
     }
     

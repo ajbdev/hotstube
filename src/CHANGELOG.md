@@ -1,3 +1,11 @@
+Version 0.6.2
+-
+10/3/2017
+* Switched video conversion from base64 string data URL to video object URL. This should increase performance when viewing videos in the app.
+* Switched from observing process list and instead using built in chromium desktop capturer to monitor for when HotS is loaded. This also fixes an issue where the entire app would freeze up every five seconds when HotS was not running
+* Made it possible to link to specific timeline events that have occurred on hotstube.com (look for the link icon next to the timeline event's time)
+* Expanded video size to take up full width of timeline
+
 Version 0.6.0
 -
 10/3/2017

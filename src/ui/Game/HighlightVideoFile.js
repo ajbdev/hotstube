@@ -96,11 +96,19 @@ class HighlightVideoFile extends React.Component {
 
         const fs = require('fs')
 
-        let videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(props.path)).toString('base64')
+        //let videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(props.path)).toString('base64')
 
-        this.setState({
-            video: videoData
+        fs.readFile(props.path, (err, data) => {
+            let buffer = new Buffer(data)
+            let arrayBuffer = new Uint8Array(buffer).buffer
+            let blob = new Blob([arrayBuffer])
+            let url = URL.createObjectURL(blob)
+
+            this.setState({
+                video: url
+            })
         })
+
     }
 
     share() {
@@ -129,7 +137,7 @@ class HighlightVideoFile extends React.Component {
 
         return (
             <span>
-                {this.state.sharing ? <ShareHighlightsModal highlight={this.props.path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
+                {this.state.sharing ? <ShareHighlightsModal at={this.props.at} game={this.props.game} highlight={this.props.path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
                 <highlight-reel onClick={this.toggleVideo.bind(this)}>
                     {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
                     <video {...attrs} src={this.state.video} />

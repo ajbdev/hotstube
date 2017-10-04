@@ -45,15 +45,8 @@ function renderHighlight(game, secondsIn, caption) {
     }
 
     const HighlightVideoFile = require('./HighlightVideoFile')
-    return <HighlightVideoFile path={path} caption={caption} />
+    return <HighlightVideoFile path={path} caption={caption} game={game} at={time(secondsIn, '.')} />
 
-    //if (path.indexOf('http://') || path.index())
-
-    // const HighlightVideoComponent = {
-    //     'HighlightVideoWeb': HighlightVideoWeb
-    // }
-
-    // return <HighlightVideoComponent path={game.highlights[time(secondsIn, '.')]} caption={caption} />
     
 }
 

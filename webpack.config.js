@@ -12,7 +12,7 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'web/game')
+        path: path.resolve(__dirname, 'web/games')
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),

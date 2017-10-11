@@ -109,6 +109,9 @@ class GameStateWatcher extends EventEmitter {
                         self.startTimer();
                     }
                 })
+                watcher.on('error', (err) => {
+                    console.log(err)
+                })
             })
         } catch (ex) {
             console.log('Could not watch battle lobby dir: ' + ex)

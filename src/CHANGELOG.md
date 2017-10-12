@@ -1,3 +1,8 @@
+Version 0.6.3
+-
+10/11/2017
+* Update for latest patch
+
 Version 0.6.2
 -
 10/3/2017

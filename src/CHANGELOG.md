@@ -1,3 +1,8 @@
+Version 0.6.4
+-
+10/17/2017
+* Update for junkrat patch
+
 Version 0.6.3
 -
 10/11/2017

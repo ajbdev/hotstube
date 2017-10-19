@@ -7,6 +7,8 @@ const path = require('path')
 const ConfigOptions = require('../../lib/Config')
 const {List, ArrowKeyStepper} = require('react-virtualized')
 const patches = require('../../data/patches.json')
+const app = require('electron').remote.app
+const protocolDir = path.join(app.getPath('appData'), 'HotSTube', 'protocols', 'lib')
 
 class Sidebar extends React.Component {
     constructor() {
@@ -40,9 +42,9 @@ class Sidebar extends React.Component {
                     .index
                     .filter((r) => r.name === result.replay)[0]
 
-                console.log(result)
-
-                replay.corrupt = true
+                if (replay) {
+                    replay.corrupt = true
+                }
 
                 this.setState({
                     index: this.index()
@@ -185,22 +187,15 @@ class Sidebar extends React.Component {
 
     selectItem(item) {
         if (item.patch) {
-            this
-                .props
-                .loadItem(item)
+            this.props.loadItem(item)
             return
         }
 
         if (item.unindexed) {
-
             return
         }
 
-        this.loadReplay(item.name, false)
-
-        this
-            .props
-            .loadItem(item)
+        this.props.loadItem(item)
     }
 
     loadFromCache(file) {
@@ -228,7 +223,7 @@ class Sidebar extends React.Component {
 
         this
             .analyzeWorker
-            .postMessage([file])
+            .postMessage([protocolDir, file])
     }
 
     rowRenderer({
@@ -245,7 +240,7 @@ class Sidebar extends React.Component {
         if (item.unindexed) {
             this
                 .analyzeWorker
-                .postMessage(item.unindexed)
+                .postMessage([protocolDir, item.unindexed])
             return (
                 <div key={key} style={style} className="omitted-results">
                     Searching for results...

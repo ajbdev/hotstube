@@ -10,7 +10,6 @@ class ReplayAnalyzer extends EventEmitter {
         this.GAME_EVENT_DEATH = 'NNet.Replay.Tracker.SUnitDiedEvent'
         this.GAME_EVENT_BIRTHS = 'NNet.Replay.Tracker.SUnitBornEvent'
 
-
         this.file = file
         this.replay = new Replay(file)
         this.game = new Game()
@@ -82,8 +81,6 @@ class ReplayAnalyzer extends EventEmitter {
     xp() {
         let events = this.replay.trackerEvents()
                                 .filter(e => e._event === 'NNet.Replay.Tracker.SStatGameEvent' && (e.m_eventName == 'PeriodicXPBreakdown' || e.m_eventName == 'EndOfGameXPBreakdown'))
-
-        console.log(events)
     }
 
     winner() {

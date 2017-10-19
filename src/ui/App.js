@@ -23,6 +23,8 @@ const ReleaseNotes = require('./App/ReleaseNotes')
 const DownloadNewVersion = require('./App/DownloadNewVersion')
 const dist = require('../lib/Dist.js')
 const glob = require('glob')
+const UpdateHeroProtocol = require('./../lib/UpdateHeroProtocol')
+const {ProtocolError} = require('../lib/HeroProtocol')
 
 
 class App extends React.Component {
@@ -116,7 +118,6 @@ class App extends React.Component {
     }
     componentDidMount() {
         ConfigOptions.load()
-        
 
         if (GameIndex.index.length > 0 && !ConfigOptions.options.welcomeScreen) {
             this.loadItem(GameIndex.index[0])
@@ -197,9 +198,23 @@ class App extends React.Component {
                     analyzer.analyze(true)
                     item.game = analyzer.game
                 } catch(ex) {
-                    // This replay file is corrupt or incomplete
-                    console.log('Could not analyze game: ' + ex)
-                    item.corrupt = true
+                    if (ex instanceof ProtocolError) {
+                        if (ex.type == 'PROTOCOL_MISSING') {
+                            item.updatingProtocols = true
+                            UpdateHeroProtocol.download().then(() => {
+                                item.updatingProtocols = false
+
+                                this.loadItem(item)
+                            })
+                        } else if (ex.type == 'INVALID_REPLAY' || ex.type == 'REPLAY_NOT_FOUND') {
+                            item.corrupt = true
+                        }
+                    } else {
+                        // This replay file is corrupt or incomplete
+                        console.log('Could not analyze game: ' + ex)
+                        console.log(ex.stack)
+                        item.corrupt = true
+                    }
                 }
 
 

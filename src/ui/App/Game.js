@@ -43,6 +43,20 @@ class Game extends React.Component {
 
         return {}
     }
+    restart() {
+        app.relaunch()
+        app.exit(0)
+    }
+    updatingProtocols() {
+        return (
+            <game className="corrupt">
+                
+                <br /><br /><br />
+                <h1>Updating for the latest HotS patch...</h1>
+                Hang tight, this should be done soon!
+            </game>
+        )
+    }
     corruptReplay() {
         return (
             <game className="corrupt">
@@ -52,13 +66,13 @@ class Game extends React.Component {
                 <br />
                 <div className="reasons">
                     <ol>
-                        <li>There's a new Heroes patch and HotSTube has not been updated yet.</li>
+                        <li>There's a new Heroes patch and you need to <a onClick={this.restart.bind(this)}>restart HotSTube</a>.</li>
                         <li>Your version of HotSTube is outdated.</li>
                         <li>This replay file is incomplete or damaged.</li>
                     </ol>
                 </div>
                 <p>
-                    Make sure HotSTube is up to date or <a onClick={() => this.props.deleteReplay(this.props.replay)}>delete the replay file</a> to remove it from the list.
+                    <a onClick={this.restart.bind(this)}>Restart HotSTube</a> to update or <a onClick={() => this.props.deleteReplay(this.props.replay)}>delete the replay file</a> to remove it from the list.
                 </p>
             </game>
         )
@@ -112,6 +126,9 @@ class Game extends React.Component {
     render() {
         if (!this.props.replay) {
             return null
+        }
+        if (this.props.replay.updatingProtocols) {
+            return this.updatingProtocols()
         }
 
         if (this.props.replay.corrupt) {

@@ -1,3 +1,8 @@
+Version 0.6.9
+-
+10/18/2017
+* Automatically patch the protocol decoder for new HotS versions. This means that the app should now patch itself automatically when a new HotS patch is released. 
+
 Version 0.6.4
 -
 10/17/2017

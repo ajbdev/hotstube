@@ -19,7 +19,6 @@ class SplashScreen extends React.Component {
                     To get started:<br />
                     <ol>
                         <li>Launch Heroes of the Storm in full screen windowed or windowed mode before launching HotSTube.</li>
-                        <li>Start HotSTube.</li>
                         <li>Start a game to begin recording. Do not close or restart HotSTube.</li>
                         <li>After the game, stats and gameplay highlights will be available.</li>
                     </ol>

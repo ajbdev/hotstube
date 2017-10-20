@@ -116,7 +116,8 @@ class HighlightReel extends EventEmitter {
             let fileName = pathResolver.join(path, time)
                        
 
-            if (!fs.existsSync(fileName)) {
+            if (!fs.existsSync(fileName + '.webm')) {
+                console.log('Created ' + fileName)
                 clip.make(fileName, slideFactor(min), duration)
             }            
             highlights[time] = fileName + '.webm'
@@ -124,15 +125,15 @@ class HighlightReel extends EventEmitter {
 
         console.log(Object.keys(highlights).length + ' different highlights found and clipped')
         
-        if (Config.options.deleteTemporaryVideos) {
-            fs.unlink(this.video, (err) => {
-                if (err) {
-                    console.log('Could not delete video: ' + err)
-                } else {
-                    console.log('Deleted ' + this.video)
-                }
-            })
-        }
+        // if (Config.options.deleteTemporaryVideos) {
+        //     fs.unlink(this.video, (err) => {
+        //         if (err) {
+        //             console.log('Could not delete video: ' + err)
+        //         } else {
+        //             console.log('Deleted ' + this.video)
+        //         }
+        //     })
+        // }
 
         return highlights
     }

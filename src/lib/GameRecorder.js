@@ -103,7 +103,7 @@ class GameRecorder extends EventEmitter {
         setTimeout(() => {
             this.toArrayBuffer(new Blob(this.chunks, {type: 'video/webm'}), function(ab) {
                 let buffer = self.toBuffer(ab)
-                let date = new Date();
+                let date = new Date()
                 let file = `./replay-${date.getTime()}.webm`
                 fs.writeFile(file, buffer, function(err) {
                     if (err) {

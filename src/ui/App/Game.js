@@ -6,6 +6,8 @@ const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
 const GameHighlights = require('../Game/Highlights')
 const GameScores = require('../Game/Scores')
 const GameXP = require('../Game/XP')
+const GameFullVideo = require('../Game/FullVideo')
+const ConfigOptions = require('../../lib/Config')
 const pathResolver = require('path')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
@@ -25,6 +27,10 @@ class Game extends React.Component {
             'GameHighlights': GameHighlights,
             'GameScores': GameScores,
             'GameXP': GameXP
+        }
+
+        if (this.props.replay.game.video) {
+            components['GameFullVideo'] = GameFullVideo
         }
 
         const ContentComponent = components['Game' + this.state.tab]
@@ -141,11 +147,14 @@ class Game extends React.Component {
 
         const game = this.props.replay.game
 
-        const tabs = [
-            'Highlights', 
-            'Scores'
-        //    'XP'
-        ]
+        const tabs = {
+            'Highlights': 'Highlights',
+            'Scores': 'Scores',
+        }
+
+        if (this.props.replay.game.video) {
+            tabs['FullVideo'] = 'Video'
+        }
 
         const actions = {
             'Upload Game': this.uploading.bind(this),

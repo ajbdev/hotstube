@@ -223,3 +223,7 @@ video-controls:after {
 .video-options svg:hover {
     color: #dadada;
 }
+
+full-video video {
+    width: 100%;
+}

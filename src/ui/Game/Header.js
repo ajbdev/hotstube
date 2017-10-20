@@ -77,8 +77,8 @@ class Header extends React.Component {
                 : null}
                 {this.props.tabs ? 
                 <ul className="tabs">
-                    {this.props.tabs.map((tab,i) => 
-                        <li key={i} className={this.props.tab == tab ? 'active' : ''} onClick={() => this.props.changeTab(tab)}><a>{tab}</a></li>
+                    {Object.keys(this.props.tabs).map((key, i) => 
+                        <li key={i} className={this.props.tab == key ? 'active' : ''} onClick={() => this.props.changeTab(key)}><a>{this.props.tabs[key]}</a></li>
                     )}
                 </ul> : null}
             </header>

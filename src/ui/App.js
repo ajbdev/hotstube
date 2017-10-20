@@ -74,11 +74,7 @@ class App extends React.Component {
 
         this.recordingListener = () => {
             this.setState({
-                status: {
-                    type: null,
-                    message: null,
-                    loading: true
-                }
+                recording: true
             })
         }
 
@@ -98,18 +94,25 @@ class App extends React.Component {
         GameStateWatcher.on('GAME_START', this.gameInProgressListener)
 
         this.loadGameListener = (file) => {
-            const self = this
-
-            // Wait 5 seconds to give highlight reel time to finish up
-            setTimeout(() => {
-                self.setState({
+            if (!this.state.recording) {
+                this.setState({
                     gameInProgress: false,
                 }, () => {
                     GameIndex.load()
-                    self.loadItem(GameIndex.index[0])
+                    this.loadItem(GameIndex.index[0])
                 })
-            }, 10000)
+            }
         }
+
+        this.recordingEndListener = (video) => {
+            this.setState({
+                recording: false
+            }, () => {
+                this.loadGameListener(video)
+            })
+        }
+
+        GameRecorder.on('VIDEO_SAVED', this.recordingEndListener)
 
         GameStateWatcher.on('GAME_END', this.loadGameListener)
     }
@@ -141,6 +144,7 @@ class App extends React.Component {
         GameStateWatcher.removeListener('GAME_END', this.loadGameListener)
         GameStateWatcher.removeListener('GAME_START', this.gameInProgressListener)
         GameRecorder.removeListener('RECORDER_START', this.recordingListener)
+        GameRecorder.removeListener('VIDEO_SAVED',this.recordingEndListener)
         app.removeListener('will-quit', this.pruneOnQuitListener)
     }
     
@@ -221,10 +225,12 @@ class App extends React.Component {
                 const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '.webm')
     
                 if (fs.existsSync(fullPath)) {
+                    item.game.video = fullPath
                     try {
                         const reel = new HighlightReel(item.name, fullPath)
                         let highlights = reel.create(item.accountId, item.heroId)
                         item.game.highlights = highlights
+
                     } catch (ex) {
                         console.log('Problem creating highlights: ' + ex)
                     }

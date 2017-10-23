@@ -31,12 +31,20 @@ function killer(kill) {
     return killer
 }
 
-function renderHighlight(game, secondsIn, caption) {
-    if (!game.highlights || !game.highlights[time(secondsIn, '.')]) {
-        return null
+function highlightPath(game, secondsIn) {
+    if (!game.highlights) {
+        return false
     }
 
-    let path = game.highlights[time(secondsIn, '.')]
+    return game.highlights[time(secondsIn, '.')]
+}
+
+function renderHighlight(game, secondsIn, caption) {
+    const path = highlightPath(game, secondsIn)
+
+    if (!path) {
+        return null
+    }
 
     let parsedUrl = url.parse(path)
     
@@ -51,72 +59,88 @@ function renderHighlight(game, secondsIn, caption) {
 }
 
 function renderFight(game, kills, key) {
-    const chat = game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
-
-    let caption = killer(kills[0]).name + ' kills ' + players.find(kills[0].victim).name + ' at ' + time(kills[0].time, ':')
+    let icon = 'fight'
     if (key == 0 && kills.length == 1) {
-        let kill = kills[0]
-
-        return (
-            <TimelineEvent at={time(kill.clockTime)} icon="firstblood" key={key}>
-                {renderHighlight(game, kill.time, caption)}
-                <PlayerName player={killer(kill)} /> drew first blood on <PlayerName player={players.find(kill.victim)} />
-                {chat.map((c, i) => renderChat(c, i))}
-            </TimelineEvent>
-        )
-    } 
-
-    if (kills.length == 1) {
-        let kill = kills[0]
-        return (
-            <TimelineEvent at={time(kill.clockTime)} icon="death" key={key}>
-                {renderHighlight(game, kill.time, caption)}
-                {renderKill(kill)}
-                {chat.map((c, i) => renderChat(c, i))}
-            </TimelineEvent>
-        )
+        icon = 'firstblood'
+    } else if (kills.length == 1) {
+        icon = 'death'
     }
 
     return (
-        <TimelineEvent at={time(kills[0].clockTime)} icon="fight" key={key}>
-            {kills.map((kill, ix) => 
-                <span key={ix}>
-                    {renderHighlight(game, kill.time, caption)}
-                    {renderKill(kill)}
-                </span>
-            )}
-            {chat.map((c, i) => renderChat(c, i))}
+        <TimelineEvent at={time(kills[0].clockTime)} icon={icon} key={key}>
+            {renderKills(game, kills)}
         </TimelineEvent>
     )
 }
 
 function renderChat(chat, i) {
     return (
-        <div key={i}>
-            <PlayerName player={chat.author} /> says, "{chat.message}"
-        </div>
+        <tr key={i}>
+            <td colSpan={3}>
+                <PlayerName player={chat.author} /> says, "{chat.message}"
+            </td>
+        </tr>
     )
 }
 
-function renderKill(kill) {
+function renderKills(game, kills) {
+    const chat = game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
+    return (
+        <table className="kda">
+            <thead>
+                <tr>
+                    <th className="k">Kill</th>
+                    <th className="d">Death</th>
+                    <th className="a">Assists</th>
+                </tr>
+            </thead>
+            {kills.map((kill, ix) => renderKill(game, kill, ix))}
+            {chat.length > 0 ?
+                <tfoot>
+                    {chat.map((c, i) => renderChat(c, i))}
+                </tfoot>
+                : null
+            }
+            <tfoot>
+
+            </tfoot>
+        </table>
+    )
+}
+
+function renderKill(game, kill, ix) {
     let assists = kill.killers.filter((killer) => killer != kill.primaryKiller)
+    let caption = killer(kill).name + ' kills ' + players.find(kill.victim).name + ' at ' + time(kill.time, ':')
     
     return (
-        <div className="kill">
-            <PlayerName player={killer(kill)} /> killed <PlayerName player={players.find(kill.victim)} /> 
-            {assists.length > 0 ? 
-            <span> (Assisted by 
-                {assists.map((assist, ix) =>
-                    <HeroPortrait hero={players.find(assist).hero} key={ix} />
-                )}
-            ) </span> : null}
-        </div>
+        <tbody key={ix}>
+            <tr>
+                <td className="k">
+                    <PlayerName player={killer(kill)} />
+                </td>
+                <td className="d">
+                    <PlayerName player={players.find(kill.victim)} /> 
+                </td>
+                <td className="a">
+                    {assists.map((assist, ix) =>
+                        <HeroPortrait hero={players.find(assist).hero} key={ix} />
+                    )}
+                </td>
+            </tr>
+            {highlightPath(game, kill.time) ? 
+                <tr>
+                    <td colSpan={3}>
+                        {renderHighlight(game, kill.time, caption)}
+                    </td>
+                </tr> : null
+            }
+        </tbody>
     )
 }
 
 
 function renderLevel(game, level, key) {
-    const team = level.team.charAt(0).toUpperCase() + level.team.slice(1).toLowerCase();
+    const team = level.team.charAt(0).toUpperCase() + level.team.slice(1).toLowerCase()
 
     return (
         <TimelineMarker type="hash" key={key}>

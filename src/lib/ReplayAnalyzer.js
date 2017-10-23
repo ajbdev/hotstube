@@ -249,6 +249,7 @@ class ReplayAnalyzer extends EventEmitter {
             }
         }
 
+        let blueTeamId = null
         this.game.players = this.replay.details().m_playerList.map((player, i) => {
             return {
                 id: player.m_toon.m_id,
@@ -259,10 +260,28 @@ class ReplayAnalyzer extends EventEmitter {
                 outcome: null,
                 talents: [null,null,null,null,null,null,null],
                 teamId: player.m_teamId,
+                teamNumber: player.m_teamId,
                 team: player.m_teamId == 0 ? 'red' : 'blue',
                 unitTagIndex: births.filter((birth) => birth.m_controlPlayerId == i+1 )[0].m_unitTagIndex
             }
+
+            if (heroId == player.m_toon.m_id) {
+                blueTeamId = player.m_teamId
+            }
         })
+
+        // Orient team colors to be relative to the owning player
+        this.game.players.map((player) => {
+            if (blueTeamId === null) {
+                return player
+            }
+            player.team = 'red'
+            if (player.teamId == blueTeamId) {
+                player.team = 'blue'
+            }
+            return player
+        })
+
         this.winner()
     }
 

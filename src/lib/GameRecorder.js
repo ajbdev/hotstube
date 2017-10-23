@@ -60,6 +60,7 @@ class GameRecorder extends EventEmitter {
                             mandatory: {
                                 chromeMediaSource: 'desktop',
                                 chromeMediaSourceId: src.id, 
+                                echoCancellation: true
                             }
                         }
                     }

@@ -200,6 +200,7 @@ class App extends React.Component {
                 
                 try {
                     analyzer.analyze(true)
+                    console.log(analyzer)
                     item.game = analyzer.game
                 } catch(ex) {
                     if (ex instanceof ProtocolError) {

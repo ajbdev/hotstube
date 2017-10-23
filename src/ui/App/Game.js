@@ -22,6 +22,11 @@ class Game extends React.Component {
             uploading: false
         }
     }
+    componentWillReceiveProps(newProps) {
+        if (newProps.replay != this.props.replay) {
+            this.setState({ tab: 'Highlights' })
+        }
+    }
     renderTab() {
         const components = {
             'GameHighlights': GameHighlights,

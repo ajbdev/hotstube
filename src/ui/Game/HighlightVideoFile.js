@@ -122,7 +122,7 @@ class HighlightVideoFile extends React.Component {
         }
 
         let attrs = {
-            width: 640,
+            width: 615,
             ref: (video) => { this.video = video }
         }
 

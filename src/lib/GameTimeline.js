@@ -13,7 +13,7 @@ class GameTimeline {
         fights.map((fight) => {
             if (fight.length > 0) {
                 this.timeline.push(new GameEvent(
-                    fight[0].clockTime,
+                    fight[0].time,
                     'fight',
                     { kills: fight }
                 ))

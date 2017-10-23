@@ -37,6 +37,7 @@ function waitUntilGameIsRunning() {
     desktopCapturer.getSources({ types: ['window', 'screen'] }, function(error, sources) {
         for (var i in sources) {
             let src = sources[i]
+            
             if (src.name === GameRecorder.WINDOW_TITLE) {
                 console.log('Game is running')
                 startWatchingGame()

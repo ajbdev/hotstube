@@ -1,6 +1,6 @@
 const fs = require('fs')
 const {EventEmitter} = require('events')
-const {desktopCapturer} = require('electron')
+const {desktopCapturer,screen} = require('electron')
 const Config = require('./Config')
 
 class GameRecorder extends EventEmitter {
@@ -33,14 +33,17 @@ class GameRecorder extends EventEmitter {
                     
                     Config.load()
                     
-                    let resolutions = {
-                        '480p': { width: 854, height: 480 },
-                        '720p': { width: 1280, height: 720 },
-                        '1080p': { width: 1920, height: 1080 }
+                    const display = screen.getPrimaryDisplay().size
+                    const ratio = display.width / display.height
+
+                    const resolutions = {
+                        '480p': { width: parseInt(ratio*480), height: 480 },
+                        '720p': { width: parseInt(ratio*720), height: 720 },
+                        '1080p': { width: parseInt(ratio*1080), height: 1080 }
                     }
 
-                    let width = resolutions[Config.options.resolution].width,
-                        height = resolutions[Config.options.resolution].height
+                    const width = resolutions[Config.options.resolution].width,
+                          height = resolutions[Config.options.resolution].height
 
                     let media = {
                         video: {

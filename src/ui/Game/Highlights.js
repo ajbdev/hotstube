@@ -190,6 +190,10 @@ function renderGameOver(game, heroId) {
     return null    
 }
 
+function KDATable(props) {
+    return this.renderKills(props.game, props.kills)
+}
+
 function Highlights(props) {
     const timeline = new GameTimeline(props.game).generate()
 
@@ -210,4 +214,5 @@ function Highlights(props) {
 }
 
 
-module.exports = Highlights
+module.exports.Highlights = Highlights
+module.exports.KDATable = KDATable

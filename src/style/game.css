@@ -264,7 +264,7 @@ full-video tracker {
     height: 30px;
     background: rgba(0,0,0,.8);
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     cursor: pointer;
     position: relative;
 }
@@ -273,7 +273,7 @@ full-video tracker cursor {
     width: 1px;
     height: 30px;
     display: block;
-    background: rgba(100,100,100,.6);
+    background: rgba(125,125,125,.6);
     position: absolute;
 }
 
@@ -286,15 +286,39 @@ full-video tracker cursor::after {
     height: 0;
     border-style: solid;
     border-width: 0 3.5px 5px 3.5px;
-    border-color: transparent transparent rgba(100,100,100,.6) transparent;
+    border-color: transparent transparent rgba(125,125,125,.6) transparent;
     left: -3px;
 }
 
+full-video tracker cursor .time {
+    font-size: 12px;
+    color: rgb(125,125,125);
+    position: absolute;
+    top: 32px;
+    width: 30px;
+    text-align: center;
+    margin-left: -15px;
+}
+
 full-video tracker marker {
-    width: 1px;
+    width: 2px;
     height: 30px;
     display: block;
-    background: red;
+    cursor: pointer;
     position: absolute;
+    opacity: 0.5;
+}
 
+full-video tracker marker .fill {
+    width: 2px;
+    display: block;
+    position: absolute;
+}
+
+full-video tracker marker .fill.red {
+    background: #ad1515;
+}
+
+full-video tracker marker .fill.blue {
+    background: #0075c4;
 }

@@ -51,7 +51,8 @@ function waitUntilGameIsRunning() {
 }
 waitUntilGameIsRunning()
 
-GameRecorder.on('VIDEO_SAVED', (path) => {
+
+function clipRawVideo(path) {
     let sourceVideoFile = pathResolver.resolve(path)
     
     console.log('Caught video ' + sourceVideoFile)
@@ -81,7 +82,9 @@ GameRecorder.on('VIDEO_SAVED', (path) => {
             }
         })
     }
-})
+}
+
+GameRecorder.on('VIDEO_SAVED', clipRawVideo)
 
 const createHighlightReel = function() {
     if (!videoFile || !replayFile || highlightReel) {
@@ -92,4 +95,3 @@ const createHighlightReel = function() {
     let reel = new HighlightReel(replayFile, videoFile)
     reel.create()
 }
-

@@ -80,22 +80,21 @@ class Sidebar extends React.Component {
 
         this.state.index = this.index()
 
-        remote.getCurrentWindow().on('resize', this.resizeSidebar.bind(this))
+        remote.getCurrentWindow().on('resize', this.resizeSidebarListener.bind(this))
     }
 
-    resizeSidebar() {
+    resizeSidebarListener() {
         let height = remote.getCurrentWindow().getSize()[1]
         
         this.setState({
             sidebarHeight: height - 68
         })
     }
-
     
     componentWillUnmount() {
         GameIndex.removeListener('INDEX_LOADED', this.refreshIndexListener)
         ConfigOptions.removeListener('CONFIG_SAVED', this.reloadConfigListener)
-        remote.getCurrentWindow().removeListener(this.resizeSidebar)
+        remote.getCurrentWindow().removeListener(this.resizeSidebarListener)
     }
 
     index() {

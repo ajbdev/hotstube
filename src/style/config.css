@@ -21,6 +21,10 @@ config fieldset input[type=number] {
     margin: 0 4px;
 }
 
+config fieldset select {
+    width: auto;
+}
+
 config-window {
     position: fixed;
     background: #222;

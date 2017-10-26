@@ -11,16 +11,7 @@ const HighlightDir = require('./lib/HighlightDir')
 const ELECTRON_ENV = require('./env').env
 const glob = require('glob')
 const fs = require('fs')
-
-
-
-import { addBypassChecker } from 'electron-compile';
-
-addBypassChecker((filePath) => {
-
-  console.log('Should we bypass? ' + filePath)
-  return filePath.indexOf(path.join(app.getPath('appData'), 'HotSTube')) > -1;
-});
+const Config = require('./lib/Config')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -41,9 +32,16 @@ function createWindow () {
     },
     icon: path.join(__dirname, './assets/icons/64x64.png')
   })
+  Config.load()
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
+
+    if (app.getLoginItemSettings().wasOpenedAtLogin) {
+      if (Config.options.openOnLogin == 'minimized') {
+        mainWindow.minimize()
+      }
+    }
   })
 
 
@@ -67,6 +65,7 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
 }
 
 app.setName('HotSTube')

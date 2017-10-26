@@ -1,9 +1,11 @@
-const app = require('electron').remote.app
 const path = require('path')
 const {EventEmitter} = require('events')
 const fs = require('fs')
 const os = require('os')
 const glob = require('glob')
+
+const electron = require('electron')
+const app = electron.remote ? electron.remote.app : electron.app
 
 class Config extends EventEmitter {
     constructor() {
@@ -65,6 +67,9 @@ class Config extends EventEmitter {
             deleteHighlights: true,
             recordAssists: true,
             deleteTemporaryVideos: true,
+            newInstall: true,
+            openOnLogin: 'no',
+            minimizeToTray: false,
             recordPrekillSeconds: 9,
             recordMinimumSeconds: 15,
             highlightDir: this.defaultHighlightPath(),
@@ -81,8 +86,12 @@ class Config extends EventEmitter {
 
         this.setWorkingPaths()
         fs.writeFileSync(path, JSON.stringify(this.options), 'utf8')
+        app.setLoginItemSettings({ openAtLogin: this.options.openOnLogin != 'no' })
+
         this.emit('CONFIG_SAVED', this.options)
     }
+
+
 
     setWorkingPaths() {
         if (!fs.existsSync(this.options.accountDir)) {

@@ -454,6 +454,26 @@ class ConfigWindow extends React.Component {
                      : null
                     }
                 </fieldset>
+                <fieldset>
+                    <legend>Startup Behavior</legend>
+                    <label>
+                        Open HotSTube automatically after you log into the computer
+                    </label>
+                    <select value={this.state.options.openOnLogin} onChange={(evt) => this.handleOption(evt.target.value, 'openOnLogin')}>
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                        <option value="minimized">Minimized</option>
+                    </select>
+
+                    <label>
+                    <input
+                        type="checkbox"
+                        checked={this.state.options.minimizeToTray}
+                        onChange={(evt) => this.handleOption(!this.state.options.minimizeToTray, 'minimizeToTray')}/>
+                        Minimize to tray instead of taskbar
+
+                    </label>
+                </fieldset>
 
                 <footer>
                     <button className="button" onClick={this.save.bind(this)}>Save</button>

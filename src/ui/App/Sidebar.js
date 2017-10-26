@@ -7,7 +7,8 @@ const path = require('path')
 const ConfigOptions = require('../../lib/Config')
 const {List, ArrowKeyStepper} = require('react-virtualized')
 const patches = require('../../data/patches.json')
-const app = require('electron').remote.app
+const {remote} = require('electron')
+const {app} = remote
 const protocolDir = path.join(app.getPath('appData'), 'HotSTube', 'protocols', 'lib')
 
 class Sidebar extends React.Component {
@@ -72,16 +73,29 @@ class Sidebar extends React.Component {
 
         this.state = {
             search: '',
-            searching: false
+            searching: false,
+            sidebarWidth: 300,
+            sidebarHeight: 532
         }
 
         this.state.index = this.index()
+
+        remote.getCurrentWindow().on('resize', this.resizeSidebar.bind(this))
+    }
+
+    resizeSidebar() {
+        let height = remote.getCurrentWindow().getSize()[1]
+        
+        this.setState({
+            sidebarHeight: height - 68
+        })
     }
 
     
     componentWillUnmount() {
         GameIndex.removeListener('INDEX_LOADED', this.refreshIndexListener)
         ConfigOptions.removeListener('CONFIG_SAVED', this.reloadConfigListener)
+        remote.getCurrentWindow().removeListener(this.resizeSidebar)
     }
 
     index() {
@@ -159,8 +173,8 @@ class Sidebar extends React.Component {
         return (
             <ArrowKeyStepper columnCount={1} rowCount={this.state.index.length}>
                 {({onSectionRendered, scrollToColumn, scrollToRow}) => (<List
-                    width={300}
-                    height={532}
+                    width={this.state.sidebarWidth}
+                    height={this.state.sidebarHeight}
                     rowCount={this.state.index.length}
                     rowHeight={45}
                     rowRenderer={this

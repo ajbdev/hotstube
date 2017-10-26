@@ -83,7 +83,7 @@ function renderChat(chat, i) {
     )
 }
 
-function renderKills(game, kills) {
+function renderKills(game, kills, highlights = true) {
     const chat = game.chats.filter((c) => c.time > kills[0].time && c.time < (kills[kills.length-1].time+10))
     return (
         <table className="kda">
@@ -94,7 +94,7 @@ function renderKills(game, kills) {
                     <th className="a">Assists</th>
                 </tr>
             </thead>
-            {kills.map((kill, ix) => renderKill(game, kill, ix))}
+            {kills.map((kill, ix) => renderKill(game, kill, ix, highlights))}
             {chat.length > 0 ?
                 <tfoot>
                     {chat.map((c, i) => renderChat(c, i))}
@@ -108,7 +108,7 @@ function renderKills(game, kills) {
     )
 }
 
-function renderKill(game, kill, ix) {
+function renderKill(game, kill, ix, highlights) {
     let assists = kill.killers.filter((killer) => killer != kill.primaryKiller)
     let caption = killer(kill).name + ' kills ' + players.find(kill.victim).name + ' at ' + time(kill.time, ':')
     
@@ -127,7 +127,7 @@ function renderKill(game, kill, ix) {
                     )}
                 </td>
             </tr>
-            {highlightPath(game, kill.time) ? 
+            {highlights && highlightPath(game, kill.time) ? 
                 <tr>
                     <td colSpan={3}>
                         {renderHighlight(game, kill.time, caption)}
@@ -191,7 +191,7 @@ function renderGameOver(game, heroId) {
 }
 
 function KDATable(props) {
-    return this.renderKills(props.game, props.kills)
+    return renderKills(props.game, props.kills, !!props.showHighlights)
 }
 
 function Highlights(props) {

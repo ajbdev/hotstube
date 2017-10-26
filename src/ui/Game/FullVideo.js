@@ -70,6 +70,7 @@ class FullVideo extends React.Component {
         this.video.onended = null
         this.video.onpause = null
         this.video.onplaying = null
+        this.video.onloadeddata = null
         this.trackerCursor = null
         this.video.pause()
     }
@@ -160,26 +161,28 @@ class FullVideo extends React.Component {
 
         this.activeEvent = null
 
-        let currentTime = this.slideFactor(this.video.currentTime)
+        let currentTime = this.video.currentTime
 
 
         timeline.map((event) => {
             event.active = false
 
-            if (currentTime > this.slideFactor(event.time)) {
-                this.activeEvent = event
+            if (event.data.kills) {
+                const firstKill = event.data.kills[0]
 
-                if (event.data.kills) {
-                    let lastKill = event.data.kills[event.data.kills.length-1]
+                if (this.slideFactor(firstKill.time) < currentTime+8) {
+                    this.activeEvent = event
+                }
 
-                    if (this.slideFactor(lastKill.time) < currentTime) {
-                        this.activeEvent = null
-                    }
+                let lastKill = event.data.kills[event.data.kills.length-1]
+
+                if (this.slideFactor(lastKill.time) < currentTime-8) {
+                    this.activeEvent = null
                 }
             }
         })
 
-        if (this.activeEvent) {
+        if (this.activeEvent && !this.activeEvent.active) {
             this.activeEvent.active = true
         }
     }
@@ -193,7 +196,10 @@ class FullVideo extends React.Component {
         
         return (
             <Timeline>
-                <TimelineEvent at={this.time(this.activeEvent.time)} icon={icon} />
+                <TimelineEvent at={this.time(this.slideFactor(this.activeEvent.time))} icon={icon}>
+                    <KDATable game={this.props.game} kills={this.activeEvent.data.kills} />
+                </TimelineEvent>
+
             </Timeline>
         )
     }

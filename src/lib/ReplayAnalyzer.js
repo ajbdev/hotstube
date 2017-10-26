@@ -168,6 +168,8 @@ class ReplayAnalyzer extends EventEmitter {
                 message: m.m_string
             }
         })
+
+        return this.game.chats
     }
 
     basicInfo() {
@@ -238,22 +240,11 @@ class ReplayAnalyzer extends EventEmitter {
     players() {
         const births = this.replay.trackerEvents().filter((event) => event._event == 'NNet.Replay.Tracker.SUnitBornEvent' && event.m_controlPlayerId > 0 && event.m_controlPlayerId <= 10 && event.m_unitTypeName.slice(0,4) === 'Hero')
 
-        let heroIdRegex = /Accounts\/(\d+)\/(\d+)-Hero-(\d+)-(\d+)\/Replays/
-
-        let heroId = null
-        if (this.file.match(heroIdRegex)) {
-            let parts = this.file.match(heroIdRegex)
-
-            if (parts.length > 4) {
-                heroId = parts[4]
-            }
-        }
-
         let blueTeamId = null
         this.game.players = this.replay.details().m_playerList.map((player, i) => {
             return {
                 id: player.m_toon.m_id,
-                isReplayOwner: heroId == player.m_toon.m_id,
+                isReplayOwner: false,
                 name: player.m_name.toString(),
                 hero: player.m_hero.toString(),
                 playerId: i+1,
@@ -264,23 +255,21 @@ class ReplayAnalyzer extends EventEmitter {
                 team: player.m_teamId == 0 ? 'red' : 'blue',
                 unitTagIndex: births.filter((birth) => birth.m_controlPlayerId == i+1 )[0].m_unitTagIndex
             }
-
-            if (heroId == player.m_toon.m_id) {
-                blueTeamId = player.m_teamId
-            }
         })
 
-        // Orient team colors to be relative to the owning player
-        this.game.players.map((player) => {
-            if (blueTeamId === null) {
+        // Since chat messages can only be parsed by the replay owner's team, 
+        if (this.chat()[0]) {
+            let blueTeamId = this.chat()[0].author.teamId
+
+            this.game.players = this.game.players.map((player) => {
+                if (player.teamId == blueTeamId) {
+                    player.team = 'blue'
+                } else {
+                    player.team = 'red'
+                }
                 return player
-            }
-            player.team = 'red'
-            if (player.teamId == blueTeamId) {
-                player.team = 'blue'
-            }
-            return player
-        })
+            })
+        }
 
         this.winner()
     }

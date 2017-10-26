@@ -34,7 +34,6 @@ class HighlightReel extends EventEmitter {
             if (player) {
                 self.player = self.analyzer.game.players[player.m_workingSetSlotId]
                 self.player.isReplayOwner = true
-                console.log("Owning player is " + self.player.name)
             }
         })
 

@@ -264,7 +264,7 @@ full-video tracker {
     height: 30px;
     background: rgba(0,0,0,.8);
     display: block;
-    margin-bottom: 60px;
+    margin-bottom: 10px;
     cursor: pointer;
     position: relative;
 }

@@ -1,3 +1,14 @@
+Version 0.8.0
+-
+10/26/2017
+* **NEW!** Video tab - you can now watch the entire game. Highlights are annotated in the video player tracker along with the list of any deaths that occur beneath the video. 
+* Full game video is now retained by default. This will greatly increase the amount of storage the app uses. To see the amount of space the app is using at any given time, look at the advanced settings.
+* Reformatted the highlight kill text into a KDA table. I think this is a little easier to skim. Let me know what you guys think.
+* The window is now resizable. Woohoo!
+* The recorder will now scale the recording to the aspect ratio of your monitor resolution. This should fix support for ultra wide monitors. Thanks to Brambo for the constant troubleshooting and feedback for helping with this. 
+* Added image assets for junkrat
+* Fixed the coloring of teams to be relative to the recording player. The recording player's team is now always blue, just like the game (thanks JustaFleshWound for making this obvious fact known to me)
+
 Version 0.6.9
 -
 10/18/2017

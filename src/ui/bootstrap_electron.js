@@ -3,7 +3,7 @@ const React = require('react')
 const App = require('./ui/App')
 const Rollbar = require('rollbar')
 const _env = require('./env').env
-const Config = require('../lib/Config')
+const Config = require('./lib/Config')
 
 
 if (_env !== 'development') {

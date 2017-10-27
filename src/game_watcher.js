@@ -5,6 +5,8 @@ const HighlightReel = require('./lib/HighlightReel')
 const Config = require('./lib/Config')
 const fs = require('fs')
 const {desktopCapturer} = require('electron')
+const {app} = require('electron').remote
+
 
 const pathResolver = require('path')
 
@@ -30,6 +32,16 @@ function startWatchingGame() {
         // We subtract the six additional seconds to sync with the video recorder start time
         gameInitializedAt = GameStateWatcher.gameSeconds - 90 - 3
         console.log('Game initialized at: ' + gameInitializedAt)
+    })
+}
+
+if (app.tray) {
+    GameRecorder.on('RECORDER_START', () => {
+        app.tray.setImage(pathResolver.join(__dirname, './assets/icons/logo-recording.ico'))
+    })
+    
+    GameRecorder.on('RECORDER_END', () => {
+        app.tray.setImage(pathResolver.join(__dirname, './assets/icons/logo.ico'))    
     })
 }
 

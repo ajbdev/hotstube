@@ -156,28 +156,6 @@ class App extends React.Component {
             })
         }
     }
-    setStatus(message, options = {}) {
-        const type = options.type || null
-
-        if (options.expire) {
-            let self = this
-            setTimeout(() => {
-                self.setState({
-                    status: {
-                        type: null,
-                        message: ''
-                    }
-                })
-            }, parseInt(options.expire))
-        }
-
-        this.setState({
-            status: {
-                type: type,
-                message: message
-            }
-        })
-    }
     loadItem(selection) {
         // Clone object so we're not affected by object references
         let item = Object.assign({}, selection)
@@ -274,12 +252,11 @@ class App extends React.Component {
         if (this.state.errors.length > 0) {
             return (
                 <div>
-                    <ErrorScreen 
+                    {!this.state.configWindow ? <ErrorScreen 
                         errors={this.state.errors} 
-                        configWindow={(win) => this.setState({configWindow: win})} />
+                        configWindow={(win) => this.setState({configWindow: win})} /> : null}
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
-                        setStatus={this.setStatus.bind(this)}
                         openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})} />                                 
@@ -290,10 +267,9 @@ class App extends React.Component {
         if (this.state.showReleaseNotes) {
             return (
                 <div>
-                    <ReleaseNotes showAll={this.state.showReleaseNotes} />
+                    {!this.state.configWindow ? <ReleaseNotes showAll={this.state.showReleaseNotes} /> : null}
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
-                        setStatus={this.setStatus.bind(this)}
                         openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})} />
@@ -311,10 +287,9 @@ class App extends React.Component {
         if (this.state.patch) {
             return (
                 <div>
-                    <PatchNotes patch={this.state.patch}/>
+                    {!this.state.configWindow ? <PatchNotes patch={this.state.patch}/> : null}
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
-                        setStatus={this.setStatus.bind(this)}
                         openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})} />
@@ -325,17 +300,13 @@ class App extends React.Component {
         if (this.state.replay) {
             return (
                 <div>
-                    <Game
+                    {!this.state.configWindow ? <Game
                         replay={this.state.replay}
                         deleteReplay={this
                         .deleteReplay
-                        .bind(this)}
-                        setStatus={this
-                        .setStatus
-                        .bind(this)}/>
+                        .bind(this)} /> : null}
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
-                        setStatus={this.setStatus.bind(this)}
                         openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                         window={this.state.configWindow}
                         configWindow={(win) => this.setState({configWindow: win})}/>
@@ -345,9 +316,8 @@ class App extends React.Component {
 
         return (
             <div>
-                <SplashScreen status={this.state.status}/>
+                {!this.state.configWindow ? <SplashScreen status={this.state.status}/> : null}
                 <Config
-                    setStatus={this.setStatus.bind(this)}
                     errorCheck={this.errorCheck.bind(this)}
                     openReleaseNotes={() => this.setState({ showReleaseNotes: true })}
                     window={this.state.configWindow}
@@ -374,7 +344,6 @@ class App extends React.Component {
                 {!this.state.gameInProgress && this.state.errors.length === 0 ? <Sidebar
                     open={this.state.sidebarOpen}
                     toggle={toggleSidebar}
-                    setStatus={this.setStatus}
                     selectedGame={this.state.replay}
                     loadItem={this
                     .loadItem

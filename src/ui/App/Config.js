@@ -6,7 +6,7 @@ const fs = require('fs')
 const pathResolver = require('path')
 const HighlightDir = require('../../lib/HighlightDir')
 const SharingCredentials = require('../Game/SharingCredentials')
-const {dialog} = require('electron').remote
+const {app,dialog} = require('electron').remote
 
 class Config extends React.Component {
     constructor(props) {
@@ -29,7 +29,6 @@ class Config extends React.Component {
                             configWindow={this.props.configWindow}
                             window={this.props.window}
                             errorCheck={this.props.errorCheck}
-                            setStatus={this.props.setStatus}
                             close={() => {
                             this.props.configWindow(null)
                         }}/>
@@ -44,8 +43,6 @@ class FiltersConfigWindow extends React.Component {
     save() {
         ConfigOptions.options = this.props.options
         ConfigOptions.save()
-
-        this.props.setStatus('Filters set', {expire: 10000})
 
         this.props.close()
 
@@ -81,8 +78,6 @@ class DirectoriesConfigWindow extends React.Component {
     save() {
         ConfigOptions.options = this.props.options
         ConfigOptions.save()
-
-        this.props.setStatus('Filters set', {expire: 10000})
 
         this.props.close()
 
@@ -276,7 +271,6 @@ class AdvancedConfigWindow extends React.Component {
 
 
         localStorage.clear()
-        this.props.setStatus('Replay cache cleared')
     }
 }
 
@@ -285,6 +279,8 @@ class ConfigWindow extends React.Component {
         super()
 
         ConfigOptions.load()
+
+        this.initialOptions = Object.assign({}, ConfigOptions.options)
 
         this.state = {
             options: ConfigOptions.options,
@@ -304,11 +300,14 @@ class ConfigWindow extends React.Component {
         ConfigOptions.options = this.state.options
         ConfigOptions.save()
 
-        this.props.setStatus('Settings saved', {expire: 10000})
-
         this.props.close()
 
         this.props.errorCheck()
+
+        if (this.initialOptions.minimizeToTray != this.state.options.minimizeToTray) {
+            app.relaunch()
+            app.exit(0)
+        }
     }
 
     handleOption(value, option) {
@@ -372,7 +371,6 @@ class ConfigWindow extends React.Component {
         if (this.props.window == 'directories') {
             return <DirectoriesConfigWindow
                 options={this.state.options}
-                setStatus={this.props.setStatus}
                 handleOption={this.handleOption}
                 close={() => this.props.configWindow(null)}/>
         }
@@ -380,7 +378,6 @@ class ConfigWindow extends React.Component {
         if (this.props.window == 'filters') {
             return <FiltersConfigWindow
                 options={this.state.options}
-                setStatus={this.props.setStatus}
                 handleOption={this.handleOption}
                 close={() => this.props.configWindow(null)}/>
         }
@@ -389,7 +386,6 @@ class ConfigWindow extends React.Component {
             return <AdvancedConfigWindow
                 options={this.state.options}
                 errorCheck={this.props.errorCheck}
-                setStatus={this.props.setStatus}
                 handleOption={this.handleOption}
                 close={() => this.props.configWindow('config')}/>
         }
@@ -455,24 +451,38 @@ class ConfigWindow extends React.Component {
                     }
                 </fieldset>
                 <fieldset>
-                    <legend>Startup Behavior</legend>
-                    <label>
-                        Open HotSTube automatically after you log into the computer
-                    </label>
-                    <select value={this.state.options.openOnLogin} onChange={(evt) => this.handleOption(evt.target.value, 'openOnLogin')}>
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
-                        <option value="minimized">Minimized</option>
-                    </select>
-
+                    <legend>Startup &amp; Closing Behavior</legend>
                     <label>
                     <input
                         type="checkbox"
-                        checked={this.state.options.minimizeToTray}
-                        onChange={(evt) => this.handleOption(!this.state.options.minimizeToTray, 'minimizeToTray')}/>
-                        Minimize to tray instead of taskbar
-
+                        checked={this.state.options.openOnLogin}
+                        onChange={(evt) => this.handleOption(!this.state.options.minimizeToTray, 'openOnLogin')}/>
+                        Open HotSTube automatically after you log into the computer
                     </label>
+                    
+                    <br />
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={this.state.options.minimizeOnStartup}
+                            onChange={(evt) => this.handleOption(!this.state.options.minimizeOnStartup, 'minimizeOnStartup')}/>
+                            Minimize on startup
+                    </label>
+
+                    {os.platform() == 'win32' ?
+                        <div>
+                            <label><input
+                                type="checkbox"
+                                checked={this.state.options.minimizeToTray}
+                                onChange={(evt) => this.handleOption(!this.state.options.minimizeToTray, 'minimizeToTray')}/>
+                                Minimize to tray instead of taskbar
+                                {this.initialOptions.minimizeToTray != this.state.options.minimizeToTray ?
+                                    <p className="hint">
+                                        HotSTube will restart for this change to take effect.
+                                    </p> : null}
+                            </label>
+                        </div> : null}
+                    
                 </fieldset>
 
                 <footer>

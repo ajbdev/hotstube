@@ -1,10 +1,5 @@
 const electron = require('electron')
-const {MenuItem, Menu} = require('electron')
-// Module to control application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
-const Tray = electron.Tray
+const {app, MenuItem, Menu, BrowserWindow, Tray} = require('electron')
 const path = require('path')
 const url = require('url')
 const HighlightDir = require('./lib/HighlightDir')
@@ -12,6 +7,7 @@ const ELECTRON_ENV = require('./env').env
 const glob = require('glob')
 const fs = require('fs')
 const Config = require('./lib/Config')
+const os = require('os')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -32,15 +28,66 @@ function createWindow () {
     },
     icon: path.join(__dirname, './assets/icons/64x64.png')
   })
+
+  if (os.platform() == 'win32' && Config.options.minimizeToTray) {
+    app.tray = new Tray(path.join(__dirname, './assets/icons/logo.ico'))
+
+    let contextMenu = Menu.buildFromTemplate([
+      {
+          label: 'Open', 
+          click: () => {
+              mainWindow.show()
+          }
+      },
+      // {
+      //     label: 'Run on startup',
+      //     type: 'checkbox',
+      //     click: (a,b,c) => {
+      //       console.log(a,b,c)
+      //     }
+      // },
+      {
+          label: 'Quit', 
+          click: () =>  {
+              app.isQuitting = true
+              app.quit()
+          }
+      }
+    ])
+
+    mainWindow.setMinimizable(false)
+
+    app.tray.setToolTip('HotSTube')
+    app.tray.setContextMenu(contextMenu)
+    app.tray.on('click', () => {
+      if (!mainWindow.isVisible()) {
+        mainWindow.show()
+      }
+    })
+
+    mainWindow.on('close', function (event) {
+      if (!app.isQuitting) {
+        event.preventDefault()
+        mainWindow.hide()
+      }
+    })
+    mainWindow.on('minimize', function (event) {
+        event.preventDefault()
+        mainWindow.hide()
+    })
+    mainWindow.on('show', function () {
+        app.tray.setHighlightMode('always')
+    })
+
+  }
+
+
   Config.load()
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-
-    if (app.getLoginItemSettings().wasOpenedAtLogin) {
-      if (Config.options.openOnLogin == 'minimized') {
-        mainWindow.minimize()
-      }
+    if (Config.options.minimizeOnStartup) {
+      mainWindow.minimize()
     }
   })
 
@@ -74,6 +121,7 @@ app.on('ready', createWindow)
 
 app.on('window-all-closed',  () => {
   deleteTmpData()
+  app.isQuitting = true
   app.quit()
 })
 

@@ -46,6 +46,7 @@ class DownloadNewVersion extends React.Component {
     upgrade() {
         if (this.isNewVersionDownloaded()) {
             shell.openItem(dist.filename())
+            app.isQuitting = true
             app.quit()
         }
     }

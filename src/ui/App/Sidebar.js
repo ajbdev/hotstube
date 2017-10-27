@@ -94,7 +94,6 @@ class Sidebar extends React.Component {
     componentWillUnmount() {
         GameIndex.removeListener('INDEX_LOADED', this.refreshIndexListener)
         ConfigOptions.removeListener('CONFIG_SAVED', this.reloadConfigListener)
-        remote.getCurrentWindow().removeListener(this.resizeSidebarListener)
     }
 
     index() {

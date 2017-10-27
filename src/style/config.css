@@ -34,6 +34,8 @@ config-window {
     right: 0;
     bottom: 0;
     z-index: 100;
+    padding-bottom: 64px;
+    overflow-y: auto;
 }
 
 config-window footer .button {
@@ -41,10 +43,16 @@ config-window footer .button {
 }
 
 config-window footer {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     right: 1rem;
+    background: #222;
+    padding: 1rem;
+}
+
+.with-sidebar config-window footer {
+    left: 300px;
 }
 
 p.hint-sub {

@@ -1,3 +1,8 @@
+Version 0.8.2
+-
+10/27/2017
+* Implemented configuration options to load HotSTube when you login to your computer, start minimized by default, and to minimize to the tray instead of task bar (windows only)
+
 Version 0.8.0
 -
 10/26/2017

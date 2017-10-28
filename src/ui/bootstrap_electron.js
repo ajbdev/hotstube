@@ -7,6 +7,12 @@ const Config = require('./lib/Config')
 
 
 if (_env !== 'development') {
+  let config = Object.assign({}, Config.options)
+
+  if (config.streamablePassword && config.streamablePassword.length > 0) {
+    config.streamablePassword = '******'
+  }
+
   const rollbar = new Rollbar({
     accessToken: '5209cc3fb71f498190ecf601df11d98b',
     captureUncaught: true,

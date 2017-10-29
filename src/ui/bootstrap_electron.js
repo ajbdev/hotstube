@@ -4,13 +4,15 @@ const App = require('./ui/App')
 const Rollbar = require('rollbar')
 const _env = require('./env').env
 const Config = require('./lib/Config')
+const analytics = require('./lib/GoogleAnalytics')
 
+Config.load()
 
 if (_env !== 'development') {
-  let config = Object.assign({}, Config.options)
+  let opts = Object.assign({}, Config.options)
 
-  if (config.streamablePassword && config.streamablePassword.length > 0) {
-    config.streamablePassword = '******'
+  if (opts.streamablePassword && opts.streamablePassword.length > 0) {
+    opts.streamablePassword = '******'
   }
 
   const rollbar = new Rollbar({
@@ -19,10 +21,13 @@ if (_env !== 'development') {
     captureUnhandledRejections: true,
     environment: _env,
     payload: {
-      config: Config.options
+      config: opts
     }
   })
 }
+
+analytics.page('HotSTube', '/')
+analytics.event('App','loaded')
 
 ReactDOM.render(
     <App />,

@@ -59,10 +59,12 @@ class Config extends EventEmitter {
 
     defaults() {
         return {
+            uuid: null,
             accountDir: path.join(...this.getGamePaths().account),
             resolution: "480p",
             sound: "off",
             highlightLifetimeDays: 7,
+            enableAnalytics: true,
             enableRecording: true,
             deleteHighlights: true,
             recordAssists: true,

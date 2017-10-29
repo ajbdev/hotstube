@@ -6,6 +6,7 @@ const dist = require('../../lib/Dist')
 const pathResolver = require('path')
 const {shell} = require('electron')
 const {app} = require('electron').remote
+const analytics = require('../../lib/GoogleAnalytics')
 
 class DownloadNewVersion extends React.Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class DownloadNewVersion extends React.Component {
     }
     upgrade() {
         if (this.isNewVersionDownloaded()) {
+            analytics.event('App','upgraded')
             shell.openItem(dist.filename())
             app.isQuitting = true
             app.quit()

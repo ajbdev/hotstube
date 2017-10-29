@@ -8,6 +8,7 @@ const SharingCredentials = require('./SharingCredentials')
 const GameHash = require('../../lib/GameHash')
 const request = require('request')
 const env = require('../../env')
+const analytics = require('../../lib/GoogleAnalytics')
 
 class ShareHighlightsModal extends React.Component { 
     constructor() {
@@ -19,6 +20,8 @@ class ShareHighlightsModal extends React.Component {
         }
     }
     componentDidMount() {
+        analytics.event('Share','highlight')
+
         return this.uploadStreamable()
     }
     uploadGfycat() {

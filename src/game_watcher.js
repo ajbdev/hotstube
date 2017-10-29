@@ -6,6 +6,7 @@ const Config = require('./lib/Config')
 const fs = require('fs')
 const {desktopCapturer} = require('electron')
 const {app} = require('electron').remote
+const analytics = require('./lib/GoogleAnalytics')
 
 
 const pathResolver = require('path')
@@ -19,12 +20,14 @@ let playerId = null;
 
 function startWatchingGame() {
     GameStateWatcher.watch().on('GAME_START', () => { 
+        analytics.event('Game', 'started')
         GameRecorder.startRecording()
     }).on('GAME_IS_RUNNING', () => {
         console.log('Game is already started')
         //GameRecorder.startRecording()
     }).on('GAME_END', (path) => {
         console.log('Game ended')
+        analytics.event('Game', 'ended')
         replayFile = pathResolver.resolve(path)
         GameRecorder.stopRecording()
     }).on('STORMSAVE_CREATED', (path) => {
@@ -35,15 +38,21 @@ function startWatchingGame() {
     })
 }
 
-if (app.tray) {
-    GameRecorder.on('RECORDER_START', () => {
+GameRecorder.on('RECORDER_START', () => {
+    analytics.event('Video', 'recording')
+
+    if (app.tray) {
         app.tray.setImage(pathResolver.join(__dirname, './assets/icons/logo-recording.ico'))
-    })
+    }
+})
+
+GameRecorder.on('RECORDER_END', () => {
+    analytics.event('Video', 'recorded')
     
-    GameRecorder.on('RECORDER_END', () => {
-        app.tray.setImage(pathResolver.join(__dirname, './assets/icons/logo.ico'))    
-    })
-}
+    if (app.tray) {
+        app.tray.setImage(pathResolver.join(__dirname, './assets/icons/logo.ico'))   
+    } 
+})
 
 function waitUntilGameIsRunning() {
     desktopCapturer.getSources({ types: ['window', 'screen'] }, function(error, sources) {
@@ -65,6 +74,7 @@ waitUntilGameIsRunning()
 
 
 function clipRawVideo(path) {
+
     let sourceVideoFile = pathResolver.resolve(path)
     
     console.log('Caught video ' + sourceVideoFile)
@@ -94,6 +104,7 @@ function clipRawVideo(path) {
             }
         })
     }
+    analytics.event('Video', 'saved')
 }
 
 GameRecorder.on('VIDEO_SAVED', clipRawVideo)

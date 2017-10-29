@@ -1,3 +1,8 @@
+Version 0.8.3
+-
+10/28/2017
+* Improved error tracking/debugging and metrics
+
 Version 0.8.2
 -
 10/27/2017

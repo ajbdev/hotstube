@@ -66,8 +66,10 @@ function createWindow () {
       // {
       //     label: 'Run on startup',
       //     type: 'checkbox',
+      //     checked: Config.options.openOnLogin,
       //     click: (a,b,c) => {
-      //       console.log(a,b,c)
+      //       Config.options.openOnLogin = this.checked
+      //       Config.save()
       //     }
       // },
       {

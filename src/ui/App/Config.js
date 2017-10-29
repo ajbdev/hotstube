@@ -456,7 +456,7 @@ class ConfigWindow extends React.Component {
                     <input
                         type="checkbox"
                         checked={this.state.options.openOnLogin}
-                        onChange={(evt) => this.handleOption(!this.state.options.minimizeToTray, 'openOnLogin')}/>
+                        onChange={(evt) => this.handleOption(!this.state.options.openOnLogin, 'openOnLogin')}/>
                         Open HotSTube automatically after you log into the computer
                     </label>
                     

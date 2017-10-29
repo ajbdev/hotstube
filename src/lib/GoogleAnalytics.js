@@ -4,6 +4,7 @@ const uuidv4 = require('uuid/v4');
 
 if (!Config.options.uuid) {
     Config.options.uuid = uuidv4()
+    Config.save()
 }
 
 const ga = new Analytics.default('UA-108874757-2')

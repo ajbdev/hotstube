@@ -8,6 +8,30 @@ const glob = require('glob')
 const fs = require('fs')
 const Config = require('./lib/Config')
 const os = require('os')
+const _env = require('./env').env
+const Rollbar = require('rollbar')
+
+Config.load()
+
+if (_env !== 'development') {
+  let opts = Object.assign({}, Config.options)
+
+  if (opts.streamablePassword && opts.streamablePassword.length > 0) {
+    opts.streamablePassword = '******'
+  }
+
+  const rollbar = new Rollbar({
+    accessToken: '5209cc3fb71f498190ecf601df11d98b',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    environment: _env,
+    payload: {
+      config: opts,
+      version: app.version,
+      context: 'main-threads'
+    }
+  })
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -80,9 +104,6 @@ function createWindow () {
     })
 
   }
-
-
-  Config.load()
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()

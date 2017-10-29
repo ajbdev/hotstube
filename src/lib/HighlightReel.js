@@ -51,13 +51,17 @@ class HighlightReel extends EventEmitter {
         let path = Config.highlightsSavePath(accountId + '-' + heroId)
 
         if (!fs.existsSync(path)) {
-            fs.mkdirSync(path)
+            try {
+                fs.mkdirSync(path)
+            } catch(ex) { }
         }
 
         path = pathResolver.join(path, replayName)
 
         if (!fs.existsSync(path)) {
-            fs.mkdirSync(path)
+            try {
+                fs.mkdirSync(path)
+            } catch(ex) { }
         }
         
         return path

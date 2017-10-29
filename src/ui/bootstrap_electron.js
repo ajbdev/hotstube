@@ -6,6 +6,8 @@ const _env = require('./env').env
 const Config = require('./lib/Config')
 const analytics = require('./lib/GoogleAnalytics')
 
+const version = require('electron').remote.app.version
+
 Config.load()
 
 if (_env !== 'development') {
@@ -21,7 +23,9 @@ if (_env !== 'development') {
     captureUnhandledRejections: true,
     environment: _env,
     payload: {
-      config: opts
+      config: opts,
+      version: version,
+      context: 'renderer-thread'
     }
   })
 }

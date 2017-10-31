@@ -8,9 +8,9 @@ const glob = require('glob')
 const fs = require('fs')
 const Config = require('./lib/Config')
 const os = require('os')
-const Rollbar = require('rollbar')
 
 Config.load()
+const rollbar = require('./lib/Rollbar')
 
 if (ELECTRON_ENV !== 'development') {
   let opts = Object.assign({}, Config.options)
@@ -18,18 +18,6 @@ if (ELECTRON_ENV !== 'development') {
   if (opts.streamablePassword && opts.streamablePassword.length > 0) {
     opts.streamablePassword = '******'
   }
-
-  const rollbar = new Rollbar({
-    accessToken: '5209cc3fb71f498190ecf601df11d98b',
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-    environment: ELECTRON_ENV,
-    payload: {
-      config: opts,
-      version: app.version,
-      context: 'main-threads'
-    }
-  })
 }
 
 // Keep a global reference of the window object, if you don't, the window will

@@ -69,23 +69,26 @@ class SidebarRow extends React.Component {
 
         let attrs = {}
 
+        let hasVideo = false
         if (replay.game) {
             let player = replay.game.players.filter((p) => p.id == replay.heroId)[0]
 
             if (player) {
                 attrs.hero = player.hero;
             }
+            hasVideo = replay.game.video || (replay.game.highlights && Object.keys(replay.game.highlights) > 0)
         }
 
         if (replay.corrupt) {
             attrs.svg = "poopface.svg"
         }       
 
+
         return (
             <sidebar-row onClick={() => this.props.selectItem(replay)} class={this.css()}>
                 <HeroPortrait {...attrs} />
                 <a>{name}</a>
-                {replay.highlights ? <Svg src="video.svg" className="highlight" /> : null}
+                {hasVideo ? <Svg src="video.svg" className="highlight" /> : null}
                 <div className="date">{dateDisplay}</div>
             </sidebar-row>
         )

@@ -5,6 +5,7 @@ const semver = require('semver')
 const app = require('electron').remote.app
 const md = require('marked')
 const fs = require('fs')
+const _env = require('../../env').env
 
 class ReleaseNotes extends React.Component {
     constructor() {
@@ -27,7 +28,7 @@ class ReleaseNotes extends React.Component {
 
         return (
             <splash-screen class="changelog">
-                <div className="current-version">Current Version: {app.getVersion()}</div>
+                <div className="current-version">&lt;{_env}&gt; &nbsp; Current Version: {app.getVersion()}</div>
                 <h1>Release Notes</h1>
                 {this.state.changelog ? <div dangerouslySetInnerHTML={{__html: md(this.state.changelog)}}></div> : null}
 

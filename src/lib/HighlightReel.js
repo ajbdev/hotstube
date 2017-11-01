@@ -4,6 +4,7 @@ const {EventEmitter} = require('events')
 const ReplayAnalyzer = require('./ReplayAnalyzer')
 const VideoClipMaker = require('./VideoClipMaker')
 const GameTimeline = require('./GameTimeline')
+const GameHash = require('./GameHash')
 const app = require('electron').remote.app
 const path = require('path')
 const Config = require('./Config')
@@ -22,6 +23,7 @@ class HighlightReel extends EventEmitter {
         this.analyzer.analyze()
 
         this.gameTimeline = new GameTimeline(this.analyzer.game)
+        this.gameHash = GameHash.hash(this.analyzer.game)
 
         let self = this;
 
@@ -36,18 +38,23 @@ class HighlightReel extends EventEmitter {
                 self.player.isReplayOwner = true
             }
         })
-
-        this.emit('Game analyzed', this.analyzer)
-        console.log('Game analyzed')
     }
+
+    static getHighlights(accountId, heroId, replayName, gameHash) {
+        const highlightPath = this.getSavePath(accountId, heroId, replayName, gameHash)
+        const highlights = {}
+
+        if (fs.existsSync(highlightPath)) {
+            glob.sync(pathResolver.join(highlightPath,'*.webm')).map((webm) => {
+                highlights[pathResolver.basename(webm,'.webm')] = webm
+            })
+        }
     
-    static hasHighlightsCreated(accountId, heroId, replayName) {
-        const path = this.getSavePath(accountId, heroId, replayName)
 
-        return glob.sync(pathResolver.join(path,"*.webm")).length > 0
+        return highlights
     }
 
-    static getSavePath(accountId, heroId, replayName) {
+    static getSavePath(accountId, heroId, replayName, gameHash) {
         let path = Config.highlightsSavePath(accountId + '-' + heroId)
 
         if (!fs.existsSync(path)) {
@@ -56,7 +63,9 @@ class HighlightReel extends EventEmitter {
             } catch(ex) { }
         }
 
-        path = pathResolver.join(path, replayName)
+        let folder = replayName + '-' + gameHash
+
+        path = pathResolver.join(path, folder)
 
         if (!fs.existsSync(path)) {
             try {
@@ -77,8 +86,6 @@ class HighlightReel extends EventEmitter {
             return
         }
         const clip = new VideoClipMaker(this.video)
-
-        console.log(fights)
         
         let highlights = {}
         
@@ -115,10 +122,9 @@ class HighlightReel extends EventEmitter {
 
             let replayName = pathResolver.basename(this.replayFile, '.StormReplay')
             
-            const path = this.constructor.getSavePath(accountId, heroId, replayName)
+            const path = this.constructor.getSavePath(accountId, heroId, replayName, this.gameHash)
             let fileName = pathResolver.join(path, time)
                        
-
             if (!fs.existsSync(fileName + '.webm')) {
                 console.log('Created ' + fileName)
                 clip.make(fileName, slideFactor(min), duration)

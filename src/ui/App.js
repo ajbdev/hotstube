@@ -37,11 +37,7 @@ class App extends React.Component {
         this.state = {
             sidebarOpen: false,
             replay: null,
-            configWindow: null,
-            status: {
-                type: 'DiscordTeaser',
-                message: ''
-            }
+            configWindow: null
         }
 
         const errorCheck = new ErrorCheck()
@@ -163,10 +159,6 @@ class App extends React.Component {
             this.setState({
                 patch: item,
                 showReleaseNotes: false,
-                status: {
-                    type: null,
-                    message: ''
-                },
                 replay: null
             })
         } else {
@@ -178,7 +170,27 @@ class App extends React.Component {
                 try {
                     analyzer.analyze(true)
                     console.log(analyzer)
-                    item.game = analyzer.game
+                    item.game = analyzer.game    
+
+                    if (item.game) {
+                        const hash = GameHash.hash(item.game)
+                        const videoPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '-' + hash + '.webm')
+
+                        if (fs.existsSync(videoPath)) {
+                            item.game.video = videoPath
+                        } 
+                        item.game.highlights = HighlightReel.getHighlights(item.accountId, item.heroId, pathResolver.basename(item.name,'.StormReplay'), hash)
+
+                        if (item.game.video && (!item.game.highlights || Object.keys(item.game.highlights).length == 0)) { 
+                            try {
+                                const reel = new HighlightReel(item.name, videoPath)
+                                item.game.highlights = reel.create(item.accountId, item.heroId)
+                                this.forceUpdate()
+                            } catch (ex) {
+                                console.log('Problem creating highlights: ' + ex)
+                            }
+                        }
+                    }
                 } catch(ex) {
                     if (ex instanceof ProtocolError) {
                         if (ex.type == 'PROTOCOL_MISSING') {
@@ -198,49 +210,11 @@ class App extends React.Component {
                         item.corrupt = true
                     }
                 }
-
-                if (item.game) {
-                    const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '-' + GameHash.hash(item.game) + '.webm')
-
-                    console.log(fullPath)
-                    
-                    if (fs.existsSync(fullPath)) {
-                        item.game.video = fullPath
-                        try {
-                            const reel = new HighlightReel(item.name, fullPath)
-                            let highlights = reel.create(item.accountId, item.heroId)
-                            item.game.highlights = highlights
-    
-                        } catch (ex) {
-                            console.log('Problem creating highlights: ' + ex)
-                        }
-                    } else {
-                        let highlightPath = HighlightReel.getSavePath(item.accountId, item.heroId, pathResolver.basename(item.name,'.StormReplay'))
-                        
-                        if (fs.existsSync(highlightPath)) {
-                            item.game.highlights = {}
-    
-                            glob(pathResolver.join(highlightPath,'*.webm'), (err, files) => {
-                                files.map((webm) => {
-                                    item.game.highlights[pathResolver.basename(webm,'.webm')] = webm
-                                })
-                                this.forceUpdate()
-                            })
-    
-    
-                        }
-    
-                    }
-                }
             }
 
             this.setState({
                 replay: item,
                 showReleaseNotes: false,
-                status: {
-                    type: null,
-                    message: ''
-                },
                 patch: null
             })
         }
@@ -316,7 +290,7 @@ class App extends React.Component {
 
         return (
             <div>
-                {!this.state.configWindow ? <SplashScreen status={this.state.status}/> : null}
+                {!this.state.configWindow ? <SplashScreen /> : null}
                 <Config
                     errorCheck={this.errorCheck.bind(this)}
                     openReleaseNotes={() => this.setState({ showReleaseNotes: true })}

@@ -17,29 +17,9 @@ class GameIndex extends EventEmitter {
     }
 
     load() {
-        this.buildFromArtifacts()
+        this.index = this.recentReplays()
 
         this.emit('INDEX_LOADED', this.index)
-    }
-
-    buildFromArtifacts() {
-        const videosDir = Config.highlightsSavePath()
-
-        const replays = this.recentReplays()
-
-        this.index = replays.map((replay) => {
-            let videoHighlightPath = path.join(videosDir,path.basename(replay.name))
-
-            let video = fs.existsSync(videoHighlightPath + '.webm')
-            let highlightFolder = fs.existsSync(videoHighlightPath)
-
-            if (video) {
-                replay.video = video
-                replay.highlights = highlightFolder
-            }
-
-            return replay
-        })
     }
 
     recentReplays() {
@@ -77,12 +57,10 @@ class GameIndex extends EventEmitter {
 
                     replays = replays.concat(replayFiles.map((file) => {
                         const replayPath = path.join(heroDir, file)
-                        const hasHighlights = HighlightReel.hasHighlightsCreated(accountId, heroId, path.basename(replayPath,'.StormReplay'))
 
                         return {
                             name: replayPath,
                             accountId: parseInt(accountId),
-                            highlights: hasHighlights,
                             heroId: heroId,
                             time: fs.statSync(replayPath).mtime.getTime()
                         }

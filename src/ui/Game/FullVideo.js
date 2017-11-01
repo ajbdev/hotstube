@@ -7,6 +7,7 @@ const Players = require('../../lib/Players')
 const {KDATable} = require('./Highlights')
 const {Timeline,TimelineEvent} = require('./Timeline')
 const Config = require('../../lib/Config')
+const Svg = require('../App/Svg')
 
 class FullVideo extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class FullVideo extends React.Component {
 
         this.videoBinded = true
 
-        this.trackerCursor = setInterval(this.updateCursor.bind(this), 1000)
+        this.trackerCursor = setInterval(this.updateCursor.bind(this), 500)
     }
     updateCursor() {
         if (!this.video  || !this.cursor) {
@@ -107,6 +108,7 @@ class FullVideo extends React.Component {
         }
         const rect = this.tracker.getBoundingClientRect()
         const max = rect.width
+
         const scale = max / this.video.duration
         const placement = this.slideFactor(event.time) * scale
 
@@ -233,6 +235,10 @@ class FullVideo extends React.Component {
         )
     }
 
+    deleteVideo() {
+        
+    }
+
     render() {
 
         return (
@@ -243,6 +249,9 @@ class FullVideo extends React.Component {
                         <video src={this.state.video} ref={(video) => { this.video = video }} />
                     </div>               
                     {this.renderTracker()}     
+                    <div className="video-options">
+                        <Svg src="trash.svg" onClick={this.deleteVideo.bind(this)} />
+                    </div>
 
                     {this.renderActiveEvent()}
                 </full-video>

@@ -36,6 +36,12 @@ p.hint.error {
     color: #ff0000;
 }
 
+.crash {
+    text-align: center;
+    margin: 250px 0;
+    color: #bbb;
+}
+
 input.inline {
     display: inline-block;
 }

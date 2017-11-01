@@ -6,7 +6,9 @@ const Config = require('./lib/Config')
 const fs = require('fs')
 const {desktopCapturer} = require('electron')
 const {app} = require('electron').remote
+const ReplayAnalyzer = require('./lib/ReplayAnalyzer')
 const analytics = require('./lib/GoogleAnalytics')
+const GameHash = require('./lib/GameHash')
 
 
 const pathResolver = require('path')
@@ -74,7 +76,7 @@ waitUntilGameIsRunning()
 
 
 function clipRawVideo(path) {
-
+    // Remove the initial loading screen so the game timer matches the replay closely
     let sourceVideoFile = pathResolver.resolve(path)
     
     console.log('Caught video ' + sourceVideoFile)
@@ -86,10 +88,12 @@ function clipRawVideo(path) {
         return
     }
 
-    // Remove the initial loading screen so the game timer matches the replay closely
-    const clippedVideoFileName = pathResolver.win32.basename(replayFile)
-
     Config.load()
+
+    const analyzer = new ReplayAnalyzer(replayFile)
+    analyzer.analyze()
+
+    const clippedVideoFileName = pathResolver.win32.basename(replayFile) + '-' + GameHash.hash(analyzer.game)
     const videoFilePath = Config.highlightsSavePath(clippedVideoFileName)
 
     videoFile = clip.make(videoFilePath, gameInitializedAt)

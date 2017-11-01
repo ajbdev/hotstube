@@ -4,6 +4,7 @@ const {Config} = require('./App/Config')
 const {Sidebar, SidebarToggle} = require('./App/Sidebar')
 const {BrowserWindow} = require('electron').remote
 const GameIndex = require('../lib/GameIndex')
+const GameHash = require('../lib/GameHash')
 const Game = require('./App/Game')
 const PatchNotes = require('./App/PatchNotes')
 const GameRecorder = require('../lib/GameRecorder')
@@ -173,7 +174,7 @@ class App extends React.Component {
 
             if (item.name) {
                 const analyzer = new ReplayAnalyzer(item.name)
-                
+
                 try {
                     analyzer.analyze(true)
                     console.log(analyzer)
@@ -198,38 +199,39 @@ class App extends React.Component {
                     }
                 }
 
+                if (item.game) {
+                    const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '-' + GameHash.hash(item.game) + '.webm')
 
-                const fullPath = ConfigOptions.highlightsSavePath(pathResolver.basename(item.name) + '.webm')
-    
-                if (fs.existsSync(fullPath)) {
-                    item.game.video = fullPath
-                    try {
-                        const reel = new HighlightReel(item.name, fullPath)
-                        let highlights = reel.create(item.accountId, item.heroId)
-                        item.game.highlights = highlights
-
-                    } catch (ex) {
-                        console.log('Problem creating highlights: ' + ex)
-                    }
-                } else {
-                    let highlightPath = HighlightReel.getSavePath(item.accountId, item.heroId, pathResolver.basename(item.name,'.StormReplay'))
+                    console.log(fullPath)
                     
-                    if (fs.existsSync(highlightPath) && item.game) {
-                        item.game.highlights = {}
-
-                        glob(pathResolver.join(highlightPath,'*.webm'), (err, files) => {
-                            files.map((webm) => {
-                                console.log(webm)
-                                item.game.highlights[pathResolver.basename(webm,'.webm')] = webm
+                    if (fs.existsSync(fullPath)) {
+                        item.game.video = fullPath
+                        try {
+                            const reel = new HighlightReel(item.name, fullPath)
+                            let highlights = reel.create(item.accountId, item.heroId)
+                            item.game.highlights = highlights
+    
+                        } catch (ex) {
+                            console.log('Problem creating highlights: ' + ex)
+                        }
+                    } else {
+                        let highlightPath = HighlightReel.getSavePath(item.accountId, item.heroId, pathResolver.basename(item.name,'.StormReplay'))
+                        
+                        if (fs.existsSync(highlightPath)) {
+                            item.game.highlights = {}
+    
+                            glob(pathResolver.join(highlightPath,'*.webm'), (err, files) => {
+                                files.map((webm) => {
+                                    item.game.highlights[pathResolver.basename(webm,'.webm')] = webm
+                                })
+                                this.forceUpdate()
                             })
-                            this.forceUpdate()
-                        })
-
-
+    
+    
+                        }
+    
                     }
-
                 }
-                
             }
 
             this.setState({

@@ -1,3 +1,11 @@
+Version 0.8.4
+-
+11/2/2017
+* Improved crash handling 
+* Refactored a significant chunk of code that will result in improved replay loading and less errors when returning from a recently completed game
+* Fixed bug where deleting a replay will screw up the order of full videos and cause problems with future games/videos
+
+
 Version 0.8.3
 -
 10/28/2017

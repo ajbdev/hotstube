@@ -3,10 +3,10 @@ const remote = require('electron').remote
 const Svg = require('./Svg')
 const Uploader = require('../Game/Uploader')
 const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
-const GameHighlights = require('../Game/Highlights').Highlights
-const GameScores = require('../Game/Scores')
-const GameXP = require('../Game/XP')
-const GameFullVideo = require('../Game/FullVideo')
+const Highlights = require('../Game/Highlights').Highlights
+const Scores = require('../Game/Scores')
+const XP = require('../Game/XP')
+const FullVideo = require('../Game/FullVideo')
 const ConfigOptions = require('../../lib/Config')
 const pathResolver = require('path')
 const fs = require('fs')
@@ -29,20 +29,33 @@ class Game extends React.Component {
         }
     }
     renderTab() {
-        const components = {
-            'GameHighlights': GameHighlights,
-            'GameScores': GameScores,
-            'GameXP': GameXP
+        switch (this.state.tab) {
+            case 'Scores':
+                return <Scores replay={this.props.replay} game={this.props.replay.game} />
+                break;
+            case 'FullVideo':
+                return <FullVideo replay={this.props.replay} game={this.props.replay.game} deleteVideo={this.props.deleteVideo.bind(this)} />
+                break;
+            case 'Highlights':
+            default:
+                return <Highlights replay={this.props.replay} game={this.props.replay.game} />
+                break;
         }
-
-        if (this.props.replay.game.video) {
-            components['GameFullVideo'] = GameFullVideo
-        }
-
-        const ContentComponent = components['Game' + this.state.tab]
-
-        return <ContentComponent replay={this.props.replay} game={this.props.replay.game} />
     }
+
+    deleteVideo() {
+        this.props.deleteVideo().then(() => {
+            this.setState({
+                tab: 'Highlights'
+            })
+            delete tabs.FullVideo
+        },(err) => {
+            if (err) {
+                console.log(err)
+            }
+        })
+    }
+
     style() {
         if (this.props.replay.game) {
             let file = this.props.replay.game.map.toLowerCase().replace(/[\W]+/g,"");

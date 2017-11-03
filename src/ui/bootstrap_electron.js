@@ -23,15 +23,15 @@ if (_env !== 'development') {
       context: 'renderer-thread'
     }
   })
+  let errorHandler = window.onerror
+  
+  window.onerror = function(m, f, l, c, e) {
+    const renderCrash = require('./ui/Crash')
+    errorHandler(m, f, l, c, e)
+    renderCrash()
+  }
 }
 
-let errorHandler = window.onerror
-
-window.onerror = function(m, f, l, c, e) {
-  const renderCrash = require('./ui/Crash')
-  errorHandler(m, f, l, c, e)
-  renderCrash()
-}
 
 analytics.page('HotSTube', '/')
 analytics.event('App','loaded')

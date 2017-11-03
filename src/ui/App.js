@@ -142,7 +142,22 @@ class App extends React.Component {
         GameRecorder.removeListener('VIDEO_SAVED',this.recordingEndListener)
         app.removeListener('will-quit', this.pruneOnQuitListener)
     }
-    
+    deleteVideo() {
+        return new Promise((resolve, reject) => {
+            if (!confirm('Are you sure you want to delete the video for this game?')) {
+                return resolve()
+            }
+            if (!this.state.replay.game.video) {
+                return reject('No video to delete')
+            }
+
+            fs.unlink(this.state.replay.game.video, (err) => { 
+                delete this.state.replay.game.video
+                this.loadItem(this.state.replay)
+                return resolve()
+            })
+        })
+    }
     deleteReplay(replay) {
         if (confirm('Are you sure you want to delete this replay? ' +
                     'Replays cannot be recovered once deleted')) {
@@ -276,9 +291,9 @@ class App extends React.Component {
                 <div>
                     {!this.state.configWindow ? <Game
                         replay={this.state.replay}
-                        deleteReplay={this
-                        .deleteReplay
-                        .bind(this)} /> : null}
+                        deleteVideo={this.deleteVideo.bind(this)}
+                        deleteReplay={this.deleteReplay.bind(this)} /> 
+                        : null}
                     <Config
                         errorCheck={this.errorCheck.bind(this)}
                         openReleaseNotes={() => this.setState({ showReleaseNotes: true })}

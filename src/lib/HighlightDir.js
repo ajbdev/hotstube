@@ -10,7 +10,7 @@ class HighlightDir {
 
     allFiles(cb) {       
         if (this.files === null) {
-            this.files = glob.sync(path.join(this.dir,"**/*.webm"))    
+            this.files = glob.sync(path.join(this.dir,"**/*.webm"))
         }
         return this.files        
     }
@@ -63,7 +63,7 @@ class HighlightDir {
 
     findOlderThan(days) {
         let timeAgo = new Date()
-        timeAgo.setDate(timeAgo.getDate() - 7)
+        timeAgo.setDate(timeAgo.getDate() - days)
 
         return this.allFiles().filter((file) => {
             let fileDate = fs.statSync(file).ctime

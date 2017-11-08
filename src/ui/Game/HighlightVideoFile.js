@@ -36,8 +36,11 @@ class HighlightVideoFile extends React.Component {
 
         this.video[action]()
     }
-    save(video) {
+    save(evt) {
         let self = this
+        evt.stopPropagation()
+
+        let path = this.props.path
 
         dialog.showSaveDialog({
             title: 'Save highlight',
@@ -96,8 +99,6 @@ class HighlightVideoFile extends React.Component {
 
         const fs = require('fs')
 
-        //let videoData = 'data:video/webm;base64,' + new Buffer(fs.readFileSync(props.path)).toString('base64')
-
         fs.readFile(props.path, (err, data) => {
             let buffer = new Buffer(data)
             let arrayBuffer = new Uint8Array(buffer).buffer
@@ -111,7 +112,8 @@ class HighlightVideoFile extends React.Component {
 
     }
 
-    share() {
+    share(evt) {
+        evt.stopPropagation()
         this.setState({ sharing: true })
     }
 
@@ -136,16 +138,17 @@ class HighlightVideoFile extends React.Component {
         }
 
         return (
-            <span>
+            <span className="videos">
                 {this.state.sharing ? <ShareHighlightsModal at={this.props.at} game={this.props.game} highlight={this.props.path} title={this.props.caption} close={() => this.setState({ sharing: false })} /> : null}
                 <highlight-reel onClick={this.toggleVideo.bind(this)}>
+                
+                    <div className="video-options">
+                        {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={this.save.bind(this)} /> : null}
+                        <Svg src="share-square.svg" onClick={this.share.bind(this)} />
+                    </div>
                     {!this.state.playing && !ConfigOptions.options.fullVideoControls ? <video-controls></video-controls> : null}
                     <video {...attrs} src={this.state.video} />
                 </highlight-reel>
-                <div className="video-options">
-                    {!ConfigOptions.options.fullVideoControls ? <Svg src="download.svg" onClick={() => this.save(this.props.path)} /> : null}
-                    <Svg src="share-square.svg" onClick={this.share.bind(this)} />
-                </div>
             </span>
         )
 

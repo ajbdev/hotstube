@@ -439,6 +439,7 @@ class ConfigWindow extends React.Component {
 }
                     <br/> {this.renderSoundForm()}
                 </fieldset>
+
                 <fieldset>
                     <legend>Sharing</legend>
                     <button className="button" onClick={() => this.setState({ captureStreamableCredentials: true })}>Setup Streamable Password</button>
@@ -449,7 +450,16 @@ class ConfigWindow extends React.Component {
                         </span>
                      : null
                     }
+                    <br /><br />
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={this.state.options.uploadToHotsApi}
+                            onChange={(evt) => this.handleOption(!this.state.options.uploadToHotsApi, 'uploadToHotsApi')}/>
+                            Upload games to HotSApi
+                    </label>
                 </fieldset>
+
                 <fieldset>
                     <legend>Startup &amp; Closing Behavior</legend>
                     <label>

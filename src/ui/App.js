@@ -26,7 +26,7 @@ const dist = require('../lib/Dist.js')
 const glob = require('glob')
 const UpdateHeroProtocol = require('./../lib/UpdateHeroProtocol')
 const {ProtocolError} = require('../lib/HeroProtocol')
-
+const HeroesPatchNotes = require('../lib/HeroesPatchNotes')
 
 class App extends React.Component {
     constructor() {
@@ -57,7 +57,6 @@ class App extends React.Component {
                 }
             }
         })
-
 
         this.indexLoadListener = (index) => {
             
@@ -125,6 +124,12 @@ class App extends React.Component {
             this.setState({ showReleaseNotes: true })
         }
         
+        if (!fs.existsSync(HeroesPatchNotes.path)) {
+            HeroesPatchNotes.downloadRepository()
+        } else {
+            HeroesPatchNotes.checkAndDownload()
+        }
+        
         this.pruneWorker = new Worker('./prune_worker.js')
         this.pruneWorker.postMessage([ConfigOptions.options.highlightDir, ConfigOptions.options.highlightLifetimeDays])
 
@@ -142,7 +147,9 @@ class App extends React.Component {
         GameRecorder.removeListener('VIDEO_SAVED',this.recordingEndListener)
         app.removeListener('will-quit', this.pruneOnQuitListener)
     }
-    deleteVideo() {
+    deleteVideo(evt) {
+        evt.stopPropagation()
+        
         return new Promise((resolve, reject) => {
             if (!confirm('Are you sure you want to delete the video for this game?')) {
                 return resolve()
@@ -225,6 +232,8 @@ class App extends React.Component {
                         item.corrupt = true
                     }
                 }
+
+                localStorage.setItem(item.name, JSON.stringify(item.game))
             }
 
             this.setState({

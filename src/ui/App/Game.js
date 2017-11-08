@@ -1,6 +1,7 @@
 const React = require('react')
 const remote = require('electron').remote
 const Svg = require('./Svg')
+const ReplayUpload = require('./ReplayUpload')
 const Uploader = require('../Game/Uploader')
 const ReplayAnalyzer = require('../../lib/ReplayAnalyzer')
 const Highlights = require('../Game/Highlights').Highlights
@@ -187,7 +188,7 @@ class Game extends React.Component {
 
         return (
             <game style={this.style()} onClick={this.closeDropdown.bind(this)}>
-                
+                <ReplayUpload hotsApi={ConfigOptions.options.uploadToHotsApi} replay={this.props.replay} />
                 {this.state.uploading ? <Uploader replay={this.props.replay} close={() => this.setState({ uploading: false })} /> : null}
                 <Header game={this.props.replay.game} 
                         replay={this.props.replay} 

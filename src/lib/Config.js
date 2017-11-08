@@ -70,6 +70,7 @@ class Config extends EventEmitter {
             recordAssists: true,
             deleteTemporaryVideos: true,
             openOnLogin: false,
+            uploadToHotsApi: true,
             minimizeOnStartup: false,
             minimizeToTray: os.platform() == 'win32',
             recordPrekillSeconds: 9,

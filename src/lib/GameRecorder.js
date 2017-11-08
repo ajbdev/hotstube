@@ -11,8 +11,6 @@ class GameRecorder extends EventEmitter {
         this.WINDOW_TITLE = "Heroes of the Storm"
         this.recorder = null
         this.recording = false
-
-        rollbar.error('Test')
     }
 
     startRecording() {

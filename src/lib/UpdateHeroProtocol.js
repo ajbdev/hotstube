@@ -13,10 +13,6 @@ const repoCommitHistoryUrl = 'https://api.github.com/repos/Blizzard/heroprotocol
 const baseDir = path.join(app.getPath('appData'), 'HotSTube', 'protocols')
 
 const Config = require('./Config')
-
-
-
-
 const cloneDir = path.normalize(baseDir + '/src');
 const outDir = path.normalize(baseDir + '/lib');
 
@@ -399,6 +395,7 @@ const types = {
                         if (!Config.options.lastProtocolCommitHash || Config.options.lastProtocolCommitHash != lastCommit.sha) {
                             module.exports.download().then(() => {
                                 Config.options.lastProtocolCommitHash = lastCommit.sha
+                                Config.options.lastProtocolDownloadAt = (new Date()).getTime()
                                 Config.save()
                                 resolve()
                             })
@@ -447,17 +444,17 @@ const types = {
                                     });
                             });
                         })).then(() => {
-                            successes
-                                .sort()
-                                .map(file => {
-                                    console.log('SUCCESS:', file);
-                                });
-                            failures
-                                .sort()
-                                .map(file => {
-                                    console.error('FAILED:', file);
-                                });
-                                outerResolve(successes)
+                                successes
+                                    .sort()
+                                    .map(file => {
+                                        console.log('SUCCESS:', file);
+                                    });
+                                failures
+                                    .sort()
+                                    .map(file => {
+                                        console.error('FAILED:', file);
+                                    });
+                                    outerResolve(successes)
                             }
 
                         ).catch(console.log);

@@ -237,7 +237,26 @@ full-video .screen {
 }
 
 .video-options {
-    float: right;
+    position: absolute;
+    display: none;
+    z-index: 999;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,.5);
+    text-align: center;
+    padding: 2px 8px 2px 0;
+    border-radius: 5px;
+    height: 25px;
+}
+
+.screen:hover .video-options,
+.videos:hover .video-options {
+    display: block;
+}
+
+.highlight-reel:hover .video-options,
+.full-video:hover .video-options {
+    display: block;
 }
 
 .video-options svg {
@@ -252,14 +271,6 @@ full-video .screen {
 
 .video-options svg:hover {
     color: #dadada;
-}
-
-full-video .video-options {
-    float: none;
-}
-full-video .video-options svg {
-    margin-right: .5rem;
-    margin-left: 0;
 }
 
 full-video video {

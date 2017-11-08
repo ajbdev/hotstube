@@ -240,15 +240,14 @@ class FullVideo extends React.Component {
         return (
             <tab-content>
                 <full-video>
-                    <div className="screen" onClick={this.toggleVideo.bind(this)}>
+                    <div className="screen" onClick={this.toggleVideo.bind(this)}>    
+                        <div className="video-options">
+                            <Svg src="trash.svg" onClick={this.props.deleteVideo.bind(this)} />
+                        </div>
                         {!this.state.playing ? <video-controls></video-controls> : null}
                         <video src={this.state.video} ref={(video) => { this.video = video }} />
                     </div>               
-                    {this.renderTracker()}     
-
-                    <div className="video-options">
-                        <Svg src="trash.svg" onClick={this.props.deleteVideo.bind(this)} />
-                    </div>
+                    {this.renderTracker()} 
                     {this.renderActiveEvent()}
                 </full-video>
             </tab-content>

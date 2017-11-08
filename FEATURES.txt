@@ -1,7 +1,7 @@
 Major features
 * Records your game while you play. After your game is over, your highlights (kills/assists) are automatically cut into clips for you to watch. 
-* A video player with an annotated timeline with  your kills/assists 
-* Clips and entire games can be shared on hotstube.com
+* A video player with an annotated timeline with your kills/assists 
+* Highlight clips and entire games can be shared on hotstube.com
 
 Other features:
 * Self updating HotS parser: this means that your program will stay up to date automatically when a new Heroes patch is released and you won't need to download a new version of the program.

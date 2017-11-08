@@ -32,7 +32,6 @@ class Sidebar extends React.Component {
                 replay.game = result.game
 
                 localStorage.setItem(replay.name, JSON.stringify(replay.game))
-                console.log('Saving ' + replay.name)
 
                 this.setState({
                     index: this.index()

@@ -31,8 +31,6 @@ if (_env !== 'development') {
     renderCrash()
   }
 }
-
-
 analytics.page('HotSTube', '/')
 analytics.event('App','loaded')
 

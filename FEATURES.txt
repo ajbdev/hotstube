@@ -1,13 +1,13 @@
-Major features
+Features
 * Records your game while you play. After your game is over, your highlights (kills/assists) are automatically cut into clips for you to watch. 
 * A video player with an annotated timeline with your kills/assists 
-* Highlight clips and entire games can be shared on hotstube.com
-
-Other features:
-* Self updating HotS parser: this means that your program will stay up to date automatically when a new Heroes patch is released and you won't need to download a new version of the program.
-* Allows viewing timeline and scores of older replays (regardless if it was recorded or not)
 * Quality of recording can be selected (480/720/1080) 
+* Sound can be enabled
+* Highlight clips and entire games can be shared on hotstube.com
+* Auto updating HotS parser: this means that your program will stay up to date automatically when a new Heroes patch is released and you won't need to download a new version of the program.
+* Auto updating hero images and talents
+* Uploads to HotSApi (on by default, but you can turn it off)
+* Allows viewing timeline and scores of older replays (regardless if it was recorded or not)
 * The video storage is configurable, with the ability to automatically delete videos over a certain age
-* Uploads to HotSApi (on by default)
 * Available for Mac and Windows
 * Shows patch dates / info right in the list of replays

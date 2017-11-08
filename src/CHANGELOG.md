@@ -1,3 +1,17 @@
+Version 0.8.5
+-
+11/8/2017
+* Automatic updating hero images. Hero images will now automatically download so when a new hero comes out there shouldn't be too much of a delay before the artwork shows up in the app. (Next up: talents!)
+* Replays can now automatically be uploaded to HotSApi (this option is ON by default - go into the configuration to disable it)
+* Fixed bug where the video icon would not appear on the sidebar for games that have highlights
+* Reworked the user interface for the video options on highlights and full video. The options for videos now appear overlayed in the top right of the video when hovered over.
+
+Coming soon:
+* Completely revamped talent tooltips with more build specifics and talent descriptions
+* Easily create clips from the video tab and save or share them
+* Full video upload (probably to YouTube)
+
+
 Version 0.8.4
 -
 11/2/2017

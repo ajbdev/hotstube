@@ -12,10 +12,13 @@ Config.load()
 if (_env !== 'development') {
   let opts = Object.assign({}, Config.options)
 
+  if (opts.streamablePassword && opts.streamablePassword.length > 0) {
+    opts.streamablePassword = '******'
+  }
+  
   const rollbar = new Rollbar({
     accessToken: '5209cc3fb71f498190ecf601df11d98b',
     captureUncaught: true,
-    scrubFields: ['streamablePassword'],
     captureUnhandledRejections: true,
     environment: _env,
     payload: {

@@ -216,7 +216,12 @@ class Sidebar extends React.Component {
             let replay = GameIndex
                 .index
                 .filter((r) => r.name === file)[0]
-            replay.game = JSON.parse(game)
+            try {
+                let gameJson = JSON.parse(game)
+            } catch(ex) {
+                return false
+            }
+            replay.game = gameJson
             replay.parsing = false
             return true
         }

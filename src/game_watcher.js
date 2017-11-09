@@ -7,7 +7,6 @@ const fs = require('fs')
 const {desktopCapturer} = require('electron')
 const {app} = require('electron').remote
 const ReplayAnalyzer = require('./lib/ReplayAnalyzer')
-const analytics = require('./lib/GoogleAnalytics')
 const GameHash = require('./lib/GameHash')
 
 
@@ -22,14 +21,12 @@ let playerId = null;
 
 function startWatchingGame() {
     GameStateWatcher.watch().on('GAME_START', () => { 
-        analytics.event('Game', 'started')
         GameRecorder.startRecording()
     }).on('GAME_IS_RUNNING', () => {
         console.log('Game is already started')
         //GameRecorder.startRecording()
     }).on('GAME_END', (path) => {
         console.log('Game ended')
-        analytics.event('Game', 'ended')
         replayFile = pathResolver.resolve(path)
         GameRecorder.stopRecording()
     }).on('STORMSAVE_CREATED', (path) => {
@@ -41,16 +38,12 @@ function startWatchingGame() {
 }
 
 GameRecorder.on('RECORDER_START', () => {
-    analytics.event('Video', 'recording')
-
     if (app.tray) {
         app.tray.setImage(pathResolver.join(__dirname, './assets/icons/logo-recording.ico'))
     }
 })
 
 GameRecorder.on('RECORDER_END', () => {
-    analytics.event('Video', 'recorded')
-    
     if (app.tray) {
         app.tray.setImage(pathResolver.join(__dirname, './assets/icons/logo.ico'))   
     } 
@@ -108,7 +101,6 @@ function clipRawVideo(path) {
             }
         })
     }
-    analytics.event('Video', 'saved')
 }
 
 GameRecorder.on('VIDEO_SAVED', clipRawVideo)

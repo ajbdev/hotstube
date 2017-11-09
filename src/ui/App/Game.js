@@ -13,7 +13,6 @@ const pathResolver = require('path')
 const fs = require('fs')
 const {app, dialog} = require('electron').remote
 const Header = require('../Game/Header')
-const analytics = require('../../lib/GoogleAnalytics')
 
 class Game extends React.Component {
     constructor(props) {
@@ -144,14 +143,10 @@ class Game extends React.Component {
          }
     }
     changeTab(tab) {
-        this.setState({ tab: tab }, () => {
-            analytics.event('Tab',tab)
-        })
+        this.setState({ tab: tab })
     }
     uploading() {
-        this.setState({ uploading: true }, () => {
-            analytics.event('Share','game')
-        })
+        this.setState({ uploading: true })
     }
     render() {
         if (!this.props.replay) {

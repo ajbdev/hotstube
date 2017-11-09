@@ -1,3 +1,12 @@
+Version 0.86
+-
+11/9/2017
+
+* Greatly simplified error handling 
+* Fixed a bug where older versions of windows downloaded the most recent version of the app to C:\Windows\System32, resulting in an unexecutable binary
+* Fixed a couple of bugs related to loading and parsing the game
+* Removed some unnecessary modules
+
 Version 0.8.5
 -
 11/8/2017

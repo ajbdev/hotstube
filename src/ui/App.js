@@ -49,10 +49,14 @@ class App extends React.Component {
             if (result) {
                 self.setState({ downloadNewVersion: true })
             } else {
-                if (fs.existsSync(dist.filename())) {
+                if (fs.existsSync(dist.downloadPath())) {
                     console.log('App up to date. Deleting installer.')
-                    fs.unlink(dist.filename(), (err) => {
-                        console.log(err)
+
+                    fs.unlink(dist.downloadPath(), (err) => {
+                        if (err) {
+                            console.log(err)    
+                        }
+                        
                     })
                 }
             }

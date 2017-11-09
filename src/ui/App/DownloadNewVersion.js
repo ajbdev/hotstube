@@ -6,7 +6,6 @@ const dist = require('../../lib/Dist')
 const pathResolver = require('path')
 const {shell} = require('electron')
 const {app} = require('electron').remote
-const analytics = require('../../lib/GoogleAnalytics')
 
 class DownloadNewVersion extends React.Component {
     constructor(props) {
@@ -20,14 +19,19 @@ class DownloadNewVersion extends React.Component {
         }
     }
     isNewVersionDownloaded() {
-        const exists = fs.existsSync(dist.filename())
+        const exists = fs.existsSync(dist.downloadPath())
 
-        this.setState({ newVersionDownloaded: exists })
+        let path = fs.existsSync(dist.downloadPath()) ? dist.downloadPath() : false
 
-        return exists
+        if (!path) {
+            path = fs.existsSync(dist.filename()) ? dist.filename() : false
+        }
+        this.setState({ newVersionDownloaded: path })
+
+        return !!path
     }
     downloadNewVersion() {
-        let installer = fs.createWriteStream(dist.filename())
+        let installer = fs.createWriteStream(dist.downloadPath())
 
         http.get({
             host: 'hotstube.com',
@@ -39,15 +43,14 @@ class DownloadNewVersion extends React.Component {
                 console.log('New version downloaded')
 
                 this.setState({
-                    newVersionDownloaded: true
+                    newVersionDownloaded: dist.downloadPath()
                 })
             })
         })
     }
     upgrade() {
         if (this.isNewVersionDownloaded()) {
-            analytics.event('App','upgraded')
-            shell.openItem(dist.filename())
+            shell.openItem(this.state.newVersionDownloaded)
             app.isQuitting = true
             app.quit()
         }

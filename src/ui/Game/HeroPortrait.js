@@ -19,27 +19,35 @@ class HeroPortrait extends React.Component {
             let heroName = this.props.hero.toLowerCase().replace(/[\W]+/g,"");
 
             if (heroName == 'nexus') {
-                self.setState({
-                    style: {
-                        backgroundImage: 'url(assets/png/nexus.png)'
-                    }
-                })
+                if (!this.unmounted) {
+                    self.setState({
+                        style: {
+                            backgroundImage: 'url(assets/png/nexus.png)'
+                        }
+                    })
+                }
                 return
             }
 
             HeroesPatchNotes.hero(heroName).then((h) => {
-                self.setState({
-                    style: {
-                        backgroundImage: 'url(' + h.image + ')'
-                    }
-                })
+                if (!this.unmounted) {
+                    self.setState({
+                        style: {
+                            backgroundImage: 'url(' + h.image + ')'
+                        }
+                    })
+                }
             }, () => {
                 // Swallow the rejection
             })
         }
     }
+    componentWillUnmount() {
+        this.unmounted = true
+    }
     componentDidMount() {
         this.style()
+        this.unmounted = false
     }
 
     render() {

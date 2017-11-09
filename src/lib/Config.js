@@ -64,7 +64,6 @@ class Config extends EventEmitter {
             resolution: "480p",
             sound: "off",
             highlightLifetimeDays: 7,
-            enableAnalytics: true,
             enableRecording: true,
             deleteHighlights: true,
             recordAssists: true,

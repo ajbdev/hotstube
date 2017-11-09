@@ -2,7 +2,6 @@ const fs = require('fs')
 const {EventEmitter} = require('events')
 const {desktopCapturer,screen} = require('electron')
 const Config = require('./Config')
-const rollbar = require('./Rollbar')
 
 class GameRecorder extends EventEmitter {
     constructor() {
@@ -87,7 +86,6 @@ class GameRecorder extends EventEmitter {
         try {
             this.recorder.start()
         } catch(err) {
-            rollbar.error('Recorder not strarted: ' + err)
         }
         this.emit('RECORDER_START')
         console.log(this);
@@ -104,7 +102,6 @@ class GameRecorder extends EventEmitter {
         try {
             this.recorder.stop()
         } catch(err) {
-            rollbar.error('Recorder could not be stopped: ' + err)
         }
         
         this.emit('RECORDER_END')

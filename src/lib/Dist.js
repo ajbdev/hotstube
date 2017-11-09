@@ -17,6 +17,12 @@ class Dist {
         }
     }
 
+    static downloadPath(version = '') {
+        const app = require('electron').remote.app
+        
+        return path.join(app.getPath('appData'), 'HotSTube', this.filename(version))
+    }
+
     static path() {
         return path.resolve('../dist/' + this.filename(pkg.version))
     }

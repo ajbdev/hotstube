@@ -10,15 +10,8 @@ const Config = require('./lib/Config')
 const os = require('os')
 
 Config.load()
-const rollbar = require('./lib/Rollbar')
 
-if (ELECTRON_ENV !== 'development') {
-  let opts = Object.assign({}, Config.options)
-
-  if (opts.streamablePassword && opts.streamablePassword.length > 0) {
-    opts.streamablePassword = '******'
-  }
-}
+const ErrorStack = require('./lib/ErrorStack')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
